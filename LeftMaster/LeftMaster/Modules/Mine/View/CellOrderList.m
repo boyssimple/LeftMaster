@@ -30,6 +30,7 @@
 @property(nonatomic,strong)UILabel *lbOrderTime;
 @property(nonatomic,strong)UILabel *lbOrderTimeText;
 
+@property(nonatomic,strong)UIButton *btnReceive;
 
 @property(nonatomic,strong)UIView *vLine;
 @end
@@ -53,7 +54,7 @@
         [self addSubview:_lbNo];
         
         _lbStatus = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbStatus.font = [UIFont systemFontOfSize:15*RATIO_WIDHT320];
+        _lbStatus.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
         _lbStatus.textColor = RGB3(153);
         [self addSubview:_lbStatus];
         
@@ -123,12 +124,24 @@
         _lbOrderTimeText.textColor = RGB3(102);
         [_vBg addSubview:_lbOrderTimeText];
         
+        _btnReceive = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_btnReceive setTitle:@"签收" forState:UIControlStateNormal];
+        _btnReceive.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        [_btnReceive setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_btnReceive addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        _btnReceive.backgroundColor = APP_COLOR;
+        [_vBg addSubview:_btnReceive];
         
         _vLine = [[UIView alloc]initWithFrame:CGRectZero];
         _vLine.backgroundColor = RGB3(230);
         [self.contentView addSubview:_vLine];
     }
     return self;
+}
+
+
+- (void)clickAction:(UIButton*)sender{
+    
 }
 
 - (void)updateData{
@@ -156,7 +169,7 @@
     CGSize size = [self.lbNo sizeThatFits:CGSizeMake(MAXFLOAT, 15*RATIO_WIDHT320)];
     r = self.lbNo.frame;
     r.origin.x = self.vDot.right +5*RATIO_WIDHT320;
-    r.origin.y = 18*RATIO_WIDHT320;
+    r.origin.y = 15*RATIO_WIDHT320;
     r.size = size;
     self.lbNo.frame = r;
     
@@ -165,7 +178,7 @@
     size = [self.lbStatus sizeThatFits:CGSizeMake(MAXFLOAT, 15*RATIO_WIDHT320)];
     r = self.lbStatus.frame;
     r.origin.x = DEVICEWIDTH - size.width - 20*RATIO_WIDHT320;
-    r.origin.y = 18*RATIO_WIDHT320;
+    r.origin.y = self.lbNo.top + (self.lbNo.height - size.height)/2.0;
     r.size = size;
     self.lbStatus.frame = r;
     
@@ -258,6 +271,13 @@
     r.origin.y = self.lbGoodsCount.bottom + 8*RATIO_WIDHT320;
     r.size = size;
     self.lbOrderTimeText.frame = r;
+    
+    r = self.btnReceive.frame;
+    r.size.width = 45*RATIO_WIDHT320;
+    r.size.height = 18*RATIO_WIDHT320;
+    r.origin.x = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
+    r.origin.y = self.lbOrderTime.top + (self.lbOrderTime.height - r.size.height)/2.0;
+    self.btnReceive.frame = r;
     
     
     r = self.vLine.frame;

@@ -74,6 +74,7 @@
 - (void)clickAction:(UIButton*)sender{
     if (sender.tag == 100) {
         self.count = self.count+1;
+        [self postNotification:REFRESH_CART_LIST withObject:nil];
         [Utils showSuccessToast:@"加入购物车成功" with:self withTime:1];
     }else{
         

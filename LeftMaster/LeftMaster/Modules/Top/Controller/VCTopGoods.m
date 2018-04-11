@@ -29,6 +29,7 @@
 }
 
 - (void)initMain{
+    self.page = 1;
     _goodsList = [NSMutableArray array];
     [self.view addSubview:self.table];
     [self.view addSubview:self.vControl];
@@ -36,7 +37,7 @@
 
 - (void)loadData{
     RequestBeanAlwaysBuyGoods *requestBean = [RequestBeanAlwaysBuyGoods new];
-    requestBean.user_id = @"402848a55b6547ec015b6547ec760000";
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.page_current = self.page;
     [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
@@ -160,7 +161,6 @@
             weakself.page = 1;
             [weakself loadData];
         }];
-        [_table.mj_header beginRefreshing];
         
         _table.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             weakself.page++;

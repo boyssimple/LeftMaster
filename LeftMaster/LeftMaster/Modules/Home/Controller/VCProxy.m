@@ -12,13 +12,16 @@
 #import "CellProxy.h"
 #import "RequestBeanCustomer.h"
 
-@interface VCProxy ()<UITableViewDelegate,UITableViewDataSource,AJHubProtocol>
+@interface VCProxy ()<UITableViewDelegate,UITableViewDataSource,AJHubProtocol,UITextFieldDelegate>
 @property(nonatomic,strong)UIView *vBg;
-@property(nonatomic,strong)UILabel *lbName;
-@property(nonatomic,strong)UIImageView *ivArrow;
+@property(nonatomic,strong)UITextField *tfSearch;
+@property(nonatomic,strong)UIButton *btnArrow;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)UIButton *btnConfirm;
 @property(nonatomic,assign)BOOL expland;
+@property(nonatomic,strong)NSMutableArray *dataSource;
+@property(nonatomic,strong)NSString *keywords;
+@property(nonatomic,assign)BOOL selected;
 @end
 
 @implementation VCProxy
@@ -30,33 +33,52 @@
 }
 
 - (void)initMain{
+    _dataSource = [NSMutableArray array];
     self.title = @"代理客户";
-    self.lbName.text = @"客户 001";
     [self.view addSubview:self.vBg];
     [self.view addSubview:self.table];
     [self.view addSubview:self.btnConfirm];
 }
 
 - (void)clickAction:(UIButton*)sender{
+    if(sender.tag == 100){
+        self.expland = !self.expland;
+    }else{
+        if(self.selected){
+            [self gotoHome];
+        }else{
+            [Utils showToast:@"请选择客户!" with:self.view withTime:0.8];
+        }
+    }
+}
+
+- (void)gotoHome{
     VCMain *vc = [[VCMain alloc]init];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate restoreRootViewController:vc];
 }
 
-
 - (void)loadData{
     RequestBeanCustomer *requestBean = [RequestBeanCustomer new];
-    requestBean.user_login_name = @"admin";
-    requestBean.customer_name = @"李";
+    requestBean.user_login_name = [AppUser share].SYSUSER_ACCOUNT;
+    if(self.keywords && self.keywords.length > 0){
+        requestBean.customer_name = self.keywords;
+    }else{
+        requestBean.customer_name = nil;
+    }
     requestBean.page_current = 1;
     [AJNetworkConfig shareInstance].hubDelegate = self;
-    
+    __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         
         if (!err) {
             // 结果处理
             ResponseBeanCustomer *response = responseBean;
-            
+            if(response.success){
+                [weakself.dataSource removeAllObjects];
+                [weakself.dataSource addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
+                [weakself.table reloadData];
+            }
         }
     }];
 }
@@ -84,6 +106,12 @@
     });
 }
 
+- (void)search{
+    self.keywords = self.tfSearch.text;
+    self.expland = TRUE;
+    [self loadData];
+}
+
 - (void)viewWillLayoutSubviews{
     CGRect r = self.vBg.frame;
     r.origin.x = 20*RATIO_WIDHT320;
@@ -92,19 +120,19 @@
     r.size.height = 34*RATIO_WIDHT320;
     self.vBg.frame = r;
     
-    CGSize size = [self.lbName sizeThatFits:CGSizeMake(MAXFLOAT, self.vBg.height)];
-    r = self.lbName.frame;
-    r.size = size;
+    r = self.btnArrow.frame;
+    r.size.width = self.vBg.height;
+    r.size.height = self.vBg.height;
+    r.origin.x = self.vBg.width - r.size.width;
+    r.origin.y = 0;
+    self.btnArrow.frame = r;
+    
+    r = self.tfSearch.frame;
+    r.size.height = self.vBg.height;
+    r.size.width = self.vBg.width - self.btnArrow.width - 20*RATIO_WIDHT320;
     r.origin.x = 10*RATIO_WIDHT320;
     r.origin.y = (self.vBg.height - r.size.height)/2.0;
-    self.lbName.frame = r;
-    
-    r = self.ivArrow.frame;
-    r.size.width = 5*RATIO_WIDHT320;
-    r.size.height = r.size.width;
-    r.origin.x = self.vBg.width - r.size.width - 5*RATIO_WIDHT320;
-    r.origin.y = (self.vBg.height - r.size.height)/2.0;
-    self.ivArrow.frame = r;
+    self.tfSearch.frame = r;
     
     r = self.table.frame;
     r.size.width = DEVICEWIDTH - 40*RATIO_WIDHT320;
@@ -126,7 +154,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return self.dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -139,7 +167,8 @@
     if (!cell) {
         cell = [[CellProxy alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    [cell updateData];
+    NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
+    [cell updateData:data];
     return cell;
 }
 
@@ -169,6 +198,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.expland = !self.expland;
+    NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
+    [AppUser share].CUS_ID = [data jk_stringForKey:@"customer_id"];
+    [AppUser share].CUS_NAME = [data jk_stringForKey:@"customer_name"];
+    self.tfSearch.text = [data jk_stringForKey:@"customer_name"];
+    self.selected = TRUE;
+    self.btnConfirm.backgroundColor = APP_COLOR;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    [self search];
+    return YES;
 }
 
 - (UITableView*)table{
@@ -190,50 +231,50 @@
         _vBg = [[UIView alloc]initWithFrame:CGRectZero];
         _vBg.layer.borderColor = RGB3(224).CGColor;
         _vBg.layer.borderWidth = 0.5;
-        [_vBg addSubview:self.lbName];
-        [_vBg addSubview:self.ivArrow];
-        __weak typeof(self) weakself = self;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-            weakself.expland = !weakself.expland;
-        }];
-        
-        [_vBg addGestureRecognizer:tap];
+        [_vBg addSubview:self.tfSearch];
+        [_vBg addSubview:self.btnArrow];
     }
     return _vBg;
 }
 
 - (void)setExpland:(BOOL)expland{
     _expland = expland;
+    self.btnArrow.selected = expland;
     if(_expland){
         [UIView animateWithDuration:0.3 animations:^{
             self.table.alpha = 1.f;
         }];
-        self.ivArrow.image = [UIImage imageNamed:@"icon_up_normal"];
     }else{
         [UIView animateWithDuration:0.3 animations:^{
             self.table.alpha = 0.f;
         }];
-        self.ivArrow.image = [UIImage imageNamed:@"icon_down_normal"];
     }
 }
 
-- (UILabel*)lbName{
-    if(!_lbName){
-        _lbName = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbName.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
-        _lbName.textColor = APP_COLOR;
-        _lbName.userInteractionEnabled = YES;
+- (UITextField*)tfSearch{
+    if(!_tfSearch){
+        _tfSearch = [[UITextField alloc]initWithFrame:CGRectZero];
+        _tfSearch.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
+        _tfSearch.textColor = APP_COLOR;
+        _tfSearch.delegate = self;
+        _tfSearch.returnKeyType = UIReturnKeySearch;
     }
-    return _lbName;
+    return _tfSearch;
 }
 
-- (UIImageView*)ivArrow{
-    if(!_ivArrow){
-        _ivArrow = [[UIImageView alloc]initWithFrame:CGRectZero];
-        _ivArrow.image = [UIImage imageNamed:@"icon_down_normal"];//icon_up_normal
-        _ivArrow.userInteractionEnabled = YES;
+- (UIButton*)btnArrow{
+    if(!_btnArrow){
+        _btnArrow = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_btnArrow setImage:[UIImage imageNamed:@"icon_up_normal"] forState:UIControlStateNormal];
+        [_btnArrow setImage:[UIImage imageNamed:@"icon_down_normal"] forState:UIControlStateSelected];
+        _btnArrow.tag = 100;
+        [_btnArrow addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        CGRect r = _btnArrow.imageView.frame;
+        r.size.width = 5*RATIO_WIDHT320;
+        r.size.height = r.size.width;
+        _btnArrow.imageView.frame = r;
     }
-    return _ivArrow;
+    return _btnArrow;
 }
 
 - (UIButton*)btnConfirm{
@@ -243,7 +284,8 @@
         [_btnConfirm setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _btnConfirm.titleLabel.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
         [_btnConfirm addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-        _btnConfirm.backgroundColor = APP_COLOR;
+        _btnConfirm.backgroundColor = APP_Gray_COLOR;
+        _btnConfirm.tag = 101;
         _btnConfirm.layer.cornerRadius = 6.f;
     }
     return _btnConfirm;

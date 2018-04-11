@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CellProxy : UITableViewCell
-
+- (void)updateData:(NSDictionary*)data;
 @end

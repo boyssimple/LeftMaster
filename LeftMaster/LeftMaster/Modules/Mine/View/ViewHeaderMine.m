@@ -10,8 +10,10 @@
 #import "ViewBtnHeaderMine.h"
 #import "VCOrderList.h"
 #import "VCSetPassword.h"
+#import "VCLogin.h"
+#import "AppDelegate.h"
 
-@interface ViewHeaderMine()
+@interface ViewHeaderMine()<UIAlertViewDelegate>
 @property(nonatomic,strong)UIImageView *ivBg;
 @property(nonatomic,strong)UIImageView *ivLogo;
 @property(nonatomic,strong)UILabel *lbCompany;
@@ -45,6 +47,8 @@
         _ivLogo.backgroundColor = [UIColor whiteColor];
         _ivLogo.clipsToBounds = YES;
         [_ivBg addSubview:_ivLogo];
+        UILongPressGestureRecognizer *longtap = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longAction:)];
+        [_ivLogo addGestureRecognizer:longtap];
         
         _lbCompany = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbCompany.font = [UIFont boldSystemFontOfSize:12*RATIO_WIDHT320];
@@ -112,9 +116,20 @@
     return self;
 }
 
+- (void)longAction:(UIGestureRecognizer *)gestrue
+{
+    //直接return掉，不在开始的状态里面添加任何操作，则长按手势就会被少调用一次了
+    if (gestrue.state != UIGestureRecognizerStateBegan)
+    {
+        return;
+    }
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定退出?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert show];
+}
+
 - (void)updateData{
-    self.lbCompany.text = @"重庆XX菲斯机械有限公司";
-    self.lbName.text = @"罗先生";
+    self.lbCompany.text = [AppUser share].COMPANY_NAME;
+    self.lbName.text = [AppUser share].SYSUSER_NAME;
     [self.vUnReceive update:8];
 }
 
@@ -140,6 +155,27 @@
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 1){
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.mode = MBProgressHUDModeIndeterminate;
+        hud.labelText = @"退出登录...";
+        [hud show:YES];
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.6 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+            [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults removeObjectForKey:USER_DEFAULTS];
+            [defaults synchronize];
+            
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            VCLogin *vc = [[VCLogin alloc]init];
+            [appDelegate restoreRootViewController:[[UINavigationController alloc]initWithRootViewController:vc]];
+        });
+    }
+}
+
 - (void)layoutSubviews{
     [super layoutSubviews];
     CGRect r = self.ivBg.frame;
@@ -156,11 +192,19 @@
     r.origin.y = (self.ivBg.height - r.size.height)/2.0;
     self.ivLogo.frame = r;
     
-    CGSize size = [self.lbCompany sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.btnModifyPwd.frame;
+    r.size.width = 50*RATIO_WIDHT320;
+    r.size.height = 18*RATIO_WIDHT320;
+    r.origin.x = DEVICEWIDTH - r.size.width - 10*RATIO_WIDHT320;
+    r.origin.y = (self.ivBg.height - r.size.height)/2.0;
+    self.btnModifyPwd.frame = r;
+    
+    CGSize size = [self.lbCompany sizeThatFits:CGSizeMake(self.btnModifyPwd.left - 20*RATIO_WIDHT320 - self.ivLogo.right, MAXFLOAT)];
     r = self.lbCompany.frame;
     r.origin.x = self.ivLogo.right + 10*RATIO_WIDHT320;
     r.origin.y = 0;
-    r.size = size;
+    r.size.height = size.height;
+    r.size.width = self.btnModifyPwd.left - 20*RATIO_WIDHT320 - self.ivLogo.right;
     self.lbCompany.frame = r;
     
     size = [self.lbName sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
@@ -173,13 +217,6 @@
     self.lbCompany.top = self.ivLogo.top + (self.ivLogo.height-(self.lbCompany.height + 10*RATIO_WIDHT320 + self.lbName.height))/2.0;
     self.lbName.top = self.lbCompany.bottom + 10*RATIO_WIDHT320;
     
-    
-    r = self.btnModifyPwd.frame;
-    r.size.width = 50*RATIO_WIDHT320;
-    r.size.height = 18*RATIO_WIDHT320;
-    r.origin.x = DEVICEWIDTH - r.size.width - 10*RATIO_WIDHT320;
-    r.origin.y = (self.ivBg.height - r.size.height)/2.0;
-    self.btnModifyPwd.frame = r;
     
     size = [self.lbTitle sizeThatFits:CGSizeMake(MAXFLOAT, 14*RATIO_WIDHT320)];
     r = self.lbTitle.frame;

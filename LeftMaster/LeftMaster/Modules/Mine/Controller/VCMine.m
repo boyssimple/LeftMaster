@@ -47,7 +47,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    if([AppUser share].isSalesman){
+        return 4;
+    }else{
+        return 3;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -67,7 +71,7 @@
     }else if(indexPath.row == 2){
         [cell updateData:@"联系客服" with:@"4007003088"];
     }else if(indexPath.row == 3){
-        [cell updateData:@"当前客户" with:@"客户01"];
+        [cell updateData:@"当前客户" with:[AppUser share].CUS_NAME];
     }
     return cell;
 }

@@ -45,7 +45,7 @@
     [self.view addSubview:self.ivLogin];
     [self.view addSubview:self.btnForgot];
     
-    self.tfUser.text = @"15909327516";
+    self.tfUser.text = @"wr";
     self.tfPwd.text = @"123456";
 }
 
@@ -61,7 +61,7 @@
     NSString *userName = [self.tfUser.text trim];
     NSString *tfPwd = [self.tfPwd.text trim];
     
-    if(userName.length != 11){
+    if(userName.length < 2){
         [Utils showToast:@"手机号码错误!" with:self.view withTime:0.8];
         return;
     }
@@ -77,24 +77,33 @@
     [AJNetworkConfig shareInstance].hubDelegate = self;
     
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        
-        if (!err) {
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.2 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             // 结果处理
-//            ResponseBeanLogin *response = responseBean;
-            
-//                         VCMain *vc = [[VCMain alloc]init];
-//             VCProxy *vc = [[VCProxy alloc]init];
-//            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-//            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//            [appDelegate restoreRootViewController:vc];
-            
-        }
-        VCProxy *vc = [[VCProxy alloc]init];
+            ResponseBeanLogin *response = responseBean;
+            if(response.success){
+                //存信息到沙盒
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                NSData *data = [NSJSONSerialization dataWithJSONObject:response.data options:NSJSONWritingPrettyPrinted error:nil];
+                [defaults setObject:data forKey:USER_DEFAULTS];
+                [defaults synchronize];
+                //解析数据
+                [[AppUser share] parse:response.data];
+                
+                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                
+                if([AppUser share].isSalesman){
+                    VCProxy *vc = [[VCProxy alloc]init];
                     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-        
-//        VCMain *vc = [[VCMain alloc]init];
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate restoreRootViewController:nav];
+                    [appDelegate restoreRootViewController:nav];
+                }else{
+                    VCMain *vc = [[VCMain alloc]init];
+                    [appDelegate restoreRootViewController:vc];
+                }
+            }else{
+                [Utils showToast:response.msg with:self.view withTime:0.8];
+            }
+        });
     }];
 }
 
@@ -117,7 +126,7 @@
 - (void)dismissHub{
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     });
 }
 

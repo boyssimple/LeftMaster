@@ -7,6 +7,7 @@
 //
 
 #import "VCMain.h"
+#import "VCProxy.h"
 
 #define kClassKey   @"rootVCClassString"
 #define kTitleKey   @"title"

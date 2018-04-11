@@ -9,10 +9,9 @@
 #import "CellRecGoodsList.h"
 
 @interface CellRecGoodsList()
-@property(nonatomic,strong)UIButton *btnCheck;
 @property(nonatomic,strong)UIImageView *ivImg;
 @property(nonatomic,strong)UILabel *lbName;
-@property(nonatomic,strong)UIButton *btnDel;
+@property(nonatomic,strong)UIButton *btnAddCart;
 @property(nonatomic,strong)UILabel *lbRole;
 @property(nonatomic,strong)UILabel *lbStatus;
 @property(nonatomic,strong)UILabel *lbPrice;
@@ -32,15 +31,6 @@
         
         self.contentView.backgroundColor = [UIColor whiteColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        
-        _btnCheck = [[UIButton alloc]initWithFrame:CGRectZero];
-        _btnCheck.titleLabel.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
-        _btnCheck.tag = 101;
-        [_btnCheck setImage:[UIImage imageNamed:@"Shopping-Cart_icon_normal"] forState:UIControlStateNormal];
-        [_btnCheck setImage:[UIImage imageNamed:@"Shopping-Cart_icon_selected"] forState:UIControlStateSelected];
-        [_btnCheck addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_btnCheck];
         
         _ivImg = [[UIImageView alloc]initWithFrame:CGRectZero];
         _ivImg.image = [UIImage imageNamed:@""];
@@ -69,13 +59,14 @@
         _lbPrice.textColor = RGB(0, 0, 0);
         [self.contentView addSubview:_lbPrice];
         
-        _btnDel = [[UIButton alloc]initWithFrame:CGRectZero];
-        _btnDel.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
-        [_btnDel setTitle:@"删除" forState:UIControlStateNormal];
-        [_btnDel setTitleColor:RGB(230, 0, 18) forState:UIControlStateNormal];
-        _btnDel.tag = 102;
-        [_btnDel addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_btnDel];
+        _btnAddCart = [[UIButton alloc]initWithFrame:CGRectZero];
+        _btnAddCart.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        [_btnAddCart setTitle:@"加入购物车" forState:UIControlStateNormal];
+        [_btnAddCart setTitleColor:RGB3(255) forState:UIControlStateNormal];
+        _btnAddCart.tag = 102;
+        _btnAddCart.backgroundColor = APP_COLOR;
+        [_btnAddCart addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_btnAddCart];
         
         _vCountBg = [[UIView alloc]initWithFrame:CGRectZero];
         _vCountBg.layer.borderColor = RGB3(197).CGColor;
@@ -120,7 +111,8 @@
     if (tag == 101) {
         sender.selected = !sender.selected;
     }else if(tag == 102){
-        
+        [self postNotification:REFRESH_CART_LIST withObject:nil];
+        [Utils showSuccessToast:@"加入购物车成功" with:self withTime:1];
     }else if(tag == 103){
         NSString *str = self.lbCount.text;
         if ([str integerValue] > 1) {
@@ -181,36 +173,24 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    CGRect r = self.btnCheck.frame;
-    r.size.width = 35*RATIO_WIDHT320;
-    r.size.height = r.size.width;
-    r.origin.x = 0;
-    r.origin.y = (self.height - r.size.height)/2.0;
-    self.btnCheck.frame = r;
-    
-    r = self.btnCheck.imageView.frame;
-    r.size.width = 15*RATIO_WIDHT320;
-    r.size.height = r.size.width;
-    self.btnCheck.imageView.frame = r;
-    
-    r = self.ivImg.frame;
+    CGRect r = self.ivImg.frame;
     r.size.width = 80*RATIO_WIDHT320;
     r.size.height = r.size.width;
-    r.origin.x = self.btnCheck.right;
+    r.origin.x = 10*RATIO_WIDHT320;
     r.origin.y = 15*RATIO_WIDHT320;
     self.ivImg.frame = r;
     
-    CGSize size = [self.btnDel.titleLabel sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
-    r = self.btnDel.frame;
-    r.origin.x = DEVICEWIDTH - size.width - 15*RATIO_WIDHT320;
-    r.origin.y = self.ivImg.top + 5;
-    r.size = size;
-    self.btnDel.frame = r;
+    r = self.btnAddCart.frame;
+    r.size.width = 61*RATIO_WIDHT320;
+    r.size.height = 14*RATIO_WIDHT320;
+    r.origin.x = DEVICEWIDTH - r.size.width - 10*RATIO_WIDHT320;
+    r.origin.y = self.ivImg.top + 2*RATIO_WIDHT320;
+    self.btnAddCart.frame = r;
     
-    size = [self.lbName sizeThatFits:CGSizeMake(self.btnDel.left -self.ivImg.right - 20*RATIO_WIDHT320, MAXFLOAT)];
+    CGSize size = [self.lbName sizeThatFits:CGSizeMake(self.btnAddCart.left -self.ivImg.right - 20*RATIO_WIDHT320, MAXFLOAT)];
     r = self.lbName.frame;
     r.origin.x = self.ivImg.right + 10*RATIO_WIDHT320;
-    r.origin.y = self.ivImg.top - 3.5;
+    r.origin.y = self.ivImg.top;
     r.size = size;
     self.lbName.frame = r;
     

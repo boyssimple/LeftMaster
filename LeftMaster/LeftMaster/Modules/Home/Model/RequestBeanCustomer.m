@@ -11,7 +11,7 @@
 @implementation RequestBeanCustomer
 
 -(NSInteger)page_size{
-    return 10;
+    return 10000;
 }
 
 - (NSString*)apiPath{

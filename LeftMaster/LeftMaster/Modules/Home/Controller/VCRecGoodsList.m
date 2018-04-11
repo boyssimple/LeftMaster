@@ -13,12 +13,13 @@
 #import "RequestBeanCategoryHome.h"
 #import "RequestBeanGoodsList.h"
 #import "VCGoods.h"
+#import "ViewOrderRecGoodsList.h"
 
 @interface VCRecGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,AJHubProtocol,UITextFieldDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
+@property(nonatomic,strong)ViewOrderRecGoodsList *viewOrder;
 @property(nonatomic,strong)NSMutableArray *categorys;
-@property(nonatomic,strong)NSMutableArray *goodsList;
 @property(nonatomic,strong)NSString *keywords;
 @property (nonatomic, assign) NSInteger page;
 @end
@@ -32,14 +33,16 @@
 }
 
 - (void)initMain{
+    self.title = @"新品推荐";
     self.view.backgroundColor = RGB3(247);
     _categorys = [NSMutableArray array];
-    _goodsList = [NSMutableArray array];
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, 44)];
     view.backgroundColor = [UIColor redColor];
-    self.navigationItem.titleView = self.vCart;
+//    self.navigationItem.titleView = self.vCart;
 //    [self.view addSubview:self.vCart];
+    
+    [self.view addSubview:self.viewOrder];
     [self.view addSubview:self.table];
 }
 
@@ -147,7 +150,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    VCGoods *vc = [[VCGoods alloc]init];
+    vc.goods_id = @"674993773267021824";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (CGFloat)topHeight{
     return NAV_STATUS_HEIGHT + [ViewCategory calHeight] + 10*RATIO_WIDHT320;
@@ -188,7 +193,7 @@
 
 - (UITableView*)table{
     if(!_table){
-        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, DEVICEHEIGHT) style:UITableViewStyleGrouped];
+        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, [ViewOrderRecGoodsList calHeight] + NAV_STATUS_HEIGHT, DEVICEWIDTH, DEVICEHEIGHT-[ViewOrderRecGoodsList calHeight] - NAV_STATUS_HEIGHT) style:UITableViewStyleGrouped];
         _table.backgroundColor = [UIColor whiteColor];
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
@@ -209,6 +214,13 @@
         */
     }
     return _table;
+}
+
+- (ViewOrderRecGoodsList*)viewOrder{
+    if(!_viewOrder){
+        _viewOrder = [[ViewOrderRecGoodsList alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewOrderRecGoodsList calHeight])];
+    }
+    return _viewOrder;
 }
 
 @end

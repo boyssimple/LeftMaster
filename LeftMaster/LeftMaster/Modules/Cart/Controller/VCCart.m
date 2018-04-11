@@ -25,17 +25,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initMain];
+    [self loadData];
 }
 
 - (void)initMain{
+    self.page = 1;
     _goodsList = [NSMutableArray array];
     [self.view addSubview:self.table];
     [self.view addSubview:self.vControl];
+    
+    //加入购物车通知
+    [self observeNotification:REFRESH_CART_LIST];
+    
+    
+//    [self postNotification:KEY_NOTI_LOGINSUCCESS withObject:nil];
+}
+
+- (void)handleNotification:(NSNotification *)notification{
+    [self loadData];
 }
 
 - (void)loadData{
     RequestBeanCartList *requestBean = [RequestBeanCartList new];
-    requestBean.user_id = @"402848a55b6547ec015b6547ec760000";
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.page_current = self.page;
     [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
@@ -162,7 +174,6 @@
             weakself.page = 1;
             [weakself loadData];
         }];
-        [_table.mj_header beginRefreshing];
         
         _table.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             weakself.page++;

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CellOrderList : UITableViewCell
-
+@property(nonatomic,assign)NSInteger status;
 @end

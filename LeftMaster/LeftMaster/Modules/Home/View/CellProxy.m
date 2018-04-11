@@ -32,6 +32,10 @@
     
 }
 
+- (void)updateData:(NSDictionary*)data{
+    self.lbName.text = [data jk_stringForKey:@"customer_name"];
+}
+
 - (void)updateData{
     self.lbName.text = @"客户 001";
 }

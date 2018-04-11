@@ -47,6 +47,29 @@
     requestBean.page_size = 10;
     [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
+    
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        
+        if (!err) {
+            // 结果处理
+            ResponseBeanCategoryHome *response = responseBean;
+            [weakself.categorys removeAllObjects];
+            [weakself.categorys addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
+            [weakself.table reloadData];
+        }
+    }];
+    
+    
+    
+}
+
+- (void)readFromNetwork{
+    RequestBeanCategoryHome *requestBean = [RequestBeanCategoryHome new];
+    requestBean.parent_id = 0;
+    requestBean.page_current = 1;
+    requestBean.page_size = 10;
+    [AJNetworkConfig shareInstance].hubDelegate = self;
+    __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         
         if (!err) {
@@ -66,7 +89,7 @@
     [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        
+        [weakself.table.mj_header endRefreshing];
         if (!err) {
             // 结果处理
             ResponseBeanGoodsList *response = responseBean;
@@ -194,6 +217,12 @@
         _table.backgroundColor = [UIColor clearColor];
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.dataSource = self;
+        __weak typeof(self) weakself = self;
+        
+        _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [weakself loadData];
+            [weakself loadGoodsListData];
+        }];
     }
     return _table;
 }

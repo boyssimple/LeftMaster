@@ -77,6 +77,10 @@
 		1CBF5C08207D111B00284EA1 /* RequestBeanLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5C07207D111B00284EA1 /* RequestBeanLogin.m */; };
 		1CBF5C0B207D1DBB00284EA1 /* RequestBeanCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5C0A207D1DBB00284EA1 /* RequestBeanCustomer.m */; };
 		1CBF5C0E207D1FD900284EA1 /* RequestBeanCategoryHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5C0D207D1FD900284EA1 /* RequestBeanCategoryHome.m */; };
+		1CBF5C11207E2D9300284EA1 /* ViewSearchOrderList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5C10207E2D9300284EA1 /* ViewSearchOrderList.m */; };
+		1CBF5C14207E3D9800284EA1 /* ViewOrderRecGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5C13207E3D9800284EA1 /* ViewOrderRecGoodsList.m */; };
+		1CBF5C17207E3DB800284EA1 /* ViewBtnRecGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5C16207E3DB800284EA1 /* ViewBtnRecGoodsList.m */; };
+		1CBFA5FC207E59A0001926DE /* AppUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBFA5FB207E59A0001926DE /* AppUser.m */; };
 		1CD84830206F7ADA00CC9BE9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD8482F206F7ADA00CC9BE9 /* AppDelegate.m */; };
 		1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD84832206F7ADA00CC9BE9 /* ViewController.m */; };
 		1CD84836206F7ADA00CC9BE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CD84834206F7ADA00CC9BE9 /* Main.storyboard */; };
@@ -251,6 +255,14 @@
 		1CBF5C0A207D1DBB00284EA1 /* RequestBeanCustomer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanCustomer.m; sourceTree = "<group>"; };
 		1CBF5C0C207D1FD900284EA1 /* RequestBeanCategoryHome.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanCategoryHome.h; sourceTree = "<group>"; };
 		1CBF5C0D207D1FD900284EA1 /* RequestBeanCategoryHome.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanCategoryHome.m; sourceTree = "<group>"; };
+		1CBF5C0F207E2D9300284EA1 /* ViewSearchOrderList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewSearchOrderList.h; sourceTree = "<group>"; };
+		1CBF5C10207E2D9300284EA1 /* ViewSearchOrderList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewSearchOrderList.m; sourceTree = "<group>"; };
+		1CBF5C12207E3D9800284EA1 /* ViewOrderRecGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewOrderRecGoodsList.h; sourceTree = "<group>"; };
+		1CBF5C13207E3D9800284EA1 /* ViewOrderRecGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewOrderRecGoodsList.m; sourceTree = "<group>"; };
+		1CBF5C15207E3DB800284EA1 /* ViewBtnRecGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewBtnRecGoodsList.h; sourceTree = "<group>"; };
+		1CBF5C16207E3DB800284EA1 /* ViewBtnRecGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewBtnRecGoodsList.m; sourceTree = "<group>"; };
+		1CBFA5FA207E59A0001926DE /* AppUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppUser.h; sourceTree = "<group>"; };
+		1CBFA5FB207E59A0001926DE /* AppUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppUser.m; sourceTree = "<group>"; };
 		1CD8482B206F7ADA00CC9BE9 /* LeftMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD8482E206F7ADA00CC9BE9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1CD8482F206F7ADA00CC9BE9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -481,6 +493,8 @@
 				1C4CC2832072540E007C24FB /* UITypes+extension.m */,
 				1C4CC28F20726AB2007C24FB /* Utils.h */,
 				1C4CC29020726AB2007C24FB /* Utils.m */,
+				1CBFA5FA207E59A0001926DE /* AppUser.h */,
+				1CBFA5FB207E59A0001926DE /* AppUser.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -589,6 +603,10 @@
 				1CBF5BE6207CE23B00284EA1 /* CellProxy.m */,
 				1C780ED7207E07EE00054AE1 /* CellRecGoodsList.h */,
 				1C780ED8207E07EE00054AE1 /* CellRecGoodsList.m */,
+				1CBF5C12207E3D9800284EA1 /* ViewOrderRecGoodsList.h */,
+				1CBF5C13207E3D9800284EA1 /* ViewOrderRecGoodsList.m */,
+				1CBF5C15207E3DB800284EA1 /* ViewBtnRecGoodsList.h */,
+				1CBF5C16207E3DB800284EA1 /* ViewBtnRecGoodsList.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -668,6 +686,8 @@
 				1CBF5BFE207CF86500284EA1 /* CellOrderGoodsList.m */,
 				1C780EDD207E0F8400054AE1 /* ViewTabOrder.h */,
 				1C780EDE207E0F8400054AE1 /* ViewTabOrder.m */,
+				1CBF5C0F207E2D9300284EA1 /* ViewSearchOrderList.h */,
+				1CBF5C10207E2D9300284EA1 /* ViewSearchOrderList.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -966,6 +986,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C4CC27920724F50007C24FB /* VCGoods.m in Sources */,
+				1CBF5C14207E3D9800284EA1 /* ViewOrderRecGoodsList.m in Sources */,
 				1C780EC6207DF97A00054AE1 /* NSNotification+Extension.m in Sources */,
 				1CBF5BF0207CE86000284EA1 /* VCOrder.m in Sources */,
 				1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */,
@@ -1022,8 +1043,11 @@
 				1C4CC27320724F2B007C24FB /* VCMine.m in Sources */,
 				1C8A2E3C207875BD0076238D /* HMScannerBorder.m in Sources */,
 				1C8A2E41207875BD0076238D /* HMScanerCardViewController.m in Sources */,
+				1CBF5C17207E3DB800284EA1 /* ViewBtnRecGoodsList.m in Sources */,
 				1CBF5C05207D0AAE00284EA1 /* ViewBtnGoods.m in Sources */,
+				1CBFA5FC207E59A0001926DE /* AppUser.m in Sources */,
 				1CBF5C08207D111B00284EA1 /* RequestBeanLogin.m in Sources */,
+				1CBF5C11207E2D9300284EA1 /* ViewSearchOrderList.m in Sources */,
 				1C4CC2842072540E007C24FB /* UITypes+extension.m in Sources */,
 				1C4CC27620724F3B007C24FB /* VCCart.m in Sources */,
 				1C4CC26A20712B19007C24FB /* VCBase.m in Sources */,
@@ -1200,12 +1224,14 @@
 			baseConfigurationReference = 2F65A9A6DF6B497D050E471D /* Pods-LeftMaster.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A57W3P5J93;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LeftMaster/Define/PrefixHeader.pch";
 				INFOPLIST_FILE = LeftMaster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sean.LeftMaster;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pentaq.LeftMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1216,12 +1242,14 @@
 			baseConfigurationReference = 9B7AED89B442D33947112F15 /* Pods-LeftMaster.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A57W3P5J93;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LeftMaster/Define/PrefixHeader.pch";
 				INFOPLIST_FILE = LeftMaster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sean.LeftMaster;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pentaq.LeftMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

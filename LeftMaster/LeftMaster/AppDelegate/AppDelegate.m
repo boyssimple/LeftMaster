@@ -22,11 +22,32 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    AJLog(@"%@", documentsPath);
     [AJNetworkConfig shareInstance].hostUrl = @"113.204.168.170:4321/";
-//    VCMain *vc = [[VCMain alloc]init];
+    //缓存设置
+    /*
+    AJCacheOptions *cacheOptions = [AJCacheOptions new];
+    cacheOptions.cachePath = [documentsPath stringByAppendingPathComponent:@"aj_network_cache"];
+    cacheOptions.openCacheGC = YES;
+    cacheOptions.globalCacheExpirationSecond = 60;
+    cacheOptions.globalCacheGCSecond = 2 * 60;
+    [AJNetworkConfig shareInstance].cacheOptions = cacheOptions;
+    */
     
-    VCLogin *vc = [[VCLogin alloc]init];
-    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
+    //获取登录信息
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [defaults objectForKey:USER_DEFAULTS];
+    if(FALSE){
+        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"用户：%@",dictionary);
+        [[AppUser share] parse:dictionary];
+        VCMain *vc = [[VCMain alloc]init];
+        self.window.rootViewController = vc;
+    }else{
+        VCLogin *vc = [[VCLogin alloc]init];
+        self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
+    }
     return YES;
 }
 

@@ -42,9 +42,10 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, time * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         // Do something...
-        [MBProgressHUD hideHUDForView:view animated:YES];
+        [MBProgressHUD hideAllHUDsForView:view animated:YES];
     });
 }
+
 
 +(void)showToast:(NSString*)text mode:(MBProgressHUDMode)mode with:(UIView*)view withTime:(CGFloat)time{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view.navigationController.view animated:YES];

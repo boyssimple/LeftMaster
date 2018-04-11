@@ -9,10 +9,15 @@
 #ifndef KeyDefine_h
 #define KeyDefine_h
 
-#define APP_COLOR RGB(230,0,18)
-#define APP_Gray_COLOR RGB3(247)
 
 
 #define LOGIN_FLAG @"LOGIN_FLAG"
+
+//刷新购物车列表
+#define REFRESH_CART_LIST @"refresh_cart_list"
+//用户信息-沙盒
+#define USER_DEFAULTS @"user_defaults"
+
+
 
 #endif /* KeyDefine_h */

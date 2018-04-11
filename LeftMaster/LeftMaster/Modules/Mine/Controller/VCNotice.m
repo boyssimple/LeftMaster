@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initMain];
+    [self loadData];
 }
 
 - (void)initMain{
@@ -30,11 +31,17 @@
     [self.view addSubview:self.table];
 }
 
+- (void)loadData{
+    [self loadData:1];
+    [self loadData:2];
+    [self loadData:3];
+    
+}
 
 - (void)loadData:(NSInteger)type{
     RequestBeanNotice *requestBean = [RequestBeanNotice new];
     requestBean.message_type = type;
-    requestBean.user_id = @"402848a55b6547ec015b6547ec760000";
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.page_current = 1;
     [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
@@ -151,9 +158,7 @@
         __weak typeof(self) weakself = self;
         
         _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            [weakself loadData:1];
-            [weakself loadData:2];
-            [weakself loadData:3];
+            [weakself loadData];
         }];
         [_table.mj_header beginRefreshing];
     }
