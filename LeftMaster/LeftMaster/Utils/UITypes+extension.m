@@ -81,16 +81,10 @@
 - (void)pt_setImage:(NSString*)url{
     [self sd_setImageWithURL:[NSURL URLWithString:url]];
 }
-
-
-
 @end
 
 @implementation UITableViewCell(extension)
 
-
-+ (CGFloat)calHeight{
-    return 0;
-}
-
 @end
+
+

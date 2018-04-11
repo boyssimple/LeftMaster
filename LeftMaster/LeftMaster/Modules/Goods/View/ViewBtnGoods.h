@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewBtnGoods : UIView
-
+@property (nonatomic, assign) NSInteger count;
 @end

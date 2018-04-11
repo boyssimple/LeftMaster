@@ -36,8 +36,21 @@
     return self;
 }
 
+- (void)setIsSelected:(BOOL)isSelected{
+    _isSelected = isSelected;
+    if (_isSelected) {
+        self.lbName.textColor = APP_COLOR;
+    }else{
+        self.lbName.textColor = RGB3(0);
+    }
+}
+
 - (void)clickAction:(UIButton*)sender{
     
+}
+
+- (void)updateData:(NSDictionary*)data{
+    self.lbName.text = [data jk_stringForKey:@"GOODSTYPE_NAME"];
 }
 
 - (void)updateData{

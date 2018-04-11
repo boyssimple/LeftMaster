@@ -9,5 +9,5 @@
 #import "VCBase.h"
 
 @interface VCCategory : VCBase
-
+@property(nonatomic,strong)NSString *cateId;
 @end

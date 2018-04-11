@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewHeaderGoods : UIView
+@protocol ViewHeaderGoodsDelegate;
 
+@interface ViewHeaderGoods : UIView
+@property (nonatomic, weak) id<ViewHeaderGoodsDelegate> delegate;
+- (void)updateData:(NSDictionary*)data;
++ (CGFloat)calHeight:(NSDictionary*)data;
+@end
+
+@protocol ViewHeaderGoodsDelegate<NSObject>
+- (void)minusCount;
+- (void)addCount;
 @end

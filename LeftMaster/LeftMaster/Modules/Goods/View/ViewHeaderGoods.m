@@ -131,6 +131,9 @@
             NSInteger c = [str integerValue];
             if(c > 1){
                 self.lbCount.text = [NSString stringWithFormat:@"%zi",c-1];
+                if([self.delegate respondsToSelector:@selector(minusCount)]){
+                    [self.delegate minusCount];
+                }
             }
             
             if(c-1 == 1){
@@ -144,6 +147,35 @@
         if (c > 1) {
             [self.btnMinus setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
+        
+        if([self.delegate respondsToSelector:@selector(addCount)]){
+            [self.delegate addCount];
+        }
+    }
+}
+
+- (void)updateData:(NSDictionary*)data{
+    self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
+    self.lbNoText.text = [data jk_stringForKey:@"GOODS_CODE"];
+    self.lbTopPriceText.text = [NSString stringWithFormat:@"%@/%@",[data jk_stringForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
+    
+    self.lbRole.text = @"?起订";
+    if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
+        self.lbStatus.text = @" | 库存充足";
+    }else{
+        self.lbStatus.text = @" | 库存不足";
+    }
+    self.lbPrice.text = [NSString stringWithFormat:@"￥%zi.00/%@",[data jk_integerForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];//@"¥???.00/瓶";
+    
+    if(self.lbPrice.text.length > 1){
+        NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
+        // 改变颜色
+        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-2)];
+        
+        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(0, 1)];
+        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20*RATIO_WIDHT320] range:NSMakeRange(1, self.lbPrice.text.length - 5)];
+        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length - 4, 4)];
+        [self.lbPrice setAttributedText:noteStr];
     }
 }
 
@@ -267,6 +299,40 @@
     r.origin.x = 10;
     r.origin.y = self.vLine.bottom;
     self.lbDetail.frame = r;
+}
+
++ (CGFloat)calHeight:(NSDictionary*)data{
+    CGFloat height = 12*RATIO_WIDHT320;
+    UILabel *lb = [[UILabel alloc]initWithFrame:CGRectZero];
+    lb.font = [UIFont boldSystemFontOfSize:14*RATIO_WIDHT320];
+    lb.numberOfLines = 0;
+    lb.text = [data jk_stringForKey:@"GOODS_NAME"];
+    height += [lb sizeThatFits:CGSizeMake(DEVICEWIDTH - 20*RATIO_WIDHT320, MAXFLOAT)].height;
+    height += 12*RATIO_WIDHT320;
+    
+    lb.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+    lb.numberOfLines = 1;
+    lb.text = @"商品编号";
+    height += [lb sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)].height*2;
+    
+    height += 10*RATIO_WIDHT320;
+    
+    height += 18*RATIO_WIDHT320;
+    lb.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+    lb.numberOfLines = 1;
+    lb.text = @"起订";
+    height += [lb sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)].height;
+    
+    height += 23*RATIO_WIDHT320;
+    
+    lb.font = [UIFont systemFontOfSize:20*RATIO_WIDHT320];
+    lb.numberOfLines = 1;
+    lb.text = @"???";
+    height += [lb sizeThatFits:CGSizeMake(MAXFLOAT, 20*RATIO_WIDHT320)].height;
+    height += 17*RATIO_WIDHT320;
+    
+    
+    return height + 50*RATIO_WIDHT320;
 }
 
 + (CGFloat)calHeight{

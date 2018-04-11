@@ -11,10 +11,13 @@
 #import "ViewTotalCart.h"
 #import "VCWriteOrder.h"
 #import "VCWriteOrder.h"
+#import "RequestBeanAlwaysBuyGoods.h"
 
-@interface VCTopGoods ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate>
+@interface VCTopGoods ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate,AJHubProtocol>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewTotalCart *vControl;
+@property(nonatomic,strong)NSMutableArray *goodsList;
+@property (nonatomic, assign) NSInteger page;
 @end
 
 @implementation VCTopGoods
@@ -22,19 +25,74 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initMain];
+    [self loadData];
 }
 
 - (void)initMain{
+    _goodsList = [NSMutableArray array];
     [self.view addSubview:self.table];
     [self.view addSubview:self.vControl];
 }
 
+- (void)loadData{
+    RequestBeanAlwaysBuyGoods *requestBean = [RequestBeanAlwaysBuyGoods new];
+    requestBean.user_id = @"402848a55b6547ec015b6547ec760000";
+    requestBean.page_current = self.page;
+    [AJNetworkConfig shareInstance].hubDelegate = self;
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [weakself.table.mj_header endRefreshing];
+        [weakself.table.mj_footer endRefreshing];
+        if (!err) {
+            // 结果处理
+            ResponseBeanAlwaysBuyGoods *response = responseBean;
+            if(response.success){
+                if(self.page == 1){
+                    [weakself.goodsList removeAllObjects];
+                }
+                NSArray *datas = [response.data jk_arrayForKey:@"rows"];
+                if(datas.count < requestBean.page_size){
+                    [weakself.table.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    [weakself.table.mj_footer resetNoMoreData];
+                }
+                [weakself.goodsList addObjectsFromArray:datas];
+                [weakself.table reloadData];
+            }
+        }
+    }];
+}
+
+
+/**
+ * 显示Hub
+ *
+ @param tip hub文案
+ */
+- (void)showHub:(nullable NSString *)tip{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = tip;
+    [hud show:YES];
+}
+
+
+/**
+ * 隐藏Hub
+ */
+- (void)dismissHub{
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.goodsList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -47,7 +105,8 @@
     if (!cell) {
         cell = [[CellTopGoods alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    [cell updateData];
+    NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
+    [cell updateData:data];
     return cell;
 }
 
@@ -94,6 +153,19 @@
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
         _table.dataSource = self;
+        
+        __weak typeof(self) weakself = self;
+        
+        _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            weakself.page = 1;
+            [weakself loadData];
+        }];
+        [_table.mj_header beginRefreshing];
+        
+        _table.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            weakself.page++;
+            [weakself loadData];
+        }];
     }
     return _table;
 }

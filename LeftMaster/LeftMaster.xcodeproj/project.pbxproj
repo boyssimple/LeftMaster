@@ -23,6 +23,14 @@
 		1C4CC29D207277AF007C24FB /* CollCellNewHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC29C207277AF007C24FB /* CollCellNewHome.m */; };
 		1C4CC2A720732E57007C24FB /* VCTopGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC2A620732E57007C24FB /* VCTopGoods.m */; };
 		1C4CC2AA207332C7007C24FB /* VCCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC2A9207332C7007C24FB /* VCCategory.m */; };
+		1C780EB8207DAC1200054AE1 /* RequestBeanGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EB7207DAC1200054AE1 /* RequestBeanGoodsList.m */; };
+		1C780EBF207DBCE700054AE1 /* RequestBeanGoodsDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EBE207DBCE700054AE1 /* RequestBeanGoodsDetail.m */; };
+		1C780EC3207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EC2207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m */; };
+		1C780EC6207DF97A00054AE1 /* NSNotification+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EC5207DF97A00054AE1 /* NSNotification+Extension.m */; };
+		1C780ECD207DFDF300054AE1 /* RequestBeanCartList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780ECC207DFDF300054AE1 /* RequestBeanCartList.m */; };
+		1C780ED0207E02D500054AE1 /* RequestBeanNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780ECF207E02D500054AE1 /* RequestBeanNotice.m */; };
+		1C780ED6207E067400054AE1 /* VCRecGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780ED5207E067400054AE1 /* VCRecGoodsList.m */; };
+		1C780ED9207E07EE00054AE1 /* CellRecGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780ED8207E07EE00054AE1 /* CellRecGoodsList.m */; };
 		1C8A2E1E20759AF40076238D /* VCLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E1D20759AF40076238D /* VCLogin.m */; };
 		1C8A2E21207707720076238D /* CellCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E20207707720076238D /* CellCart.m */; };
 		1C8A2E24207707890076238D /* ViewTotalCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E23207707890076238D /* ViewTotalCart.m */; };
@@ -134,6 +142,22 @@
 		1C4CC2A620732E57007C24FB /* VCTopGoods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCTopGoods.m; sourceTree = "<group>"; };
 		1C4CC2A8207332C7007C24FB /* VCCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCCategory.h; sourceTree = "<group>"; };
 		1C4CC2A9207332C7007C24FB /* VCCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCCategory.m; sourceTree = "<group>"; };
+		1C780EB6207DAC1200054AE1 /* RequestBeanGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanGoodsList.h; sourceTree = "<group>"; };
+		1C780EB7207DAC1200054AE1 /* RequestBeanGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanGoodsList.m; sourceTree = "<group>"; };
+		1C780EBD207DBCE700054AE1 /* RequestBeanGoodsDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestBeanGoodsDetail.h; sourceTree = "<group>"; };
+		1C780EBE207DBCE700054AE1 /* RequestBeanGoodsDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestBeanGoodsDetail.m; sourceTree = "<group>"; };
+		1C780EC1207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanAlwaysBuyGoods.h; sourceTree = "<group>"; };
+		1C780EC2207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanAlwaysBuyGoods.m; sourceTree = "<group>"; };
+		1C780EC4207DF97900054AE1 /* NSNotification+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNotification+Extension.h"; sourceTree = "<group>"; };
+		1C780EC5207DF97A00054AE1 /* NSNotification+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSNotification+Extension.m"; sourceTree = "<group>"; };
+		1C780ECB207DFDF300054AE1 /* RequestBeanCartList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestBeanCartList.h; sourceTree = "<group>"; };
+		1C780ECC207DFDF300054AE1 /* RequestBeanCartList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestBeanCartList.m; sourceTree = "<group>"; };
+		1C780ECE207E02D500054AE1 /* RequestBeanNotice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanNotice.h; sourceTree = "<group>"; };
+		1C780ECF207E02D500054AE1 /* RequestBeanNotice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanNotice.m; sourceTree = "<group>"; };
+		1C780ED4207E067400054AE1 /* VCRecGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCRecGoodsList.h; sourceTree = "<group>"; };
+		1C780ED5207E067400054AE1 /* VCRecGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCRecGoodsList.m; sourceTree = "<group>"; };
+		1C780ED7207E07EE00054AE1 /* CellRecGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellRecGoodsList.h; sourceTree = "<group>"; };
+		1C780ED8207E07EE00054AE1 /* CellRecGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellRecGoodsList.m; sourceTree = "<group>"; };
 		1C8A2E1C20759AF40076238D /* VCLogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCLogin.h; sourceTree = "<group>"; };
 		1C8A2E1D20759AF40076238D /* VCLogin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCLogin.m; sourceTree = "<group>"; };
 		1C8A2E1F207707720076238D /* CellCart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellCart.h; sourceTree = "<group>"; };
@@ -301,7 +325,7 @@
 		1C4CC29E20732E33007C24FB /* Top */ = {
 			isa = PBXGroup;
 			children = (
-				1C4CC2A220732E33007C24FB /* Model */,
+				1C780EC0207DF1BC00054AE1 /* Model */,
 				1C4CC2A320732E33007C24FB /* View */,
 				1C4CC29F20732E33007C24FB /* Controller */,
 			);
@@ -317,13 +341,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		1C4CC2A220732E33007C24FB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		1C4CC2A320732E33007C24FB /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +348,33 @@
 				1CBF5BEC207CE71600284EA1 /* CellTopGoods.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1C780EBC207DBCE700054AE1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1C780EBD207DBCE700054AE1 /* RequestBeanGoodsDetail.h */,
+				1C780EBE207DBCE700054AE1 /* RequestBeanGoodsDetail.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1C780EC0207DF1BC00054AE1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1C780EC1207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.h */,
+				1C780EC2207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1C780ECA207DFDF300054AE1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1C780ECB207DFDF300054AE1 /* RequestBeanCartList.h */,
+				1C780ECC207DFDF300054AE1 /* RequestBeanCartList.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		1C8A2E2E207875BD0076238D /* QRCode */ = {
@@ -425,6 +469,8 @@
 		1CD84879206F7C7000CC9BE9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1C780EC4207DF97900054AE1 /* NSNotification+Extension.h */,
+				1C780EC5207DF97A00054AE1 /* NSNotification+Extension.m */,
 				1C4CC2822072540E007C24FB /* UITypes+extension.h */,
 				1C4CC2832072540E007C24FB /* UITypes+extension.m */,
 				1C4CC28F20726AB2007C24FB /* Utils.h */,
@@ -495,6 +541,8 @@
 				1C4CC2A9207332C7007C24FB /* VCCategory.m */,
 				1CBF5BE2207CDA3400284EA1 /* VCProxy.h */,
 				1CBF5BE3207CDA3400284EA1 /* VCProxy.m */,
+				1C780ED4207E067400054AE1 /* VCRecGoodsList.h */,
+				1C780ED5207E067400054AE1 /* VCRecGoodsList.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -506,6 +554,8 @@
 				1CBF5C0A207D1DBB00284EA1 /* RequestBeanCustomer.m */,
 				1CBF5C0C207D1FD900284EA1 /* RequestBeanCategoryHome.h */,
 				1CBF5C0D207D1FD900284EA1 /* RequestBeanCategoryHome.m */,
+				1C780EB6207DAC1200054AE1 /* RequestBeanGoodsList.h */,
+				1C780EB7207DAC1200054AE1 /* RequestBeanGoodsList.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -531,6 +581,8 @@
 				1C8A2E2C20786BE80076238D /* ViewCategory.m */,
 				1CBF5BE5207CE23B00284EA1 /* CellProxy.h */,
 				1CBF5BE6207CE23B00284EA1 /* CellProxy.m */,
+				1C780ED7207E07EE00054AE1 /* CellRecGoodsList.h */,
+				1C780ED8207E07EE00054AE1 /* CellRecGoodsList.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -575,6 +627,8 @@
 			children = (
 				1CBF5C06207D111B00284EA1 /* RequestBeanLogin.h */,
 				1CBF5C07207D111B00284EA1 /* RequestBeanLogin.m */,
+				1C780ECE207E02D500054AE1 /* RequestBeanNotice.h */,
+				1C780ECF207E02D500054AE1 /* RequestBeanNotice.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -611,7 +665,7 @@
 		1CD84886206F7C7100CC9BE9 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
-				1CD84888206F7C7100CC9BE9 /* Model */,
+				1C780ECA207DFDF300054AE1 /* Model */,
 				1CD84889206F7C7100CC9BE9 /* View */,
 				1CD84887206F7C7100CC9BE9 /* Controller */,
 			);
@@ -627,13 +681,6 @@
 				1CBF5BB02078789400284EA1 /* VCWriteOrder.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		1CD84888206F7C7100CC9BE9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		1CD84889206F7C7100CC9BE9 /* View */ = {
@@ -658,7 +705,7 @@
 		1CD8488A206F7C7100CC9BE9 /* Goods */ = {
 			isa = PBXGroup;
 			children = (
-				1CD8488C206F7C7100CC9BE9 /* Model */,
+				1C780EBC207DBCE700054AE1 /* Model */,
 				1CD8488D206F7C7100CC9BE9 /* View */,
 				1CD8488B206F7C7100CC9BE9 /* Controller */,
 			);
@@ -672,13 +719,6 @@
 				1C4CC27820724F50007C24FB /* VCGoods.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		1CD8488C206F7C7100CC9BE9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		1CD8488D206F7C7100CC9BE9 /* View */ = {
@@ -916,8 +956,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C4CC27920724F50007C24FB /* VCGoods.m in Sources */,
+				1C780EC6207DF97A00054AE1 /* NSNotification+Extension.m in Sources */,
 				1CBF5BF0207CE86000284EA1 /* VCOrder.m in Sources */,
 				1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */,
+				1C780ED6207E067400054AE1 /* VCRecGoodsList.m in Sources */,
+				1C780ED9207E07EE00054AE1 /* CellRecGoodsList.m in Sources */,
 				1CBF5BE1207A7A1800284EA1 /* VCSetPassword.m in Sources */,
 				1C4CC27020724F05007C24FB /* VCHome.m in Sources */,
 				1C4CC29120726AB2007C24FB /* Utils.m in Sources */,
@@ -929,9 +972,12 @@
 				1CBF5BE7207CE23B00284EA1 /* CellProxy.m in Sources */,
 				1C8A2E21207707720076238D /* CellCart.m in Sources */,
 				1CBF5BB12078789400284EA1 /* VCWriteOrder.m in Sources */,
+				1C780ED0207E02D500054AE1 /* RequestBeanNotice.m in Sources */,
 				1C8A2E27207865D40076238D /* CellCategory.m in Sources */,
 				1C4CC26D20724CE6007C24FB /* VCMain.m in Sources */,
 				1CBF5C02207CFD9000284EA1 /* ViewHeaderGoods.m in Sources */,
+				1C780EC3207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m in Sources */,
+				1C780EB8207DAC1200054AE1 /* RequestBeanGoodsList.m in Sources */,
 				1C8A2E3F207875BD0076238D /* HMScanner.m in Sources */,
 				1CBF5BB420787A1600284EA1 /* ViewGoodsList.m in Sources */,
 				1C4CC29720726E71007C24FB /* CollCellCategoryHome.m in Sources */,
@@ -954,6 +1000,7 @@
 				1CBF5BBD207883F500284EA1 /* ViewTotalBottomWriteOrder.m in Sources */,
 				1CBF5BFF207CF86500284EA1 /* CellOrderGoodsList.m in Sources */,
 				1CBF5BC3207A4C9800284EA1 /* ViewSectionMine.m in Sources */,
+				1C780ECD207DFDF300054AE1 /* RequestBeanCartList.m in Sources */,
 				1C8A2E3E207875BD0076238D /* HMScannerViewController.m in Sources */,
 				1CBF5BDE207A793100284EA1 /* VCNoticeDetail.m in Sources */,
 				1C8A2E2D20786BE80076238D /* ViewCategory.m in Sources */,
@@ -972,6 +1019,7 @@
 				1CBF5C0E207D1FD900284EA1 /* RequestBeanCategoryHome.m in Sources */,
 				1C8A2E42207875BD0076238D /* HMScannerController.m in Sources */,
 				1C4CC2A720732E57007C24FB /* VCTopGoods.m in Sources */,
+				1C780EBF207DBCE700054AE1 /* RequestBeanGoodsDetail.m in Sources */,
 				1CBF5BD5207A6AA600284EA1 /* CellNotice.m in Sources */,
 				1CBF5BDB207A730600284EA1 /* CellNoticeList.m in Sources */,
 				1CBF5BBA2078827500284EA1 /* ViewTotalOrder.m in Sources */,

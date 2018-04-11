@@ -12,11 +12,15 @@
 #import "CellNewHome.h"
 #import <SDCycleScrollView.h>
 #import "RequestBeanCategoryHome.h"
+#import "RequestBeanGoodsList.h"
+#import "VCCategory.h"
+#import "VCRecGoodsList.h"
 
-@interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,AJHubProtocol>
+@interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,AJHubProtocol,SectionHeaderHomeDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)SDCycleScrollView *cycleScrollView;
 @property(nonatomic,strong)NSMutableArray *categorys;
+@property(nonatomic,strong)NSMutableArray *goodsList;
 @end
 
 @implementation VCHome
@@ -26,11 +30,13 @@
     
     [self initMain];
     [self loadData];
+    [self loadGoodsListData];
 }
 
 - (void)initMain{
     [self.view addSubview:self.table];
     _categorys = [NSMutableArray array];
+    _goodsList = [NSMutableArray array];
 }
 
 
@@ -38,6 +44,7 @@
     RequestBeanCategoryHome *requestBean = [RequestBeanCategoryHome new];
     requestBean.parent_id = 0;
     requestBean.page_current = 1;
+    requestBean.page_size = 10;
     [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
@@ -47,6 +54,24 @@
             ResponseBeanCategoryHome *response = responseBean;
             [weakself.categorys removeAllObjects];
             [weakself.categorys addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
+            [weakself.table reloadData];
+        }
+    }];
+}
+
+- (void)loadGoodsListData{
+    RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
+    requestBean.new_goods = TRUE;
+    requestBean.page_current = 1;
+    [AJNetworkConfig shareInstance].hubDelegate = self;
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        
+        if (!err) {
+            // 结果处理
+            ResponseBeanGoodsList *response = responseBean;
+            [weakself.goodsList removeAllObjects];
+            [weakself.goodsList addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
             [weakself.table reloadData];
         }
     }];
@@ -106,7 +131,7 @@
         if (!cell) {
             cell = [[CellNewHome alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
-        [cell updateData];
+        cell.dataSource = self.goodsList;
         return cell;
     }
 }
@@ -123,11 +148,14 @@
     SectionHeaderHome *header = (SectionHeaderHome*)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"Header"];
     if (!header) {
         header = [[SectionHeaderHome alloc]init];
+        header.delegate = self;
     }
     if(section == 0){
         [header setTitle:@"商品分类" witIcon:@"home_btn_commodity"];
+        header.index = 0;
     }else if(section == 1){
         [header setTitle:@"新品推荐" witIcon:@"home_btn_news"];
+        header.index = 1;
     }
     return header;
 }
@@ -143,6 +171,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.navigationController pushViewController:[[UIViewController alloc]init] animated:TRUE];
+}
+
+#pragma mark - SectionHeaderHomeDelegate
+- (void)sectionClickShowAll:(NSInteger)index{
+    if(index == 0){
+        VCCategory *vc = [[VCCategory alloc]init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        VCRecGoodsList *vc = [[VCRecGoodsList alloc]init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (UITableView*)table{

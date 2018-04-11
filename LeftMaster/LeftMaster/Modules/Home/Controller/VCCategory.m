@@ -11,12 +11,18 @@
 #import "CollCellCategory.h"
 #import "ViewCategory.h"
 #import "HMScannerController.h"
+#import "RequestBeanCategoryHome.h"
+#import "RequestBeanGoodsList.h"
+#import "VCGoods.h"
 
 @interface VCCategory ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,
-    UICollectionViewDelegateFlowLayout,ViewCategoryDelegate>
+    UICollectionViewDelegateFlowLayout,ViewCategoryDelegate,AJHubProtocol,UITextFieldDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)UICollectionView *collView;
+@property(nonatomic,strong)NSMutableArray *categorys;
+@property(nonatomic,strong)NSMutableArray *goodsList;
+@property(nonatomic,strong)NSString *keywords;
 @end
 
 @implementation VCCategory
@@ -24,14 +30,93 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initMain];
+    [self loadData];
+    [self loadGoodsListData];
 }
 
 - (void)initMain{
     self.view.backgroundColor = RGB3(247);
     self.title = @"分类";
+    _categorys = [NSMutableArray array];
+    _goodsList = [NSMutableArray array];
     [self.view addSubview:self.vCart];
     [self.view addSubview:self.table];
     [self.view addSubview:self.collView];
+}
+
+
+- (void)loadData{
+    RequestBeanCategoryHome *requestBean = [RequestBeanCategoryHome new];
+    requestBean.parent_id = 0;
+    requestBean.page_current = 1;
+    requestBean.page_size = 100;
+    [AJNetworkConfig shareInstance].hubDelegate = self;
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        
+        if (!err) {
+            // 结果处理
+            ResponseBeanCategoryHome *response = responseBean;
+            [weakself.categorys removeAllObjects];
+            [weakself.categorys addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
+            [weakself.table reloadData];
+        }
+    }];
+}
+
+- (void)loadGoodsListData{
+    RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
+    requestBean.page_current = 1;
+    if(self.cateId){
+        requestBean.goods_type_id = self.cateId;
+    }else{
+        requestBean.goods_type_id = nil;
+    }
+    if(self.keywords && self.keywords.length > 0){
+        requestBean.search_name = self.keywords;
+    }else{
+        requestBean.search_name = nil;
+    }
+    [AJNetworkConfig shareInstance].hubDelegate = self;
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        
+        if (!err) {
+            // 结果处理
+            ResponseBeanGoodsList *response = responseBean;
+            [weakself.goodsList removeAllObjects];
+            [weakself.goodsList addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
+            [weakself.collView reloadData];
+        }
+    }];
+}
+
+- (void)search{
+    self.keywords = self.vCart.tfText.text;
+    [self loadGoodsListData];
+}
+
+/**
+ * 显示Hub
+ *
+ @param tip hub文案
+ */
+- (void)showHub:(nullable NSString *)tip{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = tip;
+    [hud show:YES];
+}
+
+
+/**
+ * 隐藏Hub
+ */
+- (void)dismissHub{
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -39,7 +124,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return self.categorys.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -52,7 +137,15 @@
     if (!cell) {
         cell = [[CellCategory alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    [cell updateData];
+    NSDictionary *data = [self.categorys objectAtIndex:indexPath.row];
+    
+    cell.isSelected = FALSE;
+    if(self.cateId){
+        if([[data jk_stringForKey:@"GOODSTYPE_ID"] isEqualToString:self.cateId]){
+            cell.isSelected = TRUE;
+        }
+    }
+    [cell updateData:data];
     return cell;
 }
 
@@ -81,7 +174,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    NSDictionary *data = [self.categorys objectAtIndex:indexPath.row];
+    self.cateId = [data jk_stringForKey:@"GOODSTYPE_ID"];
+    [self loadGoodsListData];
+    [self.table reloadData];
 }
 
 #pragma mark Collection
@@ -90,13 +186,14 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 4;
+    return self.goodsList.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString*identifier = @"CollCellCategory";
     CollCellCategory *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    [cell updateData];
+    NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
+    [cell updateData:data];
     return cell;
 }
 
@@ -106,11 +203,20 @@
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
+    VCGoods *vc = [[VCGoods alloc]init];
+    vc.goods_id = [data jk_stringForKey:@"GOODS_ID"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)topHeight{
     return NAV_STATUS_HEIGHT + [ViewCategory calHeight] + 10*RATIO_WIDHT320;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    [self search];
+    return YES;
 }
 
 #pragma mark ViewCategoryDelegate
@@ -132,6 +238,8 @@
     if(!_vCart){
         _vCart = [[ViewCategory alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewCategory calHeight])];
         _vCart.delegate = self;
+        _vCart.tfText.delegate = self;
+        _vCart.tfText.returnKeyType = UIReturnKeySearch;
         [_vCart updateData];
     }
     return _vCart;

@@ -245,7 +245,7 @@
 - (UITextField*)tfPwd{
     if (!_tfPwd) {
         _tfPwd = [[UITextField alloc]initWithFrame:CGRectZero];
-        _tfPwd.placeholder = @"请输入登录密码";
+        _tfPwd.secureTextEntry = YES;
     }
     return _tfPwd;
 }

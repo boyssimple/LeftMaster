@@ -9,5 +9,5 @@
 #import "VCBase.h"
 
 @interface VCGoods : VCBase
-
+@property (nonatomic, strong) NSString *goods_id;
 @end

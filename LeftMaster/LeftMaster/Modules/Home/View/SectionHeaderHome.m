@@ -44,7 +44,9 @@
 }
 
 - (void)clickAction:(UIButton*)sender{
-    
+    if([self.delegate respondsToSelector:@selector(sectionClickShowAll:)]){
+        [self.delegate sectionClickShowAll:self.index];
+    }
 }
 
 - (void)setTitle:(NSString *)title witIcon:(NSString*)icon{

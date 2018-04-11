@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CellNotice : UITableViewCell
-
+- (void)updateData:(NSString*)icon withTitle:(NSString*)title withCount:(NSInteger)count;
 @end

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CollCellNewHome : UICollectionViewCell
-
+- (void)updateData:(NSDictionary*)data;
 @end

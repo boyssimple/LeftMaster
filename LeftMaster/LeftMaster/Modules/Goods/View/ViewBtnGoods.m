@@ -47,7 +47,7 @@
         [self addSubview:_btnJoinCart];
         
         _btnJoinOrder = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_btnJoinOrder setTitle:@"加入购物车" forState:UIControlStateNormal];
+        [_btnJoinOrder setTitle:@"立即下单" forState:UIControlStateNormal];
         _btnJoinOrder.backgroundColor = APP_COLOR;
         _btnJoinOrder.titleLabel.font = [UIFont boldSystemFontOfSize:17*RATIO_WIDHT320];
         [_btnJoinOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -59,12 +59,22 @@
 }
 
 - (void)updateData{
-    self.lbCount.text = @"10+";
+    self.count = 10;
+}
+
+- (void)setCount:(NSInteger)count{
+    _count = count;
+    if (_count > 10) {
+        self.lbCount.text = [NSString stringWithFormat: @"%zi+",self.count];
+    }else{
+        self.lbCount.text = [NSString stringWithFormat: @"%zi",self.count];
+    }
 }
 
 - (void)clickAction:(UIButton*)sender{
     if (sender.tag == 100) {
-        
+        self.count = self.count+1;
+        [Utils showSuccessToast:@"加入购物车成功" with:self withTime:1];
     }else{
         
     }

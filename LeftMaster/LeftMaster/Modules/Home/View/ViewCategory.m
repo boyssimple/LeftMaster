@@ -12,7 +12,6 @@
 @property(nonatomic,strong)UIButton *btnQR;
 @property(nonatomic,strong)UIView *vSearchBg;
 @property(nonatomic,strong)UIImageView *ivSearch;
-@property(nonatomic,strong)UITextField *tfText;
 
 @property(nonatomic,strong)UIImageView *ivCart;
 @property(nonatomic,strong)UILabel *lbCount;

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CellNewHome : UITableViewCell
-
+@property (nonatomic, strong) NSArray *dataSource;
 @end

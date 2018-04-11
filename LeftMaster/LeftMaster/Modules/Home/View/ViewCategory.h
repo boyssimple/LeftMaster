@@ -10,6 +10,7 @@
 
 @protocol ViewCategoryDelegate;
 @interface ViewCategory : UIView
+@property(nonatomic,strong)UITextField *tfText;
 @property(nonatomic,weak)id<ViewCategoryDelegate> delegate;
 @end
 

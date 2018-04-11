@@ -10,4 +10,5 @@
 
 @interface CollCellCategory : UICollectionViewCell
 
+- (void)updateData:(NSDictionary*)data;
 @end

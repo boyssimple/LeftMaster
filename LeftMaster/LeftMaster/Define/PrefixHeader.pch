@@ -23,6 +23,8 @@
 #import "UITypes+extension.h"
 #import <MBProgressHUD.h>
 #import "Utils.h"
+#import <MJRefresh.h>
+#import "NSNotification+Extension.h"
 
 
 #endif /* PrefixHeader_pch */

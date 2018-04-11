@@ -10,14 +10,17 @@
 #import "SDCycleScrollView.h"
 #import "ViewHeaderGoods.h"
 #import "ViewBtnGoods.h"
+#import "RequestBeanGoodsDetail.h"
 
-@interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
+@interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,AJHubProtocol,ViewHeaderGoodsDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewHeaderGoods *header;
 @property(nonatomic,strong)UIImageView *footer;
 @property(nonatomic,strong)SDCycleScrollView *cycleScrollView;
-@property(nonatomic,strong)UILabel *lbCount;
+@property(nonatomic,strong)UILabel *lbPicCount;
 @property(nonatomic,strong)ViewBtnGoods *bottom;
+@property(nonatomic,strong)NSDictionary *data;
+@property (nonatomic, assign) NSInteger count;
 @end
 
 @implementation VCGoods
@@ -25,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initMain];
+    [self loadData];
 }
 
 - (void)initMain{
@@ -43,6 +47,47 @@
         [weakself.table reloadData];
     }];
 }
+
+
+- (void)loadData{
+    RequestBeanGoodsDetail *requestBean = [RequestBeanGoodsDetail new];
+    requestBean.goods_id = self.goods_id;
+    [AJNetworkConfig shareInstance].hubDelegate = self;
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        
+        if (!err) {
+            // 结果处理
+            ResponseBeanGoodsDetail *response = responseBean;
+            weakself.data = response.data;
+            [weakself.table reloadData];
+        }
+    }];
+}
+
+/**
+ * 显示Hub
+ *
+ @param tip hub文案
+ */
+- (void)showHub:(nullable NSString *)tip{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = tip;
+    [hud show:YES];
+}
+
+
+/**
+ * 隐藏Hub
+ */
+- (void)dismissHub{
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -67,7 +112,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return [ViewHeaderGoods calHeight];
+    return [ViewHeaderGoods calHeight:self.data];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -79,7 +124,7 @@
     if (!header) {
         header = [[ViewHeaderGoods alloc]init];
     }
-    [header updateData];
+    [header updateData:self.data];
     return header;
 }
 
@@ -96,7 +141,16 @@
 
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
-    self.lbCount.text = [NSString stringWithFormat:@"%zi/%zi",index+1,self.cycleScrollView.imageURLStringsGroup.count];
+    self.lbPicCount.text = [NSString stringWithFormat:@"%zi/%zi",index+1,self.cycleScrollView.imageURLStringsGroup.count];
+}
+
+#pragma mark - ViewHeaderGoodsDelegate
+- (void)minusCount{
+    self.count--;
+}
+
+- (void)addCount{
+    self.count++;
 }
 
 - (UITableView*)table{
@@ -126,17 +180,17 @@
     return _footer;
 }
 
-- (UILabel*)lbCount{
-    if(!_lbCount){
-        _lbCount = [[UILabel alloc]initWithFrame:CGRectMake(DEVICEWIDTH - 30*RATIO_WIDHT320 - 10*RATIO_WIDHT320, 320*RATIO_WIDHT320 - 12*RATIO_WIDHT320 -5*RATIO_WIDHT320, 30*RATIO_WIDHT320, 12*RATIO_WIDHT320)];
-        _lbCount.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
-        _lbCount.textColor = RGB3(254);
-        _lbCount.backgroundColor = RGB3(153);
-        _lbCount.textAlignment = NSTextAlignmentCenter;
-        _lbCount.layer.cornerRadius = _lbCount.height/2.0;
-        _lbCount.layer.masksToBounds = YES;
+- (UILabel*)lbPicCount{
+    if(!_lbPicCount){
+        _lbPicCount = [[UILabel alloc]initWithFrame:CGRectMake(DEVICEWIDTH - 30*RATIO_WIDHT320 - 10*RATIO_WIDHT320, 320*RATIO_WIDHT320 - 12*RATIO_WIDHT320 -5*RATIO_WIDHT320, 30*RATIO_WIDHT320, 12*RATIO_WIDHT320)];
+        _lbPicCount.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        _lbPicCount.textColor = RGB3(254);
+        _lbPicCount.backgroundColor = RGB3(153);
+        _lbPicCount.textAlignment = NSTextAlignmentCenter;
+        _lbPicCount.layer.cornerRadius = _lbPicCount.height/2.0;
+        _lbPicCount.layer.masksToBounds = YES;
     }
-    return _lbCount;
+    return _lbPicCount;
 }
 
 
@@ -149,9 +203,9 @@
                                                   @"http://pic97.huitu.com/res/20160724/976_20160724152045497500_1.jpg"];
         _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
         _cycleScrollView.showPageControl = NO;
-        [_cycleScrollView addSubview:self.lbCount];
+        [_cycleScrollView addSubview:self.lbPicCount];
         _cycleScrollView.autoScroll = NO;
-        self.lbCount.text = [NSString stringWithFormat:@"%zi/%zi",1,_cycleScrollView.imageURLStringsGroup.count];
+        self.lbPicCount.text = [NSString stringWithFormat:@"%zi/%zi",1,_cycleScrollView.imageURLStringsGroup.count];
     }
     return _cycleScrollView;
 }

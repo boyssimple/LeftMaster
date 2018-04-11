@@ -10,12 +10,8 @@
 
 @implementation RequestBeanCategoryHome
 
--(NSInteger)page_size{
-    return 10;
-}
-
 - (NSString*)apiPath{
-    return net_home_category;
+    return net_goods_category;
 }
 
 - (BOOL)isShowHub{

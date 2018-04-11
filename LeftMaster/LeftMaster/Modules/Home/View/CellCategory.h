@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CellCategory : UITableViewCell
-
+@property (nonatomic, assign) BOOL isSelected;
+- (void)updateData:(NSDictionary*)data;
 @end

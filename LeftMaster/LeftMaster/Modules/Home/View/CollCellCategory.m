@@ -31,6 +31,13 @@
     return self;
 }
 
+
+- (void)updateData:(NSDictionary*)data{
+    [self.ivImg pt_setImage:@"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg"];
+//    [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
+    self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
+}
+
 - (void)updateData{
     [self.ivImg pt_setImage:@"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg"];
     self.lbName.text = @"275 50轮胎";

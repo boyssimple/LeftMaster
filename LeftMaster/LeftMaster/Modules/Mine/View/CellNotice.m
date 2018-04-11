@@ -60,10 +60,20 @@
     return self;
 }
 
-- (void)updateData{
-    self.lbTitle.text = @"订单消息";
+- (void)updateData:(NSString*)icon withTitle:(NSString*)title withCount:(NSInteger)count{
+    self.ivImg.image = [UIImage imageNamed:icon];
+    self.lbTitle.text = title;
     self.lbText.text = @"中国第一家渠道渠道";
-    self.lbCount.text = @"10+";
+    if(count <= 0){
+        self.lbCount.hidden = YES;
+    }else{
+        self.lbCount.hidden = NO;
+        if(count > 10){
+            self.lbCount.text = @"10+";
+        }else{
+            self.lbCount.text = [NSString stringWithFormat:@"%zi",count];
+        }
+    }
 }
 
 

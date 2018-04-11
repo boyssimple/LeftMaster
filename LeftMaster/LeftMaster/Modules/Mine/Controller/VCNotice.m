@@ -9,9 +9,13 @@
 #import "VCNotice.h"
 #import "CellNotice.h"
 #import "VCNoticeList.h"
+#import "RequestBeanNotice.h"
 
-@interface VCNotice ()<UITableViewDelegate,UITableViewDataSource>
+@interface VCNotice ()<UITableViewDelegate,UITableViewDataSource,AJHubProtocol>
 @property(nonatomic,strong)UITableView *table;
+@property (nonatomic, assign) NSInteger sysCount;
+@property (nonatomic, assign) NSInteger orderCount;
+@property (nonatomic, assign) NSInteger orderCount2;
 @end
 
 @implementation VCNotice
@@ -26,12 +30,64 @@
     [self.view addSubview:self.table];
 }
 
+
+- (void)loadData:(NSInteger)type{
+    RequestBeanNotice *requestBean = [RequestBeanNotice new];
+    requestBean.message_type = type;
+    requestBean.user_id = @"402848a55b6547ec015b6547ec760000";
+    requestBean.page_current = 1;
+    [AJNetworkConfig shareInstance].hubDelegate = self;
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [weakself.table.mj_header endRefreshing];
+        if (!err) {
+            // 结果处理
+            ResponseBeanNotice *response = responseBean;
+            if(response.success){
+                if(requestBean.message_type == 1){
+                    weakself.orderCount = [response.data jk_integerForKey:@"count_num"];
+                }else if(requestBean.message_type == 2){
+                    weakself.sysCount = [response.data jk_integerForKey:@"count_num"];
+                }else if(requestBean.message_type == 3){
+                    weakself.orderCount2 = [response.data jk_integerForKey:@"count_num"];
+                }
+                [weakself.table reloadData];
+            }
+        }
+    }];
+}
+
+
+/**
+ * 显示Hub
+ *
+ @param tip hub文案
+ */
+- (void)showHub:(nullable NSString *)tip{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = tip;
+    [hud show:YES];
+}
+
+
+/**
+ * 隐藏Hub
+ */
+- (void)dismissHub{
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    });
+}
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -43,6 +99,13 @@
     CellNotice *cell = (CellNotice*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[CellNotice alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+    if(indexPath.row == 0){
+        [cell updateData:@"icon_1" withTitle:@"订单消息" withCount:self.orderCount];
+    }else if(indexPath.row == 1){
+        [cell updateData:@"icon_2" withTitle:@"系统公告" withCount:self.sysCount];
+    }else if(indexPath.row == 2){
+        [cell updateData:@"icon_3" withTitle:@"订单消息" withCount:self.orderCount2];
     }
     [cell updateData];
     return cell;
@@ -85,6 +148,14 @@
         _table.delegate = self;
         _table.dataSource = self;
         _table.backgroundColor = APP_Gray_COLOR;
+        __weak typeof(self) weakself = self;
+        
+        _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [weakself loadData:1];
+            [weakself loadData:2];
+            [weakself loadData:3];
+        }];
+        [_table.mj_header beginRefreshing];
     }
     return _table;
 }

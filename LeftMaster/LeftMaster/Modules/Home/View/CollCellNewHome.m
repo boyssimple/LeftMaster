@@ -78,6 +78,19 @@
     }
 }
 
+- (void)updateData:(NSDictionary*)data{
+    [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
+    self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
+    self.lbPrice.text = [NSString stringWithFormat:@"¥%@/个",[data jk_stringForKey:@"GOODS_PRICE"]];
+    self.lbHasGoods.text = @"有货";
+    if(self.lbPrice.text.length > 2){
+        NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
+        // 改变颜色
+        [noteStr addAttribute:NSForegroundColorAttributeName value:RGB(230, 0, 18) range:NSMakeRange(0, self.lbPrice.text.length-2)];
+        [self.lbPrice setAttributedText:noteStr];
+    }
+}
+
 - (void)layoutSubviews{
     [super layoutSubviews];
     CGRect r = self.vBg.frame;

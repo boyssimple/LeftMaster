@@ -39,18 +39,24 @@
     return self;
 }
 
+- (void)setDataSource:(NSArray *)dataSource{
+    _dataSource = dataSource;
+    [self.collView reloadData];
+}
+
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 5;
+    return self.dataSource.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString*identifier = @"CollCellNewHome";
     CollCellNewHome *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    [cell updateData];
+    NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
+    [cell updateData:data];
     return cell;
 }
 
@@ -60,7 +66,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
     VCGoods *vc = [[VCGoods alloc]init];
+    vc.goods_id = [data jk_stringForKey:@"GOODS_ID"];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:TRUE];
 }

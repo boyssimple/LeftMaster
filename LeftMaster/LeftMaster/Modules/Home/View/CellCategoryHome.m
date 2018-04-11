@@ -65,7 +65,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
     VCCategory *vc = [[VCCategory alloc]init];
+    vc.cateId = [data jk_stringForKey:@"GOODSTYPE_ID"];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:TRUE];
 }

@@ -13,6 +13,7 @@
 @property(nonatomic,assign)NSInteger parent_id;
 @property(nonatomic,assign)NSInteger page_current;
 @property(nonatomic,assign)NSInteger page_size;
+@property(nonatomic,strong)NSString *search_name;
 @end
 
 @interface ResponseBeanCategoryHome : AJResponseBeanBase

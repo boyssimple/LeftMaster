@@ -143,6 +143,27 @@
     }
 }
 
+- (void)updateData:(NSDictionary*)data{
+    [self.ivImg pt_setImage:@"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg"];
+    self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
+    self.lbRole.text = @"1台起订";
+    
+    if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
+        self.lbStatus.text = @" | 库存充足";
+    }else{
+        self.lbStatus.text = @" | 库存不足";
+    }
+    
+    self.lbPrice.text = [NSString stringWithFormat:@"¥%zi/%@",[data jk_integerForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
+    
+    if(self.lbPrice.text.length > 2){
+        NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
+        // 改变颜色
+        [noteStr addAttribute:NSForegroundColorAttributeName value:RGB(230, 0, 18) range:NSMakeRange(0, self.lbPrice.text.length-[data jk_stringForKey:@"GOODS_UNIT"].length)];
+        [self.lbPrice setAttributedText:noteStr];
+    }
+}
+
 - (void)updateData{
     [self.ivImg pt_setImage:@"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg"];
     self.lbName.text = @"275 50 20轮胎 275 50 20轮胎";
