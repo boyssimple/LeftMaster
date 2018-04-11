@@ -160,7 +160,6 @@
         _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             [weakself loadData];
         }];
-        [_table.mj_header beginRefreshing];
     }
     return _table;
 }

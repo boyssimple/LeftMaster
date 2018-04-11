@@ -38,7 +38,7 @@
     //获取登录信息
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [defaults objectForKey:USER_DEFAULTS];
-    if(FALSE){
+    if(data){
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"用户：%@",dictionary);
         [[AppUser share] parse:dictionary];
