@@ -34,12 +34,13 @@
         [self addChildViewController:vc];
     }
     self.mainScroll.contentSize = CGSizeMake(DEVICEWIDTH * self.vcList.count, 0);
-    [self scrollViewDidEndScrollingAnimation:self.mainScroll];
     
     
     self.tabOrder.curIndex = self.curIndex;
     CGPoint point = CGPointMake(self.curIndex*DEVICEWIDTH, self.mainScroll.contentOffset.y);
     [self.mainScroll setContentOffset:point animated:NO];
+    
+    [self scrollViewDidEndScrollingAnimation:self.mainScroll];
 }
 
 #pragma mark - UIScrollViewDelegate
