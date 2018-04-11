@@ -9,5 +9,5 @@
 #import "VCBase.h"
 
 @interface VCOrderList : VCBase
-
+@property (nonatomic, assign) NSInteger curIndex;
 @end

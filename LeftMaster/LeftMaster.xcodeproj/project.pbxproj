@@ -31,6 +31,8 @@
 		1C780ED0207E02D500054AE1 /* RequestBeanNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780ECF207E02D500054AE1 /* RequestBeanNotice.m */; };
 		1C780ED6207E067400054AE1 /* VCRecGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780ED5207E067400054AE1 /* VCRecGoodsList.m */; };
 		1C780ED9207E07EE00054AE1 /* CellRecGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780ED8207E07EE00054AE1 /* CellRecGoodsList.m */; };
+		1C780EDC207E0E9200054AE1 /* VCOrderContaier.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EDB207E0E9200054AE1 /* VCOrderContaier.m */; };
+		1C780EDF207E0F8400054AE1 /* ViewTabOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EDE207E0F8400054AE1 /* ViewTabOrder.m */; };
 		1C8A2E1E20759AF40076238D /* VCLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E1D20759AF40076238D /* VCLogin.m */; };
 		1C8A2E21207707720076238D /* CellCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E20207707720076238D /* CellCart.m */; };
 		1C8A2E24207707890076238D /* ViewTotalCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E23207707890076238D /* ViewTotalCart.m */; };
@@ -158,6 +160,10 @@
 		1C780ED5207E067400054AE1 /* VCRecGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCRecGoodsList.m; sourceTree = "<group>"; };
 		1C780ED7207E07EE00054AE1 /* CellRecGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellRecGoodsList.h; sourceTree = "<group>"; };
 		1C780ED8207E07EE00054AE1 /* CellRecGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellRecGoodsList.m; sourceTree = "<group>"; };
+		1C780EDA207E0E9200054AE1 /* VCOrderContaier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCOrderContaier.h; sourceTree = "<group>"; };
+		1C780EDB207E0E9200054AE1 /* VCOrderContaier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCOrderContaier.m; sourceTree = "<group>"; };
+		1C780EDD207E0F8400054AE1 /* ViewTabOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewTabOrder.h; sourceTree = "<group>"; };
+		1C780EDE207E0F8400054AE1 /* ViewTabOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewTabOrder.m; sourceTree = "<group>"; };
 		1C8A2E1C20759AF40076238D /* VCLogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCLogin.h; sourceTree = "<group>"; };
 		1C8A2E1D20759AF40076238D /* VCLogin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCLogin.m; sourceTree = "<group>"; };
 		1C8A2E1F207707720076238D /* CellCart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellCart.h; sourceTree = "<group>"; };
@@ -618,6 +624,8 @@
 				1CBF5BEF207CE86000284EA1 /* VCOrder.m */,
 				1CBF5BFA207CF70800284EA1 /* VCOrderGoodsList.h */,
 				1CBF5BFB207CF70800284EA1 /* VCOrderGoodsList.m */,
+				1C780EDA207E0E9200054AE1 /* VCOrderContaier.h */,
+				1C780EDB207E0E9200054AE1 /* VCOrderContaier.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -658,6 +666,8 @@
 				1CBF5BF8207CF3AD00284EA1 /* CellOrderRemark.m */,
 				1CBF5BFD207CF86500284EA1 /* CellOrderGoodsList.h */,
 				1CBF5BFE207CF86500284EA1 /* CellOrderGoodsList.m */,
+				1C780EDD207E0F8400054AE1 /* ViewTabOrder.h */,
+				1C780EDE207E0F8400054AE1 /* ViewTabOrder.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -978,6 +988,7 @@
 				1CBF5C02207CFD9000284EA1 /* ViewHeaderGoods.m in Sources */,
 				1C780EC3207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m in Sources */,
 				1C780EB8207DAC1200054AE1 /* RequestBeanGoodsList.m in Sources */,
+				1C780EDC207E0E9200054AE1 /* VCOrderContaier.m in Sources */,
 				1C8A2E3F207875BD0076238D /* HMScanner.m in Sources */,
 				1CBF5BB420787A1600284EA1 /* ViewGoodsList.m in Sources */,
 				1C4CC29720726E71007C24FB /* CollCellCategoryHome.m in Sources */,
@@ -1001,6 +1012,7 @@
 				1CBF5BFF207CF86500284EA1 /* CellOrderGoodsList.m in Sources */,
 				1CBF5BC3207A4C9800284EA1 /* ViewSectionMine.m in Sources */,
 				1C780ECD207DFDF300054AE1 /* RequestBeanCartList.m in Sources */,
+				1C780EDF207E0F8400054AE1 /* ViewTabOrder.m in Sources */,
 				1C8A2E3E207875BD0076238D /* HMScannerViewController.m in Sources */,
 				1CBF5BDE207A793100284EA1 /* VCNoticeDetail.m in Sources */,
 				1C8A2E2D20786BE80076238D /* ViewCategory.m in Sources */,

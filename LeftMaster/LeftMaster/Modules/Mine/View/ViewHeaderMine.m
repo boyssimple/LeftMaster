@@ -87,15 +87,27 @@
         
         _vAudution = [[ViewBtnHeaderMine alloc]initWithFrame:CGRectZero];
         [_vAudution updateData:@"me_icon_1" with:@"待审核"];
+        _vAudution.tag = 200;
         [self addSubview:_vAudution];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotoOrderList:)];
+        [_vAudution addGestureRecognizer:tap];
         
         _vUnSend = [[ViewBtnHeaderMine alloc]initWithFrame:CGRectZero];
         [_vUnSend updateData:@"me_icon_2" with:@"待发货"];
+        _vUnSend.tag = 201;
         [self addSubview:_vUnSend];
+        
+        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotoOrderList:)];
+        [_vUnSend addGestureRecognizer:tap2];
         
         _vUnReceive = [[ViewBtnHeaderMine alloc]initWithFrame:CGRectZero];
         [_vUnReceive updateData:@"me_icon_3" with:@"待收货"];
+        _vUnReceive.tag = 202;
         [self addSubview:_vUnReceive];
+        
+        UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotoOrderList:)];
+        [_vUnReceive addGestureRecognizer:tap3];
     }
     return self;
 }
@@ -106,6 +118,15 @@
     [self.vUnReceive update:8];
 }
 
+- (void)gotoOrderList:(UIGestureRecognizer*)ges{
+    NSInteger tag = ges.view.tag - 200;
+    
+    VCOrderList *vc = [[VCOrderList alloc]init];
+    vc.curIndex = tag;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)clickAction:(UIButton*)sender{
     if(sender.tag == 100){
         VCSetPassword *vc = [[VCSetPassword alloc]init];
@@ -113,6 +134,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }else{
         VCOrderList *vc = [[VCOrderList alloc]init];
+        vc.curIndex = 3;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

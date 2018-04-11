@@ -7,11 +7,13 @@
 //
 
 #import "VCOrderList.h"
-#import "CellOrderList.h"
-#import "VCOrder.h"
+#import "VCOrderContaier.h"
+#import "ViewTabOrder.h"
 
-@interface VCOrderList ()<UITableViewDelegate,UITableViewDataSource>
-@property(nonatomic,strong)UITableView *table;
+@interface VCOrderList ()<UIScrollViewDelegate,ViewTabOrderDelegate>
+@property (nonatomic, strong) ViewTabOrder *tabOrder;
+@property (nonatomic, strong) UIScrollView *mainScroll;
+@property (nonatomic, strong) NSArray *vcList;
 @end
 
 @implementation VCOrderList
@@ -23,69 +25,76 @@
 
 - (void)initMain{
     self.title = @"订单";
-    [self.view addSubview:self.table];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [CellOrderList calHeight];
-}
-
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString*identifier = @"CeCellOrderListll";
-    CellOrderList *cell = (CellOrderList*)[tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[CellOrderList alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    [self.view addSubview:self.tabOrder];
+    [self.view addSubview:self.mainScroll];
+    
+    for (NSInteger i = 0 ;i<self.vcList.count;i++) {
+        NSString *vcName = [self.vcList objectAtIndex:i];
+        UIViewController *vc = [[NSClassFromString(vcName) alloc]init];
+        [self addChildViewController:vc];
     }
-    [cell updateData];
-    return cell;
+    self.mainScroll.contentSize = CGSizeMake(DEVICEWIDTH * self.vcList.count, 0);
+    [self scrollViewDidEndScrollingAnimation:self.mainScroll];
+    
+    
+    self.tabOrder.curIndex = self.curIndex;
+    CGPoint point = CGPointMake(self.curIndex*DEVICEWIDTH, self.mainScroll.contentOffset.y);
+    [self.mainScroll setContentOffset:point animated:NO];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0.00001f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.00001f;
-}
-
-- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *header = (UIView*)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"Header"];
-    if (!header) {
-        header = [[UIView alloc]init];
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    NSInteger index = scrollView.contentOffset.x / DEVICEWIDTH;
+    UIViewController *vc = [self.childViewControllers objectAtIndex:index];
+    self.tabOrder.curIndex = index;
+    if ([vc isViewLoaded]) {
+        return;
     }
-    return header;
+    vc.view.frame = CGRectMake(DEVICEWIDTH * index, 0, DEVICEWIDTH, scrollView.height);
+    [self.mainScroll addSubview:vc.view];
 }
 
-- (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *footer = (UIView*)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"Footer"];
-    if (!footer) {
-        footer = [[UIView alloc]init];
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self scrollViewDidEndScrollingAnimation:scrollView];
+}
+
+#pragma mark - ViewTabOrderDelegate
+- (void)clickTab:(NSInteger)index{
+    CGPoint point = CGPointMake(index*DEVICEWIDTH, self.mainScroll.contentOffset.y);
+    [self.mainScroll setContentOffset:point animated:TRUE];
+}
+
+- (UIScrollView*)mainScroll{
+    if (!_mainScroll) {
+        _mainScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, [ViewTabOrder calHeight] + NAV_STATUS_HEIGHT, DEVICEWIDTH, DEVICEHEIGHT- [ViewTabOrder calHeight] - NAV_STATUS_HEIGHT)];
+        _mainScroll.contentSize = CGSizeMake(_mainScroll.contentSize.width, 1000);
+        _mainScroll.pagingEnabled = YES;
+        _mainScroll.delegate = self;
+        _mainScroll.showsHorizontalScrollIndicator = FALSE;
     }
-    return footer;
+    return _mainScroll;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    VCOrder *vc = [[VCOrder alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
-- (UITableView*)table{
-    if(!_table){
-        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, DEVICEHEIGHT) style:UITableViewStyleGrouped];
-        _table.backgroundColor = [UIColor clearColor];
-        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _table.delegate = self;
-        _table.dataSource = self;
+- (NSArray*)vcList{
+    if (!_vcList) {
+        _vcList = @[@"VCOrderContaier",@"VCOrderContaier",@"VCOrderContaier",@"VCOrderContaier"];
     }
-    return _table;
+    return _vcList;
 }
 
+
+- (ViewTabOrder*)tabOrder{
+    if (!_tabOrder) {
+        _tabOrder = [[ViewTabOrder alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewTabOrder calHeight])];
+        _tabOrder.curIndex = 0;
+        _tabOrder.delegate = self;
+    }
+    return _tabOrder;
+}
+
+/*
+
+
+ */
 @end
