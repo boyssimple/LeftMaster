@@ -8,12 +8,12 @@
 
 #import "ViewMessageOrder.h"
 
-@interface ViewMessageOrder()
+@interface ViewMessageOrder()<UITextFieldDelegate>
 
 @property(nonatomic,strong)UILabel *lbTitle;
 @property(nonatomic,strong)UIView *vLine;
 @property(nonatomic,strong)UIView *vListBg;
-@property(nonatomic,strong)UITextView *tvText;
+@property(nonatomic,strong)UITextField *tfText;
 
 @end
 
@@ -34,18 +34,25 @@
         _vLine.backgroundColor = RGB3(230);
         [self addSubview:_vLine];
         
-        _tvText = [[UITextView alloc]initWithFrame:CGRectZero];
-        _tvText.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
-        _tvText.textColor = RGB3(153);
-        [self addSubview:_tvText];
+        _tfText = [[UITextField alloc]initWithFrame:CGRectZero];
+        _tfText.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        _tfText.textColor = APP_BLACK_COLOR;
+        _tfText.placeholder = @"请写留言，30字以内";
+        _tfText.delegate = self;
+        [self addSubview:_tfText];
         
         
     }
     return self;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 - (void)updateData{
-    self.tvText.text = @"请写留言，30字以内";
+    
 }
 
 - (void)layoutSubviews{
@@ -64,16 +71,16 @@
     r.size.height = 0.5;
     self.vLine.frame = r;
     
-    r = self.tvText.frame;
+    r = self.tfText.frame;
     r.size.width = DEVICEWIDTH - 20*RATIO_WIDHT320;
-    r.size.height = 42.5*RATIO_WIDHT320;
+    r.size.height = 12*RATIO_WIDHT320;
     r.origin.x = 10*RATIO_WIDHT320;
     r.origin.y = self.vLine.bottom + 10*RATIO_WIDHT320;
-    self.tvText.frame = r;
+    self.tfText.frame = r;
 }
 
 + (CGFloat)calHeight{
-    return 42.5*RATIO_WIDHT320 + 10*RATIO_WIDHT320 + 38*RATIO_WIDHT320 + 0.5;
+    return 44.5*RATIO_WIDHT320 + 10*RATIO_WIDHT320 + 38*RATIO_WIDHT320 + 0.5;
 }
 
 @end

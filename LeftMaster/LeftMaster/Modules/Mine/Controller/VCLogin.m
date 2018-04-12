@@ -11,8 +11,9 @@
 #import "AppDelegate.h"
 #import "VCProxy.h"
 #import "RequestBeanLogin.h"
+#import "VCForgotPwd.h"
 
-@interface VCLogin ()<AJHubProtocol>
+@interface VCLogin ()<AJHubProtocol,UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *ivLogo;
 @property(nonatomic,strong)UIImageView *ivBg;
 @property(nonatomic,strong)UIImageView *ivUser;
@@ -33,7 +34,6 @@
 }
 
 - (void)initMain{
-    self.navigationController.navigationBarHidden = YES;
     [self.view addSubview:self.ivBg];
     [self.view addSubview:self.ivLogo];
     [self.view addSubview:self.ivUser];
@@ -49,15 +49,28 @@
     self.tfPwd.text = @"123456";
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBarHidden = YES;
+}
+
+
 - (void)clickAction:(UIButton*)sender{
     NSInteger tag = sender.tag;
-    if(tag == 100){
+    if(tag == 101){
+        VCForgotPwd *vc = [[VCForgotPwd alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }else{
         
     }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 - (void)loginEvent{
+    [self.view endEditing:YES];
     NSString *userName = [self.tfUser.text trim];
     NSString *tfPwd = [self.tfPwd.text trim];
     
@@ -129,6 +142,11 @@
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     });
 }
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
 
 - (void)viewWillLayoutSubviews{
     CGRect r = self.ivLogo.frame;
@@ -231,6 +249,7 @@
     if (!_tfUser) {
         _tfUser = [[UITextField alloc]initWithFrame:CGRectZero];
         _tfUser.placeholder = @"请输入手机号码";
+        _tfUser.delegate = self;
     }
     return _tfUser;
 }
@@ -255,6 +274,7 @@
     if (!_tfPwd) {
         _tfPwd = [[UITextField alloc]initWithFrame:CGRectZero];
         _tfPwd.secureTextEntry = YES;
+        _tfPwd.delegate = self;
     }
     return _tfPwd;
 }

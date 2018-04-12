@@ -10,6 +10,7 @@
 
 @interface CellRecGoodsList()
 @property(nonatomic,strong)UIImageView *ivImg;
+@property(nonatomic,strong)UIImageView *ivNew;
 @property(nonatomic,strong)UILabel *lbName;
 @property(nonatomic,strong)UIButton *btnAddCart;
 @property(nonatomic,strong)UILabel *lbRole;
@@ -37,6 +38,11 @@
         _ivImg.userInteractionEnabled = YES;
         _ivImg.backgroundColor = [UIColor redColor];
         [self.contentView addSubview:_ivImg];
+        
+        _ivNew = [[UIImageView alloc]initWithFrame:CGRectZero];
+        _ivNew.image = [UIImage imageNamed:@"news"];
+        _ivNew.userInteractionEnabled = YES;
+        [_ivImg addSubview:_ivNew];
         
         _lbName = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbName.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
@@ -179,6 +185,14 @@
     r.origin.x = 10*RATIO_WIDHT320;
     r.origin.y = 15*RATIO_WIDHT320;
     self.ivImg.frame = r;
+    
+    
+    r = self.ivNew.frame;
+    r.origin.x = 0;
+    r.origin.y = 0;
+    r.size.width = 32*RATIO_WIDHT320;
+    r.size.height = r.size.width;
+    self.ivNew.frame = r;
     
     r = self.btnAddCart.frame;
     r.size.width = 61*RATIO_WIDHT320;

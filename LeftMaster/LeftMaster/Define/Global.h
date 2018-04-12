@@ -24,8 +24,10 @@
 #define RGB3(v) RGB(v,v,v)
 
 #define randomColor RGB(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
 #define APP_COLOR RGB(230,0,18)
 #define APP_Gray_COLOR RGB3(247)
+#define APP_BLACK_COLOR RGB3(51)
 
 
 #pragma mark --------- 字体大小

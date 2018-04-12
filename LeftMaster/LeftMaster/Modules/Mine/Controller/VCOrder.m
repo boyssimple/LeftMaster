@@ -11,6 +11,7 @@
 #import "CellOrderInfo.h"
 #import "CellOrderRemark.h"
 #import "VCOrderGoodsList.h"
+#import "VCInvoice.h"
 
 @interface VCOrder ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *table;
@@ -95,7 +96,7 @@
         [header updateDataIcon:@"order_record" withName:@"发货记录" withHiddenArrow:NO];
         __weak typeof(self) weakself = self;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-            VCOrderGoodsList *vc = [[VCOrderGoodsList alloc]init];
+            VCInvoice *vc = [[VCInvoice alloc]init];
             [weakself.navigationController pushViewController:vc animated:YES];
         }];
         [header addGestureRecognizer:tap];

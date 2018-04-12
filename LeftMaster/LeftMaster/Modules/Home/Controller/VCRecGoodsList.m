@@ -42,6 +42,7 @@
 //    self.navigationItem.titleView = self.vCart;
 //    [self.view addSubview:self.vCart];
     
+    [self.view addSubview:self.vCart];
     [self.view addSubview:self.viewOrder];
     [self.view addSubview:self.table];
 }
@@ -154,6 +155,11 @@
     vc.goods_id = @"674993773267021824";
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.view endEditing:YES];
+}
+
 - (CGFloat)topHeight{
     return NAV_STATUS_HEIGHT + [ViewCategory calHeight] + 10*RATIO_WIDHT320;
 }
@@ -181,7 +187,7 @@
 
 - (ViewCategory*)vCart{
     if(!_vCart){
-        _vCart = [[ViewCategory alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, [ViewCategory calHeight])];
+        _vCart = [[ViewCategory alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewCategory calHeight])];
         _vCart.delegate = self;
         _vCart.tfText.delegate = self;
         _vCart.tfText.returnKeyType = UIReturnKeySearch;
@@ -193,7 +199,7 @@
 
 - (UITableView*)table{
     if(!_table){
-        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, [ViewOrderRecGoodsList calHeight] + NAV_STATUS_HEIGHT, DEVICEWIDTH, DEVICEHEIGHT-[ViewOrderRecGoodsList calHeight] - NAV_STATUS_HEIGHT) style:UITableViewStyleGrouped];
+        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, self.viewOrder.bottom, DEVICEWIDTH, DEVICEHEIGHT-[ViewOrderRecGoodsList calHeight] - NAV_STATUS_HEIGHT - [ViewCategory calHeight]) style:UITableViewStyleGrouped];
         _table.backgroundColor = [UIColor whiteColor];
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
@@ -218,7 +224,7 @@
 
 - (ViewOrderRecGoodsList*)viewOrder{
     if(!_viewOrder){
-        _viewOrder = [[ViewOrderRecGoodsList alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewOrderRecGoodsList calHeight])];
+        _viewOrder = [[ViewOrderRecGoodsList alloc]initWithFrame:CGRectMake(0, self.vCart.bottom, DEVICEWIDTH, [ViewOrderRecGoodsList calHeight])];
     }
     return _viewOrder;
 }

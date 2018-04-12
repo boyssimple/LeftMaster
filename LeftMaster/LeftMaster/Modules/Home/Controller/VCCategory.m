@@ -209,6 +209,10 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.view endEditing:YES];
+}
+
 - (CGFloat)topHeight{
     return NAV_STATUS_HEIGHT + [ViewCategory calHeight] + 10*RATIO_WIDHT320;
 }

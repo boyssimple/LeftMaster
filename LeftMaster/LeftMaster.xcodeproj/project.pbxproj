@@ -33,6 +33,9 @@
 		1C780ED9207E07EE00054AE1 /* CellRecGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780ED8207E07EE00054AE1 /* CellRecGoodsList.m */; };
 		1C780EDC207E0E9200054AE1 /* VCOrderContaier.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EDB207E0E9200054AE1 /* VCOrderContaier.m */; };
 		1C780EDF207E0F8400054AE1 /* ViewTabOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EDE207E0F8400054AE1 /* ViewTabOrder.m */; };
+		1C780EE2207EFDCC00054AE1 /* VCForgotPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EE1207EFDCC00054AE1 /* VCForgotPwd.m */; };
+		1C7A754D207F335400C140D2 /* VCInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A754C207F335400C140D2 /* VCInvoice.m */; };
+		1C7A7550207F33AD00C140D2 /* CellInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A754F207F33AD00C140D2 /* CellInvoice.m */; };
 		1C8A2E1E20759AF40076238D /* VCLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E1D20759AF40076238D /* VCLogin.m */; };
 		1C8A2E21207707720076238D /* CellCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E20207707720076238D /* CellCart.m */; };
 		1C8A2E24207707890076238D /* ViewTotalCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E23207707890076238D /* ViewTotalCart.m */; };
@@ -168,6 +171,12 @@
 		1C780EDB207E0E9200054AE1 /* VCOrderContaier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCOrderContaier.m; sourceTree = "<group>"; };
 		1C780EDD207E0F8400054AE1 /* ViewTabOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewTabOrder.h; sourceTree = "<group>"; };
 		1C780EDE207E0F8400054AE1 /* ViewTabOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewTabOrder.m; sourceTree = "<group>"; };
+		1C780EE0207EFDCC00054AE1 /* VCForgotPwd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCForgotPwd.h; sourceTree = "<group>"; };
+		1C780EE1207EFDCC00054AE1 /* VCForgotPwd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCForgotPwd.m; sourceTree = "<group>"; };
+		1C7A754B207F335400C140D2 /* VCInvoice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCInvoice.h; sourceTree = "<group>"; };
+		1C7A754C207F335400C140D2 /* VCInvoice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCInvoice.m; sourceTree = "<group>"; };
+		1C7A754E207F33AD00C140D2 /* CellInvoice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellInvoice.h; sourceTree = "<group>"; };
+		1C7A754F207F33AD00C140D2 /* CellInvoice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellInvoice.m; sourceTree = "<group>"; };
 		1C8A2E1C20759AF40076238D /* VCLogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCLogin.h; sourceTree = "<group>"; };
 		1C8A2E1D20759AF40076238D /* VCLogin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCLogin.m; sourceTree = "<group>"; };
 		1C8A2E1F207707720076238D /* CellCart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellCart.h; sourceTree = "<group>"; };
@@ -644,6 +653,10 @@
 				1CBF5BFB207CF70800284EA1 /* VCOrderGoodsList.m */,
 				1C780EDA207E0E9200054AE1 /* VCOrderContaier.h */,
 				1C780EDB207E0E9200054AE1 /* VCOrderContaier.m */,
+				1C7A754B207F335400C140D2 /* VCInvoice.h */,
+				1C7A754C207F335400C140D2 /* VCInvoice.m */,
+				1C780EE0207EFDCC00054AE1 /* VCForgotPwd.h */,
+				1C780EE1207EFDCC00054AE1 /* VCForgotPwd.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -688,6 +701,8 @@
 				1C780EDE207E0F8400054AE1 /* ViewTabOrder.m */,
 				1CBF5C0F207E2D9300284EA1 /* ViewSearchOrderList.h */,
 				1CBF5C10207E2D9300284EA1 /* ViewSearchOrderList.m */,
+				1C7A754E207F33AD00C140D2 /* CellInvoice.h */,
+				1C7A754F207F33AD00C140D2 /* CellInvoice.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -985,8 +1000,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C780EE2207EFDCC00054AE1 /* VCForgotPwd.m in Sources */,
 				1C4CC27920724F50007C24FB /* VCGoods.m in Sources */,
 				1CBF5C14207E3D9800284EA1 /* ViewOrderRecGoodsList.m in Sources */,
+				1C7A7550207F33AD00C140D2 /* CellInvoice.m in Sources */,
 				1C780EC6207DF97A00054AE1 /* NSNotification+Extension.m in Sources */,
 				1CBF5BF0207CE86000284EA1 /* VCOrder.m in Sources */,
 				1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */,
@@ -1058,6 +1075,7 @@
 				1C780EBF207DBCE700054AE1 /* RequestBeanGoodsDetail.m in Sources */,
 				1CBF5BD5207A6AA600284EA1 /* CellNotice.m in Sources */,
 				1CBF5BDB207A730600284EA1 /* CellNoticeList.m in Sources */,
+				1C7A754D207F335400C140D2 /* VCInvoice.m in Sources */,
 				1CBF5BBA2078827500284EA1 /* ViewTotalOrder.m in Sources */,
 				1CBF5C0B207D1DBB00284EA1 /* RequestBeanCustomer.m in Sources */,
 				1C8A2E24207707890076238D /* ViewTotalCart.m in Sources */,
