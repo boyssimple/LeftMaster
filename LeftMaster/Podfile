@@ -17,6 +17,7 @@ target 'LeftMaster' do
   pod 'MJRefresh’
   pod 'SDWebImage', '~> 4.0'
   pod 'SDCycleScrollView','~> 1.75'
+  pod 'JPush'
 
   target 'LeftMasterTests' do
     inherit! :search_paths

@@ -18,6 +18,9 @@ PODS:
     - AFNetworking
     - MJExtension
     - SPTPersistentCache
+  - JCore (1.1.7)
+  - JPush (3.0.8):
+    - JCore (~> 1.1.7)
   - MBProgressHUD (0.9.2)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.15.3)
@@ -34,6 +37,7 @@ PODS:
 
 DEPENDENCIES:
   - AJNetworking
+  - JPush
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh
   - SDCycleScrollView (~> 1.75)
@@ -45,6 +49,8 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - AJNetworking
+    - JCore
+    - JPush
     - MBProgressHUD
     - MJExtension
     - MJRefresh
@@ -57,6 +63,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   AJNetworking: 6591d31bf7f894e8efa06c02b9f08be448879f93
+  JCore: f7459c81c135281a874a6beafdd321666adcc834
+  JPush: 9574d072cc37e93fa293ba69b43ce763c440943a
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
@@ -66,6 +74,6 @@ SPEC CHECKSUMS:
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: acbe780429423aee8431c4d7c12ec028bb898983
+PODFILE CHECKSUM: d8d18c5fb842987fe38bd41abe2770ccdf0ae481
 
 COCOAPODS: 1.5.0.beta.1

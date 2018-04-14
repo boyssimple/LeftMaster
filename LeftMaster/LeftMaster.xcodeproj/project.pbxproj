@@ -272,6 +272,7 @@
 		1CBF5C16207E3DB800284EA1 /* ViewBtnRecGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewBtnRecGoodsList.m; sourceTree = "<group>"; };
 		1CBFA5FA207E59A0001926DE /* AppUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppUser.h; sourceTree = "<group>"; };
 		1CBFA5FB207E59A0001926DE /* AppUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppUser.m; sourceTree = "<group>"; };
+		1CBFA6032082249E001926DE /* LeftMaster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LeftMaster.entitlements; sourceTree = "<group>"; };
 		1CD8482B206F7ADA00CC9BE9 /* LeftMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD8482E206F7ADA00CC9BE9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1CD8482F206F7ADA00CC9BE9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -449,6 +450,7 @@
 		1CD8482D206F7ADA00CC9BE9 /* LeftMaster */ = {
 			isa = PBXGroup;
 			children = (
+				1CBFA6032082249E001926DE /* LeftMaster.entitlements */,
 				1CD84878206F7C5800CC9BE9 /* AppDelegate */,
 				1CD8487A206F7C7000CC9BE9 /* Base */,
 				1CD8487C206F7C7100CC9BE9 /* Define */,
@@ -859,6 +861,11 @@
 					1CD8482A206F7ADA00CC9BE9 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					1CD84842206F7ADA00CC9BE9 = {
 						CreatedOnToolsVersion = 9.2;
@@ -1249,6 +1256,10 @@
 				INFOPLIST_FILE = LeftMaster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LeftMaster/ThirdPart/Lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pentaq.LeftMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1267,6 +1278,10 @@
 				INFOPLIST_FILE = LeftMaster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LeftMaster/ThirdPart/Lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pentaq.LeftMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
