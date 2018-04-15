@@ -23,6 +23,7 @@
 		1C4CC29D207277AF007C24FB /* CollCellNewHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC29C207277AF007C24FB /* CollCellNewHome.m */; };
 		1C4CC2A720732E57007C24FB /* VCTopGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC2A620732E57007C24FB /* VCTopGoods.m */; };
 		1C4CC2AA207332C7007C24FB /* VCCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC2A9207332C7007C24FB /* VCCategory.m */; };
+		1C766F6F208390D300C7B913 /* CommonDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C766F6E208390D300C7B913 /* CommonDelegate.m */; };
 		1C780EB8207DAC1200054AE1 /* RequestBeanGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EB7207DAC1200054AE1 /* RequestBeanGoodsList.m */; };
 		1C780EBF207DBCE700054AE1 /* RequestBeanGoodsDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EBE207DBCE700054AE1 /* RequestBeanGoodsDetail.m */; };
 		1C780EC3207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EC2207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m */; };
@@ -151,6 +152,8 @@
 		1C4CC2A620732E57007C24FB /* VCTopGoods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCTopGoods.m; sourceTree = "<group>"; };
 		1C4CC2A8207332C7007C24FB /* VCCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCCategory.h; sourceTree = "<group>"; };
 		1C4CC2A9207332C7007C24FB /* VCCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCCategory.m; sourceTree = "<group>"; };
+		1C766F6D208390D300C7B913 /* CommonDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonDelegate.h; sourceTree = "<group>"; };
+		1C766F6E208390D300C7B913 /* CommonDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonDelegate.m; sourceTree = "<group>"; };
 		1C780EB6207DAC1200054AE1 /* RequestBeanGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanGoodsList.h; sourceTree = "<group>"; };
 		1C780EB7207DAC1200054AE1 /* RequestBeanGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanGoodsList.m; sourceTree = "<group>"; };
 		1C780EBD207DBCE700054AE1 /* RequestBeanGoodsDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestBeanGoodsDetail.h; sourceTree = "<group>"; };
@@ -506,6 +509,8 @@
 				1C4CC29020726AB2007C24FB /* Utils.m */,
 				1CBFA5FA207E59A0001926DE /* AppUser.h */,
 				1CBFA5FB207E59A0001926DE /* AppUser.m */,
+				1C766F6D208390D300C7B913 /* CommonDelegate.h */,
+				1C766F6E208390D300C7B913 /* CommonDelegate.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1022,6 +1027,7 @@
 				1C4CC28E207266D5007C24FB /* SectionHeaderHome.m in Sources */,
 				1C8A2E2A207867740076238D /* CollCellCategory.m in Sources */,
 				1C8A2E3D207875BD0076238D /* HMScannerMaskView.m in Sources */,
+				1C766F6F208390D300C7B913 /* CommonDelegate.m in Sources */,
 				1C4CC29D207277AF007C24FB /* CollCellNewHome.m in Sources */,
 				1CBF5BC0207A46AE00284EA1 /* ViewHeaderMine.m in Sources */,
 				1CBF5BE7207CE23B00284EA1 /* CellProxy.m in Sources */,

@@ -12,7 +12,7 @@
 #import "ViewBtnGoods.h"
 #import "RequestBeanGoodsDetail.h"
 
-@interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,AJHubProtocol,ViewHeaderGoodsDelegate>
+@interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,AJHubProtocol,ViewHeaderGoodsDelegate,CommonDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewHeaderGoods *header;
 @property(nonatomic,strong)UIImageView *footer;
@@ -151,6 +151,15 @@
 
 - (void)addCount{
     self.count++;
+}
+
+#pragma mark - CommonDelegate
+- (void)clickActionWithIndex:(NSInteger)index{
+    if (index == 0) {
+        [Utils showSuccessToast:@"加入购物车成功" with:self.view withTime:1];
+    }else{
+        
+    }
 }
 
 - (UITableView*)table{

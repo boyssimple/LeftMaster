@@ -26,6 +26,7 @@
 #import <MJRefresh.h>
 #import "NSNotification+Extension.h"
 #import "AppUser.h"
+#import "CommonDelegate.h"
 
 
 #endif /* PrefixHeader_pch */
