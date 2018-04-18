@@ -27,6 +27,7 @@
 #import "NSNotification+Extension.h"
 #import "AppUser.h"
 #import "CommonDelegate.h"
+#import "NetworkManager.h"
 
 
 #endif /* PrefixHeader_pch */

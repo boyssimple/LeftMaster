@@ -48,7 +48,7 @@
 
 
 +(void)showToast:(NSString*)text mode:(MBProgressHUDMode)mode with:(UIView*)view withTime:(CGFloat)time{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view.navigationController.view animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = mode;
     hud.labelText = text;
     [hud show:YES];
@@ -64,7 +64,7 @@
     UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"check-mark"]];
     img.frame = CGRectMake(5, 0, 20, 20);
     [v addSubview:img];
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view.navigationController.view animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeCustomView;
     hud.customView = v;
     hud.labelText = text;
@@ -72,7 +72,7 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, time * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         // Do something...
-        [MBProgressHUD hideHUDForView:view.navigationController.view animated:YES];
+        [MBProgressHUD hideHUDForView:view animated:YES];
     });
 }
 

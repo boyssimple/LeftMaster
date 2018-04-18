@@ -31,6 +31,7 @@
     [self initMain];
     [self loadData];
     [self loadGoodsListData];
+    
 }
 
 - (void)initMain{
@@ -48,7 +49,7 @@
     [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
     
-    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+    [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         
         if (!err) {
             // 结果处理
@@ -70,7 +71,7 @@
     requestBean.page_size = 10;
     [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
-    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+    [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         
         if (!err) {
             // 结果处理
@@ -88,7 +89,7 @@
     requestBean.page_current = 1;
     [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
-    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+    [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         [weakself.table.mj_header endRefreshing];
         if (!err) {
             // 结果处理

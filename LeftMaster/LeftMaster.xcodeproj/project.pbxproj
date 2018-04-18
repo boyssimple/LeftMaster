@@ -92,6 +92,7 @@
 		1CD8483E206F7ADA00CC9BE9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD8483D206F7ADA00CC9BE9 /* main.m */; };
 		1CD84848206F7ADA00CC9BE9 /* LeftMasterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD84847206F7ADA00CC9BE9 /* LeftMasterTests.m */; };
 		1CD84853206F7ADA00CC9BE9 /* LeftMasterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD84852206F7ADA00CC9BE9 /* LeftMasterUITests.m */; };
+		1CFC00C52087124B00A8E344 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC00C42087124A00A8E344 /* NetworkManager.m */; };
 		2B895C9453BC2156E84708D8 /* libPods-LeftMasterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */; };
 		3A4070F4294A75D927F8DE16 /* libPods-LeftMaster.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6D5F1023D6EE6D2E86C12D /* libPods-LeftMaster.a */; };
 		FAC9E06F974DFC888DA9565A /* libPods-LeftMasterUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA40ACE1D19B7764658663D5 /* libPods-LeftMasterUITests.a */; };
@@ -290,6 +291,8 @@
 		1CD8484E206F7ADA00CC9BE9 /* LeftMasterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeftMasterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD84852206F7ADA00CC9BE9 /* LeftMasterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftMasterUITests.m; sourceTree = "<group>"; };
 		1CD84854206F7ADA00CC9BE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CFC00C32087124A00A8E344 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
+		1CFC00C42087124A00A8E344 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		2F65A9A6DF6B497D050E471D /* Pods-LeftMaster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMaster.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMaster/Pods-LeftMaster.debug.xcconfig"; sourceTree = "<group>"; };
 		699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeftMasterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D66D73565FFAFED45449DF /* Pods-LeftMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMasterTests/Pods-LeftMasterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -508,6 +511,8 @@
 				1CBFA5FA207E59A0001926DE /* AppUser.h */,
 				1CBFA5FB207E59A0001926DE /* AppUser.m */,
 				1C766F6D208390D300C7B913 /* CommonDelegate.h */,
+				1CFC00C32087124A00A8E344 /* NetworkManager.h */,
+				1CFC00C42087124A00A8E344 /* NetworkManager.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1057,6 +1062,7 @@
 				1C4CC29A207276E3007C24FB /* CellNewHome.m in Sources */,
 				1CBF5BBD207883F500284EA1 /* ViewTotalBottomWriteOrder.m in Sources */,
 				1CBF5BFF207CF86500284EA1 /* CellOrderGoodsList.m in Sources */,
+				1CFC00C52087124B00A8E344 /* NetworkManager.m in Sources */,
 				1CBF5BC3207A4C9800284EA1 /* ViewSectionMine.m in Sources */,
 				1C780ECD207DFDF300054AE1 /* RequestBeanCartList.m in Sources */,
 				1C780EDF207E0F8400054AE1 /* ViewTabOrder.m in Sources */,

@@ -222,6 +222,7 @@
 - (ViewBtnGoods*)bottom{
     if(!_bottom){
         _bottom = [[ViewBtnGoods alloc]initWithFrame:CGRectMake(0, DEVICEHEIGHT - [ViewBtnGoods calHeight], DEVICEWIDTH,[ViewBtnGoods calHeight])];
+        _bottom.delegate = self;
         [_bottom updateData];
     }
     return _bottom;
