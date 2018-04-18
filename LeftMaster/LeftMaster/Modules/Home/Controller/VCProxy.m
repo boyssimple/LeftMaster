@@ -45,6 +45,23 @@
         self.expland = !self.expland;
     }else{
         if(self.selected){
+            //存储已选数据到沙盒
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSData *data = [defaults objectForKey:USER_DEFAULTS];
+            if(data){
+                NSError *error;
+                NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+                if(!error){
+                    NSMutableDictionary *mutDic = [dictionary mutableCopy];
+                    [mutDic setObject:[AppUser share].CUS_ID forKey:@"CUS_ID"];
+                    [mutDic setObject:[AppUser share].CUS_NAME forKey:@"CUS_NAME"];
+                    NSData *data = [NSJSONSerialization dataWithJSONObject:mutDic options:NSJSONWritingPrettyPrinted error:nil];
+                    [defaults setObject:data forKey:USER_DEFAULTS];
+                    [defaults synchronize];
+                }
+            }
+            
+            
             [self gotoHome];
         }else{
             [Utils showToast:@"请选择客户!" with:self.view withTime:0.8];

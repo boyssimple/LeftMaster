@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CellRecGoodsList : UITableViewCell
-
+@property (nonatomic, weak) id<CommonDelegate> delegate;
 @end

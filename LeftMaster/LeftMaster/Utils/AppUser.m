@@ -41,6 +41,7 @@ static AppUser * _user;
     self.SYSUSER_MOBILE = [data jk_stringForKey:@"SYSUSER_MOBILE"];
     self.SYSUSER_NAME = [data jk_stringForKey:@"SYSUSER_NAME"];
     self.SYSUSER_SEX = [data jk_integerForKey:@"SYSUSER_SEX"];
+    
     if(self.ACCOUNT_TYPE == 10){
         self.isSalesman = TRUE;
     }else{

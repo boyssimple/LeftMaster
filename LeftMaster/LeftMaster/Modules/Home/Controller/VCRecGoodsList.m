@@ -15,7 +15,7 @@
 #import "VCGoods.h"
 #import "ViewOrderRecGoodsList.h"
 
-@interface VCRecGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,AJHubProtocol,UITextFieldDelegate>
+@interface VCRecGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,AJHubProtocol,UITextFieldDelegate,CommonDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewOrderRecGoodsList *viewOrder;
@@ -118,6 +118,7 @@
     CellRecGoodsList *cell = (CellRecGoodsList*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[CellRecGoodsList alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.delegate = self;
     }
 //    NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
 //    [cell updateData:data];
@@ -183,6 +184,13 @@
     
     // 展现扫描控制器
     [self showDetailViewController:scanner sender:nil];
+}
+
+#pragma mark - CommonDelegate
+- (void)clickActionWithIndex:(NSInteger)index{
+    if (index == 0) {
+        [Utils showSuccessToast:@"加入购物车成功" with:self.view withTime:1];
+    }
 }
 
 - (ViewCategory*)vCart{

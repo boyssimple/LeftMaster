@@ -118,7 +118,10 @@
         sender.selected = !sender.selected;
     }else if(tag == 102){
         [self postNotification:REFRESH_CART_LIST withObject:nil];
-        [Utils showSuccessToast:@"加入购物车成功" with:self withTime:1];
+        if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+            [self.delegate clickActionWithIndex:0];
+            
+        }
     }else if(tag == 103){
         NSString *str = self.lbCount.text;
         if ([str integerValue] > 1) {
