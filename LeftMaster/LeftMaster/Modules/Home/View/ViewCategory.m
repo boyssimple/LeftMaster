@@ -14,8 +14,8 @@
 @property(nonatomic,strong)UIImageView *ivSearch;
 
 @property(nonatomic,strong)UIImageView *ivCart;
-@property(nonatomic,strong)UILabel *lbCount;
 @property(nonatomic,strong)UIView  *vLine;
+@property (nonatomic, assign) bool isExcuting;
 @end
 @implementation ViewCategory
 
@@ -67,6 +67,39 @@
         [self addSubview:_vLine];
     }
     return self;
+}
+
+- (void)startAnimation{
+    if (!self.isExcuting) {
+        self.isExcuting = TRUE;
+        __weak typeof(self) weakself = self;
+        [UIView animateWithDuration:0.1 animations:^{
+            weakself.ivCart.top = weakself.ivCart.top - 5;
+        }completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.1 animations:^{
+                weakself.ivCart.top = weakself.ivCart.top + 5;
+            }completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.1 animations:^{
+                    weakself.ivCart.top = weakself.ivCart.top - 5;
+                }completion:^(BOOL finished) {
+                    [UIView animateWithDuration:0.1 animations:^{
+                        weakself.ivCart.top = weakself.ivCart.top + 5;
+                    }completion:^(BOOL finished) {
+                        self.isExcuting = FALSE;
+                    }];
+                }];
+            }];
+        }];
+    }
+}
+
+- (void)setCount:(NSInteger)count{
+    _count += count;
+    if (_count > 10) {
+        self.lbCount.text = [NSString stringWithFormat:@"10+"];
+    }else{
+        self.lbCount.text = [NSString stringWithFormat:@"%zi",_count];
+    }
 }
 
 - (void)updateData{

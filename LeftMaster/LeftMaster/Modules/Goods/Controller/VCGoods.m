@@ -156,6 +156,7 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
     if (index == 0) {
+        [self.bottom startAnimation];
         [Utils showSuccessToast:@"加入购物车成功" with:self.view withTime:1];
     }else{
         

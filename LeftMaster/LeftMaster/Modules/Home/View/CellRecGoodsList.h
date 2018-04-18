@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol CellRecGoodsListDelegate;
 @interface CellRecGoodsList : UITableViewCell
 @property (nonatomic, weak) id<CommonDelegate> delegate;
+@property (nonatomic, weak) id<CellRecGoodsListDelegate> joinCartDelegate;
+@end
+
+@protocol CellRecGoodsListDelegate<NSObject>
+- (void)joinCartClick:(CGRect)r withNum:(NSInteger)num;
 @end

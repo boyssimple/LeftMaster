@@ -11,4 +11,5 @@
 @interface ViewBtnGoods : UIView
 @property(nonatomic,weak)id<CommonDelegate> delegate;
 @property (nonatomic, assign) NSInteger count;
+- (void)startAnimation;
 @end

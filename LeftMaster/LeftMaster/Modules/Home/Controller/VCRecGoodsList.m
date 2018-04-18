@@ -15,7 +15,7 @@
 #import "VCGoods.h"
 #import "ViewOrderRecGoodsList.h"
 
-@interface VCRecGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,AJHubProtocol,UITextFieldDelegate,CommonDelegate>
+@interface VCRecGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,AJHubProtocol,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewOrderRecGoodsList *viewOrder;
@@ -119,6 +119,7 @@
     if (!cell) {
         cell = [[CellRecGoodsList alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.delegate = self;
+        cell.joinCartDelegate = self;
     }
 //    NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
 //    [cell updateData:data];
@@ -191,6 +192,13 @@
     if (index == 0) {
         [Utils showSuccessToast:@"加入购物车成功" with:self.view withTime:1];
     }
+}
+
+#pragma mark - CellRecGoodsListDelegate
+- (void)joinCartClick:(CGRect)r withNum:(NSInteger)num{
+    self.vCart.count = num;
+    [self.vCart startAnimation];
+    [Utils showSuccessToast:@"加入购物车成功" with:self.view withTime:1];
 }
 
 - (ViewCategory*)vCart{

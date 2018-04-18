@@ -10,8 +10,11 @@
 
 @protocol ViewCategoryDelegate;
 @interface ViewCategory : UIView
+@property (nonatomic, assign) NSInteger count;
 @property(nonatomic,strong)UITextField *tfText;
+@property(nonatomic,strong)UILabel *lbCount;
 @property(nonatomic,weak)id<ViewCategoryDelegate> delegate;
+- (void)startAnimation;
 @end
 
 @protocol ViewCategoryDelegate<NSObject>
