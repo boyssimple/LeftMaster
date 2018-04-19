@@ -18,8 +18,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         _ivImg = [[UIImageView alloc]initWithFrame:CGRectZero];
-        _ivImg.image = [UIImage imageNamed:@""];
-        _ivImg.backgroundColor = [UIColor redColor];
         _ivImg.userInteractionEnabled = YES;
         [self.contentView addSubview:_ivImg];
         
@@ -37,6 +35,7 @@
 }
 
 - (void)updateData:(NSDictionary*)data{
+    [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODSTYPE_PIC"]];
     self.lbName.text = [data jk_stringForKey:@"GOODSTYPE_NAME"];
 }
 

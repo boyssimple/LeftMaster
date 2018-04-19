@@ -10,7 +10,7 @@
 
 static UIWindow *guideWindow = nil;
 @interface WindowGuide : UIWindow
-- (id)initWith:(NSArray*)images;
+- (id)init;
 - (void)show;
 - (void)dismiss;
 @end

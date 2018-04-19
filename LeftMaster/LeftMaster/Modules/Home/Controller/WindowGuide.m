@@ -8,9 +8,10 @@
 
 #import "WindowGuide.h"
 #import "CollCellGuide.h"
+#import "RequestBeanSlidePicList.h"
 
 @interface WindowGuide()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) UIView *mainView;
 @property (nonatomic, strong) UIPageControl* pageControl;
 @property (nonatomic, strong) UICollectionView* collectionView;
@@ -20,20 +21,60 @@
 
 @implementation WindowGuide
 
-- (id)initWith:(NSArray*)images
+- (id)init
 {
     self = [super initWithFrame:(CGRect) {{0.f,0.f}, [[UIScreen mainScreen] bounds].size}];
     if (self) {
-        self.dataSource = images;
+        self.dataSource = [NSMutableArray array];
         self.windowLevel = UIWindowLevelAlert;
         _mainView = [[UIView alloc] initWithFrame:self.frame];
         _mainView.backgroundColor = [UIColor whiteColor];
         guideWindow = self;
         [self addSubview:_mainView];
         [self setupSubviews];
+        [self loadData];
     }
     
     return self;
+}
+
+- (void)loadData{
+    RequestBeanSlidePicList *requestBean = [RequestBeanSlidePicList new];
+    requestBean.page_current = 1;
+    requestBean.page_size = 10;
+    __weak typeof(self) weakself = self;
+    
+    [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        if (!err) {
+            // 结果处理
+            ResponseBeanSlidePicList *response = responseBean;
+            if (response.success) {
+                if (response.data) {
+                    NSArray *rows = [response.data jk_arrayForKey:@"rows"];
+                    if (rows) {
+                        [weakself.dataSource removeAllObjects];
+                        for (NSDictionary *data in rows) {
+                            [weakself.dataSource addObject:[data jk_stringForKey:@"FILE_PATH"]];
+                        }
+                        [weakself resetBase];
+                    }
+                }
+            }
+        }
+    }];
+}
+
+- (void)resetBase{
+    self.pageControl.numberOfPages = self.dataSource.count;
+    CGSize size = [self.pageControl sizeForNumberOfPages:self.pageControl.numberOfPages];
+    
+    self.pageControl.frame = CGRectMake((CGRectGetWidth(self.mainView.frame) - size.width) / 2,
+                                        CGRectGetHeight(self.mainView.frame) - size.height,
+                                        size.width, size.height);
+    if(self.dataSource.count == 1){
+        self.dismissButton.hidden = NO;
+    }
+    [self.collectionView reloadData];
 }
 
 - (void)setupSubviews{
@@ -69,12 +110,21 @@
                                         size.width, size.height);
     
     self.dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.dismissButton setImage:[UIImage imageNamed:@"hidden"] forState:UIControlStateNormal];
+    [self.dismissButton setTitle:@"立即体验" forState:UIControlStateNormal];
+    [self.dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton sizeToFit];
+    CGRect r = self.dismissButton.frame;
+    r.size.width = 150*RATIO_WIDHT320;
+    r.size.height = 30*RATIO_WIDHT320;
+    r.origin.x = (DEVICEWIDTH - r.size.width)/2.0;
+    r.origin.y = DEVICEHEIGHT - r.size.height - 20*RATIO_WIDHT320;
+    self.dismissButton.frame = r;
     self.dismissButton.hidden = YES;
+    self.dismissButton.layer.cornerRadius = r.size.height*0.5;
+    self.dismissButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.dismissButton.layer.borderWidth = 1;
     
-    self.dismissButton.center = CGPointMake(DEVICEWIDTH / 2, DEVICEHEIGHT - 80);
     [self.mainView addSubview:self.dismissButton];
 }
 
@@ -84,7 +134,7 @@
 
 - (__kindof UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CollCellGuide* cell = [collectionView dequeueReusableCellWithReuseIdentifier:GuaidViewCellID forIndexPath:indexPath];
-    cell.imageView.image = self.dataSource[indexPath.row];
+    [cell.imageView pt_setImage:self.dataSource[indexPath.row]];
     return cell;
 }
 

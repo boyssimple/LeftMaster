@@ -24,5 +24,7 @@
 #define net_goods_category @"shop/GoodsMobileTran.do?getGoodsTypeList"  //获取分类列表
 #define net_goods_list @"shop/GoodsMobileTran.do?getGoodsList"          //获取商品列表
 #define net_goods_detail @"shop/GoodsMobileTran.do?getGoodsInfo"       //获取商品详情
+#define net_goods_carouse_list @"shop/GoodsCarouselMobileTran.do?getGoodsCarouselList"       //获取轮播图
+#define net_goods_guide_list @"shop/GoodsCarouselMobileTran.do?getBaseSlidePicList"       //获取引导图
 
 #endif /* NetUrl_h */

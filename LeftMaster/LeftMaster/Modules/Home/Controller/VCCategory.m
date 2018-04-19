@@ -77,10 +77,10 @@
     }else{
         requestBean.search_name = nil;
     }
-    [AJNetworkConfig shareInstance].hubDelegate = self;
+    [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        
+        [Utils hiddenHanding:self.view withTime:0.5];
         if (!err) {
             // 结果处理
             ResponseBeanGoodsList *response = responseBean;

@@ -36,11 +36,7 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
 }
 
 - (void)initMain{
-    NSArray *datas = @[[UIImage imageNamed:@"guid01"],
-                       [UIImage imageNamed:@"guid02"],
-                       [UIImage imageNamed:@"guid03"],
-                       [UIImage imageNamed:@"guid04"]];
-    WindowGuide *guide = [[WindowGuide alloc]initWith:datas];
+    WindowGuide *guide = [[WindowGuide alloc]init];
     [guide show];
     save_current_version();
     /*

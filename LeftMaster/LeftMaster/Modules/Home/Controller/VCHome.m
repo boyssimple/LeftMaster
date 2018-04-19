@@ -15,6 +15,7 @@
 #import "RequestBeanGoodsList.h"
 #import "VCCategory.h"
 #import "VCRecGoodsList.h"
+#import "RequestBeanCarouseList.h"
 
 @interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate>
 @property(nonatomic,strong)UITableView *table;
@@ -29,6 +30,7 @@
     [super viewDidLoad];
     
     [self initMain];
+    [self loadCarouseListData];
     [self loadData];
     [self loadGoodsListData];
     
@@ -46,17 +48,42 @@
     requestBean.parent_id = 0;
     requestBean.page_current = 1;
     requestBean.page_size = 10;
-    [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
     
     [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        
         if (!err) {
             // 结果处理
             ResponseBeanCategoryHome *response = responseBean;
             [weakself.categorys removeAllObjects];
             [weakself.categorys addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
             [weakself.table reloadData];
+        }
+    }];
+}
+
+- (void)loadCarouseListData{
+    RequestBeanCarouseList *requestBean = [RequestBeanCarouseList new];
+    requestBean.page_current = 1;
+    requestBean.page_size = 5;
+    __weak typeof(self) weakself = self;
+    
+    [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        if (!err) {
+            // 结果处理
+            ResponseBeanCarouseList *response = responseBean;
+            if (response.success) {
+                if (response.data) {
+                    NSArray *rows = [response.data jk_arrayForKey:@"rows"];
+                    if (rows) {
+                        NSInteger i = [response.data jk_integerForKey:@"records"];
+                        NSMutableArray *images = [NSMutableArray arrayWithCapacity:i];
+                        for (NSDictionary *data in rows) {
+                            [images addObject:[data jk_stringForKey:@"FILE_PATH"]];
+                        }
+                        weakself.cycleScrollView.imageURLStringsGroup = images;
+                    }
+                }
+            }
         }
     }];
     
@@ -64,24 +91,6 @@
     
 }
 
-- (void)readFromNetwork{
-    RequestBeanCategoryHome *requestBean = [RequestBeanCategoryHome new];
-    requestBean.parent_id = 0;
-    requestBean.page_current = 1;
-    requestBean.page_size = 10;
-    [AJNetworkConfig shareInstance].hubDelegate = self;
-    __weak typeof(self) weakself = self;
-    [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        
-        if (!err) {
-            // 结果处理
-            ResponseBeanCategoryHome *response = responseBean;
-            [weakself.categorys removeAllObjects];
-            [weakself.categorys addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
-            [weakself.table reloadData];
-        }
-    }];
-}
 
 - (void)loadGoodsListData{
     RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
@@ -200,6 +209,7 @@
         __weak typeof(self) weakself = self;
         
         _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [weakself loadCarouseListData];
             [weakself loadData];
             [weakself loadGoodsListData];
         }];
@@ -211,9 +221,7 @@
     if (!_cycleScrollView) {
         CGRect frame = CGRectMake(0, 0, DEVICEWIDTH, 103*RATIO_WIDHT320);
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:frame delegate:self placeholderImage:nil];
-        _cycleScrollView.imageURLStringsGroup = @[@"http://5b0988e595225.cdn.sohucs.com/images/20170710/90d013a24bc043f9bc27f9604c8b77bc.png",
-                                                 @"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg",
-                                                 @"http://pic97.huitu.com/res/20160724/976_20160724152045497500_1.jpg"];
+        _cycleScrollView.backgroundColor = [UIColor whiteColor];
     }
     return _cycleScrollView;
 }

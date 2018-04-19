@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1C4C155D2088CCA200BA8F3C /* RequestBeanAddCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4C155C2088CCA200BA8F3C /* RequestBeanAddCart.m */; };
+		1C4C15602088F78200BA8F3C /* RequestBeanCarouseList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4C155F2088F78200BA8F3C /* RequestBeanCarouseList.m */; };
+		1C4C15632088FADD00BA8F3C /* RequestBeanSlidePicList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4C15622088FADD00BA8F3C /* RequestBeanSlidePicList.m */; };
 		1C4CC26A20712B19007C24FB /* VCBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC26920712B19007C24FB /* VCBase.m */; };
 		1C4CC26D20724CE6007C24FB /* VCMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC26C20724CE6007C24FB /* VCMain.m */; };
 		1C4CC27020724F05007C24FB /* VCHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC26F20724F05007C24FB /* VCHome.m */; };
@@ -121,6 +123,10 @@
 /* Begin PBXFileReference section */
 		1C4C155B2088CCA200BA8F3C /* RequestBeanAddCart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanAddCart.h; sourceTree = "<group>"; };
 		1C4C155C2088CCA200BA8F3C /* RequestBeanAddCart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanAddCart.m; sourceTree = "<group>"; };
+		1C4C155E2088F78200BA8F3C /* RequestBeanCarouseList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanCarouseList.h; sourceTree = "<group>"; };
+		1C4C155F2088F78200BA8F3C /* RequestBeanCarouseList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanCarouseList.m; sourceTree = "<group>"; };
+		1C4C15612088FADD00BA8F3C /* RequestBeanSlidePicList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanSlidePicList.h; sourceTree = "<group>"; };
+		1C4C15622088FADD00BA8F3C /* RequestBeanSlidePicList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanSlidePicList.m; sourceTree = "<group>"; };
 		1C4CC26820712B19007C24FB /* VCBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCBase.h; sourceTree = "<group>"; };
 		1C4CC26920712B19007C24FB /* VCBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCBase.m; sourceTree = "<group>"; };
 		1C4CC26B20724CE6007C24FB /* VCMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCMain.h; sourceTree = "<group>"; };
@@ -607,6 +613,10 @@
 				1CBF5C0D207D1FD900284EA1 /* RequestBeanCategoryHome.m */,
 				1C780EB6207DAC1200054AE1 /* RequestBeanGoodsList.h */,
 				1C780EB7207DAC1200054AE1 /* RequestBeanGoodsList.m */,
+				1C4C155E2088F78200BA8F3C /* RequestBeanCarouseList.h */,
+				1C4C155F2088F78200BA8F3C /* RequestBeanCarouseList.m */,
+				1C4C15612088FADD00BA8F3C /* RequestBeanSlidePicList.h */,
+				1C4C15622088FADD00BA8F3C /* RequestBeanSlidePicList.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1033,6 +1043,7 @@
 				1C4CC27920724F50007C24FB /* VCGoods.m in Sources */,
 				1CBF5C14207E3D9800284EA1 /* ViewOrderRecGoodsList.m in Sources */,
 				1C7A7550207F33AD00C140D2 /* CellInvoice.m in Sources */,
+				1C4C15602088F78200BA8F3C /* RequestBeanCarouseList.m in Sources */,
 				1C780EC6207DF97A00054AE1 /* NSNotification+Extension.m in Sources */,
 				1CBF5BF0207CE86000284EA1 /* VCOrder.m in Sources */,
 				1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */,
@@ -1069,6 +1080,7 @@
 				1C4CC2AA207332C7007C24FB /* VCCategory.m in Sources */,
 				1CBF5BC6207A4FFB00284EA1 /* ViewBtnHeaderMine.m in Sources */,
 				1C4CC29420726D4D007C24FB /* CellCategoryHome.m in Sources */,
+				1C4C15632088FADD00BA8F3C /* RequestBeanSlidePicList.m in Sources */,
 				1CBF5BED207CE71600284EA1 /* CellTopGoods.m in Sources */,
 				1C4CC2882072542A007C24FB /* NSDictionary+JKSafeAccess.m in Sources */,
 				1CBF5BF3207CE92F00284EA1 /* ViewSectionOrder.m in Sources */,
