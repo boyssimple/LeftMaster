@@ -9,5 +9,5 @@
 #import "VCBase.h"
 
 @interface VCOrderContaier : VCBase
-
+@property(nonatomic,strong)UIViewController *superVC;
 @end

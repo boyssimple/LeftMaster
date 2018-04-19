@@ -58,6 +58,7 @@
 }
 
 +(void)showToast:(NSString*)text with:(UIView*)view withTime:(CGFloat)time{
+    [MBProgressHUD hideAllHUDsForView:view animated:YES];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.labelText = text;
@@ -71,6 +72,7 @@
 
 
 +(void)showToast:(NSString*)text mode:(MBProgressHUDMode)mode with:(UIView*)view withTime:(CGFloat)time{
+    [MBProgressHUD hideAllHUDsForView:view animated:YES];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = mode;
     hud.labelText = text;
@@ -78,11 +80,12 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, time * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         // Do something...
-        [MBProgressHUD hideHUDForView:view animated:YES];
+        [MBProgressHUD hideAllHUDsForView:view animated:YES];
     });
 }
 
 +(void)showSuccessToast:(NSString*)text with:(UIView*)view withTime:(CGFloat)time{
+    [MBProgressHUD hideAllHUDsForView:view animated:YES];
     UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"check-mark"]];
     img.frame = CGRectMake(5, 0, 20, 20);
@@ -95,8 +98,24 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, time * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         // Do something...
-        [MBProgressHUD hideHUDForView:view animated:YES];
+        [MBProgressHUD hideAllHUDsForView:view animated:YES];
     });
 }
 
+
+
++(void)showHanding:(NSString*)text with:(UIView*)view{
+    [MBProgressHUD hideAllHUDsForView:view animated:NO];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = text;
+    [hud show:YES];
+}
+
++(void)hiddenHanding:(UIView*)view withTime:(CGFloat)time{
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, time * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [MBProgressHUD hideAllHUDsForView:view animated:YES];
+    });
+}
 @end

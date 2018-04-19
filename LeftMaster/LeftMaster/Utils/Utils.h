@@ -24,4 +24,8 @@
 +(void)showToast:(NSString*)text mode:(MBProgressHUDMode)mode with:(UIView*)view withTime:(CGFloat)time;
 
 +(void)showSuccessToast:(NSString*)text with:(UIView*)view withTime:(CGFloat)time;
+
+//处理提示
++(void)showHanding:(NSString*)text with:(UIView*)view;
++(void)hiddenHanding:(UIView*)view withTime:(CGFloat)time;
 @end

@@ -15,7 +15,7 @@
 #import "WindowGuide.h"
 static NSString* const CFBundleVersion = @"CFBundleVersion";
 
-@interface VCLogin ()<AJHubProtocol,UITextFieldDelegate>
+@interface VCLogin ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *ivLogo;
 @property(nonatomic,strong)UIImageView *ivBg;
 @property(nonatomic,strong)UIImageView *ivUser;
@@ -110,33 +110,39 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     RequestBeanLogin *requestBean = [RequestBeanLogin new];
     requestBean.userName = userName;
     requestBean.passWord = tfPwd;
-    [AJNetworkConfig shareInstance].hubDelegate = self;
-    
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.2 * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            // 结果处理
-            ResponseBeanLogin *response = responseBean;
-            if(response.success){
-                //存信息到沙盒
-                [Utils saveUserInfo:response.data];
-                //解析数据
-                [[AppUser share] parse:response.data];
-                
-                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                
-                if([AppUser share].isSalesman){
-                    VCProxy *vc = [[VCProxy alloc]init];
-                    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-                    [appDelegate restoreRootViewController:nav];
+        if(!err){
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.2 * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                // 结果处理
+                ResponseBeanLogin *response = responseBean;
+                if(response.success){
+                    [Utils hiddenHanding:self.view withTime:0.5];
+                    //存信息到沙盒
+                    [Utils saveUserInfo:response.data];
+                    //解析数据
+                    [[AppUser share] parse:response.data];
+                    
+                    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    
+                    if([AppUser share].isSalesman){
+                        VCProxy *vc = [[VCProxy alloc]init];
+                        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+                        [appDelegate restoreRootViewController:nav];
+                    }else{
+                        VCMain *vc = [[VCMain alloc]init];
+                        [appDelegate restoreRootViewController:vc];
+                    }
                 }else{
-                    VCMain *vc = [[VCMain alloc]init];
-                    [appDelegate restoreRootViewController:vc];
+                    [Utils showToast:response.msg with:self.view withTime:0.8];
                 }
-            }else{
-                [Utils showToast:response.msg with:self.view withTime:0.8];
-            }
-        });
+            });
+        }else{
+            [Utils showSuccessToast:@"登录失败" with:weakself.view withTime:1];
+        }
+        
     }];
 }
 

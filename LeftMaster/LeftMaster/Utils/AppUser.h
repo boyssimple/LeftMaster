@@ -17,7 +17,7 @@
 @property(nonatomic,strong)NSString *DEPART_ID;     //部门ID
 @property(nonatomic,strong)NSString *DEPART_NAME;   //所属部门名称
 @property(nonatomic,strong)NSString *SYSUSER_ACCOUNT;//用户登录名
-@property(nonatomic,strong)NSString *SYSUSER_ID;
+@property(nonatomic,strong)NSString *SYSUSER_ID;     //userId
 @property(nonatomic,strong)NSString *SYSUSER_MOBILE;//用户手机
 @property(nonatomic,strong)NSString *SYSUSER_NAME;  //用户名称
 @property(nonatomic,assign)NSInteger SYSUSER_SEX;   //性别

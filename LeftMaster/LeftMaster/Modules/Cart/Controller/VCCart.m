@@ -38,18 +38,17 @@
     [self observeNotification:REFRESH_CART_LIST];
     
     
-//    [self postNotification:KEY_NOTI_LOGINSUCCESS withObject:nil];
+//    [self postNotification:REFRESH_CART_LIST withObject:nil];
 }
 
 - (void)handleNotification:(NSNotification *)notification{
-    [self loadData];
+    [self refreshData];
 }
 
-- (void)loadData{
+- (void)refreshData{
     RequestBeanCartList *requestBean = [RequestBeanCartList new];
     requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.page_current = self.page;
-    [AJNetworkConfig shareInstance].hubDelegate = self;
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         [weakself.table.mj_header endRefreshing];
@@ -74,28 +73,34 @@
     }];
 }
 
-
-/**
- * 显示Hub
- *
- @param tip hub文案
- */
-- (void)showHub:(nullable NSString *)tip{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = tip;
-    [hud show:YES];
-}
-
-
-/**
- * 隐藏Hub
- */
-- (void)dismissHub{
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
+- (void)loadData{
+    RequestBeanCartList *requestBean = [RequestBeanCartList new];
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
+    requestBean.page_current = self.page;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [Utils hiddenHanding:self.view withTime:0.5];
+        [weakself.table.mj_header endRefreshing];
+        [weakself.table.mj_footer endRefreshing];
+        if (!err) {
+            // 结果处理
+            ResponseBeanCartList *response = responseBean;
+            if(response.success){
+                if(self.page == 1){
+                    [weakself.goodsList removeAllObjects];
+                }
+                NSArray *datas = [response.data jk_arrayForKey:@"rows"];
+                if(datas.count < requestBean.page_size){
+                    [weakself.table.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    [weakself.table.mj_footer resetNoMoreData];
+                }
+                [weakself.goodsList addObjectsFromArray:datas];
+                [weakself.table reloadData];
+            }
+        }
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

@@ -13,7 +13,7 @@
 #import "VCWriteOrder.h"
 #import "RequestBeanAlwaysBuyGoods.h"
 
-@interface VCTopGoods ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate,AJHubProtocol>
+@interface VCTopGoods ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewTotalCart *vControl;
 @property(nonatomic,strong)NSMutableArray *goodsList;
@@ -39,9 +39,10 @@
     RequestBeanAlwaysBuyGoods *requestBean = [RequestBeanAlwaysBuyGoods new];
     requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.page_current = self.page;
-    [AJNetworkConfig shareInstance].hubDelegate = self;
+    [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [Utils hiddenHanding:self.view withTime:0.5];
         [weakself.table.mj_header endRefreshing];
         [weakself.table.mj_footer endRefreshing];
         if (!err) {
@@ -64,29 +65,6 @@
     }];
 }
 
-
-/**
- * 显示Hub
- *
- @param tip hub文案
- */
-- (void)showHub:(nullable NSString *)tip{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = tip;
-    [hud show:YES];
-}
-
-
-/**
- * 隐藏Hub
- */
-- (void)dismissHub{
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

@@ -46,7 +46,7 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
     NSInteger index = scrollView.contentOffset.x / DEVICEWIDTH;
-    UIViewController *vc = [self.childViewControllers objectAtIndex:index];
+    VCOrderContaier *vc = (VCOrderContaier*)[self.childViewControllers objectAtIndex:index];
     self.tabOrder.curIndex = index;
     if ([vc isViewLoaded]) {
         return;

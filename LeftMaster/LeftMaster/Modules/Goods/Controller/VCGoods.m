@@ -11,8 +11,9 @@
 #import "ViewHeaderGoods.h"
 #import "ViewBtnGoods.h"
 #import "RequestBeanGoodsDetail.h"
+#import "RequestBeanAddCart.h"
 
-@interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,AJHubProtocol,ViewHeaderGoodsDelegate,CommonDelegate>
+@interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,ViewHeaderGoodsDelegate,CommonDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewHeaderGoods *header;
 @property(nonatomic,strong)UIImageView *footer;
@@ -52,10 +53,10 @@
 - (void)loadData{
     RequestBeanGoodsDetail *requestBean = [RequestBeanGoodsDetail new];
     requestBean.goods_id = self.goods_id;
-    [AJNetworkConfig shareInstance].hubDelegate = self;
+    [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        
+        [Utils hiddenHanding:self.view withTime:0.5];
         if (!err) {
             // 结果处理
             ResponseBeanGoodsDetail *response = responseBean;
@@ -65,29 +66,29 @@
     }];
 }
 
-/**
- * 显示Hub
- *
- @param tip hub文案
- */
-- (void)showHub:(nullable NSString *)tip{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = tip;
-    [hud show:YES];
+- (void)addCart{
+    RequestBeanAddCart *requestBean = [RequestBeanAddCart new];
+    requestBean.goods_id = self.goods_id;
+    requestBean.num = self.count;
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+       
+        if (!err) {
+            // 结果处理
+            ResponseBeanAddCart *response = responseBean;
+            if (response.success) {
+                [self postNotification:REFRESH_CART_LIST withObject:nil];
+                [Utils showSuccessToast:@"加入购物车成功" with:weakself.view withTime:1];
+            }else{
+                [Utils showSuccessToast:@"加入购物车失败" with:weakself.view withTime:1];
+            }
+        }else{
+            [Utils showSuccessToast:@"加入购物车失败" with:weakself.view withTime:1];
+        }
+    }];
 }
-
-
-/**
- * 隐藏Hub
- */
-- (void)dismissHub{
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-}
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -156,8 +157,10 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
     if (index == 0) {
+        self.bottom.count = self.count;
         [self.bottom startAnimation];
-        [Utils showSuccessToast:@"加入购物车成功" with:self.view withTime:1];
+        //调用加入购物车接口
+        [self addCart];
     }else{
         
     }
@@ -215,7 +218,7 @@
         _cycleScrollView.showPageControl = NO;
         [_cycleScrollView addSubview:self.lbPicCount];
         _cycleScrollView.autoScroll = NO;
-        self.lbPicCount.text = [NSString stringWithFormat:@"%zi/%zi",1,_cycleScrollView.imageURLStringsGroup.count];
+        self.lbPicCount.text = [NSString stringWithFormat:@"%d/%zi",1,_cycleScrollView.imageURLStringsGroup.count];
     }
     return _cycleScrollView;
 }

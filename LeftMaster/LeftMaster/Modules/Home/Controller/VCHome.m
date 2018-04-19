@@ -16,7 +16,7 @@
 #import "VCCategory.h"
 #import "VCRecGoodsList.h"
 
-@interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,AJHubProtocol,SectionHeaderHomeDelegate>
+@interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)SDCycleScrollView *cycleScrollView;
 @property(nonatomic,strong)NSMutableArray *categorys;
@@ -87,9 +87,10 @@
     RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
     requestBean.new_goods = TRUE;
     requestBean.page_current = 1;
-    [AJNetworkConfig shareInstance].hubDelegate = self;
+    [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [Utils hiddenHanding:self.view withTime:0.5];
         [weakself.table.mj_header endRefreshing];
         if (!err) {
             // 结果处理
@@ -101,28 +102,6 @@
     }];
 }
 
-/**
- * 显示Hub
- *
- @param tip hub文案
- */
-- (void)showHub:(nullable NSString *)tip{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = tip;
-    [hud show:YES];
-}
-
-
-/**
- * 隐藏Hub
- */
-- (void)dismissHub{
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;

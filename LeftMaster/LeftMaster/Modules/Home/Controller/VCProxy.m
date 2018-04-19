@@ -12,7 +12,7 @@
 #import "CellProxy.h"
 #import "RequestBeanCustomer.h"
 
-@interface VCProxy ()<UITableViewDelegate,UITableViewDataSource,AJHubProtocol,UITextFieldDelegate>
+@interface VCProxy ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property(nonatomic,strong)UIView *vBg;
 @property(nonatomic,strong)UITextField *tfSearch;
 @property(nonatomic,strong)UIButton *btnArrow;
@@ -81,10 +81,10 @@
         requestBean.customer_name = nil;
     }
     requestBean.page_current = 1;
-    [AJNetworkConfig shareInstance].hubDelegate = self;
+    [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        
+        [Utils hiddenHanding:self.view withTime:0.5];
         if (!err) {
             // 结果处理
             ResponseBeanCustomer *response = responseBean;
@@ -116,7 +116,7 @@
 - (void)dismissHub{
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     });
 }
 

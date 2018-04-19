@@ -16,7 +16,7 @@
 #import "VCGoods.h"
 
 @interface VCCategory ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,
-    UICollectionViewDelegateFlowLayout,ViewCategoryDelegate,AJHubProtocol,UITextFieldDelegate>
+    UICollectionViewDelegateFlowLayout,ViewCategoryDelegate,UITextFieldDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)UICollectionView *collView;
@@ -50,10 +50,10 @@
     requestBean.parent_id = 0;
     requestBean.page_current = 1;
     requestBean.page_size = 100;
-    [AJNetworkConfig shareInstance].hubDelegate = self;
+    [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        
+        [Utils hiddenHanding:self.view withTime:0.5];
         if (!err) {
             // 结果处理
             ResponseBeanCategoryHome *response = responseBean;
@@ -94,29 +94,6 @@
 - (void)search{
     self.keywords = self.vCart.tfText.text;
     [self loadGoodsListData];
-}
-
-/**
- * 显示Hub
- *
- @param tip hub文案
- */
-- (void)showHub:(nullable NSString *)tip{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = tip;
-    [hud show:YES];
-}
-
-
-/**
- * 隐藏Hub
- */
-- (void)dismissHub{
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
