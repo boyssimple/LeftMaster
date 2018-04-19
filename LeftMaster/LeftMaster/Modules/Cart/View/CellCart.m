@@ -43,9 +43,7 @@
         [self.contentView addSubview:_btnCheck];
         
         _ivImg = [[UIImageView alloc]initWithFrame:CGRectZero];
-        _ivImg.image = [UIImage imageNamed:@""];
         _ivImg.userInteractionEnabled = YES;
-        _ivImg.backgroundColor = [UIColor redColor];
         [self.contentView addSubview:_ivImg];
 
         _lbName = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -144,7 +142,7 @@
 }
 
 - (void)updateData:(NSDictionary*)data{
-    [self.ivImg pt_setImage:@"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg"];
+    [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
     self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
     self.lbRole.text = @"1台起订";
     
