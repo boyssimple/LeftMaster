@@ -9,6 +9,29 @@
 #import "Utils.h"
 
 @implementation Utils
+
++ (void)saveUserInfo:(NSDictionary*)dic{
+    //存信息到沙盒
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+    [defaults setObject:data forKey:USER_DEFAULTS];
+    [defaults synchronize];
+}
+
+
++ (NSData*)getUserInfo{
+    //存信息到沙盒
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:USER_DEFAULTS];
+}
+
++ (void)removeUserInfo{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:USER_DEFAULTS];
+    [defaults synchronize];
+}
+
+
 /**
  改变label文字中某段文字的颜色，大小
  label 传入label（传入前要有文字）

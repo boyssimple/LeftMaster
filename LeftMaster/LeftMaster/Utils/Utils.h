@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface Utils : NSObject
+
++ (void)saveUserInfo:(NSDictionary*)dic;
+
++ (NSData*)getUserInfo;
+
++ (void)removeUserInfo;
+
+
 +(void)LabelAttributedString:(UILabel*)label firstW:(NSString *)oneW toSecondW:(NSString *)twoW color:(UIColor *)color size:(CGFloat)size;
 
 +(void)showToast:(NSString*)text with:(UIView*)view withTime:(CGFloat)time;

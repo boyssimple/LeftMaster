@@ -46,8 +46,7 @@
     }else{
         if(self.selected){
             //存储已选数据到沙盒
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSData *data = [defaults objectForKey:USER_DEFAULTS];
+            NSData *data = [Utils getUserInfo];
             if(data){
                 NSError *error;
                 NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
@@ -55,9 +54,7 @@
                     NSMutableDictionary *mutDic = [dictionary mutableCopy];
                     [mutDic setObject:[AppUser share].CUS_ID forKey:@"CUS_ID"];
                     [mutDic setObject:[AppUser share].CUS_NAME forKey:@"CUS_NAME"];
-                    NSData *data = [NSJSONSerialization dataWithJSONObject:mutDic options:NSJSONWritingPrettyPrinted error:nil];
-                    [defaults setObject:data forKey:USER_DEFAULTS];
-                    [defaults synchronize];
+                    [Utils saveUserInfo:mutDic];
                 }
             }
             
@@ -157,7 +154,7 @@
     r.origin.x = 20*RATIO_WIDHT320;
     r.origin.y = self.vBg.bottom;
     self.table.frame = r;
-
+    
     r = self.btnConfirm.frame;
     r.size.width = DEVICEWIDTH - 20*RATIO_WIDHT320;
     r.size.height = 40*RATIO_WIDHT320;
@@ -301,7 +298,7 @@
         [_btnConfirm setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _btnConfirm.titleLabel.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
         [_btnConfirm addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-        _btnConfirm.backgroundColor = APP_Gray_COLOR;
+        _btnConfirm.backgroundColor = APP_COLOR;//APP_Gray_COLOR;
         _btnConfirm.tag = 101;
         _btnConfirm.layer.cornerRadius = 6.f;
     }

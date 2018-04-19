@@ -23,6 +23,8 @@
 		1C4CC29D207277AF007C24FB /* CollCellNewHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC29C207277AF007C24FB /* CollCellNewHome.m */; };
 		1C4CC2A720732E57007C24FB /* VCTopGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC2A620732E57007C24FB /* VCTopGoods.m */; };
 		1C4CC2AA207332C7007C24FB /* VCCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC2A9207332C7007C24FB /* VCCategory.m */; };
+		1C5F25B12088BC3C005EAF87 /* WindowGuide.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F25B02088BC3C005EAF87 /* WindowGuide.m */; };
+		1C5F25B42088BC51005EAF87 /* CollCellGuide.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F25B32088BC50005EAF87 /* CollCellGuide.m */; };
 		1C780EB8207DAC1200054AE1 /* RequestBeanGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EB7207DAC1200054AE1 /* RequestBeanGoodsList.m */; };
 		1C780EBF207DBCE700054AE1 /* RequestBeanGoodsDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EBE207DBCE700054AE1 /* RequestBeanGoodsDetail.m */; };
 		1C780EC3207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EC2207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m */; };
@@ -152,6 +154,10 @@
 		1C4CC2A620732E57007C24FB /* VCTopGoods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCTopGoods.m; sourceTree = "<group>"; };
 		1C4CC2A8207332C7007C24FB /* VCCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCCategory.h; sourceTree = "<group>"; };
 		1C4CC2A9207332C7007C24FB /* VCCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCCategory.m; sourceTree = "<group>"; };
+		1C5F25AF2088BC3C005EAF87 /* WindowGuide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowGuide.h; sourceTree = "<group>"; };
+		1C5F25B02088BC3C005EAF87 /* WindowGuide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindowGuide.m; sourceTree = "<group>"; };
+		1C5F25B22088BC50005EAF87 /* CollCellGuide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollCellGuide.h; sourceTree = "<group>"; };
+		1C5F25B32088BC50005EAF87 /* CollCellGuide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollCellGuide.m; sourceTree = "<group>"; };
 		1C766F6D208390D300C7B913 /* CommonDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonDelegate.h; sourceTree = "<group>"; };
 		1C780EB6207DAC1200054AE1 /* RequestBeanGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanGoodsList.h; sourceTree = "<group>"; };
 		1C780EB7207DAC1200054AE1 /* RequestBeanGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanGoodsList.m; sourceTree = "<group>"; };
@@ -573,6 +579,8 @@
 		1CD8487F206F7C7100CC9BE9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1C5F25AF2088BC3C005EAF87 /* WindowGuide.h */,
+				1C5F25B02088BC3C005EAF87 /* WindowGuide.m */,
 				1C4CC26E20724F05007C24FB /* VCHome.h */,
 				1C4CC26F20724F05007C24FB /* VCHome.m */,
 				1C4CC2A8207332C7007C24FB /* VCCategory.h */,
@@ -625,6 +633,8 @@
 				1CBF5C13207E3D9800284EA1 /* ViewOrderRecGoodsList.m */,
 				1CBF5C15207E3DB800284EA1 /* ViewBtnRecGoodsList.h */,
 				1CBF5C16207E3DB800284EA1 /* ViewBtnRecGoodsList.m */,
+				1C5F25B22088BC50005EAF87 /* CollCellGuide.h */,
+				1C5F25B32088BC50005EAF87 /* CollCellGuide.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1024,6 +1034,7 @@
 				1C780ED6207E067400054AE1 /* VCRecGoodsList.m in Sources */,
 				1C780ED9207E07EE00054AE1 /* CellRecGoodsList.m in Sources */,
 				1CBF5BE1207A7A1800284EA1 /* VCSetPassword.m in Sources */,
+				1C5F25B12088BC3C005EAF87 /* WindowGuide.m in Sources */,
 				1C4CC27020724F05007C24FB /* VCHome.m in Sources */,
 				1C4CC29120726AB2007C24FB /* Utils.m in Sources */,
 				1C4CC28E207266D5007C24FB /* SectionHeaderHome.m in Sources */,
@@ -1069,6 +1080,7 @@
 				1C8A2E3E207875BD0076238D /* HMScannerViewController.m in Sources */,
 				1CBF5BDE207A793100284EA1 /* VCNoticeDetail.m in Sources */,
 				1C8A2E2D20786BE80076238D /* ViewCategory.m in Sources */,
+				1C5F25B42088BC51005EAF87 /* CollCellGuide.m in Sources */,
 				1CBF5BB72078809100284EA1 /* ViewMessageOrder.m in Sources */,
 				1CBF5BF6207CEE6200284EA1 /* CellOrderInfo.m in Sources */,
 				1CBF5BFC207CF70800284EA1 /* VCOrderGoodsList.m in Sources */,

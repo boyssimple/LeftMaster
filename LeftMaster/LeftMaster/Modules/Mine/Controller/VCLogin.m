@@ -12,6 +12,8 @@
 #import "VCProxy.h"
 #import "RequestBeanLogin.h"
 #import "VCForgotPwd.h"
+#import "WindowGuide.h"
+static NSString* const CFBundleVersion = @"CFBundleVersion";
 
 @interface VCLogin ()<AJHubProtocol,UITextFieldDelegate>
 @property(nonatomic,strong)UIImageView *ivLogo;
@@ -34,6 +36,26 @@
 }
 
 - (void)initMain{
+    NSArray *datas = @[[UIImage imageNamed:@"guid01"],
+                       [UIImage imageNamed:@"guid02"],
+                       [UIImage imageNamed:@"guid03"],
+                       [UIImage imageNamed:@"guid04"]];
+    WindowGuide *guide = [[WindowGuide alloc]initWith:datas];
+    [guide show];
+    save_current_version();
+    /*
+     if ([current_version() compare:prev_version()] == NSOrderedDescending) {
+     NSArray *datas = @[[UIImage imageNamed:@"guid01"],
+     [UIImage imageNamed:@"guid02"],
+     [UIImage imageNamed:@"guid03"],
+     [UIImage imageNamed:@"guid04"]];
+     WindowGuide *guide = [[WindowGuide alloc]initWith:datas];
+     [guide show];
+     save_current_version();
+     }
+     */
+    
+    
     [self.view addSubview:self.ivBg];
     [self.view addSubview:self.ivLogo];
     [self.view addSubview:self.ivUser];
@@ -47,6 +69,7 @@
     
     self.tfUser.text = @"wr";
     self.tfPwd.text = @"123456";
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -96,10 +119,7 @@
             ResponseBeanLogin *response = responseBean;
             if(response.success){
                 //存信息到沙盒
-                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                NSData *data = [NSJSONSerialization dataWithJSONObject:response.data options:NSJSONWritingPrettyPrinted error:nil];
-                [defaults setObject:data forKey:USER_DEFAULTS];
-                [defaults synchronize];
+                [Utils saveUserInfo:response.data];
                 //解析数据
                 [[AppUser share] parse:response.data];
                 
@@ -313,6 +333,24 @@
     return _btnForgot;
 }
 
+NS_INLINE
+NSString* current_version(){
+    return [NSString stringWithFormat:@"%@",[NSBundle mainBundle].infoDictionary[CFBundleVersion]];
+}
 
+NS_INLINE
+NSString* prev_version(){
+    return [NSString stringWithContentsOfFile:version_path() encoding:NSUTF8StringEncoding error:nil];
+}
+
+NS_INLINE
+void save_current_version(){
+    [current_version() writeToFile:version_path() atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
+NS_INLINE
+NSString* version_path(){
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Version.data"];;
+}
 
 @end

@@ -37,17 +37,17 @@
     [AJNetworkConfig shareInstance].hostUrl = @"113.204.168.170:4321/";
     //缓存设置
     /*
-    AJCacheOptions *cacheOptions = [AJCacheOptions new];
-    cacheOptions.cachePath = [documentsPath stringByAppendingPathComponent:@"aj_network_cache"];
-    cacheOptions.openCacheGC = YES;
-    cacheOptions.globalCacheExpirationSecond = 60;
-    cacheOptions.globalCacheGCSecond = 2 * 60;
-    [AJNetworkConfig shareInstance].cacheOptions = cacheOptions;
-    */
+     AJCacheOptions *cacheOptions = [AJCacheOptions new];
+     cacheOptions.cachePath = [documentsPath stringByAppendingPathComponent:@"aj_network_cache"];
+     cacheOptions.openCacheGC = YES;
+     cacheOptions.globalCacheExpirationSecond = 60;
+     cacheOptions.globalCacheGCSecond = 2 * 60;
+     [AJNetworkConfig shareInstance].cacheOptions = cacheOptions;
+     */
+    
     
     //获取登录信息
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *data = [defaults objectForKey:USER_DEFAULTS];
+    NSData *data = [Utils getUserInfo];
     if(data){
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"用户：%@",dictionary);
@@ -58,7 +58,6 @@
         VCLogin *vc = [[VCLogin alloc]init];
         self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
     }
-    
     
     JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
     entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
