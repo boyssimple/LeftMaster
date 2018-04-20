@@ -19,6 +19,7 @@
 #endif
 // 如果需要使用idfa功能所需要引入的头文件（可选）
 #import <AdSupport/AdSupport.h>
+#import "VCProxy.h"
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 
@@ -52,8 +53,15 @@
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"用户：%@",dictionary);
         [[AppUser share] parse:dictionary];
-        VCMain *vc = [[VCMain alloc]init];
-        self.window.rootViewController = vc;
+        if([AppUser share].isSalesman){
+            VCProxy *vc = [[VCProxy alloc]init];
+            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+            [self restoreRootViewController:nav];
+        }else{
+            VCMain *vc = [[VCMain alloc]init];
+            self.window.rootViewController = vc;
+        }
+        
     }else{
         VCLogin *vc = [[VCLogin alloc]init];
         self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];

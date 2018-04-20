@@ -33,7 +33,6 @@
     [self loadCarouseListData];
     [self loadData];
     [self loadGoodsListData];
-    
 }
 
 - (void)initMain{

@@ -64,7 +64,6 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
@@ -99,12 +98,12 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     NSString *tfPwd = [self.tfPwd.text trim];
     
     if(userName.length < 2){
-        [Utils showToast:@"手机号码错误!" with:self.view withTime:0.8];
+        [Utils showToast:@"手机号码错误" with:self.view withTime:0.8];
         return;
     }
     
     if(tfPwd.length < 6){
-        [Utils showToast:@"密码小于6位!" with:self.view withTime:0.8];
+        [Utils showToast:@"密码小于6位" with:self.view withTime:0.8];
         return;
     }
     
