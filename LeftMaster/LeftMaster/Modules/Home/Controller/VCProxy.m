@@ -258,6 +258,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.table.alpha = 1.f;
         }];
+        [self loadData];
     }else{
         [UIView animateWithDuration:0.3 animations:^{
             self.table.alpha = 0.f;

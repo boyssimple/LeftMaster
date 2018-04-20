@@ -13,11 +13,13 @@
 #import "CellMine.h"
 #import "VCNotice.h"
 #import "VCOrderCheckAccount.h"
+#import "ViewWithExit.h"
 
 @interface VCMine ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIButton *btnLogin;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewHeaderMine *header;
+@property(nonatomic,strong)ViewWithExit *footer;
 @end
 
 @implementation VCMine
@@ -122,6 +124,7 @@
         _table.dataSource = self;
         _table.backgroundColor = APP_Gray_COLOR;
         _table.tableHeaderView = self.header;
+        _table.tableFooterView = self.footer;
     }
     return _table;
 }
@@ -147,6 +150,14 @@
     }
     return _header;
 }
+
+- (ViewWithExit*)footer{
+    if(!_footer){
+        _footer = [[ViewWithExit alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, [ViewWithExit calHeight])];
+    }
+    return _footer;
+}
+
 
 
 

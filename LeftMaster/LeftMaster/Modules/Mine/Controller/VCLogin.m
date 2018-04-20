@@ -64,9 +64,15 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+}
 
 - (void)clickAction:(UIButton*)sender{
     NSInteger tag = sender.tag;
@@ -81,6 +87,10 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
 
 - (void)loginEvent{
@@ -158,10 +168,6 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     });
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.view endEditing:YES];
 }
 
 

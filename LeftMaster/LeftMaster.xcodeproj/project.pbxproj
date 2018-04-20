@@ -99,6 +99,9 @@
 		1CD84853206F7ADA00CC9BE9 /* LeftMasterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD84852206F7ADA00CC9BE9 /* LeftMasterUITests.m */; };
 		1CFC00C52087124B00A8E344 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC00C42087124A00A8E344 /* NetworkManager.m */; };
 		1CFC011520898D8200A8E344 /* VCOrderCheckAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC011420898D8200A8E344 /* VCOrderCheckAccount.m */; };
+		1CFC01182089D5A200A8E344 /* VCForgotPwdFinish.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC01172089D5A200A8E344 /* VCForgotPwdFinish.m */; };
+		1CFC011B2089DF7700A8E344 /* ViewWithExit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC011A2089DF7700A8E344 /* ViewWithExit.m */; };
+		1CFC011E2089E13F00A8E344 /* RequestBeanSms.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC011D2089E13F00A8E344 /* RequestBeanSms.m */; };
 		2B895C9453BC2156E84708D8 /* libPods-LeftMasterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */; };
 		3A4070F4294A75D927F8DE16 /* libPods-LeftMaster.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6D5F1023D6EE6D2E86C12D /* libPods-LeftMaster.a */; };
 		FAC9E06F974DFC888DA9565A /* libPods-LeftMasterUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA40ACE1D19B7764658663D5 /* libPods-LeftMasterUITests.a */; };
@@ -311,6 +314,12 @@
 		1CFC00C42087124A00A8E344 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		1CFC011320898D8200A8E344 /* VCOrderCheckAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCOrderCheckAccount.h; sourceTree = "<group>"; };
 		1CFC011420898D8200A8E344 /* VCOrderCheckAccount.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCOrderCheckAccount.m; sourceTree = "<group>"; };
+		1CFC01162089D5A200A8E344 /* VCForgotPwdFinish.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCForgotPwdFinish.h; sourceTree = "<group>"; };
+		1CFC01172089D5A200A8E344 /* VCForgotPwdFinish.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCForgotPwdFinish.m; sourceTree = "<group>"; };
+		1CFC01192089DF7700A8E344 /* ViewWithExit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewWithExit.h; sourceTree = "<group>"; };
+		1CFC011A2089DF7700A8E344 /* ViewWithExit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewWithExit.m; sourceTree = "<group>"; };
+		1CFC011C2089E13F00A8E344 /* RequestBeanSms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanSms.h; sourceTree = "<group>"; };
+		1CFC011D2089E13F00A8E344 /* RequestBeanSms.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanSms.m; sourceTree = "<group>"; };
 		2F65A9A6DF6B497D050E471D /* Pods-LeftMaster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMaster.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMaster/Pods-LeftMaster.debug.xcconfig"; sourceTree = "<group>"; };
 		699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeftMasterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D66D73565FFAFED45449DF /* Pods-LeftMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMasterTests/Pods-LeftMasterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -696,6 +705,8 @@
 				1C780EE1207EFDCC00054AE1 /* VCForgotPwd.m */,
 				1CFC011320898D8200A8E344 /* VCOrderCheckAccount.h */,
 				1CFC011420898D8200A8E344 /* VCOrderCheckAccount.m */,
+				1CFC01162089D5A200A8E344 /* VCForgotPwdFinish.h */,
+				1CFC01172089D5A200A8E344 /* VCForgotPwdFinish.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -707,6 +718,8 @@
 				1CBF5C07207D111B00284EA1 /* RequestBeanLogin.m */,
 				1C780ECE207E02D500054AE1 /* RequestBeanNotice.h */,
 				1C780ECF207E02D500054AE1 /* RequestBeanNotice.m */,
+				1CFC011C2089E13F00A8E344 /* RequestBeanSms.h */,
+				1CFC011D2089E13F00A8E344 /* RequestBeanSms.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -742,6 +755,8 @@
 				1CBF5C10207E2D9300284EA1 /* ViewSearchOrderList.m */,
 				1C7A754E207F33AD00C140D2 /* CellInvoice.h */,
 				1C7A754F207F33AD00C140D2 /* CellInvoice.m */,
+				1CFC01192089DF7700A8E344 /* ViewWithExit.h */,
+				1CFC011A2089DF7700A8E344 /* ViewWithExit.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1054,6 +1069,7 @@
 				1CBF5BF0207CE86000284EA1 /* VCOrder.m in Sources */,
 				1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */,
 				1C780ED6207E067400054AE1 /* VCRecGoodsList.m in Sources */,
+				1CFC011E2089E13F00A8E344 /* RequestBeanSms.m in Sources */,
 				1C780ED9207E07EE00054AE1 /* CellRecGoodsList.m in Sources */,
 				1CBF5BE1207A7A1800284EA1 /* VCSetPassword.m in Sources */,
 				1C5F25B12088BC3C005EAF87 /* WindowGuide.m in Sources */,
@@ -1070,6 +1086,7 @@
 				1C780ED0207E02D500054AE1 /* RequestBeanNotice.m in Sources */,
 				1C8A2E27207865D40076238D /* CellCategory.m in Sources */,
 				1C4CC26D20724CE6007C24FB /* VCMain.m in Sources */,
+				1CFC011B2089DF7700A8E344 /* ViewWithExit.m in Sources */,
 				1CBF5C02207CFD9000284EA1 /* ViewHeaderGoods.m in Sources */,
 				1C780EC3207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m in Sources */,
 				1C780EB8207DAC1200054AE1 /* RequestBeanGoodsList.m in Sources */,
@@ -1108,6 +1125,7 @@
 				1CBF5BB72078809100284EA1 /* ViewMessageOrder.m in Sources */,
 				1CBF5BF6207CEE6200284EA1 /* CellOrderInfo.m in Sources */,
 				1CBF5BFC207CF70800284EA1 /* VCOrderGoodsList.m in Sources */,
+				1CFC01182089D5A200A8E344 /* VCForgotPwdFinish.m in Sources */,
 				1C4CC27320724F2B007C24FB /* VCMine.m in Sources */,
 				1C8A2E3C207875BD0076238D /* HMScannerBorder.m in Sources */,
 				1C8A2E41207875BD0076238D /* HMScanerCardViewController.m in Sources */,

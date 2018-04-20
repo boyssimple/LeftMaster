@@ -18,6 +18,7 @@
 #define net_user_cart_add @"system/UserMobileTran.do?addGoodsToMyCar"              //添加购物车
 #define net_user_msg @"system/UserMobileTran.do?queryMessagesUnreadNum"              //获取消息
 #define net_user_msg_list @"system/UserMobileTran.do?queryMessages"              //获取消息列表
+#define net_user_sms_send @"system/UserMobileTran.do?sendSms"              //发送验证码
 
 
 //商品
