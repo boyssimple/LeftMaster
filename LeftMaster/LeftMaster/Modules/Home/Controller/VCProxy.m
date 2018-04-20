@@ -44,7 +44,7 @@
     if(sender.tag == 100){
         self.expland = !self.expland;
     }else{
-        if(self.selected){
+        if(self.selected && [AppUser share].CUS_ID){
             //存储已选数据到沙盒
             NSData *data = [Utils getUserInfo];
             if(data){
@@ -97,27 +97,34 @@
     }];
 }
 
-/**
- * 显示Hub
- *
- @param tip hub文案
- */
-- (void)showHub:(nullable NSString *)tip{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = tip;
-    [hud show:YES];
+
+
+- (void)loadRefreshData{
+    RequestBeanCustomer *requestBean = [RequestBeanCustomer new];
+    requestBean.user_login_name = [AppUser share].SYSUSER_ACCOUNT;
+    if(self.keywords && self.keywords.length > 0){
+        requestBean.customer_name = self.keywords;
+    }else{
+        requestBean.customer_name = nil;
+    }
+    requestBean.page_current = 1;
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        if (!err) {
+            // 结果处理
+            ResponseBeanCustomer *response = responseBean;
+            if(response.success){
+                [weakself.dataSource removeAllObjects];
+                [weakself.dataSource addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
+                [weakself.table reloadData];
+            }
+        }
+    }];
 }
 
 
-/**
- * 隐藏Hub
- */
-- (void)dismissHub{
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    });
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
 
 - (void)search{
@@ -258,7 +265,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.table.alpha = 1.f;
         }];
-        [self loadData];
+        [self loadRefreshData];
     }else{
         [UIView animateWithDuration:0.3 animations:^{
             self.table.alpha = 0.f;
