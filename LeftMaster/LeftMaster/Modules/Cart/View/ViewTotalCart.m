@@ -79,7 +79,7 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     CGRect r = self.btnCheck.frame;
-    r.size.width = 31*RATIO_WIDHT320;
+    r.size.width = 35*RATIO_WIDHT320;
     r.size.height = r.size.width;
     r.origin.x = 0;
     r.origin.y = (self.height - r.size.height)/2.0;
