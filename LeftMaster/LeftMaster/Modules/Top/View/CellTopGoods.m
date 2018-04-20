@@ -120,7 +120,7 @@
     if(self.lbPrice.text.length > 2){
         NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
         // 改变颜色
-        [noteStr addAttribute:NSForegroundColorAttributeName value:RGB(230, 0, 18) range:NSMakeRange(0, self.lbPrice.text.length-[data jk_stringForKey:@"GOODS_UNIT"].length)];
+        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-[data jk_stringForKey:@"GOODS_UNIT"].length)];
         [self.lbPrice setAttributedText:noteStr];
     }
 }
@@ -135,7 +135,7 @@
     if(self.lbPrice.text.length > 2){
         NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
         // 改变颜色
-        [noteStr addAttribute:NSForegroundColorAttributeName value:RGB(230, 0, 18) range:NSMakeRange(0, self.lbPrice.text.length-2)];
+        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-2)];
         [self.lbPrice setAttributedText:noteStr];
     }
 }

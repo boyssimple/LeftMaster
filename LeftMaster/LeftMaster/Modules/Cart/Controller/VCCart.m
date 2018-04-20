@@ -12,8 +12,9 @@
 #import "VCWriteOrder.h"
 #import "VCWriteOrder.h"
 #import "RequestBeanCartList.h"
+#import "VCGoods.h"
 
-@interface VCCart ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate,AJHubProtocol>
+@interface VCCart ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate,CommonDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewTotalCart *vControl;
 @property(nonatomic,strong)NSMutableArray *goodsList;
@@ -120,7 +121,9 @@
     CellCart *cell = (CellCart*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[CellCart alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.delegate = self;
     }
+    cell.index = indexPath.row;
     NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
     [cell updateData:data];
     return cell;
@@ -155,7 +158,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
+    VCGoods *vc = [[VCGoods alloc]init];
+    vc.goods_id = [data jk_stringForKey:@"GOODS_ID"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark ViewTotalCartDelegate
@@ -164,6 +170,21 @@
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+#pragma mark - CommonDelegate
+- (void)clickActionWithIndex:(NSInteger)index{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定删除？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    [alert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [Utils showHanding:@"处理中..." with:self.view];
+        [Utils hiddenHanding:self.view withTime:2];
+    }
+}
+
 
 - (UITableView*)table{
     if(!_table){

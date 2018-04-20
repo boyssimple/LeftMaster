@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CellOrderList : UITableViewCell
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, weak) id<CommonDelegate> delegate;
+@property(nonatomic,strong)UIView *vLine;
 @property(nonatomic,assign)NSInteger status;
 @end

@@ -37,6 +37,7 @@
 - (void)updateData:(NSDictionary*)data{
     [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODSTYPE_PIC"]];
     self.lbName.text = [data jk_stringForKey:@"GOODSTYPE_NAME"];
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews{

@@ -36,20 +36,15 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
 }
 
 - (void)initMain{
-    WindowGuide *guide = [[WindowGuide alloc]init];
-    [guide show];
-    save_current_version();
-    /*
+//    WindowGuide *guide = [[WindowGuide alloc]init];
+//    [guide show];
+//    save_current_version();
+    
      if ([current_version() compare:prev_version()] == NSOrderedDescending) {
-     NSArray *datas = @[[UIImage imageNamed:@"guid01"],
-     [UIImage imageNamed:@"guid02"],
-     [UIImage imageNamed:@"guid03"],
-     [UIImage imageNamed:@"guid04"]];
-     WindowGuide *guide = [[WindowGuide alloc]initWith:datas];
-     [guide show];
-     save_current_version();
+         WindowGuide *guide = [[WindowGuide alloc]init];
+         [guide show];
+         save_current_version();
      }
-     */
     
     
     [self.view addSubview:self.ivBg];
@@ -63,8 +58,8 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     [self.view addSubview:self.ivLogin];
     [self.view addSubview:self.btnForgot];
     
-    self.tfUser.text = @"wr";
-    self.tfPwd.text = @"123456";
+//    self.tfUser.text = @"wr";
+//    self.tfPwd.text = @"123456";
     
 }
 

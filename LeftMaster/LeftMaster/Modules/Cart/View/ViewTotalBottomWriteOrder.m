@@ -24,7 +24,7 @@
         
         _lbPrice = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbPrice.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
-        _lbPrice.textColor = RGB(230, 0, 18);
+        _lbPrice.textColor = APP_COLOR;
         [self addSubview:_lbPrice];
         
         _btnOrder = [[UIButton alloc]initWithFrame:CGRectZero];

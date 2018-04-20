@@ -55,7 +55,7 @@
     if(self.lbName.text.length > 2){
         NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbName.text];
         // 改变颜色
-        [noteStr addAttribute:NSForegroundColorAttributeName value:RGB(230, 0, 18) range:NSMakeRange(0, 2)];
+        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, 2)];
         [self.lbName setAttributedText:noteStr];
     }
 }

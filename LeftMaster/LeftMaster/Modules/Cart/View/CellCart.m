@@ -70,7 +70,7 @@
         _btnDel = [[UIButton alloc]initWithFrame:CGRectZero];
         _btnDel.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
         [_btnDel setTitle:@"删除" forState:UIControlStateNormal];
-        [_btnDel setTitleColor:RGB(230, 0, 18) forState:UIControlStateNormal];
+        [_btnDel setTitleColor:APP_COLOR forState:UIControlStateNormal];
         _btnDel.tag = 102;
         [_btnDel addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_btnDel];
@@ -118,7 +118,9 @@
     if (tag == 101) {
         sender.selected = !sender.selected;
     }else if(tag == 102){
-        
+        if([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]){
+            [self.delegate clickActionWithIndex:self.index];
+        }
     }else if(tag == 103){
         NSString *str = self.lbCount.text;
         if ([str integerValue] > 1) {
@@ -157,7 +159,7 @@
     if(self.lbPrice.text.length > 2){
         NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
         // 改变颜色
-        [noteStr addAttribute:NSForegroundColorAttributeName value:RGB(230, 0, 18) range:NSMakeRange(0, self.lbPrice.text.length-[data jk_stringForKey:@"GOODS_UNIT"].length)];
+        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-[data jk_stringForKey:@"GOODS_UNIT"].length)];
         [self.lbPrice setAttributedText:noteStr];
     }
 }
@@ -172,7 +174,7 @@
     if(self.lbPrice.text.length > 2){
         NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
         // 改变颜色
-        [noteStr addAttribute:NSForegroundColorAttributeName value:RGB(230, 0, 18) range:NSMakeRange(0, self.lbPrice.text.length-2)];
+        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-2)];
         [self.lbPrice setAttributedText:noteStr];
     }
 }
@@ -199,9 +201,11 @@
     self.ivImg.frame = r;
     
     CGSize size = [self.btnDel.titleLabel sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
+    size.height = size.height + 10;
+    size.width = size.width + 15*RATIO_WIDHT320*2;
     r = self.btnDel.frame;
-    r.origin.x = DEVICEWIDTH - size.width - 15*RATIO_WIDHT320;
-    r.origin.y = self.ivImg.top + 5;
+    r.origin.x = DEVICEWIDTH - size.width;
+    r.origin.y = self.ivImg.top;
     r.size = size;
     self.btnDel.frame = r;
     

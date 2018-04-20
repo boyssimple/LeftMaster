@@ -32,7 +32,6 @@
 
 @property(nonatomic,strong)UIButton *btnReceive;
 
-@property(nonatomic,strong)UIView *vLine;
 @end
 @implementation CellOrderList
 
@@ -141,7 +140,9 @@
 
 
 - (void)clickAction:(UIButton*)sender{
-    
+    if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+        [self.delegate clickActionWithIndex:self.index];
+    }
 }
 
 - (void)updateData{

@@ -18,7 +18,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         _ivImg = [[UIImageView alloc]initWithFrame:CGRectZero];
-        _ivImg.image = [UIImage imageNamed:@""];
         _ivImg.userInteractionEnabled = YES;
         [self.contentView addSubview:_ivImg];
         
@@ -33,8 +32,7 @@
 
 
 - (void)updateData:(NSDictionary*)data{
-    [self.ivImg pt_setImage:@"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg"];
-//    [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
+    [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
     self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
 }
 

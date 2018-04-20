@@ -34,9 +34,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         _ivImg = [[UIImageView alloc]initWithFrame:CGRectZero];
-        _ivImg.image = [UIImage imageNamed:@""];
         _ivImg.userInteractionEnabled = YES;
-        _ivImg.backgroundColor = [UIColor redColor];
         [self.contentView addSubview:_ivImg];
         
         _ivNew = [[UIImageView alloc]initWithFrame:CGRectZero];
@@ -149,7 +147,7 @@
 }
 
 - (void)updateData:(NSDictionary*)data{
-    [self.ivImg pt_setImage:@"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg"];
+    [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
     self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
     self.lbRole.text = @"1台起订";
     
@@ -164,7 +162,7 @@
     if(self.lbPrice.text.length > 2){
         NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
         // 改变颜色
-        [noteStr addAttribute:NSForegroundColorAttributeName value:RGB(230, 0, 18) range:NSMakeRange(0, self.lbPrice.text.length-[data jk_stringForKey:@"GOODS_UNIT"].length)];
+        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-[data jk_stringForKey:@"GOODS_UNIT"].length)];
         [self.lbPrice setAttributedText:noteStr];
     }
 }
@@ -179,7 +177,7 @@
     if(self.lbPrice.text.length > 2){
         NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
         // 改变颜色
-        [noteStr addAttribute:NSForegroundColorAttributeName value:RGB(230, 0, 18) range:NSMakeRange(0, self.lbPrice.text.length-2)];
+        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-2)];
         [self.lbPrice setAttributedText:noteStr];
     }
 }

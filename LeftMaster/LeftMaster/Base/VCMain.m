@@ -60,7 +60,7 @@
         item.selectedImage = [[UIImage imageNamed:dict[kSelImgKey]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];//[UIImage imageNamed:dict[kSelImgKey]];
         
         [item setTitleTextAttributes:@{NSForegroundColorAttributeName : RGB(0, 0, 0)} forState:UIControlStateNormal];
-        [item setTitleTextAttributes:@{NSForegroundColorAttributeName : RGB(230, 0, 18)} forState:UIControlStateSelected];
+        [item setTitleTextAttributes:@{NSForegroundColorAttributeName : APP_COLOR} forState:UIControlStateSelected];
         
         
         [self addChildViewController:nav];

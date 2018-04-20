@@ -12,6 +12,7 @@
 #import "ViewHeaderMine.h"
 #import "CellMine.h"
 #import "VCNotice.h"
+#import "VCOrderCheckAccount.h"
 
 @interface VCMine ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIButton *btnLogin;
@@ -103,6 +104,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 0){
         VCNotice *vc = [[VCNotice alloc]init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if(indexPath.row == 1){
+        VCOrderCheckAccount *vc = [[VCOrderCheckAccount alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

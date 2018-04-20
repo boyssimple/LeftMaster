@@ -153,7 +153,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10.f*RATIO_WIDHT320;
+    if(section == 0){
+        return 10.f*RATIO_WIDHT320;
+    }else{
+        return 0.00001f;
+    }
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

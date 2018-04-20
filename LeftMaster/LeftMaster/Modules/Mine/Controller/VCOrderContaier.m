@@ -14,7 +14,7 @@
 #import "RequestBeanCartList.h"
 
 
-@interface VCOrderContaier ()<UITableViewDelegate,UITableViewDataSource>
+@interface VCOrderContaier ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property(nonatomic,strong)ViewSearchOrderList *searchView;
 @property(nonatomic,assign)NSInteger page;
@@ -83,8 +83,15 @@
     CellOrderList *cell = (CellOrderList*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[CellOrderList alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.delegate = self;
     }
+    cell.index = indexPath.row;
     [cell updateData];
+    if(indexPath.row == 4){
+        cell.vLine.hidden = YES;
+    }else{
+        cell.vLine.hidden = NO;
+    }
     return cell;
 }
 
@@ -115,6 +122,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     VCOrder *vc = [[VCOrder alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - CommonDelegate
+- (void)clickActionWithIndex:(NSInteger)index{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定签收？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    [alert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [Utils showHanding:@"处理中..." with:self.view];
+        [Utils hiddenHanding:self.view withTime:2];
+    }
 }
 
 - (ViewSearchOrderList*)searchView{
