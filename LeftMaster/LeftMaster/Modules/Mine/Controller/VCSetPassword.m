@@ -7,8 +7,11 @@
 //
 
 #import "VCSetPassword.h"
+#import "RequestBeanModifyPwd.h"
+#import "VCLogin.h"
+#import "AppDelegate.h"
 
-@interface VCSetPassword ()
+@interface VCSetPassword ()<UIAlertViewDelegate,UITextFieldDelegate,UIScrollViewDelegate>
 @property(nonatomic,strong)UIScrollView *mainScroll;
 @property(nonatomic,strong)UIView *vOldBg;
 @property(nonatomic,strong)UIView *vNewBg;
@@ -40,6 +43,79 @@
     [self.view addSubview:self.mainScroll];
 }
 
+- (void)clickAction:(UIButton*)sender{
+    [self modifyEvent];
+}
+
+- (void)modifyEvent{
+    [self.view endEditing:YES];
+    NSString *oldPwd = [self.tfOldPwd.text trim];
+    NSString *newPwd = [self.tfNewPwd.text trim];
+    NSString *confirmPwd = [self.tfConfirmPwd.text trim];
+    if(oldPwd.length == 0 || oldPwd.length < 6){
+        [Utils showToast:@"请输入原密码" with:self.view withTime:0.8];
+        return;
+    }
+    if(newPwd.length == 0){
+        [Utils showToast:@"请输入新密码" with:self.view withTime:0.8];
+        return;
+    }
+    if(newPwd.length < 6){
+        [Utils showToast:@"密码不能少于6位" with:self.view withTime:0.8];
+        return;
+    }
+    if(confirmPwd.length == 0){
+        [Utils showToast:@"请输入确认密码" with:self.view withTime:0.8];
+        return;
+    }
+    if(![confirmPwd isEqualToString:newPwd]){
+        [Utils showToast:@"确认密码错误" with:self.view withTime:0.8];
+        return;
+    }
+    
+    RequestBeanModifyPwd *requestBean = [RequestBeanModifyPwd new];
+    requestBean.SYSUSER_ID = [AppUser share].SYSUSER_ID;
+    requestBean.OLD_PASSWORD = oldPwd;
+    requestBean.NEW_PASSWORD = newPwd;
+    requestBean.CONFIRM_PASSWORD = confirmPwd;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        if(!err){
+            // 结果处理
+            ResponseBeanModifyPwd *response = responseBean;
+            if(response.success){
+                [Utils hiddenHanding:self.view withTime:0.5];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"密码修改成功" message:@"请重新登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }else{
+                [Utils showToast:response.msg with:self.view withTime:0.8];
+            }
+        }else{
+            [Utils showSuccessToast:@"发送失败" with:weakself.view withTime:1];
+        }
+        
+    }];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        VCLogin *vc = [[VCLogin alloc]init];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate restoreRootViewController:[[UINavigationController alloc] initWithRootViewController:vc]];
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.view endEditing:YES];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 
 - (UIScrollView*)mainScroll{
     if(!_mainScroll){
@@ -50,7 +126,7 @@
         [_mainScroll addSubview:self.vNewBg];
         [_mainScroll addSubview:self.vConfirmBg];
         [_mainScroll addSubview:self.btnNext];
-        
+        _mainScroll.delegate = self;
     }
     return _mainScroll;
 }
@@ -82,6 +158,7 @@
         _tfOldPwd.placeholder = @"输入原密码";
         _tfOldPwd.textColor = RGB3(153);
         _tfOldPwd.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
+        _tfOldPwd.delegate = self;
     }
     return _tfOldPwd;
 }
@@ -122,7 +199,9 @@
         _tfNewPwd = [[UITextField alloc]initWithFrame:CGRectMake(self.lbNewPwd.right, 0, DEVICEWIDTH - self.lbNewPwd.right - 10*RATIO_WIDHT320, 35*RATIO_WIDHT320)];
         _tfNewPwd.placeholder = @"输入新密码";
         _tfNewPwd.textColor = RGB3(153);
+        _tfNewPwd.secureTextEntry = YES;
         _tfNewPwd.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
+        _tfNewPwd.delegate = self;
     }
     return _tfNewPwd;
 }
@@ -161,7 +240,9 @@
         _tfConfirmPwd = [[UITextField alloc]initWithFrame:CGRectMake(self.lbConfirmPwd.right, 0, DEVICEWIDTH - self.lbConfirmPwd.right - 10*RATIO_WIDHT320, 35*RATIO_WIDHT320)];
         _tfConfirmPwd.placeholder = @"输入确认密码";
         _tfConfirmPwd.textColor = RGB3(153);
+        _tfConfirmPwd.secureTextEntry = YES;
         _tfConfirmPwd.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
+        _tfConfirmPwd.delegate = self;
     }
     return _tfConfirmPwd;
 }
@@ -178,10 +259,11 @@
     if(!_btnNext){
         _btnNext = [[UIButton alloc]initWithFrame:CGRectMake(10*RATIO_WIDHT320, self.vConfirmBg.bottom + 20*RATIO_WIDHT320, DEVICEWIDTH - 20*RATIO_WIDHT320, 45*RATIO_WIDHT320)];
         _btnNext.backgroundColor = APP_COLOR;//RGB3(213)
-        [_btnNext setTitle:@"下一步" forState:UIControlStateNormal];
+        [_btnNext setTitle:@"确定" forState:UIControlStateNormal];
         [_btnNext setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _btnNext.titleLabel.font = [UIFont systemFontOfSize:17*RATIO_WIDHT320];
         _btnNext.layer.cornerRadius = 4.5f;
+        [_btnNext addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnNext;
 }

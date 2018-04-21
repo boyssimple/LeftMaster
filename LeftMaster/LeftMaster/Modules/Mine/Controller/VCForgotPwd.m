@@ -51,7 +51,7 @@
         [_mainScroll addSubview:self.vOldBg];
         [_mainScroll addSubview:self.vNewBg];
         [_mainScroll addSubview:self.btnNext];
-        
+        _mainScroll.delegate = self;
     }
     return _mainScroll;
     

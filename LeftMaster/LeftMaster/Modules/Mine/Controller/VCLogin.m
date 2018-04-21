@@ -97,11 +97,18 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     NSString *userName = [self.tfUser.text trim];
     NSString *tfPwd = [self.tfPwd.text trim];
     
+    if(userName.length == 0){
+        [Utils showToast:@"请输入手机号码" with:self.view withTime:0.8];
+        return;
+    }
     if(userName.length < 2){
         [Utils showToast:@"手机号码错误" with:self.view withTime:0.8];
         return;
     }
-    
+    if(tfPwd.length == 0){
+        [Utils showToast:@"请输入密码" with:self.view withTime:0.8];
+        return;
+    }
     if(tfPwd.length < 6){
         [Utils showToast:@"密码小于6位" with:self.view withTime:0.8];
         return;
@@ -135,12 +142,15 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
                         VCMain *vc = [[VCMain alloc]init];
                         [appDelegate restoreRootViewController:vc];
                     }
-                }else{
-                    [Utils showToast:response.msg with:self.view withTime:0.8];
                 }
             });
         }else{
-            [Utils showSuccessToast:@"登录失败" with:weakself.view withTime:1];
+            ResponseBeanLogin *response = responseBean;
+            if(response && response.msg){
+                [Utils showSuccessToast:response.msg with:weakself.view withTime:0.8];
+            }else{
+                [Utils showSuccessToast:@"登录失败" with:weakself.view withTime:0.8];
+            }
         }
         
     }];
@@ -194,9 +204,9 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     
     r = self.tfUser.frame;
     r.size.width = DEVICEWIDTH - 32 - 12*RATIO_WIDHT320 - 40;
-    r.size.height = 12*RATIO_WIDHT320;
+    r.size.height = 30*RATIO_WIDHT320;
     r.origin.x = self.ivUser.right + 20;
-    r.origin.y = self.ivUser.top;
+    r.origin.y = self.ivUser.top + (self.ivUser.height - r.size.height)/2.0;
     self.tfUser.frame = r;
     
     r = self.vLine.frame;
@@ -215,9 +225,9 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     
     r = self.tfPwd.frame;
     r.size.width = DEVICEWIDTH - 32 - 12*RATIO_WIDHT320 - 40;
-    r.size.height = 12*RATIO_WIDHT320;
+    r.size.height = 30*RATIO_WIDHT320;
     r.origin.x = self.ivPwd.right + 20;
-    r.origin.y = self.ivPwd.top;
+    r.origin.y = self.ivPwd.top + (self.ivPwd.height - r.size.height)/2.0;
     self.tfPwd.frame = r;
     
     r = self.vTwoLine.frame;
@@ -272,6 +282,7 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
         _tfUser = [[UITextField alloc]initWithFrame:CGRectZero];
         _tfUser.placeholder = @"请输入手机号码";
         _tfUser.delegate = self;
+        _tfUser.keyboardType = UIKeyboardTypePhonePad;
     }
     return _tfUser;
 }
@@ -297,6 +308,7 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
         _tfPwd = [[UITextField alloc]initWithFrame:CGRectZero];
         _tfPwd.secureTextEntry = YES;
         _tfPwd.delegate = self;
+        _tfPwd.placeholder = @"请输入登录密码";
     }
     return _tfPwd;
 }

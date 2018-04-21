@@ -8,7 +8,7 @@
 
 #import "VCForgotPwdFinish.h"
 
-@interface VCForgotPwdFinish ()
+@interface VCForgotPwdFinish ()<UIScrollViewDelegate>
 @property(nonatomic,strong)UIScrollView *mainScroll;
 @property(nonatomic,strong)UIView *vNewBg;
 @property(nonatomic,strong)UIView *vConfirmBg;
@@ -50,7 +50,7 @@
         [_mainScroll addSubview:self.vNewBg];
         [_mainScroll addSubview:self.vConfirmBg];
         [_mainScroll addSubview:self.btnNext];
-        
+        _mainScroll.delegate = self;
     }
     return _mainScroll;
 }
@@ -83,6 +83,7 @@
         _tfNewPwd = [[UITextField alloc]initWithFrame:CGRectMake(self.lbNewPwd.right, 0, DEVICEWIDTH - self.lbNewPwd.right - 10*RATIO_WIDHT320, 35*RATIO_WIDHT320)];
         _tfNewPwd.placeholder = @"输入新密码";
         _tfNewPwd.textColor = RGB3(153);
+        _tfNewPwd.secureTextEntry = YES;
         _tfNewPwd.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
     }
     return _tfNewPwd;
@@ -122,6 +123,7 @@
         _tfConfirmPwd = [[UITextField alloc]initWithFrame:CGRectMake(self.lbConfirmPwd.right, 0, DEVICEWIDTH - self.lbConfirmPwd.right - 10*RATIO_WIDHT320, 35*RATIO_WIDHT320)];
         _tfConfirmPwd.placeholder = @"输入确认密码";
         _tfConfirmPwd.textColor = RGB3(153);
+        _tfConfirmPwd.secureTextEntry = YES;
         _tfConfirmPwd.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
     }
     return _tfConfirmPwd;

@@ -15,8 +15,7 @@
 #import "VCOrderCheckAccount.h"
 #import "ViewWithExit.h"
 
-@interface VCMine ()<UITableViewDelegate,UITableViewDataSource>
-@property(nonatomic,strong)UIButton *btnLogin;
+@interface VCMine ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewHeaderMine *header;
 @property(nonatomic,strong)ViewWithExit *footer;
@@ -34,15 +33,17 @@
 }
 
 
-- (void)clickAction:(UIButton*)sender{
-    NSInteger tag = sender.tag;
-    if(tag == 100){
+- (void)exitAction{
+    [Utils showHanding:@"退出中..." with:self.view];
+    __weak typeof(self) weakself = self;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [Utils hiddenHanding:weakself.view withTime:0.1];
+        [Utils removeUserInfo];
         VCLogin *vc = [[VCLogin alloc]init];
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate restoreRootViewController:[[UINavigationController alloc] initWithRootViewController:vc]];
-    }else{
-        
-    }
+    });
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -115,6 +116,18 @@
     }
 }
 
+#pragma mark - CommonDelete
+- (void)clickActionWithIndex:(NSInteger)index{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定退出？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [self exitAction];
+    }
+}
+
 - (UITableView*)table{
     if(!_table){
         _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, DEVICEHEIGHT) style:UITableViewStyleGrouped];
@@ -130,23 +143,11 @@
 }
 
 
-- (UIButton*)btnLogin{
-    if (!_btnLogin) {
-        _btnLogin = [[UIButton alloc]initWithFrame:CGRectMake(16, 100, DEVICEWIDTH-32, 45*RATIO_WIDHT320)];
-        //        [_btnLogin setImage:[UIImage imageNamed:@"Sign-in-icon_selected"] forState:UIControlStateNormal];
-        [_btnLogin setTitle:@"登录" forState:UIControlStateNormal];
-        [_btnLogin addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-        _btnLogin.backgroundColor = [UIColor redColor];
-        _btnLogin.layer.cornerRadius = 6.f;
-        _btnLogin.tag = 100;
-    }
-    return _btnLogin;
-}
-
 - (ViewHeaderMine*)header{
     if(!_header){
         _header = [[ViewHeaderMine alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, [ViewHeaderMine calHeight])];
         [_header updateData];
+        _header.delegate = self;
     }
     return _header;
 }
@@ -154,6 +155,7 @@
 - (ViewWithExit*)footer{
     if(!_footer){
         _footer = [[ViewWithExit alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, [ViewWithExit calHeight])];
+        _footer.delegate = self;
     }
     return _footer;
 }

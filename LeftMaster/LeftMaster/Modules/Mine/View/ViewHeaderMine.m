@@ -13,7 +13,7 @@
 #import "VCLogin.h"
 #import "AppDelegate.h"
 
-@interface ViewHeaderMine()<UIAlertViewDelegate>
+@interface ViewHeaderMine()
 @property(nonatomic,strong)UIImageView *ivBg;
 @property(nonatomic,strong)UIImageView *ivLogo;
 @property(nonatomic,strong)UILabel *lbCompany;
@@ -123,8 +123,9 @@
     {
         return;
     }
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定退出?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert show];
+    if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+        [self.delegate clickActionWithIndex:0];
+    }
 }
 
 - (void)updateData{
@@ -155,26 +156,6 @@
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(buttonIndex == 1){
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.mode = MBProgressHUDModeIndeterminate;
-        hud.labelText = @"退出登录...";
-        [hud show:YES];
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.6 * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-            [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults removeObjectForKey:USER_DEFAULTS];
-            [defaults synchronize];
-            
-            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            VCLogin *vc = [[VCLogin alloc]init];
-            [appDelegate restoreRootViewController:[[UINavigationController alloc]initWithRootViewController:vc]];
-        });
-    }
-}
 
 - (void)layoutSubviews{
     [super layoutSubviews];

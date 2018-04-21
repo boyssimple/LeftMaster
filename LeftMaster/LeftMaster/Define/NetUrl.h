@@ -19,6 +19,7 @@
 #define net_user_msg @"system/UserMobileTran.do?queryMessagesUnreadNum"              //获取消息
 #define net_user_msg_list @"system/UserMobileTran.do?queryMessages"              //获取消息列表
 #define net_user_sms_send @"system/UserMobileTran.do?sendSms"              //发送验证码
+#define net_user_update_password @"system/UserMobileTran.do?updatePass"              //修改密码
 
 
 //商品

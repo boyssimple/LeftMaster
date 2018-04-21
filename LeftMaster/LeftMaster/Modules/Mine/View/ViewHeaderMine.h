@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewHeaderMine : UIView
-
+@property(nonatomic,weak)id<CommonDelegate> delegate;
 @end

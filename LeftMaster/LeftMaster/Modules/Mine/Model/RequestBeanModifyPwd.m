@@ -6,12 +6,13 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "RequestBeanSms.h"
+#import "RequestBeanModifyPwd.h"
 
-@implementation RequestBeanSms
+@implementation RequestBeanModifyPwd
+
 
 - (NSString*)apiPath{
-    return net_user_sms_send;
+    return net_user_update_password;
 }
 
 - (BOOL)isShowHub{
@@ -24,7 +25,7 @@
 
 @end
 
-@implementation ResponseBeanSms
+@implementation ResponseBeanModifyPwd
 
 - (BOOL)checkSuccess{
     if (self.success) {

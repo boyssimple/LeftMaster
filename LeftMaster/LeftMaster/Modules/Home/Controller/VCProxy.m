@@ -61,7 +61,7 @@
             
             [self gotoHome];
         }else{
-            [Utils showToast:@"请选择客户!" with:self.view withTime:0.8];
+            [Utils showToast:@"请选择客户" with:self.view withTime:0.8];
         }
     }
 }

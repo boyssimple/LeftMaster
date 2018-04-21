@@ -29,7 +29,9 @@
 }
 
 - (void)clickAction:(UIButton*)sender{
-    
+    if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+        [self.delegate clickActionWithIndex:1];
+    }
 }
 
 - (void)layoutSubviews{
