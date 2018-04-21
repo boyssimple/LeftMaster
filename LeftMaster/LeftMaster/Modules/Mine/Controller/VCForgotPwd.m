@@ -91,23 +91,20 @@
     }
     
     RequestBeanSms *requestBean = [RequestBeanSms new];
-    requestBean.phone = phone;
+    requestBean.mobile = phone;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         if(!err){
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.2 * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                // 结果处理
-                ResponseBeanSms *response = responseBean;
-                if(response.success){
-                    weakself.random = [response.data jk_stringForKey:@"RANDOM"];
-                    [Utils showSuccessToast:@"已发送" with:weakself.view withTime:0.6];
-                    [weakself startTimer];
-                }else{
-                    [Utils showToast:response.msg with:self.view withTime:0.8];
-                }
-            });
+            // 结果处理
+            ResponseBeanSms *response = responseBean;
+            if(response.success){
+                weakself.random = response.RANDOM;
+                [Utils showSuccessToast:@"已发送" with:weakself.view withTime:0.6];
+                [weakself startTimer];
+            }else{
+                [Utils showToast:response.msg with:self.view withTime:0.8];
+            }
         }else{
             [Utils showSuccessToast:@"发送失败" with:weakself.view withTime:1];
         }
@@ -194,7 +191,7 @@
     if(!_tfPhone){
         _tfPhone = [[UITextField alloc]initWithFrame:CGRectMake(self.lbOldPwd.right, 0, DEVICEWIDTH - self.lbOldPwd.right - 10*RATIO_WIDHT320, 35*RATIO_WIDHT320)];
         _tfPhone.placeholder = @"请填写手机号码";
-        _tfPhone.textColor = RGB3(153);
+        _tfPhone.textColor = RGB3(0);
         _tfPhone.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
         _tfPhone.keyboardType = UIKeyboardTypePhonePad;
         _tfPhone.delegate = self;
@@ -238,7 +235,7 @@
     if(!_tfCheckCode){
         _tfCheckCode = [[UITextField alloc]initWithFrame:CGRectMake(self.lbNewPwd.right, 0, DEVICEWIDTH - self.lbNewPwd.right - 10*RATIO_WIDHT320, 35*RATIO_WIDHT320)];
         _tfCheckCode.placeholder = @"验证码";
-        _tfCheckCode.textColor = RGB3(153);
+        _tfCheckCode.textColor = RGB3(0);
         _tfCheckCode.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
         _tfCheckCode.delegate = self;
         CGRect r = _tfCheckCode.frame;

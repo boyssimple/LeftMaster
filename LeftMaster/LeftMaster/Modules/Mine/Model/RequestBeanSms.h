@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface RequestBeanSms : AJRequestBeanBase
-@property(nonatomic,strong)NSString *phone;     //手机号
+@property(nonatomic,strong)NSString *mobile;     //手机号
 @end
 
 @interface ResponseBeanSms : AJResponseBeanBase
 @property(nonatomic,assign)NSInteger success;
 @property(nonatomic,strong)NSString *msg;
+@property(nonatomic,strong)NSString *RANDOM;
 @property(nonatomic,strong)NSDictionary *data;
 @end
 
