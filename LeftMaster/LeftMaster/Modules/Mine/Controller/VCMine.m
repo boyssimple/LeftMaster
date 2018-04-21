@@ -73,7 +73,7 @@
     }else if(indexPath.row == 1){
         [cell updateData:@"订单对账" with:@""];
     }else if(indexPath.row == 2){
-        [cell updateData:@"联系客服" with:@"4007003088"];
+        [cell updateData:@"联系客服" with:@"400-1696444"];
     }else if(indexPath.row == 3){
         [cell updateData:@"当前客户" with:[AppUser share].CUS_NAME];
     }

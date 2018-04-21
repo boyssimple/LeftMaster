@@ -188,6 +188,10 @@
     r.size.width = self.btnModifyPwd.left - 20*RATIO_WIDHT320 - self.ivLogo.right;
     self.lbCompany.frame = r;
     
+    CGFloat y = 0;
+    if(self.lbCompany.height > 0){
+        y = 10*RATIO_WIDHT320;
+    }
     size = [self.lbName sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     r = self.lbName.frame;
     r.origin.x = self.ivLogo.right + 10*RATIO_WIDHT320;
@@ -195,8 +199,8 @@
     r.size = size;
     self.lbName.frame = r;
     
-    self.lbCompany.top = self.ivLogo.top + (self.ivLogo.height-(self.lbCompany.height + 10*RATIO_WIDHT320 + self.lbName.height))/2.0;
-    self.lbName.top = self.lbCompany.bottom + 10*RATIO_WIDHT320;
+    self.lbCompany.top = self.ivLogo.top + (self.ivLogo.height-(self.lbCompany.height + y + self.lbName.height))/2.0;
+    self.lbName.top = self.lbCompany.bottom + y;
     
     
     size = [self.lbTitle sizeThatFits:CGSizeMake(MAXFLOAT, 14*RATIO_WIDHT320)];
