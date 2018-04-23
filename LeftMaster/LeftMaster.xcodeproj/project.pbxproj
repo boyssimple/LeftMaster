@@ -114,6 +114,9 @@
 		1CFC7AD2208E05CF005F18AB /* VCModifyPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7AD1208E05CF005F18AB /* VCModifyPassword.m */; };
 		1CFC7AD5208E087D005F18AB /* VCProxyCustmer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7AD4208E087D005F18AB /* VCProxyCustmer.m */; };
 		1CFC7AD8208E0921005F18AB /* ViewSearchProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7AD7208E0921005F18AB /* ViewSearchProxy.m */; };
+		1CFC7ADB208E1518005F18AB /* VCSearchGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7ADA208E1518005F18AB /* VCSearchGoodsList.m */; };
+		1CFC7ADE208E18AB005F18AB /* ViewSearchGoodsNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7ADD208E18AB005F18AB /* ViewSearchGoodsNav.m */; };
+		1CFC7AE1208E1EDC005F18AB /* CellSearchGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7AE0208E1EDC005F18AB /* CellSearchGoodsList.m */; };
 		2B895C9453BC2156E84708D8 /* libPods-LeftMasterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */; };
 		3A4070F4294A75D927F8DE16 /* libPods-LeftMaster.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6D5F1023D6EE6D2E86C12D /* libPods-LeftMaster.a */; };
 		FAC9E06F974DFC888DA9565A /* libPods-LeftMasterUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA40ACE1D19B7764658663D5 /* libPods-LeftMasterUITests.a */; };
@@ -355,6 +358,12 @@
 		1CFC7AD4208E087D005F18AB /* VCProxyCustmer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCProxyCustmer.m; sourceTree = "<group>"; };
 		1CFC7AD6208E0921005F18AB /* ViewSearchProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewSearchProxy.h; sourceTree = "<group>"; };
 		1CFC7AD7208E0921005F18AB /* ViewSearchProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewSearchProxy.m; sourceTree = "<group>"; };
+		1CFC7AD9208E1518005F18AB /* VCSearchGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCSearchGoodsList.h; sourceTree = "<group>"; };
+		1CFC7ADA208E1518005F18AB /* VCSearchGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCSearchGoodsList.m; sourceTree = "<group>"; };
+		1CFC7ADC208E18AB005F18AB /* ViewSearchGoodsNav.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewSearchGoodsNav.h; sourceTree = "<group>"; };
+		1CFC7ADD208E18AB005F18AB /* ViewSearchGoodsNav.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewSearchGoodsNav.m; sourceTree = "<group>"; };
+		1CFC7ADF208E1EDC005F18AB /* CellSearchGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellSearchGoodsList.h; sourceTree = "<group>"; };
+		1CFC7AE0208E1EDC005F18AB /* CellSearchGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellSearchGoodsList.m; sourceTree = "<group>"; };
 		2F65A9A6DF6B497D050E471D /* Pods-LeftMaster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMaster.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMaster/Pods-LeftMaster.debug.xcconfig"; sourceTree = "<group>"; };
 		699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeftMasterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D66D73565FFAFED45449DF /* Pods-LeftMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMasterTests/Pods-LeftMasterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -648,8 +657,6 @@
 				1CBF5BE3207CDA3400284EA1 /* VCProxy.m */,
 				1C780ED4207E067400054AE1 /* VCRecGoodsList.h */,
 				1C780ED5207E067400054AE1 /* VCRecGoodsList.m */,
-				1CFC7ABC208C80DD005F18AB /* VCGoodsList.h */,
-				1CFC7ABD208C80DD005F18AB /* VCGoodsList.m */,
 				1CFC7AD0208E05CF005F18AB /* VCModifyPassword.h */,
 				1CFC7AD1208E05CF005F18AB /* VCModifyPassword.m */,
 				1CFC7AD3208E087D005F18AB /* VCProxyCustmer.h */,
@@ -868,8 +875,12 @@
 		1CD8488B206F7C7100CC9BE9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1CFC7ABC208C80DD005F18AB /* VCGoodsList.h */,
+				1CFC7ABD208C80DD005F18AB /* VCGoodsList.m */,
 				1C4CC27720724F50007C24FB /* VCGoods.h */,
 				1C4CC27820724F50007C24FB /* VCGoods.m */,
+				1CFC7AD9208E1518005F18AB /* VCSearchGoodsList.h */,
+				1CFC7ADA208E1518005F18AB /* VCSearchGoodsList.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -885,6 +896,10 @@
 				1CFC7ACB208CD4D0005F18AB /* CellGoods.m */,
 				1CFC7ACD208CD526005F18AB /* CellAttrGoods.h */,
 				1CFC7ACE208CD526005F18AB /* CellAttrGoods.m */,
+				1CFC7ADC208E18AB005F18AB /* ViewSearchGoodsNav.h */,
+				1CFC7ADD208E18AB005F18AB /* ViewSearchGoodsNav.m */,
+				1CFC7ADF208E1EDC005F18AB /* CellSearchGoodsList.h */,
+				1CFC7AE0208E1EDC005F18AB /* CellSearchGoodsList.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1125,12 +1140,14 @@
 				1CBF5C14207E3D9800284EA1 /* ViewOrderRecGoodsList.m in Sources */,
 				1C7A7550207F33AD00C140D2 /* CellInvoice.m in Sources */,
 				1C4C15602088F78200BA8F3C /* RequestBeanCarouseList.m in Sources */,
+				1CFC7ADE208E18AB005F18AB /* ViewSearchGoodsNav.m in Sources */,
 				1CFC7AC3208CC93E005F18AB /* VCSetting.m in Sources */,
 				1C780EC6207DF97A00054AE1 /* NSNotification+Extension.m in Sources */,
 				1CBF5BF0207CE86000284EA1 /* VCOrder.m in Sources */,
 				1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */,
 				1C780ED6207E067400054AE1 /* VCRecGoodsList.m in Sources */,
 				1CFC011E2089E13F00A8E344 /* RequestBeanSms.m in Sources */,
+				1CFC7AE1208E1EDC005F18AB /* CellSearchGoodsList.m in Sources */,
 				1C780ED9207E07EE00054AE1 /* CellRecGoodsList.m in Sources */,
 				1CBF5BE1207A7A1800284EA1 /* VCSetPassword.m in Sources */,
 				1C5F25B12088BC3C005EAF87 /* WindowGuide.m in Sources */,
@@ -1156,6 +1173,7 @@
 				1C780EDC207E0E9200054AE1 /* VCOrderContaier.m in Sources */,
 				1C8A2E3F207875BD0076238D /* HMScanner.m in Sources */,
 				1CFC7ABB208C7796005F18AB /* ViewSearchWithHome.m in Sources */,
+				1CFC7ADB208E1518005F18AB /* VCSearchGoodsList.m in Sources */,
 				1CBF5BB420787A1600284EA1 /* ViewGoodsList.m in Sources */,
 				1C4CC29720726E71007C24FB /* CollCellCategoryHome.m in Sources */,
 				1CBF5BCF207A597C00284EA1 /* CellOrderList.m in Sources */,

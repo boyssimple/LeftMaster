@@ -8,17 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ViewSearchWithHomeDelegate;
 @interface ViewSearchWithHome : UIView
 @property (nonatomic, assign) NSInteger count;
-@property(nonatomic,strong)UITextField *tfText;
 @property(nonatomic,strong)UILabel *lbCount;
-@property(nonatomic,weak)id<ViewSearchWithHomeDelegate> delegate;
-- (void)startAnimation;
-@end
-
-@protocol ViewSearchWithHomeDelegate<NSObject>
-
-- (void)clickQR;
-
+@property(nonatomic,weak)id<CommonDelegate> delegate;
 @end

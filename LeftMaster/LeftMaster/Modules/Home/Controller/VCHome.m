@@ -18,8 +18,10 @@
 #import "RequestBeanCarouseList.h"
 #import "ViewSearchWithHome.h"
 #import "VCModifyPassword.h"
+#import "VCSearchGoodsList.h"
 
-@interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate,UIScrollViewDelegate,UIAlertViewDelegate>
+@interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate,UIScrollViewDelegate,
+        UIAlertViewDelegate,CommonDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)SDCycleScrollView *cycleScrollView;
 @property(nonatomic,strong)NSMutableArray *categorys;
@@ -232,6 +234,18 @@
     }
 }
 
+#pragma mark - CommonDelegate
+- (void)clickActionWithIndex:(NSInteger)index{
+    if(index == 0){
+        
+    }else{
+        VCSearchGoodsList *vc = [[VCSearchGoodsList alloc]init];
+        [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:FALSE completion:^{
+            
+        }];
+    }
+}
+
 - (UITableView*)table{
     if(!_table){
         _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, DEVICEHEIGHT) style:UITableViewStyleGrouped];
@@ -264,8 +278,6 @@
     if(!_vCart){
         _vCart = [[ViewSearchWithHome alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, [ViewSearchWithHome calHeight])];
         _vCart.delegate = self;
-        _vCart.tfText.delegate = self;
-        _vCart.tfText.returnKeyType = UIReturnKeySearch;
         [_vCart updateData];
     }
     return _vCart;

@@ -6,23 +6,23 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "ViewSearchProxy.h"
+#import "ViewSearchGoodsNav.h"
 
-@interface ViewSearchProxy()
+@interface ViewSearchGoodsNav()
 @property(nonatomic,strong)UIView *vSearchBg;
 @property(nonatomic,strong)UIImageView *ivSearch;
 @property(nonatomic,strong)UIView  *vLine;
 @property (nonatomic, assign) bool isExcuting;
 @end
-@implementation ViewSearchProxy
+@implementation ViewSearchGoodsNav
 
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         _vSearchBg = [[UIView alloc]initWithFrame:CGRectZero];
-        _vSearchBg.backgroundColor = [UIColor redColor];
-        _vSearchBg.layer.cornerRadius = 12.5*RATIO_WIDHT320;
+        _vSearchBg.backgroundColor = RGB3(255);
+        _vSearchBg.layer.cornerRadius = 17;
         _vSearchBg.layer.masksToBounds = YES;
         [self addSubview:_vSearchBg];
         
@@ -32,8 +32,8 @@
         [_vSearchBg addSubview:_ivSearch];
         
         _tfText = [[UITextField alloc]initWithFrame:CGRectZero];
-        _tfText.placeholder = @"客户名称";
         _tfText.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        _tfText.placeholder = @"商品名称、编码";
         [_vSearchBg addSubview:_tfText];
         
         _vLine = [[UIView alloc]initWithFrame:CGRectZero];
@@ -47,9 +47,9 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     CGRect r = self.vSearchBg.frame;
-    r.size.width = DEVICEWIDTH - 20*RATIO_WIDHT320;
-    r.size.height = self.height - 15*RATIO_WIDHT320;
-    r.origin.x = 10*RATIO_WIDHT320;
+    r.size.width = DEVICEWIDTH - 25 - 45;
+    r.size.height = self.height - 10;
+    r.origin.x = 0;
     r.origin.y = (self.height - r.size.height)/2.0;
     self.vSearchBg.frame = r;
     
@@ -76,7 +76,7 @@
 }
 
 + (CGFloat)calHeight{
-    return 40*RATIO_WIDHT320;
+    return 44;
 }
 
 @end

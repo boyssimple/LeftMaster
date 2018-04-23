@@ -11,6 +11,7 @@
 @interface ViewSearchWithHome()
 @property(nonatomic,strong)UIButton *btnQR;
 @property(nonatomic,strong)UIView *vSearchBg;
+@property(nonatomic,strong)UILabel *lbTips;
 @property(nonatomic,strong)UIImageView *ivSearch;
 
 @property(nonatomic,strong)UIImageView *ivCart;
@@ -42,10 +43,15 @@
         _ivSearch.userInteractionEnabled = YES;
         [_vSearchBg addSubview:_ivSearch];
         
-        _tfText = [[UITextField alloc]initWithFrame:CGRectZero];
-        _tfText.placeholder = @"商品名称、编码、条形码";
-        _tfText.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
-        [_vSearchBg addSubview:_tfText];
+        _lbTips = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbTips.text = @"商品名称、编码、条形码";
+        _lbTips.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        _lbTips.textColor = RGB3(200);
+        _lbTips.userInteractionEnabled = TRUE;
+        [_vSearchBg addSubview:_lbTips];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickSearch)];
+        [_lbTips addGestureRecognizer:tap];
+        
         
         _ivCart = [[UIImageView alloc]initWithFrame:CGRectZero];
         _ivCart.image = [UIImage imageNamed:@"classification-icon_Shopping-Cart"];
@@ -69,29 +75,6 @@
     return self;
 }
 
-- (void)startAnimation{
-    if (!self.isExcuting) {
-        self.isExcuting = TRUE;
-        __weak typeof(self) weakself = self;
-        [UIView animateWithDuration:0.1 animations:^{
-            weakself.ivCart.top = weakself.ivCart.top - 5;
-        }completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.1 animations:^{
-                weakself.ivCart.top = weakself.ivCart.top + 5;
-            }completion:^(BOOL finished) {
-                [UIView animateWithDuration:0.1 animations:^{
-                    weakself.ivCart.top = weakself.ivCart.top - 5;
-                }completion:^(BOOL finished) {
-                    [UIView animateWithDuration:0.1 animations:^{
-                        weakself.ivCart.top = weakself.ivCart.top + 5;
-                    }completion:^(BOOL finished) {
-                        self.isExcuting = FALSE;
-                    }];
-                }];
-            }];
-        }];
-    }
-}
 
 - (void)setCount:(NSInteger)count{
     _count += count;
@@ -107,8 +90,15 @@
 }
 
 - (void)clickAction:(UIButton*)sender{
-    if ([self.delegate respondsToSelector:@selector(clickQR)]) {
-        [self.delegate clickQR];
+    if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+        [self.delegate clickActionWithIndex:0];
+    }
+}
+
+- (void)clickSearch{
+    
+    if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+        [self.delegate clickActionWithIndex:1];
     }
 }
 
@@ -154,12 +144,12 @@
     r.origin.y = (self.vSearchBg.height - r.size.height)/2.0;
     self.ivSearch.frame = r;
     
-    r = self.tfText.frame;
+    r = self.lbTips.frame;
     r.size.width = self.vSearchBg.width - 10*RATIO_WIDHT320 - self.ivSearch.right - 4*RATIO_WIDHT320;
     r.size.height = self.vSearchBg.height;
     r.origin.x = self.ivSearch.right+4*RATIO_WIDHT320;
     r.origin.y = 0;
-    self.tfText.frame = r;
+    self.lbTips.frame = r;
     
     r = self.vLine.frame;
     r.size.width = DEVICEWIDTH;
