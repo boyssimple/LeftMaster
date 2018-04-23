@@ -58,7 +58,14 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     [self.view addSubview:self.ivLogin];
     [self.view addSubview:self.btnForgot];
     
-//    self.tfUser.text = @"wr";
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *phone = [defaults objectForKey:LOGIN_USER_COUNT];
+    if(phone){
+        self.tfUser.text = phone;
+    }
+    
+    
+//
 //    self.tfPwd.text = @"123456";
     
 }
@@ -126,6 +133,10 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
                 // 结果处理
                 ResponseBeanLogin *response = responseBean;
                 if(response.success){
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults setObject:userName forKey:LOGIN_USER_COUNT];
+                    [defaults synchronize];
+                    
                     [Utils hiddenHanding:self.view withTime:0.5];
                     //存信息到沙盒
                     [Utils saveUserInfo:response.data];

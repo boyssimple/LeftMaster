@@ -17,8 +17,9 @@
 #import "VCRecGoodsList.h"
 #import "RequestBeanCarouseList.h"
 #import "ViewSearchWithHome.h"
+#import "VCModifyPassword.h"
 
-@interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate,UIScrollViewDelegate>
+@interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate,UIScrollViewDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)SDCycleScrollView *cycleScrollView;
 @property(nonatomic,strong)NSMutableArray *categorys;
@@ -41,6 +42,12 @@
     [self.view addSubview:self.table];
     _categorys = [NSMutableArray array];
     _goodsList = [NSMutableArray array];
+
+    //修改初始密码
+    /*
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"密码过于简单，请修改密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+     */
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -213,6 +220,15 @@
         VCRecGoodsList *vc = [[VCRecGoodsList alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 0){
+        VCModifyPassword *vc = [[VCModifyPassword alloc]init];
+        [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:TRUE completion:^{
+            
+        }];
     }
 }
 

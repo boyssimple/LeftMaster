@@ -12,6 +12,7 @@
 
 
 #define LOGIN_FLAG @"LOGIN_FLAG"
+#define LOGIN_USER_COUNT @"LOGIN_USER_COUNT"    //保存登录帐号
 
 //刷新购物车列表
 #define REFRESH_CART_LIST @"refresh_cart_list"
