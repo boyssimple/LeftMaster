@@ -11,10 +11,12 @@
 #import "ViewMessageOrder.h"
 #import "ViewTotalOrder.h"
 #import "ViewTotalBottomWriteOrder.h"
+#import "ViewISBill.h"
 
 @interface VCWriteOrder ()
 @property(nonatomic,strong)UIScrollView *mainView;
 @property(nonatomic,strong)ViewGoodsList *vGoodsList;
+@property(nonatomic,strong)ViewISBill *vBill;
 @property(nonatomic,strong)ViewMessageOrder *vMsgOrder;
 @property(nonatomic,strong)ViewTotalOrder *vTotalOrder;
 @property(nonatomic,strong)ViewTotalBottomWriteOrder *vTotalControl;
@@ -31,6 +33,7 @@
     self.title = @"填写订单";
     [self.view addSubview:self.mainView];
     [self.mainView addSubview:self.vGoodsList];
+    [self.mainView addSubview:self.vBill];
     [self.mainView addSubview:self.vMsgOrder];
     [self.mainView addSubview:self.vTotalOrder];
     
@@ -45,6 +48,7 @@
     if (!_mainView) {
         _mainView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, DEVICEHEIGHT - [ViewTotalBottomWriteOrder calHeight])];
         _mainView.backgroundColor = APP_Gray_COLOR;
+        _mainView.alwaysBounceVertical = YES;
     }
     return _mainView;
 }
@@ -57,9 +61,17 @@
     return _vGoodsList;
 }
 
+- (ViewISBill*)vBill{
+    if (!_vBill) {
+        _vBill = [[ViewISBill alloc]initWithFrame:CGRectMake(0, self.vGoodsList.bottom + 8*RATIO_WIDHT320, DEVICEWIDTH, [ViewISBill calHeight])];
+        [_vBill updateData];
+    }
+    return _vBill;
+}
+
 - (ViewMessageOrder*)vMsgOrder{
     if (!_vMsgOrder) {
-        _vMsgOrder = [[ViewMessageOrder alloc]initWithFrame:CGRectMake(0, self.vGoodsList.bottom + 8*RATIO_WIDHT320, DEVICEWIDTH, [ViewMessageOrder calHeight])];
+        _vMsgOrder = [[ViewMessageOrder alloc]initWithFrame:CGRectMake(0, self.vBill.bottom + 8*RATIO_WIDHT320, DEVICEWIDTH, [ViewMessageOrder calHeight])];
     }
     return _vMsgOrder;
 }

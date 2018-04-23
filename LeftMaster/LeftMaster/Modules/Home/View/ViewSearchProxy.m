@@ -21,7 +21,7 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         _vSearchBg = [[UIView alloc]initWithFrame:CGRectZero];
-        _vSearchBg.backgroundColor = [UIColor redColor];
+        _vSearchBg.backgroundColor = RGB3(247);
         _vSearchBg.layer.cornerRadius = 12.5*RATIO_WIDHT320;
         _vSearchBg.layer.masksToBounds = YES;
         [self addSubview:_vSearchBg];

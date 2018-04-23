@@ -62,6 +62,32 @@
 - (void)clickAction:(UIButton*)sender{
 }
 
+- (void)updateData:(NSDictionary*)data{
+    if(data){
+        [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
+        self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
+        
+        self.lbPrice.text = [NSString stringWithFormat:@"¥%zi/%@",[data jk_integerForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
+        self.lbCount.text = @"3个";
+        
+        if(self.lbPrice.text.length > 2){
+            NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
+            // 改变颜色
+            [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-2)];
+            [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length-2, 2)];
+            [self.lbPrice setAttributedText:noteStr];
+        }
+        
+        if(self.lbCount.text.length > 1){
+            NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbCount.text];
+            // 改变颜色
+            [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbCount.text.length-1)];
+            [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10*RATIO_WIDHT320] range:NSMakeRange(self.lbCount.text.length-1, 1)];
+            [self.lbCount setAttributedText:noteStr];
+        }
+    }
+}
+
 - (void)updateData{
 //    [self.ivImg pt_setImage:@"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg"];
     self.lbName.text = @"275 50 20轮胎 275 50 20轮胎";

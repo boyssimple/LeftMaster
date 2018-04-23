@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CellOrderGoodsList : UITableViewCell
-
+- (void)updateData:(NSDictionary*)data;
 @end

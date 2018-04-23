@@ -29,5 +29,8 @@
 #define net_goods_carouse_list @"shop/GoodsCarouselMobileTran.do?getGoodsCarouselList"       //获取轮播图
 #define net_goods_guide_list @"shop/GoodsCarouselMobileTran.do?getBaseSlidePicList"       //获取引导图
 #define net_user_query_order @"shop/OrderMobileTran.do?queryMyOrder"       //获取订单
+#define net_order_goods_list @"shop/OrderMobileTran.do?queryOrderDetail"       //获取订单物品列表
+#define net_order_confirm @"shop/OrderMobileTran.do?sureOrder"       //确认订单
+#define net_order_cancel @"shop/OrderMobileTran.do?cancelOrder"       //取消订单
 
 #endif /* NetUrl_h */

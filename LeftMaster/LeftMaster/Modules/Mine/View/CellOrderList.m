@@ -30,7 +30,10 @@
 @property(nonatomic,strong)UILabel *lbOrderTime;
 @property(nonatomic,strong)UILabel *lbOrderTimeText;
 
+@property(nonatomic,strong)UIButton *btnAgain;
 @property(nonatomic,strong)UIButton *btnReceive;
+@property(nonatomic,strong)UIButton *btnConfirm;
+@property(nonatomic,strong)UIButton *btnCancel;
 
 @end
 @implementation CellOrderList
@@ -127,9 +130,37 @@
         [_btnReceive setTitle:@"签收" forState:UIControlStateNormal];
         _btnReceive.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
         [_btnReceive setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _btnReceive.tag = 100;
         [_btnReceive addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         _btnReceive.backgroundColor = APP_COLOR;
         [_vBg addSubview:_btnReceive];
+        
+        _btnCancel = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_btnCancel setTitle:@"取消" forState:UIControlStateNormal];
+        _btnCancel.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        [_btnCancel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _btnCancel.tag = 101;
+        [_btnCancel addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        _btnCancel.backgroundColor = APP_COLOR;
+        [_vBg addSubview:_btnCancel];
+        
+        _btnConfirm = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_btnConfirm setTitle:@"确定" forState:UIControlStateNormal];
+        _btnConfirm.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        [_btnConfirm setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _btnConfirm.tag = 102;
+        [_btnConfirm addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        _btnConfirm.backgroundColor = APP_COLOR;
+        [_vBg addSubview:_btnConfirm];
+        
+        _btnAgain = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_btnAgain setTitle:@"再来一单" forState:UIControlStateNormal];
+        _btnAgain.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        [_btnAgain setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _btnAgain.tag = 103;
+        [_btnAgain addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        _btnAgain.backgroundColor = APP_COLOR;
+        [_vBg addSubview:_btnAgain];
         
         _vLine = [[UIView alloc]initWithFrame:CGRectZero];
         _vLine.backgroundColor = RGB3(230);
@@ -140,8 +171,8 @@
 
 
 - (void)clickAction:(UIButton*)sender{
-    if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
-        [self.delegate clickActionWithIndex:self.index];
+    if ([self.delegate respondsToSelector:@selector(clickActionWithIndex: withDataIndex:)]) {
+        [self.delegate clickActionWithIndex:sender.tag-100 withDataIndex:self.index];
     }
 }
 
@@ -155,6 +186,19 @@
     self.lbGoodsCountText.text = @"10个";
     self.lbCotactText.text = [data jk_stringForKey:@"SYSUSER_MOBILE"];
     self.lbOrderTimeText.text = [data jk_stringForKey:@"FD_ORDER_DATE"];
+
+    self.status = [data jk_integerForKey:@"FD_ORDER_STATUS"];
+    self.btnConfirm.hidden = YES;
+    self.btnReceive.hidden = YES;
+    self.btnCancel.hidden = YES;
+    if(self.status == 0){
+        self.btnConfirm.hidden = NO;
+        self.btnCancel.hidden = NO;
+    }else if(self.status == 1){
+        self.btnCancel.hidden = NO;
+    }else if(self.status == 3){
+        self.btnReceive.hidden = NO;
+    }
 }
 
 - (void)updateData{
@@ -286,11 +330,40 @@
     self.lbOrderTimeText.frame = r;
     
     r = self.btnReceive.frame;
-    r.size.width = 45*RATIO_WIDHT320;
+    r.size.width = 35*RATIO_WIDHT320;
     r.size.height = 18*RATIO_WIDHT320;
     r.origin.x = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
     r.origin.y = self.lbOrderTime.top + (self.lbOrderTime.height - r.size.height)/2.0;
     self.btnReceive.frame = r;
+    
+    r = self.btnCancel.frame;
+    r.size.width = 35*RATIO_WIDHT320;
+    r.size.height = 18*RATIO_WIDHT320;
+    r.origin.x = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
+    r.origin.y = self.lbOrderTime.top + (self.lbOrderTime.height - r.size.height)/2.0;
+    self.btnCancel.frame = r;
+    
+    r = self.btnConfirm.frame;
+    r.size.width = 35*RATIO_WIDHT320;
+    r.size.height = 18*RATIO_WIDHT320;
+    r.origin.x = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
+    r.origin.y = self.lbOrderTime.top + (self.lbOrderTime.height - r.size.height)/2.0;
+    self.btnConfirm.frame = r;
+    
+    r = self.btnAgain.frame;
+    r.size.width = 45*RATIO_WIDHT320;
+    r.size.height = 18*RATIO_WIDHT320;
+    r.origin.x = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
+    r.origin.y = self.lbOrderTime.top + (self.lbOrderTime.height - r.size.height)/2.0;
+    self.btnAgain.frame = r;
+    
+    if(self.status == 0){
+        self.btnConfirm.left = self.btnCancel.left - r.size.width - 10*RATIO_WIDHT320;
+        self.btnAgain.left = self.btnConfirm.left - r.size.width - 10*RATIO_WIDHT320;
+    }else if(self.status != 2){
+        self.btnAgain.left = self.btnCancel.left - self.btnAgain.width - 10*RATIO_WIDHT320;
+    }
+    
     
     
     r = self.vLine.frame;

@@ -6,7 +6,7 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "VCOrderContaier.h"
+#import "VCUnConfirm.h"
 #import "CellOrderList.h"
 #import "VCOrder.h"
 #import "ViewTabOrder.h"
@@ -14,15 +14,15 @@
 #import "RequestBeanQueryOrder.h"
 #import "RequestBeanConfirmOrder.h"
 
-@interface VCOrderContaier ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate>
+@interface VCUnConfirm ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property(nonatomic,strong)ViewSearchOrderList *searchView;
 @property(nonatomic,assign)NSInteger page;
 @property(nonatomic,strong)NSMutableArray *dataSource;
-@property(nonatomic,strong)NSString *orderId;
+@property(nonatomic,strong)NSString *orderID;
 @end
 
-@implementation VCOrderContaier
+@implementation VCUnConfirm
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,6 +32,7 @@
 
 - (void)initMain{
     self.page = 1;
+    self.title = @"待确认";
     _dataSource = [NSMutableArray array];
     [self.view addSubview:self.table];
 }
@@ -41,6 +42,7 @@
     RequestBeanQueryOrder *requestBean = [RequestBeanQueryOrder new];
     requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.page_current = self.page;
+    requestBean.order_status = @"0";
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
@@ -148,24 +150,16 @@
 
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index withDataIndex:(NSInteger)dataIndex{
-    
     NSDictionary *data = [self.dataSource objectAtIndex:dataIndex];
     self.orderID = [data jk_stringForKey:@"FD_ID"];
-    if(index == 0){
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定签收？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-        alert.tag = 1000;
-        [alert show];
-    }else if(index == 1){
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定取消定单？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"不取消", nil];
-         alert.tag = 1001;
+    if(index == 1){
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定取消订单？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"不取消", nil];
         [alert show];
     }else if(index == 2){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定提交审核？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-        alert.tag = 1002;
         [alert show];
     }else if(index == 3){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定再来一单？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-        alert.tag = 1003;
         [alert show];
     }
 }
@@ -175,12 +169,14 @@
     NSInteger tag = alertView.tag;
     if(tag == 1000){
         if(buttonIndex == 0){
+            
         }else{
             
         }
     }else if(tag == 1001){
         
         if(buttonIndex == 0){
+            
         }else{
             
         }
@@ -199,11 +195,6 @@
             
         }
     }
-    
-    //    if (buttonIndex == 0) {
-//        [Utils showHanding:@"处理中..." with:self.view];
-//        [Utils hiddenHanding:self.view withTime:2];
-//    }
 }
 
 - (ViewSearchOrderList*)searchView{

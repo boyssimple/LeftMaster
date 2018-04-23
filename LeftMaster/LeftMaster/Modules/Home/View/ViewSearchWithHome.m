@@ -23,7 +23,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         
         _btnQR = [[UIButton alloc]initWithFrame:CGRectZero];
         _btnQR.titleLabel.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
@@ -33,7 +33,7 @@
         [self addSubview:_btnQR];
         
         _vSearchBg = [[UIView alloc]initWithFrame:CGRectZero];
-        _vSearchBg.backgroundColor = RGB3(247);
+        _vSearchBg.backgroundColor = [UIColor whiteColor];
         _vSearchBg.layer.cornerRadius = 15;
         _vSearchBg.layer.masksToBounds = YES;
         [self addSubview:_vSearchBg];

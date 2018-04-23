@@ -21,6 +21,7 @@
 @property(nonatomic,strong)UILabel *lbTitle;
 @property(nonatomic,strong)UIButton *btnAll;
 @property(nonatomic,strong)UIView *vLine;
+@property(nonatomic,strong)ViewBtnHeaderMine *vConfirm;
 @property(nonatomic,strong)ViewBtnHeaderMine *vAudution;
 @property(nonatomic,strong)ViewBtnHeaderMine *vUnSend;
 @property(nonatomic,strong)ViewBtnHeaderMine *vUnReceive;
@@ -78,9 +79,17 @@
         [self addSubview:_vLine];
         
         
+        _vConfirm = [[ViewBtnHeaderMine alloc]initWithFrame:CGRectZero];
+        [_vConfirm updateData:@"me_icon_1" with:@"待确认"];
+        _vConfirm.tag = 200;
+        [self addSubview:_vConfirm];
+        
+        UITapGestureRecognizer *tap0 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotoOrderList:)];
+        [_vConfirm addGestureRecognizer:tap0];
+        
         _vAudution = [[ViewBtnHeaderMine alloc]initWithFrame:CGRectZero];
         [_vAudution updateData:@"me_icon_1" with:@"待审核"];
-        _vAudution.tag = 200;
+        _vAudution.tag = 201;
         [self addSubview:_vAudution];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotoOrderList:)];
@@ -88,7 +97,7 @@
         
         _vUnSend = [[ViewBtnHeaderMine alloc]initWithFrame:CGRectZero];
         [_vUnSend updateData:@"me_icon_2" with:@"待发货"];
-        _vUnSend.tag = 201;
+        _vUnSend.tag = 202;
         [self addSubview:_vUnSend];
         
         UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotoOrderList:)];
@@ -96,7 +105,7 @@
         
         _vUnReceive = [[ViewBtnHeaderMine alloc]initWithFrame:CGRectZero];
         [_vUnReceive updateData:@"me_icon_3" with:@"待收货"];
-        _vUnReceive.tag = 202;
+        _vUnReceive.tag = 203;
         [self addSubview:_vUnReceive];
         
         UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotoOrderList:)];
@@ -135,7 +144,7 @@
 - (void)clickAction:(UIButton*)sender{
     if(sender.tag == 100){
         VCOrderList *vc = [[VCOrderList alloc]init];
-        vc.curIndex = 3;
+        vc.curIndex = 4;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -211,11 +220,18 @@
     r.origin.y = self.lbTitle.bottom + 12*RATIO_WIDHT320;
     self.vLine.frame = r;
     
-    CGFloat w = DEVICEWIDTH / 3.0;
-    r = self.vAudution.frame;
+    CGFloat w = DEVICEWIDTH / 4.0;
+    r = self.vConfirm.frame;
     r.size.width = w;
     r.size.height = [ViewBtnHeaderMine calHeight];
     r.origin.x = 0;
+    r.origin.y = self.vLine.bottom;
+    self.vConfirm.frame = r;
+    
+    r = self.vAudution.frame;
+    r.size.width = w;
+    r.size.height = [ViewBtnHeaderMine calHeight];
+    r.origin.x = self.vConfirm.right;
     r.origin.y = self.vLine.bottom;
     self.vAudution.frame = r;
     

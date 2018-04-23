@@ -1,23 +1,28 @@
 //
-//  VCOrder.m
+//  VCOrderContaier.m
 //  LeftMaster
 //
-//  Created by simple on 2018/4/10.
+//  Created by simple on 2018/4/11.
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "VCOrderGoodsList.h"
-#import "CellOrderGoodsList.h"
-#import "VCGoods.h"
-#import "RequestBeanOrderGoodsList.h"
+#import "VCMyOrderList.h"
+#import "CellOrderList.h"
+#import "VCOrder.h"
+#import "ViewTabOrder.h"
+#import "ViewSearchOrderList.h"
+#import "RequestBeanQueryOrder.h"
+#import "ViewTabOrder.h"
 
-@interface VCOrderGoodsList ()<UITableViewDelegate,UITableViewDataSource>
-@property(nonatomic,strong)UITableView *table;
+@interface VCMyOrderList ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate,ViewTabOrderDelegate>
+@property (nonatomic, strong) UITableView *table;
+@property(nonatomic,strong)ViewSearchOrderList *searchView;
 @property(nonatomic,assign)NSInteger page;
-@property(nonatomic,strong)NSMutableArray *goodsList;
+@property(nonatomic,strong)NSMutableArray *dataSource;
+@property(nonatomic,strong)ViewTabOrder *tabOrder;
 @end
 
-@implementation VCOrderGoodsList
+@implementation VCMyOrderList
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,29 +31,30 @@
 }
 
 - (void)initMain{
-    self.title = @"商品清单";
-    _goodsList = [NSMutableArray array];
+    self.title = @"订单";
     self.page = 1;
+    _dataSource = [NSMutableArray array];
+    [self.view addSubview:self.tabOrder];
     [self.view addSubview:self.table];
 }
 
+
 - (void)loadData{
-    RequestBeanOrderGoodsList *requestBean = [RequestBeanOrderGoodsList new];
+    RequestBeanQueryOrder *requestBean = [RequestBeanQueryOrder new];
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.page_current = self.page;
-    requestBean.FD_ORDER_ID = self.orderId;
-    requestBean.page_size = 10;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [Utils hiddenHanding:self.view withTime:0.5];
         [weakself.table.mj_header endRefreshing];
         [weakself.table.mj_footer endRefreshing];
-        [Utils hiddenHanding:self.view withTime:0.5];
         if (!err) {
             // 结果处理
-            ResponseBeanOrderGoodsList *response = responseBean;
+            ResponseBeanQueryOrder *response = responseBean;
             if(response.success){
                 if(self.page == 1){
-                    [weakself.goodsList removeAllObjects];
+                    [weakself.dataSource removeAllObjects];
                 }
                 NSArray *datas = [response.data jk_arrayForKey:@"rows"];
                 if(datas.count == 0 || datas.count < requestBean.page_size){
@@ -56,7 +62,7 @@
                 }else{
                     [weakself.table.mj_footer resetNoMoreData];
                 }
-                [weakself.goodsList addObjectsFromArray:datas];
+                [weakself.dataSource addObjectsFromArray:datas];
                 [weakself.table reloadData];
             }
         }
@@ -68,22 +74,27 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.goodsList.count;
+    return self.dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [CellOrderGoodsList calHeight];
+    return [CellOrderList calHeight];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    static NSString*identifier = @"CellOrderGoodsList";
-    CellOrderGoodsList *cell = (CellOrderGoodsList*)[tableView dequeueReusableCellWithIdentifier:identifier];
+    static NSString*identifier = @"CeCellOrderListll";
+    CellOrderList *cell = (CellOrderList*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[CellOrderGoodsList alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[CellOrderList alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.delegate = self;
     }
-    NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
-    [cell updateData:data];
+    cell.index = indexPath.row;
+    [cell updateData:[self.dataSource objectAtIndex:indexPath.row]];
+    if(indexPath.row == 4){
+        cell.vLine.hidden = YES;
+    }else{
+        cell.vLine.hidden = NO;
+    }
     return cell;
 }
 
@@ -112,18 +123,45 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    VCGoods *vc = [[VCGoods alloc]init];
+    VCOrder *vc = [[VCOrder alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - CommonDelegate
+- (void)clickActionWithIndex:(NSInteger)index{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定签收？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    [alert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [Utils showHanding:@"处理中..." with:self.view];
+        [Utils hiddenHanding:self.view withTime:2];
+    }
+}
+
+#pragma  - ViewTabOrderDelegate
+- (void)clickTab:(NSInteger)index{
+    
+}
+
+- (ViewSearchOrderList*)searchView{
+    if(!_searchView){
+        _searchView = [[ViewSearchOrderList alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewSearchOrderList calHeight])];
+    }
+    return _searchView;
 }
 
 - (UITableView*)table{
     if(!_table){
-        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, DEVICEHEIGHT) style:UITableViewStyleGrouped];
+        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, [ViewTabOrder calHeight]+NAV_STATUS_HEIGHT, DEVICEWIDTH, DEVICEHEIGHT - [ViewTabOrder calHeight]-NAV_STATUS_HEIGHT) style:UITableViewStyleGrouped];
         _table.backgroundColor = [UIColor clearColor];
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
         _table.dataSource = self;
-        _table.backgroundColor = APP_Gray_COLOR;
+        _table.tableHeaderView = self.searchView;
+        
         __weak typeof(self) weakself = self;
         
         _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -139,5 +177,12 @@
     return _table;
 }
 
+- (ViewTabOrder*)tabOrder{
+    if (!_tabOrder) {
+        _tabOrder = [[ViewTabOrder alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewTabOrder calHeight])];
+        _tabOrder.curIndex = 0;
+        _tabOrder.delegate = self;
+    }
+    return _tabOrder;
+}
 @end
-

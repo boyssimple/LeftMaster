@@ -10,4 +10,5 @@
 @protocol CommonDelegate<NSObject>
 @optional
 - (void)clickActionWithIndex:(NSInteger)index;
+- (void)clickActionWithIndex:(NSInteger)index withDataIndex:(NSInteger)dataIndex;
 @end

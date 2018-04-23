@@ -13,6 +13,7 @@
 #import "RequestBeanGoodsDetail.h"
 #import "RequestBeanAddCart.h"
 #import "CellGoods.h"
+#import "VCWriteOrder.h"
 
 @interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,ViewHeaderGoodsDelegate,CommonDelegate,
         UIWebViewDelegate>
@@ -100,6 +101,9 @@
 }
 
 - (NSString*)installHtml:(NSString*)content{
+    if(!content){
+        content = @"";
+    }
     NSMutableString *html = [NSMutableString string];
     [html appendString:@"<html>"];
     [html appendString:@"<head>"];
@@ -189,7 +193,7 @@
 - (void)clickActionWithIndex:(NSInteger)index{
     if(self.data){
         NSInteger type = [self.data jk_integerForKey:@"OPER_TYPE"];{
-            if(type == 0){
+            if(false && type == 0){
                 [Utils showSuccessToast:@"您不具备该商品购买权限，请联系左师傅" with:self.view withTime:1];
             }else{
                 if (index == 0) {
@@ -198,7 +202,8 @@
                     //调用加入购物车接口
                     [self addCart];
                 }else{
-                    
+                    VCWriteOrder *vc = [[VCWriteOrder alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
                 }
             }
         }

@@ -9,5 +9,5 @@
 #import "VCBase.h"
 
 @interface VCOrderGoodsList : VCBase
-
+@property(nonatomic,strong)NSString *orderId;
 @end
