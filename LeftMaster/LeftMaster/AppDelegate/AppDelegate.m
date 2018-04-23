@@ -19,7 +19,7 @@
 #endif
 // 如果需要使用idfa功能所需要引入的头文件（可选）
 #import <AdSupport/AdSupport.h>
-#import "VCProxy.h"
+#import "VCProxyCustmer.h"
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 
@@ -54,7 +54,7 @@
         NSLog(@"用户：%@",dictionary);
         [[AppUser share] parse:dictionary];
         if([AppUser share].isSalesman){
-            VCProxy *vc = [[VCProxy alloc]init];
+            VCProxyCustmer *vc = [[VCProxyCustmer alloc]init];
             UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
             [self restoreRootViewController:nav];
         }else{

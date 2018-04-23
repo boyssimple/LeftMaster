@@ -66,6 +66,8 @@
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [weakself.table.mj_header endRefreshing];
+        [weakself.table.mj_footer endRefreshing];
         [Utils hiddenHanding:self.view withTime:0.5];
         if (!err) {
             // 结果处理
@@ -75,7 +77,7 @@
                     [weakself.goodsList removeAllObjects];
                 }
                 NSArray *datas = [response.data jk_arrayForKey:@"rows"];
-                if(datas.count < requestBean.page_size){
+                if(datas.count == 0 || datas.count < requestBean.page_size){
                     [weakself.table.mj_footer endRefreshingWithNoMoreData];
                 }else{
                     [weakself.table.mj_footer resetNoMoreData];

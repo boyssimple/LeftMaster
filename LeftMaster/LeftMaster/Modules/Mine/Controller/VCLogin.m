@@ -9,7 +9,7 @@
 #import "VCLogin.h"
 #import "VCMain.h"
 #import "AppDelegate.h"
-#import "VCProxy.h"
+#import "VCProxyCustmer.h"
 #import "RequestBeanLogin.h"
 #import "VCForgotPwd.h"
 #import "WindowGuide.h"
@@ -146,7 +146,7 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
                     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                     
                     if([AppUser share].isSalesman){
-                        VCProxy *vc = [[VCProxy alloc]init];
+                        VCProxyCustmer *vc = [[VCProxyCustmer alloc]init];
                         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
                         [appDelegate restoreRootViewController:nav];
                     }else{

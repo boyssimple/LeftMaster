@@ -53,7 +53,7 @@
                     [weakself.dataSource removeAllObjects];
                 }
                 NSArray *datas = [response.data jk_arrayForKey:@"rows"];
-                if(datas.count < requestBean.page_size){
+                if(datas.count == 0 || datas.count < requestBean.page_size){
                     [weakself.table.mj_footer endRefreshingWithNoMoreData];
                 }else{
                     [weakself.table.mj_footer resetNoMoreData];
