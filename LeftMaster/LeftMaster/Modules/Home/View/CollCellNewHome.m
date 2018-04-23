@@ -96,9 +96,9 @@
     [super layoutSubviews];
     CGRect r = self.vBg.frame;
     r.origin.x = 0;
-    r.origin.y = 15*RATIO_WIDHT320;
+    r.origin.y = 0;
     r.size.width = self.width;
-    r.size.height = self.height - 30*RATIO_WIDHT320;
+    r.size.height = self.height;
     self.vBg.frame = r;
     
     r = self.ivImg.frame;
@@ -123,12 +123,12 @@
     r.size.height = 0.5;
     self.vLine.frame = r;
 
-    CGSize size = [self.lbName sizeThatFits:CGSizeMake(135*RATIO_WIDHT320, MAXFLOAT)];
+    CGSize size = [self.lbName sizeThatFits:CGSizeMake(self.vBg.width - 10*RATIO_WIDHT320, MAXFLOAT)];
     r = self.lbName.frame;
-    r.origin.x = 0;
+    r.origin.x = 5*RATIO_WIDHT320;
     r.origin.y = self.vLine.bottom+11*RATIO_WIDHT320;
     r.size.height = size.height;
-    r.size.width = 135*RATIO_WIDHT320;
+    r.size.width = self.vBg.width - 10*RATIO_WIDHT320;
     self.lbName.frame = r;
 
     size = [self.lbPrice sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
@@ -147,7 +147,7 @@
 }
 
 + (CGFloat)calHeight{
-    return 189*RATIO_WIDHT320+30*RATIO_WIDHT320;
+    return 189*RATIO_WIDHT320;
 }
 
 @end

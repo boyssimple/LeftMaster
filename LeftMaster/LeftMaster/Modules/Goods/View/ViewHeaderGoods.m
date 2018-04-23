@@ -155,27 +155,29 @@
 }
 
 - (void)updateData:(NSDictionary*)data{
-    self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
-    self.lbNoText.text = [data jk_stringForKey:@"GOODS_CODE"];
-    self.lbTopPriceText.text = [NSString stringWithFormat:@"%@/%@",[data jk_stringForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
-    
-    self.lbRole.text = @"?起订";
-    if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
-        self.lbStatus.text = @" | 库存充足";
-    }else{
-        self.lbStatus.text = @" | 库存不足";
-    }
-    self.lbPrice.text = [NSString stringWithFormat:@"￥%zi.00/%@",[data jk_integerForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];//@"¥???.00/瓶";
-    
-    if(self.lbPrice.text.length > 1){
-        NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
-        // 改变颜色
-        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-2)];
+    if(data){
+        self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
+        self.lbNoText.text = [data jk_stringForKey:@"GOODS_CODE"];
+        self.lbTopPriceText.text = [NSString stringWithFormat:@"%@/%@",[data jk_stringForKey:@"GOODS_MARKET_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
         
-        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(0, 1)];
-        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20*RATIO_WIDHT320] range:NSMakeRange(1, self.lbPrice.text.length - 5)];
-        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length - 4, 4)];
-        [self.lbPrice setAttributedText:noteStr];
+        self.lbRole.text = @"?起订";
+        if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
+            self.lbStatus.text = @" | 库存充足";
+        }else{
+            self.lbStatus.text = @" | 库存不足";
+        }
+        self.lbPrice.text = [NSString stringWithFormat:@"￥%zi.00/%@",[data jk_integerForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];//@"¥???.00/瓶";
+        
+        if(self.lbPrice.text.length > 1){
+            NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
+            // 改变颜色
+            [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-2)];
+            
+            [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(0, 1)];
+            [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20*RATIO_WIDHT320] range:NSMakeRange(1, self.lbPrice.text.length - 5)];
+            [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length - 4, 4)];
+            [self.lbPrice setAttributedText:noteStr];
+        }
     }
 }
 

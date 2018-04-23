@@ -6,16 +6,15 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "VCRecGoodsList.h"
+#import "VCGoodsList.h"
 #import "CellRecGoodsList.h"
 #import "ViewCategory.h"
 #import "HMScannerController.h"
-#import "RequestBeanCategoryHome.h"
 #import "RequestBeanGoodsList.h"
 #import "VCGoods.h"
 #import "ViewOrderRecGoodsList.h"
 
-@interface VCRecGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate>
+@interface VCGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewOrderRecGoodsList *viewOrder;
@@ -24,7 +23,7 @@
 @property (nonatomic, assign) NSInteger page;
 @end
 
-@implementation VCRecGoodsList
+@implementation VCGoodsList
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,33 +33,40 @@
 
 - (void)initMain{
     self.page = 1;
-    self.title = @"新品推荐";
+    self.title = @"商品列表";
     self.view.backgroundColor = RGB3(247);
     _goodsList = [NSMutableArray array];
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, 44)];
     view.backgroundColor = [UIColor redColor];
-//    self.navigationItem.titleView = self.vCart;
-//    [self.view addSubview:self.vCart];
-    
     [self.view addSubview:self.vCart];
     [self.view addSubview:self.viewOrder];
     [self.view addSubview:self.table];
 }
 
 
+
 - (void)loadData{
     RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
-    requestBean.new_goods = TRUE;
     requestBean.page_current = self.page;
-    requestBean.page_size = 10;
     requestBean.cus_id = [AppUser share].CUS_ID;
     requestBean.company_id = [AppUser share].SYSUSER_COMPANYID;
+    requestBean.new_goods = FALSE;
+    requestBean.page_size = 10;
+    if(self.cateId){
+        requestBean.goods_type_id = [NSString stringWithFormat:@"%zi",self.cateId];
+    }else{
+        requestBean.goods_type_id = nil;
+    }
+    if(self.keywords && self.keywords.length > 0){
+        requestBean.search_name = self.keywords;
+    }else{
+        requestBean.search_name = nil;
+    }
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
-    [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         [Utils hiddenHanding:self.view withTime:0.5];
-        [weakself.table.mj_header endRefreshing];
         if (!err) {
             // 结果处理
             ResponseBeanGoodsList *response = responseBean;
@@ -80,7 +86,6 @@
         }
     }];
 }
-
 
 - (void)search{
     self.keywords = self.vCart.tfText.text;
@@ -205,17 +210,17 @@
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
         _table.dataSource = self;
-        __weak typeof(self) weakself = self;
-        
-        _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            weakself.page = 1;
-            [weakself loadData];
-        }];
-        
-        _table.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            weakself.page++;
-            [weakself loadData];
-        }];
+         __weak typeof(self) weakself = self;
+         
+         _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+             weakself.page = 1;
+             [weakself loadData];
+         }];
+         
+         _table.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+             weakself.page++;
+             [weakself loadData];
+         }];
     }
     return _table;
 }

@@ -11,8 +11,7 @@
 #import "VCOrder.h"
 #import "ViewTabOrder.h"
 #import "ViewSearchOrderList.h"
-#import "RequestBeanCartList.h"
-
+#import "RequestBeanQueryOrder.h"
 
 @interface VCOrderContaier ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *table;
@@ -37,7 +36,7 @@
 
 
 - (void)loadData{
-    RequestBeanCartList *requestBean = [RequestBeanCartList new];
+    RequestBeanQueryOrder *requestBean = [RequestBeanQueryOrder new];
     requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.page_current = self.page;
     [Utils showHanding:requestBean.hubTips with:self.view];
@@ -48,7 +47,7 @@
         [weakself.table.mj_footer endRefreshing];
         if (!err) {
             // 结果处理
-            ResponseBeanCartList *response = responseBean;
+            ResponseBeanQueryOrder *response = responseBean;
             if(response.success){
                 if(self.page == 1){
                     [weakself.dataSource removeAllObjects];
@@ -71,7 +70,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return self.dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -86,7 +85,7 @@
         cell.delegate = self;
     }
     cell.index = indexPath.row;
-    [cell updateData];
+    [cell updateData:[self.dataSource objectAtIndex:indexPath.row]];
     if(indexPath.row == 4){
         cell.vLine.hidden = YES;
     }else{

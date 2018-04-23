@@ -7,8 +7,9 @@
 //
 
 #import "VCForgotPwdFinish.h"
+#import "RequestBeanModifyPwd.h"
 
-@interface VCForgotPwdFinish ()<UIScrollViewDelegate>
+@interface VCForgotPwdFinish ()<UIScrollViewDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UIScrollView *mainScroll;
 @property(nonatomic,strong)UIView *vNewBg;
 @property(nonatomic,strong)UIView *vConfirmBg;
@@ -37,6 +38,61 @@
     [self.view addSubview:self.mainScroll];
 }
 
+
+- (void)clickAction:(UIButton*)sender{
+    [self.view endEditing:YES];
+    NSString *newPwd = [self.tfNewPwd.text trim];
+    NSString *confirmPwd = [self.tfConfirmPwd.text trim];
+    
+    if(newPwd.length == 0){
+        [Utils showToast:@"请输入新密码" with:self.view withTime:0.8];
+        return;
+    }
+    if(newPwd.length < 6){
+        [Utils showToast:@"密码不能少于6位" with:self.view withTime:0.8];
+        return;
+    }
+    if(confirmPwd.length == 0){
+        [Utils showToast:@"请输入确认密码" with:self.view withTime:0.8];
+        return;
+    }
+    if(![confirmPwd isEqualToString:newPwd]){
+        [Utils showToast:@"确认密码错误" with:self.view withTime:0.8];
+        return;
+    }
+    
+    RequestBeanModifyPwd *requestBean = [RequestBeanModifyPwd new];
+    requestBean.SYSUSER_ID = [AppUser share].SYSUSER_ID;
+    requestBean.NEW_PASSWORD = newPwd;
+    requestBean.TYPE = 2;
+    requestBean.CONFIRM_PASSWORD = confirmPwd;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        ResponseBeanModifyPwd *response = responseBean;
+        if(!err){
+            // 结果处理
+            if(response.success){
+                [Utils hiddenHanding:self.view withTime:0.5];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"密码设置成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }else{
+                [Utils showToast:response.msg with:self.view withTime:0.8];
+            }
+        }else{
+            [Utils showSuccessToast:@"设置失败" with:weakself.view withTime:1];
+        }
+        
+    }];
+}
+
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self.view endEditing:YES];
@@ -145,6 +201,7 @@
         [_btnNext setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _btnNext.titleLabel.font = [UIFont systemFontOfSize:17*RATIO_WIDHT320];
         _btnNext.layer.cornerRadius = 4.5f;
+        [_btnNext addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnNext;
 }

@@ -16,12 +16,14 @@
 #import "VCCategory.h"
 #import "VCRecGoodsList.h"
 #import "RequestBeanCarouseList.h"
+#import "ViewSearchWithHome.h"
 
-@interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate>
+@interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate,UIScrollViewDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)SDCycleScrollView *cycleScrollView;
 @property(nonatomic,strong)NSMutableArray *categorys;
 @property(nonatomic,strong)NSMutableArray *goodsList;
+@property(nonatomic,strong)ViewSearchWithHome *vCart;
 @end
 
 @implementation VCHome
@@ -41,6 +43,13 @@
     _goodsList = [NSMutableArray array];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [self.navigationController.navigationBar addSubview:self.vCart];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [self.vCart removeFromSuperview];
+}
 
 - (void)loadData{
     RequestBeanCategoryHome *requestBean = [RequestBeanCategoryHome new];
@@ -95,6 +104,9 @@
     RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
     requestBean.new_goods = TRUE;
     requestBean.page_current = 1;
+    requestBean.page_size = 6;
+    requestBean.cus_id = [AppUser share].CUS_ID;
+    requestBean.company_id = [AppUser share].SYSUSER_COMPANYID;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
@@ -123,7 +135,7 @@
     if(indexPath.section == 0){
         return [CellCategoryHome calHeight:[self.categorys count]];
     }else{
-        return [CellNewHome calHeight];
+        return [CellNewHome calHeight:self.goodsList];
     }
 }
 
@@ -187,6 +199,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.navigationController pushViewController:[[UIViewController alloc]init] animated:TRUE];
 }
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.view endEditing:YES];
+}
 
 #pragma mark - SectionHeaderHomeDelegate
 - (void)sectionClickShowAll:(NSInteger)index{
@@ -228,4 +243,16 @@
     }
     return _cycleScrollView;
 }
+
+- (ViewSearchWithHome*)vCart{
+    if(!_vCart){
+        _vCart = [[ViewSearchWithHome alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, [ViewSearchWithHome calHeight])];
+        _vCart.delegate = self;
+        _vCart.tfText.delegate = self;
+        _vCart.tfText.returnKeyType = UIReturnKeySearch;
+        [_vCart updateData];
+    }
+    return _vCart;
+}
+
 @end

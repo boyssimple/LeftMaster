@@ -25,15 +25,15 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.minimumLineSpacing = 10*RATIO_WIDHT320;
-        layout.minimumInteritemSpacing = 0;
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.minimumInteritemSpacing = 10*RATIO_WIDHT320;
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         _collView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, DEVICEHEIGHT) collectionViewLayout:layout];
         [_collView registerClass:[CollCellNewHome class] forCellWithReuseIdentifier:@"CollCellNewHome"];
-        _collView.contentInset = UIEdgeInsetsMake(0, 10*RATIO_WIDHT320, 0, 10*RATIO_WIDHT320);
+        _collView.contentInset = UIEdgeInsetsMake(15*RATIO_WIDHT320, 10*RATIO_WIDHT320, 15*RATIO_WIDHT320, 10*RATIO_WIDHT320);
         _collView.backgroundColor = [UIColor clearColor];
         _collView.delegate = self;
         _collView.dataSource = self;
-//        _collView.scrollEnabled = NO;
+        _collView.scrollEnabled = NO;
         [self.contentView addSubview:_collView];
     }
     return self;
@@ -61,8 +61,9 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CGFloat w = [CollCellNewHome calHeight];
-    return CGSizeMake(135*RATIO_WIDHT320, w);
+    CGFloat h = [CollCellNewHome calHeight];
+    CGFloat w = (DEVICEWIDTH - 30*RATIO_WIDHT320)/2.0;
+    return CGSizeMake(w, h);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -83,8 +84,12 @@
     self.collView.frame = r;
 }
 
-+ (CGFloat)calHeight{
-    return [CollCellNewHome calHeight];
++ (CGFloat)calHeight:(NSArray*)arrays{
+    NSInteger sec = arrays.count /2;
+    if(arrays.count % 2 !=0){
+        sec += 1;
+    }
+    return [CollCellNewHome calHeight]*sec + 30*RATIO_WIDHT320 + (sec-1)*10*RATIO_WIDHT320;
 }
 
 @end

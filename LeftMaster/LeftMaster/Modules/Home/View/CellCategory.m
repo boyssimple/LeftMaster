@@ -50,7 +50,9 @@
 }
 
 - (void)updateData:(NSDictionary*)data{
-    self.lbName.text = [data jk_stringForKey:@"GOODSTYPE_NAME"];
+    if(data){
+        self.lbName.text = [data jk_stringForKey:@"GOODSTYPE_NAME"];
+    }
 }
 
 - (void)updateData{

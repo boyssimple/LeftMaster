@@ -145,6 +145,18 @@
     }
 }
 
+- (void)updateData:(NSDictionary*)data{
+    self.lbNo.text = [data jk_stringForKey:@"FD_NO"];
+    self.lbStatus.text = [data jk_stringForKey:@"FD_ORDER_STATUS_NAME"];
+    self.lbCompany.text = [data jk_stringForKey:@"fd_name"];
+    
+    self.lbOrderAmountText.text = [NSString stringWithFormat:@"¥%@",[data jk_stringForKey:@"FD_TOTAL_PRICE"]];
+    self.lbOrderText.text = [data jk_stringForKey:@"SYSUSER_NAME"];
+    self.lbGoodsCountText.text = @"10个";
+    self.lbCotactText.text = [data jk_stringForKey:@"SYSUSER_MOBILE"];
+    self.lbOrderTimeText.text = [data jk_stringForKey:@"FD_ORDER_DATE"];
+}
+
 - (void)updateData{
     self.lbNo.text = @"DH.20180118.001";
     self.lbStatus.text = @"待审核";

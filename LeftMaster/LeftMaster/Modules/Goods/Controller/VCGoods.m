@@ -12,11 +12,13 @@
 #import "ViewBtnGoods.h"
 #import "RequestBeanGoodsDetail.h"
 #import "RequestBeanAddCart.h"
+#import "CellGoods.h"
 
-@interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,ViewHeaderGoodsDelegate,CommonDelegate>
+@interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,ViewHeaderGoodsDelegate,CommonDelegate,
+        UIWebViewDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewHeaderGoods *header;
-@property(nonatomic,strong)UIImageView *footer;
+@property(nonatomic,strong)UIWebView *footer;
 @property(nonatomic,strong)SDCycleScrollView *cycleScrollView;
 @property(nonatomic,strong)UILabel *lbPicCount;
 @property(nonatomic,strong)ViewBtnGoods *bottom;
@@ -36,23 +38,13 @@
     self.title = @"商品详情";
     [self.view addSubview:self.table];
     [self.view addSubview:self.bottom];
-    __weak typeof(self) weakself = self;
-    [self.footer sd_setImageWithURL:[NSURL URLWithString:@"https://img20.360buyimg.com/vc/jfs/t8632/279/878329325/1975572/b6953b36/59b0bde0Nb1375bc3.jpg"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        CGSize size = image.size;
-        CGFloat r = DEVICEWIDTH/size.width;
-        if(DEVICEWIDTH < size.width){
-            r = size.width /DEVICEWIDTH;
-        }
-        weakself.footer.height = size.height / r;
-        weakself.table.tableFooterView = weakself.footer;
-        [weakself.table reloadData];
-    }];
 }
 
 
 - (void)loadData{
     RequestBeanGoodsDetail *requestBean = [RequestBeanGoodsDetail new];
     requestBean.goods_id = self.goods_id;
+    requestBean.cus_id = [AppUser share].CUS_ID;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
@@ -61,6 +53,7 @@
             // 结果处理
             ResponseBeanGoodsDetail *response = responseBean;
             weakself.data = response.data;
+            [weakself installData];
             [weakself.table reloadData];
         }
     }];
@@ -90,25 +83,63 @@
     }];
 }
 
+- (void)installData{
+    if(self.data){
+        
+        NSString *html = [self.data jk_stringForKey:@"GOODS_INTRODUCTION"];
+        [self.footer loadHTMLString:[self installHtml:html] baseURL:nil];
+        
+        self.cycleScrollView.imageURLStringsGroup = [self.data jk_arrayForKey:@"GOODS_PICS"];
+        self.lbPicCount.text = [NSString stringWithFormat:@"%d/%zi",1,self.cycleScrollView.imageURLStringsGroup.count];
+        if(self.cycleScrollView.imageURLStringsGroup.count > 0){
+            self.lbPicCount.hidden = NO;
+        }else{
+            self.lbPicCount.hidden = YES;
+        }
+    }
+}
+
+- (NSString*)installHtml:(NSString*)content{
+    NSMutableString *html = [NSMutableString string];
+    [html appendString:@"<html>"];
+    [html appendString:@"<head>"];
+    
+//        [html appendString:@"<meta name=\"viewport\" content=\"target-densitydpi=device-dpi,width=640,user-scalable=no\"/>"];
+    [html appendFormat:@"<link rel=\"stylesheet\" href=\"%@\">",[[NSBundle mainBundle] URLForResource:@"style.css" withExtension:nil]];
+    [html appendString:@"</head>"];
+    
+    [html appendString:@"<body style=\"background:#ffffff\">"];
+    [html appendString:content];
+    [html appendString:@"</body>"];
+    [html appendString:@"</html>"];
+    
+    return html;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [UITableViewCell calHeight];
+    if(self.data){
+        return [CellGoods calHeight:[self.data jk_arrayForKey:@"GOODS_PARAMJSON"]];
+    }
+    return 0;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString*identifier = @"Cell";
-    UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:identifier];
+    CellGoods *cell = (CellGoods*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[CellGoods alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    [cell updateData];
+    if(self.data){
+        cell.dataSouce = [self.data jk_arrayForKey:@"GOODS_PARAMJSON"];
+    }
     return cell;
 }
 
@@ -156,14 +187,32 @@
 
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
-    if (index == 0) {
-        self.bottom.count = self.count;
-        [self.bottom startAnimation];
-        //调用加入购物车接口
-        [self addCart];
-    }else{
-        
+    if(self.data){
+        NSInteger type = [self.data jk_integerForKey:@"OPER_TYPE"];{
+            if(type == 0){
+                [Utils showSuccessToast:@"您不具备该商品购买权限，请联系左师傅" with:self.view withTime:1];
+            }else{
+                if (index == 0) {
+                    self.bottom.count = self.count;
+                    [self.bottom startAnimation];
+                    //调用加入购物车接口
+                    [self addCart];
+                }else{
+                    
+                }
+            }
+        }
     }
+}
+
+#pragma mark - UIWebViewDelegate
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    CGFloat  htmlHeight = [[self.footer stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"]floatValue];
+    CGRect r = self.footer.frame;
+    r.size.height = htmlHeight;
+    self.footer.frame = r;
+    self.table.tableFooterView = self.footer;
+    [self.table reloadData];
 }
 
 - (UITableView*)table{
@@ -174,7 +223,6 @@
         _table.delegate = self;
         _table.dataSource = self;
         _table.tableHeaderView = self.cycleScrollView;
-        _table.tableFooterView = self.footer;
     }
     return _table;
 }
@@ -186,9 +234,10 @@
     return _header;
 }
 
-- (UIImageView*)footer{
+- (UIWebView*)footer{
     if(!_footer){
-        _footer = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, 0)];
+        _footer = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, 100)];
+        _footer.delegate = self;
     }
     return _footer;
 }
@@ -202,6 +251,7 @@
         _lbPicCount.textAlignment = NSTextAlignmentCenter;
         _lbPicCount.layer.cornerRadius = _lbPicCount.height/2.0;
         _lbPicCount.layer.masksToBounds = YES;
+        _lbPicCount.hidden = YES;
     }
     return _lbPicCount;
 }
@@ -211,14 +261,11 @@
     if (!_cycleScrollView) {
         CGRect frame = CGRectMake(0, 0, DEVICEWIDTH, 320*RATIO_WIDHT320);
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:frame delegate:self placeholderImage:nil];
-        _cycleScrollView.imageURLStringsGroup = @[@"http://5b0988e595225.cdn.sohucs.com/images/20170710/90d013a24bc043f9bc27f9604c8b77bc.png",
-                                                  @"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg",
-                                                  @"http://pic97.huitu.com/res/20160724/976_20160724152045497500_1.jpg"];
+        _cycleScrollView.backgroundColor = [UIColor whiteColor];
         _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
         _cycleScrollView.showPageControl = NO;
         [_cycleScrollView addSubview:self.lbPicCount];
         _cycleScrollView.autoScroll = NO;
-        self.lbPicCount.text = [NSString stringWithFormat:@"%d/%zi",1,_cycleScrollView.imageURLStringsGroup.count];
     }
     return _cycleScrollView;
 }

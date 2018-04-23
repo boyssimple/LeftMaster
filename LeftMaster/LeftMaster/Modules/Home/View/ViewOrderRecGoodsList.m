@@ -68,7 +68,7 @@
     self.btnPrice.frame = r;
     
     r = self.vLine.frame;
-    r.origin.x = 0 - [ViewBtnRecGoodsList calWidth] - 62*RATIO_WIDHT320;
+    r.origin.x = 0;
     r.origin.y = self.height - 0.5;
     r.size.width = DEVICEWIDTH;
     r.size.height = 0.5;

@@ -7,15 +7,14 @@
 //
 
 #import "VCMine.h"
-#import "VCLogin.h"
-#import "AppDelegate.h"
 #import "ViewHeaderMine.h"
 #import "CellMine.h"
 #import "VCNotice.h"
 #import "VCOrderCheckAccount.h"
 #import "ViewWithExit.h"
+#import "VCSetting.h"
 
-@interface VCMine ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate>
+@interface VCMine ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewHeaderMine *header;
 @property(nonatomic,strong)ViewWithExit *footer;
@@ -32,29 +31,15 @@
     [self.view addSubview:self.table];
 }
 
-
-- (void)exitAction{
-    [Utils showHanding:@"退出中..." with:self.view];
-    __weak typeof(self) weakself = self;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [Utils hiddenHanding:weakself.view withTime:0.1];
-        [Utils removeUserInfo];
-        VCLogin *vc = [[VCLogin alloc]init];
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate restoreRootViewController:[[UINavigationController alloc] initWithRootViewController:vc]];
-    });
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if([AppUser share].isSalesman){
-        return 4;
+        return 5;
     }else{
-        return 3;
+        return 4;
     }
 }
 
@@ -74,8 +59,18 @@
         [cell updateData:@"订单对账" with:@""];
     }else if(indexPath.row == 2){
         [cell updateData:@"联系客服" with:@"400-1696444"];
-    }else if(indexPath.row == 3){
-        [cell updateData:@"当前客户" with:[AppUser share].CUS_NAME];
+    }
+    
+    if([AppUser share].isSalesman){
+        if(indexPath.row == 3){
+            [cell updateData:@"当前客户" with:[AppUser share].CUS_NAME];
+        }else if(indexPath.row == 4){
+            [cell updateData:@"设置" with:@""];
+        }
+    }else{
+        if(indexPath.row == 3){
+            [cell updateData:@"设置" with:@""];
+        }
     }
     return cell;
 }
@@ -113,20 +108,29 @@
         VCOrderCheckAccount *vc = [[VCOrderCheckAccount alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+    }else if(indexPath.row == 2){
+        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"400-1696444"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    }else{
+        if([AppUser share].isSalesman){
+            if(indexPath.row == 3){
+                
+            }else if(indexPath.row == 4){
+                VCSetting *vc = [[VCSetting alloc]init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+        }else{
+            if(indexPath.row == 3){
+                VCSetting *vc = [[VCSetting alloc]init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+        }
     }
 }
 
-#pragma mark - CommonDelete
-- (void)clickActionWithIndex:(NSInteger)index{
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定退出？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-    [alert show];
-}
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) {
-        [self exitAction];
-    }
-}
 
 - (UITableView*)table{
     if(!_table){
@@ -137,7 +141,6 @@
         _table.dataSource = self;
         _table.backgroundColor = APP_Gray_COLOR;
         _table.tableHeaderView = self.header;
-        _table.tableFooterView = self.footer;
     }
     return _table;
 }
@@ -147,20 +150,9 @@
     if(!_header){
         _header = [[ViewHeaderMine alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, [ViewHeaderMine calHeight])];
         [_header updateData];
-        _header.delegate = self;
     }
     return _header;
 }
-
-- (ViewWithExit*)footer{
-    if(!_footer){
-        _footer = [[ViewWithExit alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, [ViewWithExit calHeight])];
-        _footer.delegate = self;
-    }
-    return _footer;
-}
-
-
 
 
 

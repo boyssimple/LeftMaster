@@ -6,12 +6,16 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "RequestBeanGoodsList.h"
+#import "RequestBeanQueryOrder.h"
 
-@implementation RequestBeanGoodsList
+@implementation RequestBeanQueryOrder
+
+-(NSInteger)page_size{
+    return 10;
+}
 
 - (NSString*)apiPath{
-    return net_goods_list;
+    return net_user_query_order;
 }
 
 - (BOOL)isShowHub{
@@ -24,7 +28,7 @@
 
 @end
 
-@implementation ResponseBeanGoodsList
+@implementation ResponseBeanQueryOrder
 
 - (BOOL)checkSuccess{
     if (self.success) {
@@ -34,6 +38,9 @@
 }
 
 @end
+
+
+
 
 
 

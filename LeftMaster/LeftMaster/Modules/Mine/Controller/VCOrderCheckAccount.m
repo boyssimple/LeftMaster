@@ -21,6 +21,7 @@
 
 - (void)initMain{
     self.title = @"订单对账";
+    [self.view addSubview:self.web];
 }
 
 - (UIWebView*)web{

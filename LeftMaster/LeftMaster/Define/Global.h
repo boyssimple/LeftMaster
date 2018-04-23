@@ -16,6 +16,7 @@
 #define RATIO_WIDHT750 [UIScreen mainScreen].bounds.size.width/375.0
 
 #define NAV_STATUS_HEIGHT 64
+#define NAV_HEIGHT 44
 #define TABBAR_HEIGHT 49
 
 //颜色
@@ -33,5 +34,13 @@
 #pragma mark --------- 字体大小
 #define FONT(size) [UIFont systemFontOfSize:size]
 
+
+//iOS操作系统版本
+# define ISiOS6Above ([[[UIDevice currentDevice] systemVersion] floatValue] >=6.0 ? YES : NO)
+# define ISiOS7Above ([[[UIDevice currentDevice] systemVersion] floatValue] >=7.0 ? YES : NO)
+# define ISiOS8Above ([[[UIDevice currentDevice] systemVersion] floatValue] >=8.0 ? YES : NO)
+# define ISiOS9Above ([[[UIDevice currentDevice] systemVersion] floatValue] >=9.0 ? YES : NO)
+# define ISiOS10Above ([[[UIDevice currentDevice] systemVersion] floatValue] >=10.0 ? YES : NO)
+# define ISiOS11Above ([[[UIDevice currentDevice] systemVersion] floatValue] >=11.0 ? YES : NO)
 
 #endif /* Global_h */

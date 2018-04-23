@@ -11,6 +11,7 @@
 @interface CellRecGoodsList : UITableViewCell
 @property (nonatomic, weak) id<CommonDelegate> delegate;
 @property (nonatomic, weak) id<CellRecGoodsListDelegate> joinCartDelegate;
+- (void)updateData:(NSDictionary*)data;
 @end
 
 @protocol CellRecGoodsListDelegate<NSObject>

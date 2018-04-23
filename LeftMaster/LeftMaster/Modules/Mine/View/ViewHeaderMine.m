@@ -9,7 +9,6 @@
 #import "ViewHeaderMine.h"
 #import "ViewBtnHeaderMine.h"
 #import "VCOrderList.h"
-#import "VCSetPassword.h"
 #import "VCLogin.h"
 #import "AppDelegate.h"
 
@@ -18,7 +17,6 @@
 @property(nonatomic,strong)UIImageView *ivLogo;
 @property(nonatomic,strong)UILabel *lbCompany;
 @property(nonatomic,strong)UILabel *lbName;
-@property(nonatomic,strong)UIButton *btnModifyPwd;
 
 @property(nonatomic,strong)UILabel *lbTitle;
 @property(nonatomic,strong)UIButton *btnAll;
@@ -60,15 +58,6 @@
         _lbName.textColor = [UIColor whiteColor];
         [_ivBg addSubview:_lbName];
         
-        _btnModifyPwd = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_btnModifyPwd setTitle:@"修改密码" forState:UIControlStateNormal];
-        [_btnModifyPwd setTitleColor:APP_COLOR forState:UIControlStateNormal];
-        _btnModifyPwd.titleLabel.font = [UIFont boldSystemFontOfSize:10*RATIO_WIDHT320];
-        _btnModifyPwd.tag = 100;
-        [_btnModifyPwd addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-        _btnModifyPwd.backgroundColor = [UIColor whiteColor];
-        [_ivBg addSubview:_btnModifyPwd];
-        
         _lbTitle = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbTitle.font = [UIFont boldSystemFontOfSize:14*RATIO_WIDHT320];
         _lbTitle.textColor = RGB3(51);
@@ -80,7 +69,7 @@
         [_btnAll setImage:[UIImage imageNamed:@"home_news_more"] forState:UIControlStateNormal];
         [_btnAll setTitleColor:RGB3(102) forState:UIControlStateNormal];
         _btnAll.titleLabel.font = [UIFont boldSystemFontOfSize:10*RATIO_WIDHT320];
-        _btnAll.tag = 101;
+        _btnAll.tag = 100;
         [_btnAll addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_btnAll];
         
@@ -145,10 +134,6 @@
 
 - (void)clickAction:(UIButton*)sender{
     if(sender.tag == 100){
-        VCSetPassword *vc = [[VCSetPassword alloc]init];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-    }else{
         VCOrderList *vc = [[VCOrderList alloc]init];
         vc.curIndex = 3;
         vc.hidesBottomBarWhenPushed = YES;
@@ -173,19 +158,12 @@
     r.origin.y = (self.ivBg.height - r.size.height)/2.0;
     self.ivLogo.frame = r;
     
-    r = self.btnModifyPwd.frame;
-    r.size.width = 50*RATIO_WIDHT320;
-    r.size.height = 18*RATIO_WIDHT320;
-    r.origin.x = DEVICEWIDTH - r.size.width - 10*RATIO_WIDHT320;
-    r.origin.y = (self.ivBg.height - r.size.height)/2.0;
-    self.btnModifyPwd.frame = r;
-    
-    CGSize size = [self.lbCompany sizeThatFits:CGSizeMake(self.btnModifyPwd.left - 20*RATIO_WIDHT320 - self.ivLogo.right, MAXFLOAT)];
+    CGSize size = [self.lbCompany sizeThatFits:CGSizeMake(DEVICEWIDTH - 20*RATIO_WIDHT320 - self.ivLogo.right, MAXFLOAT)];
     r = self.lbCompany.frame;
     r.origin.x = self.ivLogo.right + 10*RATIO_WIDHT320;
     r.origin.y = 0;
     r.size.height = size.height;
-    r.size.width = self.btnModifyPwd.left - 20*RATIO_WIDHT320 - self.ivLogo.right;
+    r.size.width = DEVICEWIDTH - 20*RATIO_WIDHT320 - self.ivLogo.right;
     self.lbCompany.frame = r;
     
     CGFloat y = 0;

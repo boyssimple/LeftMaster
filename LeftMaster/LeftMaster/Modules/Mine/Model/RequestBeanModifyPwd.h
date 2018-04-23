@@ -13,6 +13,7 @@
 @property(nonatomic,strong)NSString *OLD_PASSWORD;     //旧密码
 @property(nonatomic,strong)NSString *NEW_PASSWORD;     //新密码
 @property(nonatomic,strong)NSString *CONFIRM_PASSWORD;     //确认密码
+@property(nonatomic,assign)NSInteger TYPE;                  //类型1修改密码，2忘记密码
 @end
 
 @interface ResponseBeanModifyPwd : AJResponseBeanBase

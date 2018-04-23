@@ -103,6 +103,14 @@
 		1CFC011B2089DF7700A8E344 /* ViewWithExit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC011A2089DF7700A8E344 /* ViewWithExit.m */; };
 		1CFC011E2089E13F00A8E344 /* RequestBeanSms.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC011D2089E13F00A8E344 /* RequestBeanSms.m */; };
 		1CFC7AB8208B78EF005F18AB /* RequestBeanModifyPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7AB7208B78EF005F18AB /* RequestBeanModifyPwd.m */; };
+		1CFC7ABB208C7796005F18AB /* ViewSearchWithHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7ABA208C7796005F18AB /* ViewSearchWithHome.m */; };
+		1CFC7ABE208C80DD005F18AB /* VCGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7ABD208C80DD005F18AB /* VCGoodsList.m */; };
+		1CFC7AC0208CC307005F18AB /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1CFC7ABF208CC307005F18AB /* style.css */; };
+		1CFC7AC3208CC93E005F18AB /* VCSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7AC2208CC93E005F18AB /* VCSetting.m */; };
+		1CFC7AC6208CCA1C005F18AB /* CellSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7AC5208CCA1C005F18AB /* CellSetting.m */; };
+		1CFC7AC9208CD1F9005F18AB /* RequestBeanQueryOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7AC8208CD1F9005F18AB /* RequestBeanQueryOrder.m */; };
+		1CFC7ACC208CD4D0005F18AB /* CellGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7ACB208CD4D0005F18AB /* CellGoods.m */; };
+		1CFC7ACF208CD526005F18AB /* CellAttrGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7ACE208CD526005F18AB /* CellAttrGoods.m */; };
 		2B895C9453BC2156E84708D8 /* libPods-LeftMasterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */; };
 		3A4070F4294A75D927F8DE16 /* libPods-LeftMaster.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6D5F1023D6EE6D2E86C12D /* libPods-LeftMaster.a */; };
 		FAC9E06F974DFC888DA9565A /* libPods-LeftMasterUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA40ACE1D19B7764658663D5 /* libPods-LeftMasterUITests.a */; };
@@ -323,6 +331,21 @@
 		1CFC011D2089E13F00A8E344 /* RequestBeanSms.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanSms.m; sourceTree = "<group>"; };
 		1CFC7AB6208B78EF005F18AB /* RequestBeanModifyPwd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanModifyPwd.h; sourceTree = "<group>"; };
 		1CFC7AB7208B78EF005F18AB /* RequestBeanModifyPwd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanModifyPwd.m; sourceTree = "<group>"; };
+		1CFC7AB9208C7796005F18AB /* ViewSearchWithHome.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewSearchWithHome.h; sourceTree = "<group>"; };
+		1CFC7ABA208C7796005F18AB /* ViewSearchWithHome.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewSearchWithHome.m; sourceTree = "<group>"; };
+		1CFC7ABC208C80DD005F18AB /* VCGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCGoodsList.h; sourceTree = "<group>"; };
+		1CFC7ABD208C80DD005F18AB /* VCGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCGoodsList.m; sourceTree = "<group>"; };
+		1CFC7ABF208CC307005F18AB /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		1CFC7AC1208CC93E005F18AB /* VCSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCSetting.h; sourceTree = "<group>"; };
+		1CFC7AC2208CC93E005F18AB /* VCSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCSetting.m; sourceTree = "<group>"; };
+		1CFC7AC4208CCA1C005F18AB /* CellSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellSetting.h; sourceTree = "<group>"; };
+		1CFC7AC5208CCA1C005F18AB /* CellSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellSetting.m; sourceTree = "<group>"; };
+		1CFC7AC7208CD1F9005F18AB /* RequestBeanQueryOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanQueryOrder.h; sourceTree = "<group>"; };
+		1CFC7AC8208CD1F9005F18AB /* RequestBeanQueryOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanQueryOrder.m; sourceTree = "<group>"; };
+		1CFC7ACA208CD4D0005F18AB /* CellGoods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellGoods.h; sourceTree = "<group>"; };
+		1CFC7ACB208CD4D0005F18AB /* CellGoods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellGoods.m; sourceTree = "<group>"; };
+		1CFC7ACD208CD526005F18AB /* CellAttrGoods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellAttrGoods.h; sourceTree = "<group>"; };
+		1CFC7ACE208CD526005F18AB /* CellAttrGoods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellAttrGoods.m; sourceTree = "<group>"; };
 		2F65A9A6DF6B497D050E471D /* Pods-LeftMaster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMaster.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMaster/Pods-LeftMaster.debug.xcconfig"; sourceTree = "<group>"; };
 		699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeftMasterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D66D73565FFAFED45449DF /* Pods-LeftMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMasterTests/Pods-LeftMasterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -500,6 +523,7 @@
 				1CD84839206F7ADA00CC9BE9 /* LaunchScreen.storyboard */,
 				1CD8483C206F7ADA00CC9BE9 /* Info.plist */,
 				1CD8483D206F7ADA00CC9BE9 /* main.m */,
+				1CFC7ABF208CC307005F18AB /* style.css */,
 			);
 			path = LeftMaster;
 			sourceTree = "<group>";
@@ -615,6 +639,8 @@
 				1CBF5BE3207CDA3400284EA1 /* VCProxy.m */,
 				1C780ED4207E067400054AE1 /* VCRecGoodsList.h */,
 				1C780ED5207E067400054AE1 /* VCRecGoodsList.m */,
+				1CFC7ABC208C80DD005F18AB /* VCGoodsList.h */,
+				1CFC7ABD208C80DD005F18AB /* VCGoodsList.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -665,6 +691,8 @@
 				1CBF5C16207E3DB800284EA1 /* ViewBtnRecGoodsList.m */,
 				1C5F25B22088BC50005EAF87 /* CollCellGuide.h */,
 				1C5F25B32088BC50005EAF87 /* CollCellGuide.m */,
+				1CFC7AB9208C7796005F18AB /* ViewSearchWithHome.h */,
+				1CFC7ABA208C7796005F18AB /* ViewSearchWithHome.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -710,6 +738,8 @@
 				1CFC011420898D8200A8E344 /* VCOrderCheckAccount.m */,
 				1CFC01162089D5A200A8E344 /* VCForgotPwdFinish.h */,
 				1CFC01172089D5A200A8E344 /* VCForgotPwdFinish.m */,
+				1CFC7AC1208CC93E005F18AB /* VCSetting.h */,
+				1CFC7AC2208CC93E005F18AB /* VCSetting.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -725,6 +755,8 @@
 				1CFC011D2089E13F00A8E344 /* RequestBeanSms.m */,
 				1CFC7AB6208B78EF005F18AB /* RequestBeanModifyPwd.h */,
 				1CFC7AB7208B78EF005F18AB /* RequestBeanModifyPwd.m */,
+				1CFC7AC7208CD1F9005F18AB /* RequestBeanQueryOrder.h */,
+				1CFC7AC8208CD1F9005F18AB /* RequestBeanQueryOrder.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -762,6 +794,8 @@
 				1C7A754F207F33AD00C140D2 /* CellInvoice.m */,
 				1CFC01192089DF7700A8E344 /* ViewWithExit.h */,
 				1CFC011A2089DF7700A8E344 /* ViewWithExit.m */,
+				1CFC7AC4208CCA1C005F18AB /* CellSetting.h */,
+				1CFC7AC5208CCA1C005F18AB /* CellSetting.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -832,6 +866,10 @@
 				1CBF5C01207CFD9000284EA1 /* ViewHeaderGoods.m */,
 				1CBF5C03207D0AAE00284EA1 /* ViewBtnGoods.h */,
 				1CBF5C04207D0AAE00284EA1 /* ViewBtnGoods.m */,
+				1CFC7ACA208CD4D0005F18AB /* CellGoods.h */,
+				1CFC7ACB208CD4D0005F18AB /* CellGoods.m */,
+				1CFC7ACD208CD526005F18AB /* CellAttrGoods.h */,
+				1CFC7ACE208CD526005F18AB /* CellAttrGoods.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -963,6 +1001,7 @@
 			files = (
 				1CD8483B206F7ADA00CC9BE9 /* LaunchScreen.storyboard in Resources */,
 				1CD84838206F7ADA00CC9BE9 /* Assets.xcassets in Resources */,
+				1CFC7AC0208CC307005F18AB /* style.css in Resources */,
 				1CD84836206F7ADA00CC9BE9 /* Main.storyboard in Resources */,
 				1C8A2E40207875BD0076238D /* HMScanner.bundle in Resources */,
 			);
@@ -1066,10 +1105,12 @@
 			files = (
 				1CFC011520898D8200A8E344 /* VCOrderCheckAccount.m in Sources */,
 				1C780EE2207EFDCC00054AE1 /* VCForgotPwd.m in Sources */,
+				1CFC7ACC208CD4D0005F18AB /* CellGoods.m in Sources */,
 				1C4CC27920724F50007C24FB /* VCGoods.m in Sources */,
 				1CBF5C14207E3D9800284EA1 /* ViewOrderRecGoodsList.m in Sources */,
 				1C7A7550207F33AD00C140D2 /* CellInvoice.m in Sources */,
 				1C4C15602088F78200BA8F3C /* RequestBeanCarouseList.m in Sources */,
+				1CFC7AC3208CC93E005F18AB /* VCSetting.m in Sources */,
 				1C780EC6207DF97A00054AE1 /* NSNotification+Extension.m in Sources */,
 				1CBF5BF0207CE86000284EA1 /* VCOrder.m in Sources */,
 				1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */,
@@ -1083,6 +1124,7 @@
 				1C4CC28E207266D5007C24FB /* SectionHeaderHome.m in Sources */,
 				1C8A2E2A207867740076238D /* CollCellCategory.m in Sources */,
 				1C8A2E3D207875BD0076238D /* HMScannerMaskView.m in Sources */,
+				1CFC7AC6208CCA1C005F18AB /* CellSetting.m in Sources */,
 				1C4CC29D207277AF007C24FB /* CollCellNewHome.m in Sources */,
 				1CBF5BC0207A46AE00284EA1 /* ViewHeaderMine.m in Sources */,
 				1CBF5BE7207CE23B00284EA1 /* CellProxy.m in Sources */,
@@ -1092,11 +1134,13 @@
 				1C8A2E27207865D40076238D /* CellCategory.m in Sources */,
 				1C4CC26D20724CE6007C24FB /* VCMain.m in Sources */,
 				1CFC011B2089DF7700A8E344 /* ViewWithExit.m in Sources */,
+				1CFC7AC9208CD1F9005F18AB /* RequestBeanQueryOrder.m in Sources */,
 				1CBF5C02207CFD9000284EA1 /* ViewHeaderGoods.m in Sources */,
 				1C780EC3207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m in Sources */,
 				1C780EB8207DAC1200054AE1 /* RequestBeanGoodsList.m in Sources */,
 				1C780EDC207E0E9200054AE1 /* VCOrderContaier.m in Sources */,
 				1C8A2E3F207875BD0076238D /* HMScanner.m in Sources */,
+				1CFC7ABB208C7796005F18AB /* ViewSearchWithHome.m in Sources */,
 				1CBF5BB420787A1600284EA1 /* ViewGoodsList.m in Sources */,
 				1C4CC29720726E71007C24FB /* CollCellCategoryHome.m in Sources */,
 				1CBF5BCF207A597C00284EA1 /* CellOrderList.m in Sources */,
@@ -1108,6 +1152,7 @@
 				1C4CC2AA207332C7007C24FB /* VCCategory.m in Sources */,
 				1CBF5BC6207A4FFB00284EA1 /* ViewBtnHeaderMine.m in Sources */,
 				1C4CC29420726D4D007C24FB /* CellCategoryHome.m in Sources */,
+				1CFC7ABE208C80DD005F18AB /* VCGoodsList.m in Sources */,
 				1C4C15632088FADD00BA8F3C /* RequestBeanSlidePicList.m in Sources */,
 				1CBF5BED207CE71600284EA1 /* CellTopGoods.m in Sources */,
 				1C4CC2882072542A007C24FB /* NSDictionary+JKSafeAccess.m in Sources */,
@@ -1137,6 +1182,7 @@
 				1C8A2E41207875BD0076238D /* HMScanerCardViewController.m in Sources */,
 				1CBF5C17207E3DB800284EA1 /* ViewBtnRecGoodsList.m in Sources */,
 				1CBF5C05207D0AAE00284EA1 /* ViewBtnGoods.m in Sources */,
+				1CFC7ACF208CD526005F18AB /* CellAttrGoods.m in Sources */,
 				1CBFA5FC207E59A0001926DE /* AppUser.m in Sources */,
 				1CBF5C08207D111B00284EA1 /* RequestBeanLogin.m in Sources */,
 				1CBF5C11207E2D9300284EA1 /* ViewSearchOrderList.m in Sources */,

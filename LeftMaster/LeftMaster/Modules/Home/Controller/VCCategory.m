@@ -13,7 +13,7 @@
 #import "HMScannerController.h"
 #import "RequestBeanCategoryHome.h"
 #import "RequestBeanGoodsList.h"
-#import "VCGoods.h"
+#import "VCGoodsList.h"
 
 @interface VCCategory ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,ViewCategoryDelegate,UITextFieldDelegate>
@@ -23,6 +23,7 @@
 @property(nonatomic,strong)NSMutableArray *categorys;
 @property(nonatomic,strong)NSMutableArray *goodsList;
 @property(nonatomic,strong)NSString *keywords;
+@property(nonatomic,assign)NSInteger page;
 @end
 
 @implementation VCCategory
@@ -31,12 +32,12 @@
     [super viewDidLoad];
     [self initMain];
     [self loadData];
-    [self loadGoodsListData];
 }
 
 - (void)initMain{
     self.view.backgroundColor = RGB3(247);
     self.title = @"分类";
+    self.page = 1;
     _categorys = [NSMutableArray array];
     _goodsList = [NSMutableArray array];
     [self.view addSubview:self.vCart];
@@ -60,30 +61,30 @@
             [weakself.categorys removeAllObjects];
             [weakself.categorys addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
             [weakself.table reloadData];
+            if(weakself.categorys && weakself.categorys.count > 0){
+                NSDictionary *first = [weakself.categorys firstObject];
+                if(first){
+                    [weakself loadSubData:[first jk_integerForKey:@"GOODSTYPE_ID"]];
+                }
+            }
         }
     }];
 }
 
-- (void)loadGoodsListData{
-    RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
-    requestBean.page_current = 1;
-    if(self.cateId){
-        requestBean.goods_type_id = self.cateId;
-    }else{
-        requestBean.goods_type_id = nil;
-    }
-    if(self.keywords && self.keywords.length > 0){
-        requestBean.search_name = self.keywords;
-    }else{
-        requestBean.search_name = nil;
-    }
+
+
+- (void)loadSubData:(NSInteger)parentId{
+    RequestBeanCategoryHome *requestBean = [RequestBeanCategoryHome new];
+    requestBean.parent_id = parentId;
+    requestBean.page_current = self.page;
+    requestBean.page_size = 20;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         [Utils hiddenHanding:self.view withTime:0.5];
         if (!err) {
             // 结果处理
-            ResponseBeanGoodsList *response = responseBean;
+            ResponseBeanCategoryHome *response = responseBean;
             [weakself.goodsList removeAllObjects];
             [weakself.goodsList addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
             [weakself.collView reloadData];
@@ -93,7 +94,7 @@
 
 - (void)search{
     self.keywords = self.vCart.tfText.text;
-    [self loadGoodsListData];
+//    [self loadGoodsListData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -153,7 +154,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *data = [self.categorys objectAtIndex:indexPath.row];
     self.cateId = [data jk_stringForKey:@"GOODSTYPE_ID"];
-    [self loadGoodsListData];
+    [self loadSubData:[data jk_integerForKey:@"GOODSTYPE_ID"]];
     [self.table reloadData];
 }
 
@@ -181,8 +182,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
-    VCGoods *vc = [[VCGoods alloc]init];
-    vc.goods_id = [data jk_stringForKey:@"GOODS_ID"];
+    VCGoodsList *vc = [[VCGoodsList alloc]init];
+    vc.cateId = [data jk_integerForKey:@"GOODSTYPE_ID"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

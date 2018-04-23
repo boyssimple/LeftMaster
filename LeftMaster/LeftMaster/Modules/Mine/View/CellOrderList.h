@@ -13,4 +13,5 @@
 @property (nonatomic, weak) id<CommonDelegate> delegate;
 @property(nonatomic,strong)UIView *vLine;
 @property(nonatomic,assign)NSInteger status;
+- (void)updateData:(NSDictionary*)data;
 @end

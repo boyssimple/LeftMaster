@@ -20,6 +20,7 @@
 @property(nonatomic,strong)NSString *SYSUSER_ID;     //userId
 @property(nonatomic,strong)NSString *SYSUSER_MOBILE;//用户手机
 @property(nonatomic,strong)NSString *SYSUSER_NAME;  //用户名称
+@property(nonatomic,strong)NSString *SYSUSER_COMPANYID;  //公司ID
 @property(nonatomic,assign)NSInteger SYSUSER_SEX;   //性别
 @property(nonatomic,assign)BOOL isSalesman;         //是否业务员
 

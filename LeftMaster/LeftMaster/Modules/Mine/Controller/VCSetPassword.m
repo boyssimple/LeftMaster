@@ -77,6 +77,7 @@
     requestBean.SYSUSER_ID = [AppUser share].SYSUSER_ID;
     requestBean.OLD_PASSWORD = oldPwd;
     requestBean.NEW_PASSWORD = newPwd;
+    requestBean.TYPE = 1;
     requestBean.CONFIRM_PASSWORD = confirmPwd;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
@@ -92,7 +93,7 @@
                 [Utils showToast:response.msg with:self.view withTime:0.8];
             }
         }else{
-            [Utils showSuccessToast:@"发送失败" with:weakself.view withTime:1];
+            [Utils showSuccessToast:@"修改失败" with:weakself.view withTime:1];
         }
         
     }];

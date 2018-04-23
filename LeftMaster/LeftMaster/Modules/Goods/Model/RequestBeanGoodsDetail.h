@@ -11,6 +11,7 @@
 @interface RequestBeanGoodsDetail : AJRequestBeanBase
 
 @property(nonatomic,strong)NSString *goods_id;     //商品ID
+@property(nonatomic,strong)NSString *cus_id;     //商品ID
 @end
 
 @interface ResponseBeanGoodsDetail : AJResponseBeanBase
