@@ -73,6 +73,13 @@
     return self;
 }
 
+- (void)updateData:(NSDictionary*)data{
+    self.lbOrderStatusText.text = [data jk_stringForKey:@"FD_ORDER_STATUS_NAME"];
+    self.lbOrderAmountText.text = [NSString stringWithFormat:@"¥%.2f",[data jk_floatForKey:@"FD_TOTAL_PRICE"]];
+    self.lbOrderOrderNoText.text = [data jk_stringForKey:@"FD_NO"];
+    self.lbOrderDateText.text = [data jk_stringForKey:@"FD_ORDER_DATE"];
+}
+
 - (void)updateData{
     self.lbOrderStatusText.text = @"待审核";
     self.lbOrderAmountText.text = @"¥8,954.00";

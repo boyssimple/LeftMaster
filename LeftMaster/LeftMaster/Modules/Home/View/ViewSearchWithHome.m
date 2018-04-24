@@ -86,7 +86,7 @@
 }
 
 - (void)updateData{
-    self.lbCount.text = @"2";
+    
 }
 
 - (void)clickAction:(UIButton*)sender{

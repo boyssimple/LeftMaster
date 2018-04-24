@@ -192,7 +192,9 @@
     self.btnReceive.hidden = YES;
     self.btnCancel.hidden = YES;
     if(self.status == 0){
-        self.btnConfirm.hidden = NO;
+        if(![AppUser share].isSalesman){
+            self.btnConfirm.hidden = NO;
+        }
         self.btnCancel.hidden = NO;
     }else if(self.status == 1){
         self.btnCancel.hidden = NO;
@@ -211,6 +213,20 @@
     self.lbGoodsCountText.text = @"10个";
     self.lbCotactText.text = @"15909327516";
     self.lbOrderTimeText.text = @"2018-01-18";
+    
+    self.btnConfirm.hidden = YES;
+    self.btnReceive.hidden = YES;
+    self.btnCancel.hidden = YES;
+    if(self.status == 0){
+        if(![AppUser share].isSalesman){
+            self.btnConfirm.hidden = NO;
+        }
+        self.btnCancel.hidden = NO;
+    }else if(self.status == 1){
+        self.btnCancel.hidden = NO;
+    }else if(self.status == 3){
+        self.btnReceive.hidden = NO;
+    }
 }
 
 - (void)layoutSubviews{
@@ -358,13 +374,20 @@
     self.btnAgain.frame = r;
     
     if(self.status == 0){
-        self.btnConfirm.left = self.btnCancel.left - r.size.width - 10*RATIO_WIDHT320;
-        self.btnAgain.left = self.btnConfirm.left - r.size.width - 10*RATIO_WIDHT320;
+        if(![AppUser share].isSalesman){
+            self.btnConfirm.left = self.btnCancel.left - self.btnConfirm.width - 10*RATIO_WIDHT320;
+            self.btnAgain.left = self.btnConfirm.left - self.btnAgain.width - 10*RATIO_WIDHT320;
+        }else{
+            self.btnAgain.left = self.btnCancel.left - self.btnAgain.width - 10*RATIO_WIDHT320;
+        }
+        
     }else if(self.status != 2){
-        self.btnAgain.left = self.btnCancel.left - self.btnAgain.width - 10*RATIO_WIDHT320;
+        if(self.status == 4){
+            self.btnAgain.left = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
+        }else{
+            self.btnAgain.left = self.btnCancel.left - self.btnAgain.width - 10*RATIO_WIDHT320;
+        }
     }
-    
-    
     
     r = self.vLine.frame;
     r.size.width = DEVICEWIDTH - 20*RATIO_WIDHT320;

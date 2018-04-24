@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CartGoods.h"
 
 @interface CellCart : UITableViewCell
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, weak) id<CommonDelegate> delegate;
-- (void)updateData:(NSDictionary*)data;
+- (void)updateData:(CartGoods*)data;
 @end

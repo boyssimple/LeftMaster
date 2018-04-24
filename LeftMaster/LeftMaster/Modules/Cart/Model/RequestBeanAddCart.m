@@ -9,11 +9,6 @@
 #import "RequestBeanAddCart.h"
 
 @implementation RequestBeanAddCart
-
--(NSInteger)page_size{
-    return 10;
-}
-
 - (NSString*)apiPath{
     return net_user_cart_add;
 }
@@ -23,7 +18,7 @@
 }
 
 - (NSString *)hubTips{
-    return @"添加中...";
+    return @"处理中...";
 }
 
 @end

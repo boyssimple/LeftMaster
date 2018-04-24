@@ -13,13 +13,15 @@
 #import "ViewSearchOrderList.h"
 #import "RequestBeanQueryOrder.h"
 #import "RequestBeanConfirmOrder.h"
+#import "RequestBeanCancelOrder.h"
+#import "WindowCancelOrder.h"
 
-@interface VCUnConfirm ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate>
+@interface VCUnConfirm ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate,WindowCancelOrderDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property(nonatomic,strong)ViewSearchOrderList *searchView;
 @property(nonatomic,assign)NSInteger page;
 @property(nonatomic,strong)NSMutableArray *dataSource;
-@property(nonatomic,strong)NSString *orderID;
+@property(nonatomic,strong)NSString *orderId;
 @end
 
 @implementation VCUnConfirm
@@ -73,6 +75,7 @@
 - (void)confirmAction{
     RequestBeanConfirmOrder *requestBean = [RequestBeanConfirmOrder new];
     requestBean.FD_CREATE_USER_ID = [AppUser share].SYSUSER_ID;
+    requestBean.FD_ID = self.orderId;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
@@ -151,15 +154,19 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index withDataIndex:(NSInteger)dataIndex{
     NSDictionary *data = [self.dataSource objectAtIndex:dataIndex];
-    self.orderID = [data jk_stringForKey:@"FD_ID"];
+    self.orderId = [data jk_stringForKey:@"FD_ID"];
     if(index == 1){
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定取消订单？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"不取消", nil];
-        [alert show];
+        
+        WindowCancelOrder *windowCancel = [[WindowCancelOrder alloc]init];
+        windowCancel.delegate = self;
+        [windowCancel show];
     }else if(index == 2){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定提交审核？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        alert.tag = 1001;
         [alert show];
     }else if(index == 3){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定再来一单？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        alert.tag = 1002;
         [alert show];
     }
 }
@@ -174,20 +181,12 @@
             
         }
     }else if(tag == 1001){
-        
-        if(buttonIndex == 0){
-            
-        }else{
-            
-        }
-    }else if(tag == 1002){
-        
         if(buttonIndex == 0){
             [self confirmAction];
         }else{
             
         }
-    }else if(tag == 1003){
+    }else if(tag == 1002){
         
         if(buttonIndex == 0){
             
@@ -195,6 +194,27 @@
             
         }
     }
+}
+
+#pragma mark - WindowCancelOrderDelegate
+- (void)selectReason:(NSString *)reason{
+    RequestBeanCancelOrder *requestBean = [RequestBeanCancelOrder new];
+    requestBean.FD_CREATE_USER_ID = [AppUser share].SYSUSER_ID;
+    requestBean.FD_ID = self.orderId;
+    requestBean.FD_CANEL_REASON = reason;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [Utils hiddenHanding:self.view withTime:0.5];
+        if (!err) {
+            // 结果处理
+            ResponseBeanConfirmOrder *response = responseBean;
+            if(response.success){
+                [weakself loadData];
+                [Utils showSuccessToast:@"取消成功" with:weakself.view withTime:0.8];
+            }
+        }
+    }];
 }
 
 - (ViewSearchOrderList*)searchView{
@@ -211,7 +231,7 @@
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
         _table.dataSource = self;
-        _table.tableHeaderView = self.searchView;
+//        _table.tableHeaderView = self.searchView;
         
         __weak typeof(self) weakself = self;
         

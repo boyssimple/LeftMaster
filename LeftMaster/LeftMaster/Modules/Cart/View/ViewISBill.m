@@ -14,6 +14,7 @@
 @property(nonatomic,strong)UIView *vLine;
 @property(nonatomic,strong)UIView *vBg;
 
+@property(nonatomic,strong)UILabel *lbIsBill;
 @property(nonatomic,strong)UIButton *btnYes;
 @property(nonatomic,strong)UIButton *btnNo;
 @property(nonatomic,strong)UILabel *lbYes;
@@ -42,31 +43,37 @@
         _vBg.backgroundColor = RGB3(252);
         [self addSubview:_vBg];
         
+        _lbIsBill = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbIsBill.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbIsBill.textColor = RGB(0, 0, 0);
+        _lbIsBill.text = @"是否开具发票";
+        [_vBg addSubview:_lbIsBill];
+        
         _btnYes = [[UIButton alloc]initWithFrame:CGRectZero];
         [_btnYes setImage:[UIImage imageNamed:@"order_check_normal"] forState:UIControlStateNormal];
         [_btnYes setImage:[UIImage imageNamed:@"order_check_selected"] forState:UIControlStateSelected];
         [_btnYes addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         _btnYes.tag = 100;
-        [self addSubview:_btnYes];
+        [_vBg addSubview:_btnYes];
         
         _btnNo = [[UIButton alloc]initWithFrame:CGRectZero];
         [_btnNo setImage:[UIImage imageNamed:@"order_check_normal"] forState:UIControlStateNormal];
         [_btnNo setImage:[UIImage imageNamed:@"order_check_selected"] forState:UIControlStateSelected];
         [_btnNo addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         _btnNo.tag = 101;
-        [self addSubview:_btnNo];
+        [_vBg addSubview:_btnNo];
         
         _lbYes = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbYes.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbYes.textColor = RGB3(51);
         _lbYes.text = @"是";
-        [self addSubview:_lbYes];
+        [_vBg addSubview:_lbYes];
         
         _lbNo = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbNo.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbNo.textColor = RGB3(51);//153
         _lbNo.text = @"否";
-        [self addSubview:_lbNo];
+        [_vBg addSubview:_lbNo];
     }
     return self;
 }
@@ -117,14 +124,22 @@
     r.origin.y = self.vLine.bottom;
     self.vBg.frame = r;
     
+    CGSize size = [self.lbIsBill sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbIsBill.frame;
+    r.origin.x = 20*RATIO_WIDHT320;
+    r.origin.y = 15*RATIO_WIDHT320;
+    r.size.width = size.width;
+    r.size.height = size.height;
+    self.lbIsBill.frame = r;
+    
     r = self.btnYes.frame;
     r.size.width = 15*RATIO_WIDHT320;
     r.size.height = r.size.width;
-    r.origin.x = 20*RATIO_WIDHT320;
-    r.origin.y = self.vLine.bottom + 15*RATIO_WIDHT320;
+    r.origin.x = self.lbIsBill.right;
+    r.origin.y = self.lbIsBill.top + (self.lbIsBill.height - self.btnYes.height)/2.0;
     self.btnYes.frame = r;
     
-    CGSize size = [self.lbYes sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    size = [self.lbYes sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     r = self.lbYes.frame;
     r.origin.x = self.btnYes.right + 10*RATIO_WIDHT320;
     r.origin.y = self.btnYes.top + (self.btnYes.height - size.height)/2.0;
@@ -134,7 +149,7 @@
     r = self.btnNo.frame;
     r.size.width = 15*RATIO_WIDHT320;
     r.size.height = r.size.width;
-    r.origin.x = 20*RATIO_WIDHT320;
+    r.origin.x = self.lbYes.right + 20*RATIO_WIDHT320;
     r.origin.y = self.btnYes.bottom + 10*RATIO_WIDHT320;
     self.btnNo.frame = r;
     

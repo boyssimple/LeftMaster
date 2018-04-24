@@ -6,16 +6,16 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "RequestBeanCartList.h"
+#import "RequestBeanQueryCartNum.h"
 
-@implementation RequestBeanCartList
+@implementation RequestBeanQueryCartNum
 
 -(NSInteger)page_size{
     return 10;
 }
 
 - (NSString*)apiPath{
-    return net_user_cart_list;
+    return net_cart_num;
 }
 
 - (BOOL)isShowHub{
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation ResponseBeanCartList
+@implementation ResponseBeanQueryCartNum
 
 - (BOOL)checkSuccess{
     if (self.success) {
@@ -38,8 +38,6 @@
 }
 
 @end
-
-
 
 
 

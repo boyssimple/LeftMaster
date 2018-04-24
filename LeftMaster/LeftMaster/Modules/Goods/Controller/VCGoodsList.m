@@ -13,6 +13,7 @@
 #import "RequestBeanGoodsList.h"
 #import "VCGoods.h"
 #import "ViewOrderRecGoodsList.h"
+#import "RequestBeanQueryCartNum.h"
 
 @interface VCGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
@@ -29,6 +30,7 @@
     [super viewDidLoad];
     [self initMain];
     [self loadData];
+    [self loadCartNumData];
 }
 
 - (void)initMain{
@@ -42,6 +44,7 @@
     [self.view addSubview:self.vCart];
     [self.view addSubview:self.viewOrder];
     [self.view addSubview:self.table];
+    [self observeNotification:REFRESH_CART_LIST];
 }
 
 
@@ -87,6 +90,26 @@
             }
         }
     }];
+}
+
+
+- (void)loadCartNumData{
+    RequestBeanQueryCartNum *requestBean = [RequestBeanQueryCartNum new];
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        if (!err) {
+            // 结果处理
+            ResponseBeanQueryCartNum *response = responseBean;
+            if(response.success){
+                weakself.vCart.count = response.num;
+            }
+        }
+    }];
+}
+
+- (void)handleNotification:(NSNotification *)notification{
+    [self loadCartNumData];
 }
 
 - (void)search{

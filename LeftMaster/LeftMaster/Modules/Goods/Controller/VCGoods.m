@@ -14,6 +14,7 @@
 #import "RequestBeanAddCart.h"
 #import "CellGoods.h"
 #import "VCWriteOrder.h"
+#import "RequestBeanQueryCartNum.h"
 
 @interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,ViewHeaderGoodsDelegate,CommonDelegate,
         UIWebViewDelegate>
@@ -33,12 +34,15 @@
     [super viewDidLoad];
     [self initMain];
     [self loadData];
+    [self loadCartNumData];
 }
 
 - (void)initMain{
+    self.count = 1;
     self.title = @"商品详情";
     [self.view addSubview:self.table];
     [self.view addSubview:self.bottom];
+    [self observeNotification:REFRESH_CART_LIST];
 }
 
 
@@ -120,6 +124,27 @@
     return html;
 }
 
+
+- (void)loadCartNumData{
+    RequestBeanQueryCartNum *requestBean = [RequestBeanQueryCartNum new];
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        if (!err) {
+            // 结果处理
+            ResponseBeanQueryCartNum *response = responseBean;
+            if(response.success){
+                weakself.bottom.count = response.num;
+            }
+        }
+    }];
+}
+
+- (void)handleNotification:(NSNotification *)notification{
+    [self loadCartNumData];
+}
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -193,12 +218,10 @@
 - (void)clickActionWithIndex:(NSInteger)index{
     if(self.data){
         NSInteger type = [self.data jk_integerForKey:@"OPER_TYPE"];{
-            if(false && type == 0){
+            if(type == 0){
                 [Utils showSuccessToast:@"您不具备该商品购买权限，请联系左师傅" with:self.view withTime:1];
             }else{
                 if (index == 0) {
-                    self.bottom.count = self.count;
-                    [self.bottom startAnimation];
                     //调用加入购物车接口
                     [self addCart];
                 }else{

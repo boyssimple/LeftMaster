@@ -9,5 +9,5 @@
 #import "VCBase.h"
 
 @interface VCWriteOrder : VCBase
-
+@property(nonatomic,strong)NSArray *goodsList;
 @end

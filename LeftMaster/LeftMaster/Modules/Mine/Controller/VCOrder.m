@@ -12,9 +12,11 @@
 #import "CellOrderRemark.h"
 #import "VCOrderGoodsList.h"
 #import "VCInvoice.h"
+#import "RequestBeanOrderInfo.h"
 
 @interface VCOrder ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *table;
+@property(nonatomic,strong)NSDictionary *data;
 @end
 
 @implementation VCOrder
@@ -22,11 +24,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initMain];
+    [self loadData];
 }
 
 - (void)initMain{
     self.title = @"订单详情";
     [self.view addSubview:self.table];
+}
+
+- (void)loadData{
+    RequestBeanOrderInfo *requestBean = [RequestBeanOrderInfo new];
+    requestBean.FD_ORDER_ID = self.orderId;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [Utils hiddenHanding:self.view withTime:0.5];
+        if (!err) {
+            // 结果处理
+            ResponseBeanOrderInfo *response = responseBean;
+            if(response.success){
+                weakself.data = response.data;
+                [weakself.table reloadData];
+            }
+        }
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -44,7 +65,12 @@
     if(indexPath.section == 0){
         return [CellOrderInfo calHeight];
     }
-    return [CellOrderRemark calHeight:@"记得发顺丰，谢谢!"];
+    if(!self.data){
+        return 0;
+    }else{
+        return [CellOrderRemark calHeight:[self.data jk_stringForKey:@"FD_DESC"]];
+        
+    }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -54,7 +80,8 @@
         if (!cell) {
             cell = [[CellOrderInfo alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
-        [cell updateData];
+        
+        [cell updateData:self.data];
         return cell;
     }else{
         
@@ -63,7 +90,10 @@
         if (!cell) {
             cell = [[CellOrderRemark alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
-        [cell updateData];
+        if(self.data){
+            [cell updateData:[self.data jk_stringForKey:@"FD_DESC"]];
+            
+        }
         return cell;
     }
 }

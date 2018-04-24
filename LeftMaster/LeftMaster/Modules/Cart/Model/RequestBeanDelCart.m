@@ -6,16 +6,12 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "RequestBeanCartList.h"
+#import "RequestBeanDelCart.h"
 
-@implementation RequestBeanCartList
-
--(NSInteger)page_size{
-    return 10;
-}
+@implementation RequestBeanDelCart
 
 - (NSString*)apiPath{
-    return net_user_cart_list;
+    return net_user_cart_del;
 }
 
 - (BOOL)isShowHub{
@@ -23,12 +19,12 @@
 }
 
 - (NSString *)hubTips{
-    return @"加载中...";
+    return @"处理中...";
 }
 
 @end
 
-@implementation ResponseBeanCartList
+@implementation ResponseBeanDelCart
 
 - (BOOL)checkSuccess{
     if (self.success) {
@@ -38,8 +34,6 @@
 }
 
 @end
-
-
 
 
 

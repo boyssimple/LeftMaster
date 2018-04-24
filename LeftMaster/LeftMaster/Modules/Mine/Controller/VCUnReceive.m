@@ -12,6 +12,7 @@
 #import "ViewTabOrder.h"
 #import "ViewSearchOrderList.h"
 #import "RequestBeanQueryOrder.h"
+#import "RequestBeanSignOrder.h"
 
 @interface VCUnReceive ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *table;
@@ -63,6 +64,24 @@
                 }
                 [weakself.dataSource addObjectsFromArray:datas];
                 [weakself.table reloadData];
+            }
+        }
+    }];
+}
+
+- (void)receiveAction{
+    RequestBeanSignOrder *requestBean = [RequestBeanSignOrder new];
+    requestBean.FD_CREATE_USER_ID = [AppUser share].SYSUSER_ID;
+    requestBean.FD_ID = self.orderId;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [Utils hiddenHanding:self.view withTime:0.5];
+        if (!err) {
+            // 结果处理
+            ResponseBeanSignOrder *response = responseBean;
+            if(response.success){
+                [weakself loadData];
             }
         }
     }];
@@ -132,21 +151,29 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index withDataIndex:(NSInteger)dataIndex{
     NSDictionary *data = [self.dataSource objectAtIndex:dataIndex];
-    self.OrderID = [data jk_stringForKey:@"FD_ID"];
+    self.orderId = [data jk_stringForKey:@"FD_ID"];
     if(index == 0){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定签收？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        alert.tag = 1000;
         [alert show];
     }else if(index == 3){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定再来一单？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        alert.tag = 1001;
         [alert show];
     }
 }
 
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) {
-        [Utils showHanding:@"处理中..." with:self.view];
-        [Utils hiddenHanding:self.view withTime:2];
+    if(alertView.tag == 1000){
+        if (buttonIndex == 0) {
+            [self receiveAction];
+        }
+    }else if(alertView.tag == 1001){
+        if (buttonIndex == 0) {
+            [Utils showHanding:@"处理中..." with:self.view];
+            [Utils hiddenHanding:self.view withTime:2];
+        }
     }
 }
 
@@ -164,7 +191,7 @@
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
         _table.dataSource = self;
-        _table.tableHeaderView = self.searchView;
+//        _table.tableHeaderView = self.searchView;
         
         __weak typeof(self) weakself = self;
         

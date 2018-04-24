@@ -92,5 +92,8 @@
     return _vTotalControl;
 }
 
-
+- (void)setGoodsList:(NSArray *)goodsList{
+    _goodsList = goodsList;
+    self.vGoodsList.dataSource = _goodsList;
+}
 @end

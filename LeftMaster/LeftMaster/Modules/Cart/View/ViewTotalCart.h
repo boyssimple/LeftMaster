@@ -12,11 +12,13 @@
 @interface ViewTotalCart : UIView
 
 @property(nonatomic,weak)id<ViewTotalCartDelegate> delegate;
+- (void)updateData:(NSInteger)num withPrice:(CGFloat)total;
 @end
 
 
 @protocol ViewTotalCartDelegate<NSObject>
 
 - (void)clickOrder;
+- (void)clickCheck:(BOOL)selected;
 
 @end

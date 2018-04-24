@@ -52,18 +52,28 @@
     return self;
 }
 
+- (void)setDataSource:(NSArray *)dataSource{
+    _dataSource = dataSource;
+    [self updateData];
+}
+
 - (void)updateData{
-    self.lbCount.text = @"共计4个商品";
+    self.lbCount.text = [NSString stringWithFormat:@"共计%zi个商品",self.dataSource.count];
     [self.vListBg removeAllSubviews];
     CGFloat w = 40*RATIO_WIDHT320;
     CGFloat m = 5*RATIO_WIDHT320;
-    for (NSInteger i = 0; i < 4; i++) {
+    NSInteger num = 4;
+    if(self.dataSource.count < num){
+        num = self.dataSource.count;
+    }
+    for (NSInteger i = 0; i < num; i++) {
+        CartGoods *data = [self.dataSource objectAtIndex:i];
         UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(i*w + i*m, 0, w, w)];
         img.layer.borderColor = RGB3(240).CGColor;
         img.layer.borderWidth = 0.5;
         img.layer.cornerRadius = 3.f;
         img.layer.masksToBounds = YES;
-        [img pt_setImage:@"http://pic1.win4000.com/wallpaper/2017-12-19/5a387cb8439ea.jpg"];
+        [img pt_setImage:data.GOODS_PIC];
         [self.vListBg addSubview:img];
     }
 }

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CellOrderRemark : UITableViewCell
+- (void)updateData:(NSString*)text;
 + (CGFloat)calHeight:(NSString*)text;
 @end

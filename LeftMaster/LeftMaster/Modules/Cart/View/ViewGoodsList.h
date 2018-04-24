@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CartGoods.h"
 
 @interface ViewGoodsList : UIView
-
+@property(nonatomic,strong)NSArray *dataSource;
 @end

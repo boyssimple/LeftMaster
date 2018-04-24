@@ -56,6 +56,9 @@
     NSInteger tag = sender.tag;
     if (tag == 101) {
         sender.selected = !sender.selected;
+        if ([self.delegate respondsToSelector:@selector(clickCheck:)]) {
+            [self.delegate clickCheck:sender.selected];
+        }
     }else if(tag == 102){
         if ([self.delegate respondsToSelector:@selector(clickOrder)]) {
             [self.delegate clickOrder];
@@ -63,8 +66,26 @@
     }
 }
 
+- (void)updateData:(NSInteger)num withPrice:(CGFloat)total{
+    if(num > 0){
+        self.btnCheck.selected = TRUE;
+    }else{
+        self.btnCheck.selected = FALSE;
+    }
+    self.lbCount.text = [NSString stringWithFormat:@"共计%zi个商品",num];
+    self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f",total];
+    
+    if(self.lbPrice.text.length > 2){
+        NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
+        // 改变颜色
+        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length-3, 3)];
+        [self.lbPrice setAttributedText:noteStr];
+    }
+    [self setNeedsLayout];
+}
+
 - (void)updateData{
-    self.lbCount.text = @"共计2个商品";
+    self.lbCount.text = @"共计0个商品";
     self.lbPrice.text = @"¥???.00";
     
     if(self.lbPrice.text.length > 2){

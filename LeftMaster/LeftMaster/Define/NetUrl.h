@@ -15,6 +15,7 @@
 #define net_user_customer @"shop/CustomerInfoMobileTran.do?getUserCustomer"   //当前业务员列表
 #define net_user_cart_list @"system/UserMobileTran.do?queryMyCar"              //获取购物车
 #define net_user_cart_add @"system/UserMobileTran.do?addGoodsToMyCar"              //添加购物车
+#define net_user_cart_del @"system/UserMobileTran.do?deleteGoodsFromMyCar"              //删除购物车
 #define net_user_msg @"system/UserMobileTran.do?queryMessagesUnreadNum"              //获取消息
 #define net_user_msg_list @"system/UserMobileTran.do?queryMessages"              //获取消息列表
 #define net_user_sms_send @"system/UserMobileTran.do?sendSms"              //发送验证码
@@ -32,5 +33,13 @@
 #define net_order_goods_list @"shop/OrderMobileTran.do?queryOrderDetail"       //获取订单物品列表
 #define net_order_confirm @"shop/OrderMobileTran.do?sureOrder"       //确认订单
 #define net_order_cancel @"shop/OrderMobileTran.do?cancelOrder"       //取消订单
+#define net_order_sign @"shop/OrderMobileTran.do?signOrder"       //签收订单
+#define net_cart_num @"system/UserMobileTran.do?queryMyCarNum"       //购物车数量
+#define net_save_order @"shop/OrderMobileTran.do?saveOrder"       //下单
+#define net_order_detail @"shop/OrderMobileTran.do?queryOrderInfo"       //定单信息
+
+
+
+
 
 #endif /* NetUrl_h */

@@ -27,6 +27,10 @@
     return self;
 }
 
+- (void)updateData:(NSString*)text{
+    self.lbText.text = text;
+}
+
 - (void)updateData{
     self.lbText.text = @"记得发顺丰，谢谢!";
 }

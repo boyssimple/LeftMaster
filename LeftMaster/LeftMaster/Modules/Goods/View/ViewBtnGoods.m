@@ -83,11 +83,6 @@
     }
 }
 
-
-- (void)updateData{
-    self.count = 10;
-}
-
 - (void)setCount:(NSInteger)count{
     _count += count;
     if (_count > 10) {
@@ -98,13 +93,6 @@
 }
 
 - (void)clickAction:(UIButton*)sender{
-    if (sender.tag == 100) {
-        self.count = self.count+1;
-        [self postNotification:REFRESH_CART_LIST withObject:nil];
-    }else{
-        
-    }
-    
     if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
         [self.delegate clickActionWithIndex:sender.tag - 100];
     }

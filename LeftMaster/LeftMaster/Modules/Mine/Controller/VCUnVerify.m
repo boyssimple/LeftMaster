@@ -133,7 +133,7 @@
 - (void)clickActionWithIndex:(NSInteger)index withDataIndex:(NSInteger)dataIndex{
     
     NSDictionary *data = [self.dataSource objectAtIndex:dataIndex];
-    self.OrderID = [data jk_stringForKey:@"FD_ID"];
+    self.orderId = [data jk_stringForKey:@"FD_ID"];
     if(index == 1){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定取消订单？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"不取消", nil];
         [alert show];
@@ -165,7 +165,7 @@
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
         _table.dataSource = self;
-        _table.tableHeaderView = self.searchView;
+//        _table.tableHeaderView = self.searchView;
         
         __weak typeof(self) weakself = self;
         

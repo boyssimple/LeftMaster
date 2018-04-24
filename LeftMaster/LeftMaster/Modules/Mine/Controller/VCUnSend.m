@@ -132,7 +132,7 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index withDataIndex:(NSInteger)dataIndex{
     NSDictionary *data = [self.dataSource objectAtIndex:dataIndex];
-    self.OrderID = [data jk_stringForKey:@"FD_ID"];
+    self.OrderId = [data jk_stringForKey:@"FD_ID"];
     if(index == 3){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定再来一单？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
         [alert show];
@@ -161,7 +161,7 @@
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
         _table.dataSource = self;
-        _table.tableHeaderView = self.searchView;
+//        _table.tableHeaderView = self.searchView;
         
         __weak typeof(self) weakself = self;
         
