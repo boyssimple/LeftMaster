@@ -113,6 +113,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     VCGoods *vc = [[VCGoods alloc]init];
+    NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
+    vc.goods_id = [data jk_stringForKey:@"GOODS_ID"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
