@@ -160,7 +160,7 @@
         self.lbNoText.text = [data jk_stringForKey:@"GOODS_CODE"];
         self.lbTopPriceText.text = [NSString stringWithFormat:@"%@/%@",[data jk_stringForKey:@"GOODS_MARKET_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
         
-        self.lbRole.text = @"?起订";
+        self.lbRole.text = [NSString stringWithFormat:@"库存：%zi",[data jk_integerForKey:@"GOODS_STOCK"]];
         if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
             self.lbStatus.text = @" | 库存充足";
         }else{

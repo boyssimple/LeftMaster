@@ -81,8 +81,12 @@
 - (void)updateData:(NSDictionary*)data{
     [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
     self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
-    self.lbPrice.text = [NSString stringWithFormat:@"¥%@/个",[data jk_stringForKey:@"GOODS_PRICE"]];
-    self.lbHasGoods.text = @"有货";
+    self.lbPrice.text = [NSString stringWithFormat:@"¥%@/%@",[data jk_stringForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
+    if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
+        self.lbHasGoods.text = @"有货";
+    }else{
+        self.lbHasGoods.text = @"无货";
+    }
     if(self.lbPrice.text.length > 2){
         NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
         // 改变颜色

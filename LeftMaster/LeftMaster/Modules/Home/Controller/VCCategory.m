@@ -51,7 +51,7 @@
 
 - (void)loadData{
     RequestBeanCategoryHome *requestBean = [RequestBeanCategoryHome new];
-    requestBean.parent_id = 0;
+    requestBean.parent_id = @"0";
     requestBean.page_current = 1;
     requestBean.page_size = 100;
     [Utils showHanding:requestBean.hubTips with:self.view];
@@ -65,9 +65,13 @@
             [weakself.categorys addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
             [weakself.table reloadData];
             if(weakself.categorys && weakself.categorys.count > 0){
-                NSDictionary *first = [weakself.categorys firstObject];
-                if(first){
-                    [weakself loadSubData:[first jk_integerForKey:@"GOODSTYPE_ID"]];
+                if(self.cateId){
+                    [weakself loadSubData:self.cateId];
+                }else{
+                    NSDictionary *first = [weakself.categorys firstObject];
+                    if(first){
+                        [weakself loadSubData:[first jk_stringForKey:@"GOODSTYPE_ID"]];
+                    }
                 }
             }
         }
@@ -76,7 +80,7 @@
 
 
 
-- (void)loadSubData:(NSInteger)parentId{
+- (void)loadSubData:(NSString*)parentId{
     RequestBeanCategoryHome *requestBean = [RequestBeanCategoryHome new];
     requestBean.parent_id = parentId;
     requestBean.page_current = self.page;
@@ -176,7 +180,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *data = [self.categorys objectAtIndex:indexPath.row];
     self.cateId = [data jk_stringForKey:@"GOODSTYPE_ID"];
-    [self loadSubData:[data jk_integerForKey:@"GOODSTYPE_ID"]];
+    [self loadSubData:[data jk_stringForKey:@"GOODSTYPE_ID"]];
     [self.table reloadData];
 }
 
