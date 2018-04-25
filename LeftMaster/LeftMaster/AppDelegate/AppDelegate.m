@@ -35,7 +35,7 @@
     
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     AJLog(@"%@", documentsPath);
-    [AJNetworkConfig shareInstance].hostUrl = @"113.204.168.170:4321/";//@"192.168.43.142:8080/";// 
+    [AJNetworkConfig shareInstance].hostUrl = @"113.204.168.170:4321/";//@"192.168.43.142:8080/";//
     //缓存设置
     /*
      AJCacheOptions *cacheOptions = [AJCacheOptions new];

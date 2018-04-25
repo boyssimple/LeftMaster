@@ -11,6 +11,7 @@
 @interface RequestBeanCartList : AJRequestBeanBase
 
 @property(nonatomic,strong)NSString *user_id;     //用户ID
+@property(nonatomic,strong)NSString *CUS_ID;     //购物车
 @property(nonatomic,assign)NSInteger page_current;
 @property(nonatomic,assign)NSInteger page_size;
 @end

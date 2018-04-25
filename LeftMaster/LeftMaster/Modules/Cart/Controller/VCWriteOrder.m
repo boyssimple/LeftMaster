@@ -154,7 +154,7 @@
             // 结果处理
             ResponseBeanAddOrder *response = responseBean;
             if(response.success){
-                [Utils showSuccessToast:@"下单成功" with:self.view withTime:2 withBlock:^{
+                [Utils showSuccessToast:@"下单成功" with:self.view withTime:1.2 withBlock:^{
                     [self.navigationController popToRootViewControllerAnimated:TRUE];
                 }];
                 [self postNotification:REFRESH_CART_LIST withObject:nil];

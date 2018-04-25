@@ -162,7 +162,7 @@
         NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
         [dic setObject:g.GOODS_ID forKey:@"FD_GOODS_ID"];
         [dic setObject:g.GOODS_NAME forKey:@"FD_GOODS_ID_LABELS"];
-        [dic setObject:[NSString stringWithFormat:@"%zi",g.FD_NUM] forKey:@"FD_NUM"];
+        [dic setObject:[NSString stringWithFormat:@"%ld",g.FD_NUM] forKey:@"FD_NUM"];
         [dic setObject:g.GOODS_PRICE forKey:@"FD_UNIT_PRICE"];
         [dic setObject:[NSString stringWithFormat:@"%f",g.FD_NUM * [g.GOODS_PRICE floatValue]] forKey:@"FD_TOTAL_PRICE"];
         [goods addObject:dic];
@@ -194,7 +194,7 @@
             // 结果处理
             ResponseBeanAddOrder *response = responseBean;
             if(response.success){
-                [Utils showSuccessToast:@"下单成功" with:self.view withTime:1];
+                [Utils showSuccessToast:@"下单成功" with:self.view withTime:1.2];
                 [self.navigationController popToRootViewControllerAnimated:TRUE];
                 [self postNotification:REFRESH_CART_LIST withObject:nil];
             }

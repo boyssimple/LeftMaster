@@ -12,7 +12,7 @@
 
 
 - (NSString*)apiPath{
-    return net_order_goods_list;
+    return net_order_confirm;
 }
 
 - (BOOL)isShowHub{

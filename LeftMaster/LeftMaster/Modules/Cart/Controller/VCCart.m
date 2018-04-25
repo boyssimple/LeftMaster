@@ -55,6 +55,7 @@
     RequestBeanCartList *requestBean = [RequestBeanCartList new];
     requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.page_current = self.page;
+    requestBean.CUS_ID = [AppUser share].CUS_ID;
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         [weakself.table.mj_header endRefreshing];
@@ -73,6 +74,7 @@
     RequestBeanCartList *requestBean = [RequestBeanCartList new];
     requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.page_current = self.page;
+    requestBean.CUS_ID = [AppUser share].CUS_ID;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
