@@ -39,16 +39,12 @@
     [self loadCarouseListData];
     [self loadData];
     [self loadGoodsListData];
-    [self loadCartNumData];
 }
 
 - (void)initMain{
     [self.view addSubview:self.table];
     _categorys = [NSMutableArray array];
     _goodsList = [NSMutableArray array];
-    
-    
-    [self observeNotification:REFRESH_CART_LIST];
 
     //修改初始密码
     /*
@@ -130,25 +126,6 @@
             [weakself.table reloadData];
         }
     }];
-}
-
-- (void)loadCartNumData{
-    RequestBeanQueryCartNum *requestBean = [RequestBeanQueryCartNum new];
-    requestBean.user_id = [AppUser share].SYSUSER_ID;
-    __weak typeof(self) weakself = self;
-    [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        if (!err) {
-            // 结果处理
-            ResponseBeanQueryCartNum *response = responseBean;
-            if(response.success){
-                weakself.vCart.count = response.num;
-            }
-        }
-    }];
-}
-
-- (void)handleNotification:(NSNotification *)notification{
-    [self loadCartNumData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

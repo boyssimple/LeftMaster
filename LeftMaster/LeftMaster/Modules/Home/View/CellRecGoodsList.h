@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 @protocol CellRecGoodsListDelegate;
 @interface CellRecGoodsList : UITableViewCell
+@property(nonatomic,assign)NSInteger index;
 @property (nonatomic, weak) id<CommonDelegate> delegate;
 @property (nonatomic, weak) id<CellRecGoodsListDelegate> joinCartDelegate;
 - (void)updateData:(NSDictionary*)data;
 @end
 
 @protocol CellRecGoodsListDelegate<NSObject>
-- (void)joinCartClick:(CGRect)r withNum:(NSInteger)num;
+- (void)joinCartClick:(NSInteger)index withNum:(NSInteger)num;
 @end

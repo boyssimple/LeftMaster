@@ -6,9 +6,9 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "RequestBaseAddOrder.h"
+#import "RequestBeanAddOrder.h"
 
-@implementation RequestBaseAddOrder
+@implementation RequestBeanAddOrder
 
 - (NSString*)apiPath{
     return net_save_order;

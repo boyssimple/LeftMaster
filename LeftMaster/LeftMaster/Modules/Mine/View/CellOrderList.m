@@ -21,9 +21,6 @@
 @property(nonatomic,strong)UILabel *lbOrder;
 @property(nonatomic,strong)UILabel *lbOrderText;
 
-@property(nonatomic,strong)UILabel *lbGoodsCount;
-@property(nonatomic,strong)UILabel *lbGoodsCountText;
-
 @property(nonatomic,strong)UILabel *lbCotact;
 @property(nonatomic,strong)UILabel *lbCotactText;
 
@@ -92,17 +89,6 @@
         _lbOrderText.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
         _lbOrderText.textColor = RGB3(102);
         [_vBg addSubview:_lbOrderText];
-        
-        _lbGoodsCount = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbGoodsCount.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
-        _lbGoodsCount.textColor = RGB3(102);
-        _lbGoodsCount.text = @"商品数量";
-        [_vBg addSubview:_lbGoodsCount];
-        
-        _lbGoodsCountText = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbGoodsCountText.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
-        _lbGoodsCountText.textColor = RGB3(102);
-        [_vBg addSubview:_lbGoodsCountText];
         
         _lbCotact = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbCotact.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
@@ -183,7 +169,7 @@
     
     self.lbOrderAmountText.text = [NSString stringWithFormat:@"¥%@",[data jk_stringForKey:@"FD_TOTAL_PRICE"]];
     self.lbOrderText.text = [data jk_stringForKey:@"SYSUSER_NAME"];
-    self.lbGoodsCountText.text = @"10个";
+    
     self.lbCotactText.text = [data jk_stringForKey:@"SYSUSER_MOBILE"];
     self.lbOrderTimeText.text = [data jk_stringForKey:@"FD_ORDER_DATE"];
 
@@ -210,7 +196,6 @@
     
     self.lbOrderAmountText.text = @"¥???.00";
     self.lbOrderText.text = @"管理员";
-    self.lbGoodsCountText.text = @"10个";
     self.lbCotactText.text = @"15909327516";
     self.lbOrderTimeText.text = @"2018-01-18";
     
@@ -300,21 +285,6 @@
     r.size = size;
     self.lbOrderText.frame = r;
     
-    size = [self.lbGoodsCount sizeThatFits:CGSizeMake(self.lbOrderAmount.width, MAXFLOAT)];
-    r = self.lbGoodsCount.frame;
-    r.size.height = size.height;
-    r.size.width = self.lbOrderAmount.width;
-    r.origin.x = self.lbOrderAmount.left;
-    r.origin.y = self.lbOrderAmount.bottom + 8*RATIO_WIDHT320;
-    self.lbGoodsCount.frame = r;
-    
-    size = [self.lbGoodsCountText sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
-    r = self.lbGoodsCountText.frame;
-    r.origin.x = self.lbGoodsCount.right;
-    r.origin.y = self.lbOrderAmount.bottom + 8*RATIO_WIDHT320;
-    r.size = size;
-    self.lbGoodsCountText.frame = r;
-    
     size = [self.lbCotact sizeThatFits:CGSizeMake(self.lbOrderAmount.width, MAXFLOAT)];
     r = self.lbCotact.frame;
     r.size.height = size.height;
@@ -335,13 +305,13 @@
     r.size.height = size.height;
     r.size.width = self.lbOrderAmount.width;
     r.origin.x = self.lbOrderAmount.left;
-    r.origin.y = self.lbGoodsCount.bottom + 8*RATIO_WIDHT320;
+    r.origin.y = self.lbOrderAmount.bottom + 8*RATIO_WIDHT320;
     self.lbOrderTime.frame = r;
     
     size = [self.lbOrderTimeText sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     r = self.lbOrderTimeText.frame;
     r.origin.x = self.lbOrderTime.right;
-    r.origin.y = self.lbGoodsCount.bottom + 8*RATIO_WIDHT320;
+    r.origin.y = self.lbOrderAmount.bottom + 8*RATIO_WIDHT320;
     r.size = size;
     self.lbOrderTimeText.frame = r;
     
@@ -349,28 +319,28 @@
     r.size.width = 35*RATIO_WIDHT320;
     r.size.height = 18*RATIO_WIDHT320;
     r.origin.x = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
-    r.origin.y = self.lbOrderTime.top + (self.lbOrderTime.height - r.size.height)/2.0;
+    r.origin.y = self.lbOrderTime.bottom + 8*RATIO_WIDHT320;
     self.btnReceive.frame = r;
     
     r = self.btnCancel.frame;
     r.size.width = 35*RATIO_WIDHT320;
     r.size.height = 18*RATIO_WIDHT320;
     r.origin.x = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
-    r.origin.y = self.lbOrderTime.top + (self.lbOrderTime.height - r.size.height)/2.0;
+    r.origin.y = self.lbOrderTime.bottom + 8*RATIO_WIDHT320;
     self.btnCancel.frame = r;
     
     r = self.btnConfirm.frame;
     r.size.width = 35*RATIO_WIDHT320;
     r.size.height = 18*RATIO_WIDHT320;
     r.origin.x = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
-    r.origin.y = self.lbOrderTime.top + (self.lbOrderTime.height - r.size.height)/2.0;
+    r.origin.y = self.lbOrderTime.bottom + 8*RATIO_WIDHT320;
     self.btnConfirm.frame = r;
     
     r = self.btnAgain.frame;
     r.size.width = 45*RATIO_WIDHT320;
     r.size.height = 18*RATIO_WIDHT320;
     r.origin.x = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
-    r.origin.y = self.lbOrderTime.top + (self.lbOrderTime.height - r.size.height)/2.0;
+    r.origin.y = self.lbOrderTime.bottom + 8*RATIO_WIDHT320;
     self.btnAgain.frame = r;
     
     if(self.status == 0){

@@ -14,6 +14,7 @@
 #import "VCGoods.h"
 #import "ViewOrderRecGoodsList.h"
 #import "RequestBeanQueryCartNum.h"
+#import "RequestBeanAddCart.h"
 
 @interface VCGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
@@ -22,6 +23,8 @@
 @property(nonatomic,strong)NSMutableArray *goodsList;
 @property(nonatomic,strong)NSString *keywords;
 @property (nonatomic, assign) NSInteger page;
+@property (nonatomic, assign) NSInteger num;
+@property(nonatomic,strong)NSString *goods_id;
 @end
 
 @implementation VCGoodsList
@@ -97,7 +100,7 @@
     RequestBeanQueryCartNum *requestBean = [RequestBeanQueryCartNum new];
     requestBean.user_id = [AppUser share].SYSUSER_ID;
     __weak typeof(self) weakself = self;
-    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+    [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         if (!err) {
             // 结果处理
             ResponseBeanQueryCartNum *response = responseBean;
@@ -115,6 +118,31 @@
 - (void)search{
     self.keywords = self.vCart.tfText.text;
     [self loadData];
+}
+
+
+- (void)addCart{
+    RequestBeanAddCart *requestBean = [RequestBeanAddCart new];
+    requestBean.goods_id = self.goods_id;
+    requestBean.num = self.num;
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        
+        if (!err) {
+            // 结果处理
+            ResponseBeanAddCart *response = responseBean;
+            if (response.success) {
+                [self postNotification:REFRESH_CART_LIST withObject:nil];
+                [Utils showSuccessToast:@"加入购物车成功" with:weakself.view withTime:1];
+            }else{
+                [Utils showSuccessToast:@"加入购物车失败" with:weakself.view withTime:1];
+            }
+        }else{
+            [Utils showSuccessToast:@"加入购物车失败" with:weakself.view withTime:1];
+        }
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -137,6 +165,7 @@
         cell.delegate = self;
         cell.joinCartDelegate = self;
     }
+    cell.index = indexPath.row;
     NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
     [cell updateData:data];
     return cell;
@@ -205,16 +234,15 @@
 
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
-    if (index == 0) {
-        [Utils showSuccessToast:@"加入购物车成功" with:self.view withTime:1];
-    }
+    
 }
 
 #pragma mark - CellRecGoodsListDelegate
-- (void)joinCartClick:(CGRect)r withNum:(NSInteger)num{
-    self.vCart.count = num;
-    [self.vCart startAnimation];
-    [Utils showSuccessToast:@"加入购物车成功" with:self.view withTime:1];
+- (void)joinCartClick:(NSInteger)index withNum:(NSInteger)num{
+    NSDictionary *data = [self.goodsList objectAtIndex:index];
+    self.goods_id = [data jk_stringForKey:@"GOODS_ID"];
+    self.num = num;
+    [self addCart];
 }
 
 - (ViewCategory*)vCart{

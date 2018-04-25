@@ -16,7 +16,7 @@
 #import "WindowCustom.h"
 #import "Custom.h"
 #import "CartGoods.h"
-#import "RequestBaseAddOrder.h"
+#import "RequestBeanAddOrder.h"
 #import "RequestBeanOrderGoodsList.h"
 #import "VCEditGoodList.h"
 
@@ -152,7 +152,7 @@
 }
 
 - (void)addOrderAction{
-    RequestBaseAddOrder *requestBean = [RequestBaseAddOrder new];
+    RequestBeanAddOrder *requestBean = [RequestBeanAddOrder new];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc]init];
     [orderInfo setObject:[AppUser share].SYSUSER_ID forKey:@"FD_CREATE_USER_ID"];
     [orderInfo setObject:[AppUser share].CUS_ID forKey:@"FD_ORDER_ORG_ID"];

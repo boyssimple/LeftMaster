@@ -58,7 +58,6 @@
 		1CBF1DB1208F85620090BD96 /* RequestBeanQueryCartNum.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DB0208F85620090BD96 /* RequestBeanQueryCartNum.m */; };
 		1CBF1DB4208F8A310090BD96 /* RequestBeanSignOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DB3208F8A310090BD96 /* RequestBeanSignOrder.m */; };
 		1CBF1DB7208F95000090BD96 /* CartGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DB6208F95000090BD96 /* CartGoods.m */; };
-		1CBF1DBA208FA5B60090BD96 /* RequestBaseAddOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DB9208FA5B60090BD96 /* RequestBaseAddOrder.m */; };
 		1CBF1DC0208FACA40090BD96 /* RequestBeanDelCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DBE208FACA40090BD96 /* RequestBeanDelCart.m */; };
 		1CBF1DC3208FAD800090BD96 /* RequestBeanOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DC2208FAD800090BD96 /* RequestBeanOrderInfo.m */; };
 		1CBF1DC62090C5370090BD96 /* RequestBeanBillOrg.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DC52090C5370090BD96 /* RequestBeanBillOrg.m */; };
@@ -69,6 +68,10 @@
 		1CBF1DD82090FC410090BD96 /* VCWriteOrderAgain.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DD72090FC410090BD96 /* VCWriteOrderAgain.m */; };
 		1CBF1DDB2090FFD00090BD96 /* VCEditGoodList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DDA2090FFD00090BD96 /* VCEditGoodList.m */; };
 		1CBF1DDE209101240090BD96 /* CellEditGoodList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DDD209101240090BD96 /* CellEditGoodList.m */; };
+		1CBF1DE1209108E00090BD96 /* CellOrderCheckAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DE0209108E00090BD96 /* CellOrderCheckAccount.m */; };
+		1CBF1DE7209109010090BD96 /* ViewOrderCheckAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DE6209109010090BD96 /* ViewOrderCheckAccount.m */; };
+		1CBF1DEA20910B570090BD96 /* RequestBeanCheckData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DE920910B570090BD96 /* RequestBeanCheckData.m */; };
+		1CBF1DED2091135C0090BD96 /* RequestBeanAddOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DEC2091135C0090BD96 /* RequestBeanAddOrder.m */; };
 		1CBF5BB12078789400284EA1 /* VCWriteOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BB02078789400284EA1 /* VCWriteOrder.m */; };
 		1CBF5BB420787A1600284EA1 /* ViewGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BB320787A1600284EA1 /* ViewGoodsList.m */; };
 		1CBF5BB72078809100284EA1 /* ViewMessageOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BB62078809100284EA1 /* ViewMessageOrder.m */; };
@@ -272,8 +275,6 @@
 		1CBF1DB3208F8A310090BD96 /* RequestBeanSignOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanSignOrder.m; sourceTree = "<group>"; };
 		1CBF1DB5208F95000090BD96 /* CartGoods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartGoods.h; sourceTree = "<group>"; };
 		1CBF1DB6208F95000090BD96 /* CartGoods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartGoods.m; sourceTree = "<group>"; };
-		1CBF1DB8208FA5B60090BD96 /* RequestBaseAddOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBaseAddOrder.h; sourceTree = "<group>"; };
-		1CBF1DB9208FA5B60090BD96 /* RequestBaseAddOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBaseAddOrder.m; sourceTree = "<group>"; };
 		1CBF1DBE208FACA40090BD96 /* RequestBeanDelCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestBeanDelCart.m; sourceTree = "<group>"; };
 		1CBF1DBF208FACA40090BD96 /* RequestBeanDelCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestBeanDelCart.h; sourceTree = "<group>"; };
 		1CBF1DC1208FAD800090BD96 /* RequestBeanOrderInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanOrderInfo.h; sourceTree = "<group>"; };
@@ -294,6 +295,14 @@
 		1CBF1DDA2090FFD00090BD96 /* VCEditGoodList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCEditGoodList.m; sourceTree = "<group>"; };
 		1CBF1DDC209101240090BD96 /* CellEditGoodList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellEditGoodList.h; sourceTree = "<group>"; };
 		1CBF1DDD209101240090BD96 /* CellEditGoodList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellEditGoodList.m; sourceTree = "<group>"; };
+		1CBF1DDF209108E00090BD96 /* CellOrderCheckAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellOrderCheckAccount.h; sourceTree = "<group>"; };
+		1CBF1DE0209108E00090BD96 /* CellOrderCheckAccount.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellOrderCheckAccount.m; sourceTree = "<group>"; };
+		1CBF1DE5209109010090BD96 /* ViewOrderCheckAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewOrderCheckAccount.h; sourceTree = "<group>"; };
+		1CBF1DE6209109010090BD96 /* ViewOrderCheckAccount.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewOrderCheckAccount.m; sourceTree = "<group>"; };
+		1CBF1DE820910B570090BD96 /* RequestBeanCheckData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanCheckData.h; sourceTree = "<group>"; };
+		1CBF1DE920910B570090BD96 /* RequestBeanCheckData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanCheckData.m; sourceTree = "<group>"; };
+		1CBF1DEB2091135C0090BD96 /* RequestBeanAddOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanAddOrder.h; sourceTree = "<group>"; };
+		1CBF1DEC2091135C0090BD96 /* RequestBeanAddOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanAddOrder.m; sourceTree = "<group>"; };
 		1CBF5BAF2078789400284EA1 /* VCWriteOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCWriteOrder.h; sourceTree = "<group>"; };
 		1CBF5BB02078789400284EA1 /* VCWriteOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCWriteOrder.m; sourceTree = "<group>"; };
 		1CBF5BB220787A1600284EA1 /* ViewGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewGoodsList.h; sourceTree = "<group>"; };
@@ -560,14 +569,14 @@
 				1CBF1DB0208F85620090BD96 /* RequestBeanQueryCartNum.m */,
 				1CBF1DB5208F95000090BD96 /* CartGoods.h */,
 				1CBF1DB6208F95000090BD96 /* CartGoods.m */,
-				1CBF1DB8208FA5B60090BD96 /* RequestBaseAddOrder.h */,
-				1CBF1DB9208FA5B60090BD96 /* RequestBaseAddOrder.m */,
 				1CBF1DBF208FACA40090BD96 /* RequestBeanDelCart.h */,
 				1CBF1DBE208FACA40090BD96 /* RequestBeanDelCart.m */,
 				1CBF1DC42090C5370090BD96 /* RequestBeanBillOrg.h */,
 				1CBF1DC52090C5370090BD96 /* RequestBeanBillOrg.m */,
 				1CBF1DCD2090CB7B0090BD96 /* Custom.h */,
 				1CBF1DCE2090CB7B0090BD96 /* Custom.m */,
+				1CBF1DEB2091135C0090BD96 /* RequestBeanAddOrder.h */,
+				1CBF1DEC2091135C0090BD96 /* RequestBeanAddOrder.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -891,6 +900,8 @@
 				1CBF1DC2208FAD800090BD96 /* RequestBeanOrderInfo.m */,
 				1CBF1DD32090F8CC0090BD96 /* RequestBeanSendInfo.h */,
 				1CBF1DD42090F8CC0090BD96 /* RequestBeanSendInfo.m */,
+				1CBF1DE820910B570090BD96 /* RequestBeanCheckData.h */,
+				1CBF1DE920910B570090BD96 /* RequestBeanCheckData.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -936,6 +947,10 @@
 				1CFC7B01208F6D82005F18AB /* CellCancelOrder.m */,
 				1CFC7B03208F7268005F18AB /* ViewHeaderCancelOrder.h */,
 				1CFC7B04208F7268005F18AB /* ViewHeaderCancelOrder.m */,
+				1CBF1DDF209108E00090BD96 /* CellOrderCheckAccount.h */,
+				1CBF1DE0209108E00090BD96 /* CellOrderCheckAccount.m */,
+				1CBF1DE5209109010090BD96 /* ViewOrderCheckAccount.h */,
+				1CBF1DE6209109010090BD96 /* ViewOrderCheckAccount.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1275,6 +1290,7 @@
 				1C780EC6207DF97A00054AE1 /* NSNotification+Extension.m in Sources */,
 				1CBF5BF0207CE86000284EA1 /* VCOrder.m in Sources */,
 				1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */,
+				1CBF1DEA20910B570090BD96 /* RequestBeanCheckData.m in Sources */,
 				1C780ED6207E067400054AE1 /* VCRecGoodsList.m in Sources */,
 				1CBF1DC62090C5370090BD96 /* RequestBeanBillOrg.m in Sources */,
 				1CFC011E2089E13F00A8E344 /* RequestBeanSms.m in Sources */,
@@ -1293,6 +1309,7 @@
 				1C4CC29D207277AF007C24FB /* CollCellNewHome.m in Sources */,
 				1CBF5BC0207A46AE00284EA1 /* ViewHeaderMine.m in Sources */,
 				1CBF5BE7207CE23B00284EA1 /* CellProxy.m in Sources */,
+				1CBF1DED2091135C0090BD96 /* RequestBeanAddOrder.m in Sources */,
 				1C8A2E21207707720076238D /* CellCart.m in Sources */,
 				1CBF1DC0208FACA40090BD96 /* RequestBeanDelCart.m in Sources */,
 				1CBF5BB12078789400284EA1 /* VCWriteOrder.m in Sources */,
@@ -1311,6 +1328,7 @@
 				1CFC7B02208F6D82005F18AB /* CellCancelOrder.m in Sources */,
 				1C8A2E3F207875BD0076238D /* HMScanner.m in Sources */,
 				1CFC7ABB208C7796005F18AB /* ViewSearchWithHome.m in Sources */,
+				1CBF1DE7209109010090BD96 /* ViewOrderCheckAccount.m in Sources */,
 				1CFC7ADB208E1518005F18AB /* VCSearchGoodsList.m in Sources */,
 				1CFC7AEA208E3242005F18AB /* VCUnSend.m in Sources */,
 				1CBF5BB420787A1600284EA1 /* ViewGoodsList.m in Sources */,
@@ -1333,7 +1351,6 @@
 				1CFC7ABE208C80DD005F18AB /* VCGoodsList.m in Sources */,
 				1C4C15632088FADD00BA8F3C /* RequestBeanSlidePicList.m in Sources */,
 				1CFC7AF3208E3D10005F18AB /* RequestBeanOrderGoodsList.m in Sources */,
-				1CBF1DBA208FA5B60090BD96 /* RequestBaseAddOrder.m in Sources */,
 				1CBF5BED207CE71600284EA1 /* CellTopGoods.m in Sources */,
 				1C4CC2882072542A007C24FB /* NSDictionary+JKSafeAccess.m in Sources */,
 				1CFC7AE7208E320C005F18AB /* VCUnVerify.m in Sources */,
@@ -1388,6 +1405,7 @@
 				1CBF5BDB207A730600284EA1 /* CellNoticeList.m in Sources */,
 				1C7A754D207F335400C140D2 /* VCInvoice.m in Sources */,
 				1CBF5BBA2078827500284EA1 /* ViewTotalOrder.m in Sources */,
+				1CBF1DE1209108E00090BD96 /* CellOrderCheckAccount.m in Sources */,
 				1CBF5C0B207D1DBB00284EA1 /* RequestBeanCustomer.m in Sources */,
 				1C8A2E24207707890076238D /* ViewTotalCart.m in Sources */,
 				1CFC7AD2208E05CF005F18AB /* VCModifyPassword.m in Sources */,

@@ -9,7 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewSearchWithHome : UIView
-@property (nonatomic, assign) NSInteger count;
-@property(nonatomic,strong)UILabel *lbCount;
 @property(nonatomic,weak)id<CommonDelegate> delegate;
 @end

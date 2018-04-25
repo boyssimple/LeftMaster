@@ -65,7 +65,7 @@
         [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
         self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
         
-        self.lbPrice.text = [NSString stringWithFormat:@"¥%zi/%@",[data jk_integerForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"FD_UNIT_NAME"]];
+        self.lbPrice.text = [NSString stringWithFormat:@"¥%zi/%@",[data jk_integerForKey:@"FD_UNIT_PRICE"],[data jk_stringForKey:@"FD_UNIT_NAME"]];
         self.lbCount.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_NUM"],[data jk_stringForKey:@"FD_UNIT_NAME"]];
         
         if(self.lbPrice.text.length > 2){

@@ -39,6 +39,7 @@
 #define net_order_detail @"shop/OrderMobileTran.do?queryOrderInfo"       //定单信息
 #define net_order_customer_bill_org @"shop/CustomerInfoMobileTran.do?getCustomerBillOrg"       //开票单位
 #define net_order_send_info @"shop/OrderMobileTran.do?queryOrderSendInfo"       //发货单
+#define net_order_check_data @"shop/CustomerInfoMobileTran.do?getCustomerBalanceDataByCusId"       //订单对帐
 
 
 

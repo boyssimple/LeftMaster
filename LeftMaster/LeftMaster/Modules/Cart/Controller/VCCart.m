@@ -15,6 +15,7 @@
 #import "VCGoods.h"
 #import "CartGoods.h"
 #import "RequestBeanDelCart.h"
+#import "RequestBeanAddCart.h"
 
 @interface VCCart ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate,CommonDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UITableView *table;
@@ -114,6 +115,31 @@
         }
     }];
     
+}
+
+
+- (void)addCart:(CartGoods*)data withAmount:(NSInteger)num{
+    RequestBeanAddCart *requestBean = [RequestBeanAddCart new];
+    requestBean.goods_id = data.GOODS_ID;
+    requestBean.num = num;
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        
+        if (!err) {
+            // 结果处理
+            ResponseBeanAddCart *response = responseBean;
+            if (response.success) {
+                [self postNotification:REFRESH_CART_LIST withObject:nil];
+                [Utils showSuccessToast:@"加入购物车成功" with:weakself.view withTime:1];
+            }else{
+                [Utils showSuccessToast:@"加入购物车失败" with:weakself.view withTime:1];
+            }
+        }else{
+            [Utils showSuccessToast:@"加入购物车失败" with:weakself.view withTime:1];
+        }
+    }];
 }
 
 - (void)handleDatas:(NSArray*)datas with:(NSInteger)size{

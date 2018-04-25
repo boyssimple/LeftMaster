@@ -115,14 +115,8 @@
     if (tag == 101) {
         sender.selected = !sender.selected;
     }else if(tag == 102){
-        [self postNotification:REFRESH_CART_LIST withObject:nil];
         if ([self.joinCartDelegate respondsToSelector:@selector(joinCartClick: withNum:)]) {
-            
-            
-            UIWindow * window=[[[UIApplication sharedApplication] delegate] window];
-            CGRect rect = [sender convertRect: sender.bounds toView:window];
-            [self.joinCartDelegate joinCartClick:rect withNum:[self.lbCount.text integerValue]];
-            NSLog(@"x:%f--y:%f---width:%f--height:%f",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
+            [self.joinCartDelegate joinCartClick:self.index withNum:[self.lbCount.text integerValue]];
         }
     }else if(tag == 103){
         NSString *str = self.lbCount.text;

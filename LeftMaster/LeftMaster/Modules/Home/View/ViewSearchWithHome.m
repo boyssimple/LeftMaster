@@ -14,7 +14,6 @@
 @property(nonatomic,strong)UILabel *lbTips;
 @property(nonatomic,strong)UIImageView *ivSearch;
 
-@property(nonatomic,strong)UIImageView *ivCart;
 @property(nonatomic,strong)UIView  *vLine;
 @property (nonatomic, assign) bool isExcuting;
 @end
@@ -52,22 +51,6 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickSearch)];
         [_lbTips addGestureRecognizer:tap];
         
-        
-        _ivCart = [[UIImageView alloc]initWithFrame:CGRectZero];
-        _ivCart.image = [UIImage imageNamed:@"classification-icon_Shopping-Cart"];
-        _ivCart.userInteractionEnabled = YES;
-        [self addSubview:_ivCart];
-        
-        _lbCount = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbCount.font = [UIFont systemFontOfSize:8*RATIO_WIDHT320];
-        _lbCount.textColor = [UIColor whiteColor];
-        _lbCount.numberOfLines = 2;
-        _lbCount.backgroundColor = APP_COLOR;
-        _lbCount.layer.cornerRadius = 5*RATIO_WIDHT320;
-        _lbCount.layer.masksToBounds = YES;
-        _lbCount.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:_lbCount];
-        
         _vLine = [[UIView alloc]initWithFrame:CGRectZero];
         _vLine.backgroundColor = RGB3(230);
         [self addSubview:_vLine];
@@ -76,19 +59,6 @@
 }
 
 
-- (void)setCount:(NSInteger)count{
-    _count += count;
-    if (_count > 10) {
-        self.lbCount.text = [NSString stringWithFormat:@"10+"];
-    }else{
-        self.lbCount.text = [NSString stringWithFormat:@"%zi",_count];
-    }
-    if(_count == 0){
-        self.lbCount.hidden = YES;
-    }else{
-        self.lbCount.hidden = NO;
-    }
-}
 
 - (void)updateData{
     
@@ -121,22 +91,9 @@
     r.size.height = r.size.width;
     self.btnQR.imageView.frame = r;
     
-    r = self.lbCount.frame;
-    r.size.width = 20*RATIO_WIDHT320;
-    r.size.height = 10*RATIO_WIDHT320;
-    r.origin.x = DEVICEWIDTH - r.size.width - 5*RATIO_WIDHT320;
-    r.origin.y = 10*RATIO_WIDHT320;
-    self.lbCount.frame = r;
-    
-    r = self.ivCart.frame;
-    r.size.width = 23*RATIO_WIDHT320;
-    r.size.height = r.size.width;
-    r.origin.x = DEVICEWIDTH - r.size.width - 15*RATIO_WIDHT320;
-    r.origin.y = (self.height - r.size.height)/2.0;
-    self.ivCart.frame = r;
     
     r = self.vSearchBg.frame;
-    r.size.width = self.ivCart.left - 5*RATIO_WIDHT320 - self.btnQR.right;
+    r.size.width = DEVICEWIDTH - 10*RATIO_WIDHT320 - self.btnQR.right;
     r.size.height = 30;
     r.origin.x = self.btnQR.right;
     r.origin.y = (self.height - r.size.height)/2.0;

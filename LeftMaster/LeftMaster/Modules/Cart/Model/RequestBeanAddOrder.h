@@ -1,14 +1,14 @@
 //
-//  RequestBaseAddOrder.h
+//  RequestBeanAddOrder.h
 //  LeftMaster
 //
-//  Created by simple on 2018/4/25.
+//  Created by simple on 2018/4/26.
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
 #import "AJRequestBeanBase.h"
 
-@interface RequestBaseAddOrder : AJRequestBeanBase
+@interface RequestBeanAddOrder : AJRequestBeanBase
 @property(nonatomic,strong)NSString *oderInfo; //订单信息
 @end
 

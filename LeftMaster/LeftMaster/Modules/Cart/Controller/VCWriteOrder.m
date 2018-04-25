@@ -16,7 +16,7 @@
 #import "WindowCustom.h"
 #import "Custom.h"
 #import "CartGoods.h"
-#import "RequestBaseAddOrder.h"
+#import "RequestBeanAddOrder.h"
 
 @interface VCWriteOrder ()<CommonDelegate,WindowCustomDelegate,UIScrollViewDelegate,ViewTotalBottomWriteOrderDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UIScrollView *mainView;
@@ -112,7 +112,7 @@
 }
 
 - (void)addOrderAction{
-    RequestBaseAddOrder *requestBean = [RequestBaseAddOrder new];
+    RequestBeanAddOrder *requestBean = [RequestBeanAddOrder new];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc]init];
     [orderInfo setObject:[AppUser share].SYSUSER_ID forKey:@"FD_CREATE_USER_ID"];
     [orderInfo setObject:[AppUser share].CUS_ID forKey:@"FD_ORDER_ORG_ID"];
@@ -134,7 +134,7 @@
             [Utils showSuccessToast:@"未选择开票单位" with:self.view withTime:0.8];
             return;
         }else{
-            [orderInfo setObject:@(self.isBill) forKey:@"FD_NEED_TICKET"];
+            [orderInfo setObject:[NSString stringWithFormat:@"%d",self.isBill] forKey:@"FD_NEED_TICKET"];
             [orderInfo setObject:self.cust.fd_bill_org_id forKey:@"FD_BILL_ORG_ID"];
         }
     }
@@ -154,8 +154,9 @@
             // 结果处理
             ResponseBeanAddOrder *response = responseBean;
             if(response.success){
-                [Utils showSuccessToast:@"下单成功" with:self.view withTime:1];
-                [self.navigationController popToRootViewControllerAnimated:TRUE];
+                [Utils showSuccessToast:@"下单成功" with:self.view withTime:2 withBlock:^{
+                    [self.navigationController popToRootViewControllerAnimated:TRUE];
+                }];
                 [self postNotification:REFRESH_CART_LIST withObject:nil];
             }
         }else{
