@@ -69,8 +69,8 @@
     if (!cell) {
         cell = [[CellInvoice alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    
-    [cell updateData];
+    NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
+    [cell updateData:data];
     return cell;
 }
 

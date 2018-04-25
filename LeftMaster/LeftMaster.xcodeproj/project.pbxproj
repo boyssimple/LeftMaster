@@ -72,6 +72,7 @@
 		1CBF1DE7209109010090BD96 /* ViewOrderCheckAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DE6209109010090BD96 /* ViewOrderCheckAccount.m */; };
 		1CBF1DEA20910B570090BD96 /* RequestBeanCheckData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DE920910B570090BD96 /* RequestBeanCheckData.m */; };
 		1CBF1DED2091135C0090BD96 /* RequestBeanAddOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DEC2091135C0090BD96 /* RequestBeanAddOrder.m */; };
+		1CBF1DF020913D540090BD96 /* AlwaysBuyGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DEF20913D540090BD96 /* AlwaysBuyGoods.m */; };
 		1CBF5BB12078789400284EA1 /* VCWriteOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BB02078789400284EA1 /* VCWriteOrder.m */; };
 		1CBF5BB420787A1600284EA1 /* ViewGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BB320787A1600284EA1 /* ViewGoodsList.m */; };
 		1CBF5BB72078809100284EA1 /* ViewMessageOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BB62078809100284EA1 /* ViewMessageOrder.m */; };
@@ -303,6 +304,8 @@
 		1CBF1DE920910B570090BD96 /* RequestBeanCheckData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanCheckData.m; sourceTree = "<group>"; };
 		1CBF1DEB2091135C0090BD96 /* RequestBeanAddOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanAddOrder.h; sourceTree = "<group>"; };
 		1CBF1DEC2091135C0090BD96 /* RequestBeanAddOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanAddOrder.m; sourceTree = "<group>"; };
+		1CBF1DEE20913D540090BD96 /* AlwaysBuyGoods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlwaysBuyGoods.h; sourceTree = "<group>"; };
+		1CBF1DEF20913D540090BD96 /* AlwaysBuyGoods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlwaysBuyGoods.m; sourceTree = "<group>"; };
 		1CBF5BAF2078789400284EA1 /* VCWriteOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCWriteOrder.h; sourceTree = "<group>"; };
 		1CBF5BB02078789400284EA1 /* VCWriteOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCWriteOrder.m; sourceTree = "<group>"; };
 		1CBF5BB220787A1600284EA1 /* ViewGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewGoodsList.h; sourceTree = "<group>"; };
@@ -554,6 +557,8 @@
 			children = (
 				1C780EC1207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.h */,
 				1C780EC2207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m */,
+				1CBF1DEE20913D540090BD96 /* AlwaysBuyGoods.h */,
+				1CBF1DEF20913D540090BD96 /* AlwaysBuyGoods.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1391,6 +1396,7 @@
 				1CBFA5FC207E59A0001926DE /* AppUser.m in Sources */,
 				1CBF5C08207D111B00284EA1 /* RequestBeanLogin.m in Sources */,
 				1CBF5C11207E2D9300284EA1 /* ViewSearchOrderList.m in Sources */,
+				1CBF1DF020913D540090BD96 /* AlwaysBuyGoods.m in Sources */,
 				1C4CC2842072540E007C24FB /* UITypes+extension.m in Sources */,
 				1CBF1DDB2090FFD00090BD96 /* VCEditGoodList.m in Sources */,
 				1C4CC27620724F3B007C24FB /* VCCart.m in Sources */,

@@ -10,7 +10,9 @@
 
 @interface RequestBeanAlwaysBuyGoods : AJRequestBeanBase
 
-@property(nonatomic,strong)NSString *user_id;     //用户ID
+@property(nonatomic,strong)NSString *cus_id;     //客户ID
+@property(nonatomic,strong)NSString *company_id;     //客户ID
+@property(nonatomic,strong)NSString *user_id;     //user_ID
 @property(nonatomic,assign)NSInteger page_current;
 @property(nonatomic,assign)NSInteger page_size;
 @end

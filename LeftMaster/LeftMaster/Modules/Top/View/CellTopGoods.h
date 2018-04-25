@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AlwaysBuyGoods.h"
 
 @interface CellTopGoods : UITableViewCell
-- (void)updateData:(NSDictionary*)data;
+- (void)updateData:(AlwaysBuyGoods*)data;
 @end

@@ -104,24 +104,29 @@
     return self;
 }
 
-- (void)updateData:(NSDictionary*)data{
-    [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
-    self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
-    self.lbRole.text = @"1台起订";
-    
-    if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
-        self.lbStatus.text = @" | 库存充足";
-    }else{
-        self.lbStatus.text = @" | 库存不足";
-    }
-    
-    self.lbPrice.text = [NSString stringWithFormat:@"¥%zi/%@",[data jk_integerForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
-    
-    if(self.lbPrice.text.length > 2){
-        NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
-        // 改变颜色
-        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-[data jk_stringForKey:@"GOODS_UNIT"].length)];
-        [self.lbPrice setAttributedText:noteStr];
+- (void)updateData:(AlwaysBuyGoods*)data{
+    if(data){
+        self.btnCheck.selected = data.selected;
+        [self.ivImg pt_setImage:data.GOODS_PIC];
+        self.lbName.text = data.GOODS_NAME;
+        self.lbRole.text = [NSString stringWithFormat:@"库存:%ld",data.GOODS_STOCK];
+        
+        if(data.GOODS_STOCK > 0){
+            self.lbStatus.text = @" | 库存充足";
+        }else{
+            self.lbStatus.text = @" | 库存不足";
+        }
+        
+        self.lbCount.text = [NSString stringWithFormat:@"%d",1];
+        
+        self.lbPrice.text = [NSString stringWithFormat:@"¥%@/%@",data.GOODS_PRICE,data.GOODS_UNIT];
+        
+        if(self.lbPrice.text.length > 2){
+            NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
+            // 改变颜色
+            [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-data.GOODS_UNIT.length)];
+            [self.lbPrice setAttributedText:noteStr];
+        }
     }
 }
 

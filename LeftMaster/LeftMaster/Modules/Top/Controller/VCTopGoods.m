@@ -12,6 +12,7 @@
 #import "VCWriteOrder.h"
 #import "VCWriteOrder.h"
 #import "RequestBeanAlwaysBuyGoods.h"
+#import "AlwaysBuyGoods.h"
 
 @interface VCTopGoods ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate>
 @property(nonatomic,strong)UITableView *table;
@@ -38,6 +39,8 @@
 - (void)loadData{
     RequestBeanAlwaysBuyGoods *requestBean = [RequestBeanAlwaysBuyGoods new];
     requestBean.user_id = [AppUser share].SYSUSER_ID;
+    requestBean.cus_id = [AppUser share].CUS_ID;
+    requestBean.company_id = [AppUser share].SYSUSER_COMPANYID;
     requestBean.page_current = self.page;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
@@ -49,22 +52,43 @@
             // 结果处理
             ResponseBeanAlwaysBuyGoods *response = responseBean;
             if(response.success){
-                if(self.page == 1){
-                    [weakself.goodsList removeAllObjects];
-                }
-                NSArray *datas = [response.data jk_arrayForKey:@"rows"];
-                if(datas.count == 0 || datas.count < requestBean.page_size){
-                    [weakself.table.mj_footer endRefreshingWithNoMoreData];
-                }else{
-                    [weakself.table.mj_footer resetNoMoreData];
-                }
-                [weakself.goodsList addObjectsFromArray:datas];
-                [weakself.table reloadData];
+                [weakself handleDatas:[response.data jk_arrayForKey:@"rows"] with:requestBean.page_size];
             }
         }
     }];
 }
 
+
+- (void)handleDatas:(NSArray*)datas with:(NSInteger)size{
+    if(self.page == 1){
+        [self.goodsList removeAllObjects];
+    }
+    if(datas.count == 0 || datas.count < size){
+        [self.table.mj_footer endRefreshingWithNoMoreData];
+    }else{
+        [self.table.mj_footer resetNoMoreData];
+    }
+    
+    for (NSDictionary *data in datas) {
+        AlwaysBuyGoods *cart = [[AlwaysBuyGoods alloc]init];
+        [cart parse:data];
+        [self.goodsList addObject:cart];
+    }
+    [self.table reloadData];
+    [self calTotal];
+}
+
+- (void)calTotal{
+    NSInteger num = 0;
+    CGFloat total = 0;
+    for (AlwaysBuyGoods *c in self.goodsList) {
+        if(c.selected){
+            num += c.GOODS_STOCK;
+            total += [c.GOODS_PRICE floatValue]*c.GOODS_STOCK;
+        }
+    }
+    [self.vControl updateData:num withPrice:total];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -84,7 +108,7 @@
     if (!cell) {
         cell = [[CellTopGoods alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
+    AlwaysBuyGoods *data = [self.goodsList objectAtIndex:indexPath.row];
     [cell updateData:data];
     return cell;
 }
@@ -116,6 +140,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+}
+
+
+- (void)clickCheck:(BOOL)selected{
+    for (AlwaysBuyGoods *c in self.goodsList) {
+        c.selected = selected;
+    }
+    [self.table reloadData];
+    [self calTotal];
 }
 
 #pragma mark ViewTotalCartDelegate
