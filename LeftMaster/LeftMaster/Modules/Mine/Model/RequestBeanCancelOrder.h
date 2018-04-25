@@ -10,7 +10,7 @@
 
 @interface RequestBeanCancelOrder : AJRequestBeanBase
 @property(nonatomic,strong)NSString *FD_ID;     //定单ID
-@property(nonatomic,strong)NSString *FD_CREATE_USER_ID;     //人ID
+@property(nonatomic,strong)NSString *FD_CANEL_USER_ID;     //人ID
 @property(nonatomic,strong)NSString *FD_CANEL_REASON;     //取消原因
 @end
 

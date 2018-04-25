@@ -29,8 +29,6 @@
         _ivImg = [[UIImageView alloc]initWithFrame:CGRectZero];
         _ivImg.image = [UIImage imageNamed:@""];
         _ivImg.userInteractionEnabled = YES;
-        _ivImg.layer.borderColor = RGB3(224).CGColor;
-        _ivImg.layer.borderWidth = 0.5;
         _ivImg.layer.cornerRadius = 2;
         _ivImg.layer.masksToBounds = YES;
         _ivImg.clipsToBounds = YES;
@@ -67,8 +65,8 @@
         [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
         self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
         
-        self.lbPrice.text = [NSString stringWithFormat:@"¥%zi/%@",[data jk_integerForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
-        self.lbCount.text = @"3个";
+        self.lbPrice.text = [NSString stringWithFormat:@"¥%zi/%@",[data jk_integerForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"FD_UNIT_NAME"]];
+        self.lbCount.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_NUM"],[data jk_stringForKey:@"FD_UNIT_NAME"]];
         
         if(self.lbPrice.text.length > 2){
             NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];

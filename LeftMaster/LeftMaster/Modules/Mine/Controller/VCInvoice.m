@@ -8,9 +8,11 @@
 
 #import "VCInvoice.h"
 #import "CellInvoice.h"
+#import "RequestBeanSendInfo.h"
 
 @interface VCInvoice ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *table;
+@property(nonatomic,strong)NSMutableArray *dataSource;
 @end
 
 @implementation VCInvoice
@@ -18,11 +20,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initMain];
+    [self loadData];
 }
 
 - (void)initMain{
     self.title = @"发货单";
+    _dataSource = [NSMutableArray array];
     [self.view addSubview:self.table];
+}
+
+- (void)loadData{
+    RequestBeanSendInfo *requestBean = [RequestBeanSendInfo new];
+    requestBean.FD_ORDER_ID = self.orderId;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [Utils hiddenHanding:self.view withTime:0.5];
+        [weakself.table.mj_header endRefreshing];
+        if (!err) {
+            // 结果处理
+            ResponseBeanSendInfo *response = responseBean;
+            if(response.success){
+                [weakself.dataSource removeAllObjects];
+                NSArray *datas = [response.data jk_arrayForKey:@"rows"];
+                [weakself.dataSource addObjectsFromArray:datas];
+                [weakself.table reloadData];
+            }
+        }
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -30,7 +55,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return self.dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -44,6 +69,7 @@
     if (!cell) {
         cell = [[CellInvoice alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+    
     [cell updateData];
     return cell;
 }
@@ -84,6 +110,12 @@
         _table.delegate = self;
         _table.dataSource = self;
         _table.backgroundColor = APP_Gray_COLOR;
+        
+        __weak typeof(self) weakself = self;
+        
+        _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [weakself loadData];
+        }];
     }
     return _table;
 }

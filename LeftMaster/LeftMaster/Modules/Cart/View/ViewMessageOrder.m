@@ -13,7 +13,6 @@
 @property(nonatomic,strong)UILabel *lbTitle;
 @property(nonatomic,strong)UIView *vLine;
 @property(nonatomic,strong)UIView *vListBg;
-@property(nonatomic,strong)UITextField *tfText;
 
 @end
 

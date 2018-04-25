@@ -6,12 +6,20 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "RequestBaseAddOrder.h"
+#import "RequestBeanSendInfo.h"
 
-@implementation RequestBaseAddOrder
+@implementation RequestBeanSendInfo
+
+- (NSInteger)page_current{
+    return 1;
+}
+
+- (NSInteger)page_size{
+    return 1000;
+}
 
 - (NSString*)apiPath{
-    return net_save_order;
+    return net_order_send_info;
 }
 
 - (BOOL)isShowHub{
@@ -19,17 +27,12 @@
 }
 
 - (NSString *)hubTips{
-    return @"处理中...";
+    return @"加载中...";
 }
-//
-//- (HTTP_METHOD)httpMethod
-//{
-//    return HTTP_METHOD_POST;
-//}
 
 @end
 
-@implementation ResponseBeanAddOrder
+@implementation ResponseBeanSendInfo
 
 - (BOOL)checkSuccess{
     if (self.success) {
@@ -39,6 +42,7 @@
 }
 
 @end
+
 
 
 

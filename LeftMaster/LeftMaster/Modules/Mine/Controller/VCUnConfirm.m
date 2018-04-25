@@ -15,6 +15,7 @@
 #import "RequestBeanConfirmOrder.h"
 #import "RequestBeanCancelOrder.h"
 #import "WindowCancelOrder.h"
+#import "VCWriteOrderAgain.h"
 
 @interface VCUnConfirm ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate,WindowCancelOrderDelegate>
 @property (nonatomic, strong) UITableView *table;
@@ -189,8 +190,9 @@
     }else if(tag == 1002){
         
         if(buttonIndex == 0){
-            
-        }else{
+            VCWriteOrderAgain *vc = [[VCWriteOrderAgain alloc]init];
+            vc.orderId = self.orderId;
+            [self.navigationController pushViewController:vc animated:TRUE];
             
         }
     }
@@ -199,7 +201,7 @@
 #pragma mark - WindowCancelOrderDelegate
 - (void)selectReason:(NSString *)reason{
     RequestBeanCancelOrder *requestBean = [RequestBeanCancelOrder new];
-    requestBean.FD_CREATE_USER_ID = [AppUser share].SYSUSER_ID;
+    requestBean.FD_CANEL_USER_ID = [AppUser share].SYSUSER_ID;
     requestBean.FD_ID = self.orderId;
     requestBean.FD_CANEL_REASON = reason;
     [Utils showHanding:requestBean.hubTips with:self.view];
@@ -208,7 +210,7 @@
         [Utils hiddenHanding:self.view withTime:0.5];
         if (!err) {
             // 结果处理
-            ResponseBeanConfirmOrder *response = responseBean;
+            ResponseBeanCancelOrder *response = responseBean;
             if(response.success){
                 [weakself loadData];
                 [Utils showSuccessToast:@"取消成功" with:weakself.view withTime:0.8];

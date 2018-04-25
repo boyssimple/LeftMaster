@@ -9,10 +9,7 @@
 #import "AJRequestBeanBase.h"
 
 @interface RequestBaseAddOrder : AJRequestBeanBase
-
-@property(nonatomic,strong)NSString *user_id;     //用户ID
-@property(nonatomic,strong)NSString *goods_id;     //good_id
-@property(nonatomic,assign)NSInteger num;     //数量
+@property(nonatomic,strong)NSString *oderInfo; //订单信息
 @end
 
 @interface ResponseBeanAddOrder : AJResponseBeanBase

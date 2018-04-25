@@ -6,7 +6,7 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "VCWriteOrder.h"
+#import "VCWriteOrderAgain.h"
 #import "ViewGoodsList.h"
 #import "ViewMessageOrder.h"
 #import "ViewTotalOrder.h"
@@ -17,8 +17,10 @@
 #import "Custom.h"
 #import "CartGoods.h"
 #import "RequestBaseAddOrder.h"
+#import "RequestBeanOrderGoodsList.h"
+#import "VCEditGoodList.h"
 
-@interface VCWriteOrder ()<CommonDelegate,WindowCustomDelegate,UIScrollViewDelegate,ViewTotalBottomWriteOrderDelegate,UIAlertViewDelegate>
+@interface VCWriteOrderAgain ()<CommonDelegate,WindowCustomDelegate,UIScrollViewDelegate,ViewTotalBottomWriteOrderDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UIScrollView *mainView;
 @property(nonatomic,strong)ViewGoodsList *vGoodsList;
 @property(nonatomic,strong)ViewISBill *vBill;
@@ -30,18 +32,22 @@
 @property(nonatomic,assign)BOOL isBill;
 @property(nonatomic,assign)CGFloat totalPrice;
 @property(nonatomic,strong)NSString *remark;
+
+@property(nonatomic,strong)NSMutableArray *goodsList;
 @end
 
-@implementation VCWriteOrder
+@implementation VCWriteOrderAgain
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initMain];
     [self loadCustom];
+    [self loadData];
 }
 
 - (void)initMain{
     self.title = @"填写订单";
+    _goodsList = [NSMutableArray array];
     [self.view addSubview:self.mainView];
     [self.mainView addSubview:self.vGoodsList];
     [self.mainView addSubview:self.vBill];
@@ -49,15 +55,38 @@
     [self.mainView addSubview:self.vTotalOrder];
     
     [self.view addSubview:self.vTotalControl];
-    
-    for (CartGoods *g in self.goodsList) {
-        self.totalPrice += g.FD_NUM * [g.GOODS_PRICE floatValue];
-    }
-    
-    [self.vTotalOrder updateData:self.totalPrice];
-    [self.vTotalControl updateData:self.totalPrice];
 }
 
+- (void)loadData{
+    RequestBeanOrderGoodsList *requestBean = [RequestBeanOrderGoodsList new];
+    requestBean.page_current = 1;
+    requestBean.FD_ORDER_ID = self.orderId;
+    requestBean.page_size = 1000;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [Utils hiddenHanding:self.view withTime:0.5];
+        if (!err) {
+            // 结果处理
+            ResponseBeanOrderGoodsList *response = responseBean;
+            if(response.success){
+                [weakself.goodsList removeAllObjects];
+                NSArray *datas = [response.data jk_arrayForKey:@"rows"];
+                for (NSDictionary *data in datas) {
+                    CartGoods *c = [[CartGoods alloc]init];
+                    c.GOODS_PIC = [data jk_stringForKey:@"GOODS_PIC"];
+                    c.FD_NUM = [data jk_integerForKey:@"FD_NUM"];
+                    c.GOODS_PRICE = [data jk_stringForKey:@"FD_UNIT_PRICE"];
+                    c.GOODS_UNIT = [data jk_stringForKey:@"FD_UNIT_NAME"];
+                    c.GOODS_NAME = [data jk_stringForKey:@"GOODS_NAME"];
+                    [weakself.goodsList addObject:c];
+                }
+                [weakself installData];
+                
+            }
+        }
+    }];
+}
 
 - (void)loadCustom{
     RequestBeanBillOrg *requestBean = [RequestBeanBillOrg new];
@@ -84,6 +113,17 @@
     }];
 }
 
+- (void)installData{
+    
+    for (CartGoods *g in self.goodsList) {
+        self.totalPrice += g.FD_NUM * [g.GOODS_PRICE floatValue];
+    }
+    
+    [self.vTotalOrder updateData:self.totalPrice];
+    [self.vTotalControl updateData:self.totalPrice];
+    self.vGoodsList.dataSource = _goodsList;
+    
+}
 
 - (void)refreshCustom{
     RequestBeanBillOrg *requestBean = [RequestBeanBillOrg new];
@@ -165,6 +205,19 @@
     }];
 }
 
+- (void)reloadDatas:(NSArray*)datas{
+    [self.goodsList removeAllObjects];
+    [self.goodsList addObjectsFromArray:datas];
+    [self installData];
+}
+
+- (void)gotoEditGoodList{
+    VCEditGoodList *vc = [[VCEditGoodList alloc]init];
+    vc.superVC = self;
+    vc.goodsList = [self.goodsList mutableCopy];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 -(void)changeAction:(id)sender{
     UITextField* target = (UITextField*)sender;
     self.remark = target.text;
@@ -225,6 +278,9 @@
 - (ViewGoodsList*)vGoodsList{
     if (!_vGoodsList) {
         _vGoodsList = [[ViewGoodsList alloc]initWithFrame:CGRectMake(0, 10*RATIO_WIDHT320, DEVICEWIDTH, [ViewGoodsList calHeight])];
+        _vGoodsList.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotoEditGoodList)];
+        [_vGoodsList addGestureRecognizer:tap];
         [_vGoodsList updateData];
     }
     return _vGoodsList;
@@ -264,8 +320,4 @@
     return _vTotalControl;
 }
 
-- (void)setGoodsList:(NSArray *)goodsList{
-    _goodsList = goodsList;
-    self.vGoodsList.dataSource = _goodsList;
-}
 @end

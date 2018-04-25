@@ -28,4 +28,11 @@
 //处理提示
 +(void)showHanding:(NSString*)text with:(UIView*)view;
 +(void)hiddenHanding:(UIView*)view withTime:(CGFloat)time;
+
+/**
+ * 把字典转成json串
+ */
++(NSString *)dictToJsonStr:(NSDictionary *)dict;
+
++(NSString *)convertToJsonData:(NSDictionary *)dict;
 @end

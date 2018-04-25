@@ -83,6 +83,11 @@
     }else{
         self.lbCount.text = [NSString stringWithFormat:@"%zi",_count];
     }
+    if(_count == 0){
+        self.lbCount.hidden = YES;
+    }else{
+        self.lbCount.hidden = NO;
+    }
 }
 
 - (void)updateData{

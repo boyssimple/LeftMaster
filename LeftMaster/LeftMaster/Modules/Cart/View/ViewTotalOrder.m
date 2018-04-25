@@ -31,20 +31,22 @@
         _lbPrice = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbPrice.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
         _lbPrice.textColor = APP_COLOR;
+        _lbPrice.text = @"¥???.00";
         [self addSubview:_lbPrice];
         
     }
     return self;
 }
 
-- (void)updateData{
-    self.lbPrice.text = @"¥???.00";
+- (void)updateData:(CGFloat)price{
+    self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f",price];
     if(self.lbPrice.text.length > 2){
         NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
         // 改变颜色
         [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:9*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length-3, 3)];
         [self.lbPrice setAttributedText:noteStr];
     }
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews{

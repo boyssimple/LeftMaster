@@ -37,6 +37,8 @@
 #define net_cart_num @"system/UserMobileTran.do?queryMyCarNum"       //购物车数量
 #define net_save_order @"shop/OrderMobileTran.do?saveOrder"       //下单
 #define net_order_detail @"shop/OrderMobileTran.do?queryOrderInfo"       //定单信息
+#define net_order_customer_bill_org @"shop/CustomerInfoMobileTran.do?getCustomerBillOrg"       //开票单位
+#define net_order_send_info @"shop/OrderMobileTran.do?queryOrderSendInfo"       //发货单
 
 
 

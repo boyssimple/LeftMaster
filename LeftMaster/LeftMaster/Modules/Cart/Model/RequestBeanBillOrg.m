@@ -6,12 +6,12 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "RequestBaseAddOrder.h"
+#import "RequestBeanBillOrg.h"
 
-@implementation RequestBaseAddOrder
+@implementation RequestBeanBillOrg
 
 - (NSString*)apiPath{
-    return net_save_order;
+    return net_order_customer_bill_org;
 }
 
 - (BOOL)isShowHub{
@@ -21,15 +21,10 @@
 - (NSString *)hubTips{
     return @"处理中...";
 }
-//
-//- (HTTP_METHOD)httpMethod
-//{
-//    return HTTP_METHOD_POST;
-//}
 
 @end
 
-@implementation ResponseBeanAddOrder
+@implementation ResponseBeanBillOrg
 
 - (BOOL)checkSuccess{
     if (self.success) {

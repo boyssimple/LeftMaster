@@ -128,6 +128,7 @@
         __weak typeof(self) weakself = self;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
             VCInvoice *vc = [[VCInvoice alloc]init];
+            vc.orderId = weakself.orderId;
             [weakself.navigationController pushViewController:vc animated:YES];
         }];
         [header addGestureRecognizer:tap];

@@ -1,5 +1,5 @@
 //
-//  RequestBeanDelCart.h
+//  RequestBeanBillOrg.h
 //  LeftMaster
 //
 //  Created by simple on 2018/4/25.
@@ -8,12 +8,12 @@
 
 #import "AJRequestBeanBase.h"
 
-@interface RequestBeanDelCart : AJRequestBeanBase
+@interface RequestBeanBillOrg : AJRequestBeanBase
 
-@property(nonatomic,strong)NSString *car_id;     //购物车ID
+@property(nonatomic,strong)NSString *cus_id;     //客户ID
 @end
 
-@interface ResponseBeanDelCart : AJResponseBeanBase
+@interface ResponseBeanBillOrg : AJResponseBeanBase
 @property(nonatomic,assign)NSInteger success;
 @property(nonatomic,strong)NSString *msg;
 @property(nonatomic,strong)NSDictionary *data;

@@ -15,6 +15,7 @@
 #import "CellGoods.h"
 #import "VCWriteOrder.h"
 #import "RequestBeanQueryCartNum.h"
+#import "CartGoods.h"
 
 @interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,ViewHeaderGoodsDelegate,CommonDelegate,
         UIWebViewDelegate>
@@ -140,6 +141,31 @@
     }];
 }
 
+- (void)addOrder{
+    if(self.data){
+        if ([self.data jk_integerForKey:@"GOODS_STOCK"] > 0) {
+            
+            if (self.count > 0) {
+                NSMutableArray *selects = [NSMutableArray array];
+                CartGoods *c = [[CartGoods alloc]init];
+                c.GOODS_PIC = [self.data jk_stringForKey:@"GOODS_PIC"];
+                c.FD_NUM = self.count;
+                c.GOODS_PRICE = [self.data jk_stringForKey:@"GOODS_PRICE"];
+                [selects  addObject:c];
+                VCWriteOrder *vc = [[VCWriteOrder alloc]init];
+                vc.goodsList = selects;
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }else{
+                [Utils showSuccessToast:@"请选择商品" with:self.view withTime:0.8];
+            }
+        }else{
+            [Utils showSuccessToast:@"没有库存" with:self.view withTime:0.8];
+        }
+        
+    }
+}
+
 - (void)handleNotification:(NSNotification *)notification{
     [self loadCartNumData];
 }
@@ -225,8 +251,11 @@
                     //调用加入购物车接口
                     [self addCart];
                 }else{
-                    VCWriteOrder *vc = [[VCWriteOrder alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
+                    [self addOrder];
+//
+//
+//                    VCWriteOrder *vc = [[VCWriteOrder alloc]init];
+//                    [self.navigationController pushViewController:vc animated:YES];
                 }
             }
         }

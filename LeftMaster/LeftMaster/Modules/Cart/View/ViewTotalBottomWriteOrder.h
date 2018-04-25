@@ -10,6 +10,7 @@
 
 @protocol ViewTotalBottomWriteOrderDelegate;
 @interface ViewTotalBottomWriteOrder : UIView
+- (void)updateData:(CGFloat)price;
 
 @property(nonatomic,weak)id<ViewTotalBottomWriteOrderDelegate> delegate;
 @end

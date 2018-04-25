@@ -19,9 +19,6 @@
 //发货数量
 @property (nonatomic, strong) UILabel *lbCount;
 @property (nonatomic, strong) UILabel *lbCountText;
-//发货地址
-@property (nonatomic, strong) UILabel *lbAddress;
-@property (nonatomic, strong) UILabel *lbAddressText;
 //发货时间
 @property (nonatomic, strong) UILabel *lbSendDate;
 @property (nonatomic, strong) UILabel *lbSendDateText;
@@ -87,18 +84,6 @@
         [self.contentView addSubview:_lbCountText];
         
         
-        _lbAddress = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbAddress.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
-        _lbAddress.textColor = APP_BLACK_COLOR;
-        _lbAddress.text = @"发货地址：";
-        [self.contentView addSubview:_lbAddress];
-        
-        _lbAddressText = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbAddressText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
-        _lbAddressText.textColor = APP_BLACK_COLOR;
-        [self.contentView addSubview:_lbAddressText];
-        
-        
         _lbSendDate = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbSendDate.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbSendDate.textColor = APP_BLACK_COLOR;
@@ -149,12 +134,20 @@
     return self;
 }
 
+- (void)updateData:(NSDictionary*)data{
+    self.lbNameText.text = [data jk_stringForKey:@"GOODS_NAME"];
+    self.lbNoText.text = [data jk_stringForKey:@"FD_NO"];
+    self.lbCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_SEND_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
+    self.lbSendDateText.text = [data jk_stringForKey:@"FD_SEND_DATE"];
+    self.lbSenderText.text = [data jk_stringForKey:@"FD_REC_USER"];
+    self.lbReceivePhoneText.text = [data jk_stringForKey:@"FD_REC_TEL"];
+    self.lbArriveDateText.text = [data jk_stringForKey:@"FD_ARRI_TIME_EXP"];
+}
 
 - (void)updateData{
     self.lbNameText.text = @"275 50 20轮胎";
     self.lbNoText.text = @"DH.2018.0118.0001";
     self.lbCountText.text = @"5个";
-    self.lbAddressText.text = @"重庆市渝中区企业天地";
     self.lbSendDateText.text = @"2018-01-18 17:35:45";
     self.lbSenderText.text = @"李先生";
     self.lbReceivePhoneText.text = @"15909327516";
@@ -219,26 +212,12 @@
     r.origin.y = self.lbCount.top;
     self.lbCountText.frame = r;
     
-    size = [self.lbAddress sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
-    r = self.lbAddress.frame;
-    r.size = size;
-    r.origin.x = self.lbName.left;
-    r.origin.y = self.lbCount.bottom + 10*RATIO_WIDHT320;
-    self.lbAddress.frame = r;
-    
-    r = self.lbAddressText.frame;
-    r.size.width = DEVICEWIDTH - self.lbAddress.right - 10*RATIO_WIDHT320;
-    r.size.height = self.lbAddress.height;
-    r.origin.x = self.lbAddress.right;
-    r.origin.y = self.lbAddress.top;
-    self.lbAddressText.frame = r;
-    
     
     size = [self.lbSendDate sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     r = self.lbSendDate.frame;
     r.size = size;
     r.origin.x = self.lbName.left;
-    r.origin.y = self.lbAddress.bottom + 10*RATIO_WIDHT320;
+    r.origin.y = self.lbCount.bottom + 10*RATIO_WIDHT320;
     self.lbSendDate.frame = r;
     
     r = self.lbSendDateText.frame;

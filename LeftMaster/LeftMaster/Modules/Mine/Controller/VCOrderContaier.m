@@ -16,6 +16,7 @@
 #import "RequestBeanCancelOrder.h"
 #import "WindowCancelOrder.h"
 #import "RequestBeanSignOrder.h"
+#import "VCWriteOrderAgain.h"
 
 @interface VCOrderContaier ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate,WindowCancelOrderDelegate>
 @property (nonatomic, strong) UITableView *table;
@@ -93,7 +94,7 @@
 #pragma mark - WindowCancelOrderDelegate
 - (void)selectReason:(NSString *)reason{
     RequestBeanCancelOrder *requestBean = [RequestBeanCancelOrder new];
-    requestBean.FD_CREATE_USER_ID = [AppUser share].SYSUSER_ID;
+    requestBean.FD_CANEL_USER_ID = [AppUser share].SYSUSER_ID;
     requestBean.FD_ID = self.orderId;
     requestBean.FD_CANEL_REASON = reason;
     [Utils showHanding:requestBean.hubTips with:self.view];
@@ -236,9 +237,9 @@
     }else if(tag == 1003){
         
         if(buttonIndex == 0){
-            
-        }else{
-            
+            VCWriteOrderAgain *vc = [[VCWriteOrderAgain alloc]init];
+            vc.orderId = self.orderId;
+            [self.navigationController pushViewController:vc animated:TRUE];
         }
     }
     

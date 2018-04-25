@@ -73,6 +73,7 @@
         img.layer.borderWidth = 0.5;
         img.layer.cornerRadius = 3.f;
         img.layer.masksToBounds = YES;
+        img.userInteractionEnabled = TRUE;
         [img pt_setImage:data.GOODS_PIC];
         [self.vListBg addSubview:img];
     }

@@ -20,6 +20,12 @@
 @property(nonatomic,strong)UILabel *lbYes;
 @property(nonatomic,strong)UILabel *lbNo;
 
+@property(nonatomic,strong)UILabel *lbCompany;
+@property(nonatomic,strong)UIView *vCompany;
+@property(nonatomic,strong)UILabel *lbCompanyText;
+@property(nonatomic,strong)UILabel *lbVerifyCode;
+@property(nonatomic,strong)UIButton *btnArrow;
+
 @end
 
 @implementation ViewISBill
@@ -45,7 +51,7 @@
         
         _lbIsBill = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbIsBill.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
-        _lbIsBill.textColor = RGB(0, 0, 0);
+        _lbIsBill.textColor = RGB3(51);
         _lbIsBill.text = @"是否开具发票";
         [_vBg addSubview:_lbIsBill];
         
@@ -74,31 +80,84 @@
         _lbNo.textColor = RGB3(51);//153
         _lbNo.text = @"否";
         [_vBg addSubview:_lbNo];
+        
+        _lbCompany = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbCompany.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbCompany.textColor = RGB3(51);//153
+        _lbCompany.text = @"开票单位：";
+        [_vBg addSubview:_lbCompany];
+        
+        
+        _vCompany = [[UIView alloc]initWithFrame:CGRectZero];
+        _vCompany.layer.borderColor = RGB3(240).CGColor;
+        _vCompany.layer.borderWidth = 0.5;
+        _vCompany.backgroundColor = [UIColor whiteColor];
+        _vCompany.userInteractionEnabled = TRUE;
+        [_vBg addSubview:_vCompany];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectCustom)];
+        [_vCompany addGestureRecognizer:tap];
+        
+        _lbCompanyText = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbCompanyText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbCompanyText.textColor = RGB3(51);
+        [_vCompany addSubview:_lbCompanyText];
+        
+        _btnArrow = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_btnArrow setImage:[UIImage imageNamed:@"icon_down_normal"] forState:UIControlStateNormal];
+        [_btnArrow setImage:[UIImage imageNamed:@"icon_up_normal"] forState:UIControlStateSelected];
+        [_btnArrow addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        _btnArrow.tag = 102;
+        [_vCompany addSubview:_btnArrow];
+        
+        _lbVerifyCode = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbVerifyCode.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbVerifyCode.textColor = RGB3(51);//153
+        _lbVerifyCode.text = @"纳税人识别号：";
+        [_vBg addSubview:_lbVerifyCode];
     }
     return self;
 }
 
-- (void)clickAction:(UIButton*)sender{
-    self.btnYes.selected = FALSE;
-    self.btnNo.selected = FALSE;
-    self.lbYes.textColor = RGB3(153);
-    self.lbNo.textColor = RGB3(153);
-    if(sender.tag == 100){
-        self.btnYes.selected = TRUE;
-        self.lbYes.textColor = RGB3(51);
-    }else{
-        self.btnNo.selected = TRUE;
-        self.lbNo.textColor = RGB3(51);
+- (void)selectCustom{
+    if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+        [self.delegate clickActionWithIndex:0];
     }
 }
+
+- (void)clickAction:(UIButton*)sender{
+    if(sender.tag == 102){
+        [self selectCustom];
+    }else{
+        self.btnYes.selected = FALSE;
+        self.btnNo.selected = FALSE;
+        self.lbYes.textColor = RGB3(153);
+        self.lbNo.textColor = RGB3(153);
+        if(sender.tag == 100){
+            self.btnYes.selected = TRUE;
+            self.lbYes.textColor = RGB3(51);
+            if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+                [self.delegate clickActionWithIndex:1];
+            }
+        }else{
+            self.btnNo.selected = TRUE;
+            self.lbNo.textColor = RGB3(51);
+            if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+                [self.delegate clickActionWithIndex:2];
+            }
+        }
+    }
+}
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
 }
 
-- (void)updateData{
-    
+- (void)updateData:(Custom*)cust{
+    _lbCompanyText.text = cust.fd_bill_org_name;
+    _lbVerifyCode.text = @"纳税人识别号：暂无";
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews{
@@ -133,36 +192,81 @@
     self.lbIsBill.frame = r;
     
     r = self.btnYes.frame;
+    r.size.width = 20*RATIO_WIDHT320;
+    r.size.height = r.size.width;
+    r.origin.x = self.lbIsBill.right + 5*RATIO_WIDHT320;
+    r.origin.y = self.lbIsBill.top + (self.lbIsBill.height - r.size.height)/2.0;
+    self.btnYes.frame = r;
+    
+    r = self.btnYes.imageView.frame;
     r.size.width = 15*RATIO_WIDHT320;
     r.size.height = r.size.width;
-    r.origin.x = self.lbIsBill.right;
-    r.origin.y = self.lbIsBill.top + (self.lbIsBill.height - self.btnYes.height)/2.0;
-    self.btnYes.frame = r;
+    self.btnYes.imageView.frame = r;
     
     size = [self.lbYes sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     r = self.lbYes.frame;
-    r.origin.x = self.btnYes.right + 10*RATIO_WIDHT320;
+    r.origin.x = self.btnYes.right + 5*RATIO_WIDHT320;
     r.origin.y = self.btnYes.top + (self.btnYes.height - size.height)/2.0;
     r.size = size;
     self.lbYes.frame = r;
     
     r = self.btnNo.frame;
-    r.size.width = 15*RATIO_WIDHT320;
+    r.size.width = 20*RATIO_WIDHT320;
     r.size.height = r.size.width;
     r.origin.x = self.lbYes.right + 20*RATIO_WIDHT320;
-    r.origin.y = self.btnYes.bottom + 10*RATIO_WIDHT320;
+    r.origin.y = self.btnYes.top + (self.btnYes.height - r.size.height)/2.0;
     self.btnNo.frame = r;
+    
+    r = self.btnNo.imageView.frame;
+    r.size.width = 15*RATIO_WIDHT320;
+    r.size.height = r.size.width;
+    self.btnNo.imageView.frame = r;
     
     size = [self.lbNo sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     r = self.lbNo.frame;
-    r.origin.x = self.btnNo.right + 10*RATIO_WIDHT320;
+    r.origin.x = self.btnNo.right + 5*RATIO_WIDHT320;
     r.origin.y = self.btnNo.top + (self.btnNo.height - size.height)/2.0;
     r.size = size;
     self.lbNo.frame = r;
+    
+    size = [self.lbCompany sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbCompany.frame;
+    r.origin.x = 20*RATIO_WIDHT320;
+    r.origin.y = self.lbIsBill.bottom + 15*RATIO_WIDHT320;
+    r.size = size;
+    self.lbCompany.frame = r;
+    
+    r = self.vCompany.frame;
+    r.size.width = 150*RATIO_WIDHT320;
+    r.size.height = 20*RATIO_WIDHT320;
+    r.origin.x = self.lbCompany.right;
+    r.origin.y = self.lbCompany.top + (self.lbCompany.height - r.size.height)/2.0;
+    self.vCompany.frame = r;
+    
+    r = self.lbCompanyText.frame;
+    r.size.width = self.vCompany.width - 10 - 20*RATIO_WIDHT320;
+    r.size.height = self.vCompany.height;
+    r.origin.x = 5;
+    r.origin.y = 0;
+    self.lbCompanyText.frame = r;
+    
+    r = self.btnArrow.frame;
+    r.size.width = 20*RATIO_WIDHT320;
+    r.size.height = 20*RATIO_WIDHT320;
+    r.origin.x = self.vCompany.width - r.size.width;
+    r.origin.y = (self.vCompany.height - r.size.height)/2.0;
+    self.btnArrow.frame = r;
+                  
+    size = [self.lbVerifyCode sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbVerifyCode.frame;
+    r.origin.x = 20*RATIO_WIDHT320;
+    r.origin.y = self.lbCompany.bottom + 15*RATIO_WIDHT320;
+    r.size = size;
+    self.lbVerifyCode.frame = r;
 }
 
 + (CGFloat)calHeight{
-    return 40.5*RATIO_WIDHT320 + 70*RATIO_WIDHT320;
+    return 40.5*RATIO_WIDHT320 + 100*RATIO_WIDHT320;
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "ViewSearchOrderList.h"
 #import "RequestBeanQueryOrder.h"
 #import "RequestBeanSignOrder.h"
+#import "VCWriteOrderAgain.h"
 
 @interface VCUnReceive ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *table;
@@ -171,8 +172,9 @@
         }
     }else if(alertView.tag == 1001){
         if (buttonIndex == 0) {
-            [Utils showHanding:@"处理中..." with:self.view];
-            [Utils hiddenHanding:self.view withTime:2];
+            VCWriteOrderAgain *vc = [[VCWriteOrderAgain alloc]init];
+            vc.orderId = self.orderId;
+            [self.navigationController pushViewController:vc animated:TRUE];
         }
     }
 }

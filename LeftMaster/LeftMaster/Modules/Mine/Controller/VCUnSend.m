@@ -12,6 +12,7 @@
 #import "ViewTabOrder.h"
 #import "ViewSearchOrderList.h"
 #import "RequestBeanQueryOrder.h"
+#import "VCWriteOrderAgain.h"
 
 @interface VCUnSend ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *table;
@@ -132,7 +133,7 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index withDataIndex:(NSInteger)dataIndex{
     NSDictionary *data = [self.dataSource objectAtIndex:dataIndex];
-    self.OrderId = [data jk_stringForKey:@"FD_ID"];
+    self.orderId = [data jk_stringForKey:@"FD_ID"];
     if(index == 3){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定再来一单？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
         [alert show];
@@ -142,8 +143,9 @@
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
-        [Utils showHanding:@"处理中..." with:self.view];
-        [Utils hiddenHanding:self.view withTime:2];
+        VCWriteOrderAgain *vc = [[VCWriteOrderAgain alloc]init];
+        vc.orderId = self.orderId;
+        [self.navigationController pushViewController:vc animated:TRUE];
     }
 }
 

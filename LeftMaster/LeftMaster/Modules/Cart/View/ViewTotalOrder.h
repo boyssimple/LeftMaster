@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewTotalOrder : UIView
-
+- (void)updateData:(CGFloat)price;
 @end

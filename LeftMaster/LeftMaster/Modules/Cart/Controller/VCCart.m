@@ -21,7 +21,7 @@
 @property(nonatomic,strong)ViewTotalCart *vControl;
 @property(nonatomic,strong)NSMutableArray *goodsList;
 @property (nonatomic, assign) NSInteger page;
-@property (nonatomic, assign) NSInteger carId;
+@property (nonatomic, strong) NSString *carId;
 @property (nonatomic, assign) NSInteger delIndex;
 @end
 
@@ -110,7 +110,7 @@
                 
             }
         }else{
-            [Utils showSuccessToast:response with:weakself.view withTime:0.8];
+            [Utils showSuccessToast:response.msg with:weakself.view withTime:0.8];
         }
     }];
     
@@ -132,6 +132,7 @@
         [self.goodsList addObject:cart];
     }
     [self.table reloadData];
+    [self calTotal];
 }
 
 - (void)calTotal{
@@ -203,6 +204,7 @@
     CartGoods *data = [self.goodsList objectAtIndex:indexPath.row];
     VCGoods *vc = [[VCGoods alloc]init];
     vc.goods_id = data.GOODS_ID;
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface CartGoods:NSObject
-@property(nonatomic,assign)NSInteger FD_ID;
+@property(nonatomic,strong)NSString *FD_ID;
 @property(nonatomic,assign)NSInteger FD_NUM;
 @property(nonatomic,strong)NSString *GOODSTYPE_ID;
 @property(nonatomic,strong)NSString *GOODS_CODE;

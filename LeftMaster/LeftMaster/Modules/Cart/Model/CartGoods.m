@@ -12,7 +12,7 @@
 
 
 - (void)parse:(NSDictionary*)data{
-    self.FD_ID = [data jk_integerForKey:@"FD_ID"];
+    self.FD_ID = [data jk_stringForKey:@"FD_ID"];
     self.FD_NUM = [data jk_integerForKey:@"FD_NUM"];
     self.GOODSTYPE_ID = [data jk_stringForKey:@"GOODSTYPE_ID"];
     self.GOODSTYPE_ID = [data jk_stringForKey:@"GOODSTYPE_ID"];

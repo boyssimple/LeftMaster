@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewMessageOrder : UIView
+@property(nonatomic,strong)UITextField *tfText;
 
 @end
