@@ -85,8 +85,8 @@
     CGFloat total = 0;
     for (AlwaysBuyGoods *c in self.goodsList) {
         if(c.selected){
-            num += c.GOODS_STOCK;
-            total += [c.GOODS_PRICE floatValue]*c.GOODS_STOCK;
+            num += c.Num;
+            total += [c.GOODS_PRICE floatValue]*c.Num;
         }
     }
     [self.vControl updateData:num withPrice:total];
