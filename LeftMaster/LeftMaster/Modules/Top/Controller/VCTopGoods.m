@@ -13,6 +13,7 @@
 #import "VCWriteOrder.h"
 #import "RequestBeanAlwaysBuyGoods.h"
 #import "AlwaysBuyGoods.h"
+#import "VCGoods.h"
 
 @interface VCTopGoods ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate>
 @property(nonatomic,strong)UITableView *table;
@@ -140,6 +141,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    AlwaysBuyGoods *data = [self.goodsList objectAtIndex:indexPath.row];
+    VCGoods *vc = [[VCGoods alloc]init];
+    vc.goods_id = data.GOODS_ID;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

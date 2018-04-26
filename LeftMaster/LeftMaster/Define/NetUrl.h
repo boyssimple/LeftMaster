@@ -10,6 +10,8 @@
 #ifndef NetUrl_h
 #define NetUrl_h
 
+#define Base_Url @"113.204.168.170:4321/"
+
 //用户
 #define net_user_login @"system/UserMobileTran.do?login"                      //用户登录
 #define net_user_customer @"shop/CustomerInfoMobileTran.do?getUserCustomer"   //当前业务员列表

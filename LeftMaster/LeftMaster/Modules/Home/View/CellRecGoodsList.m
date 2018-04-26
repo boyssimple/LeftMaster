@@ -144,7 +144,7 @@
     if(data){
         [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
         self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
-        self.lbRole.text = @"1台起订";
+        self.lbRole.text = [NSString stringWithFormat:@"库存:%ld",[data jk_integerForKey:@"GOODS_STOCK"]];
         
         if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
             self.lbStatus.text = @" | 库存充足";

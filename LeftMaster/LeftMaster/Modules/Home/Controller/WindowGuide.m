@@ -10,7 +10,7 @@
 #import "CollCellGuide.h"
 #import "RequestBeanSlidePicList.h"
 
-@interface WindowGuide()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface WindowGuide()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CommonDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) UIView *mainView;
 @property (nonatomic, strong) UIPageControl* pageControl;
@@ -172,9 +172,13 @@
     [UIView animateWithDuration:0.3 animations:^{
         guideWindow.alpha = 0;
     } completion:^(BOOL finished) {
+        if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+            [self.delegate clickActionWithIndex:0];
+        }
         [guideWindow removeAllSubviews];
         guideWindow = nil;
         [self resignKeyWindow];
+        
     }];
     
 }

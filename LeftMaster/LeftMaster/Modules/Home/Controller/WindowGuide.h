@@ -10,7 +10,10 @@
 
 static UIWindow *guideWindow = nil;
 @interface WindowGuide : UIWindow
+@property(nonatomic,weak)id<CommonDelegate> delegate;
 - (id)init;
 - (void)show;
 - (void)dismiss;
+
+
 @end

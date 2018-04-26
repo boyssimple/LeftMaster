@@ -15,7 +15,7 @@
 #import "WindowGuide.h"
 static NSString* const CFBundleVersion = @"CFBundleVersion";
 
-@interface VCLogin ()<UITextFieldDelegate>
+@interface VCLogin ()<UITextFieldDelegate,CommonDelegate>
 @property(nonatomic,strong)UIImageView *ivLogo;
 @property(nonatomic,strong)UIImageView *ivBg;
 @property(nonatomic,strong)UIImageView *ivUser;
@@ -42,8 +42,8 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     
      if ([current_version() compare:prev_version()] == NSOrderedDescending) {
          WindowGuide *guide = [[WindowGuide alloc]init];
+         guide.delegate = self;
          [guide show];
-         save_current_version();
      }
     
     
@@ -263,6 +263,10 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     self.btnForgot.frame = r;
 }
 
+#pragma mark - CommonDelegate
+- (void)clickActionWithIndex:(NSInteger)index{
+    save_current_version();
+}
 
 - (UIImageView*)ivBg{
     if (!_ivBg) {

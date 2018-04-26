@@ -161,8 +161,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
     VCGoods *vc = [[VCGoods alloc]init];
-    vc.goods_id = @"674993773267021824";
+    vc.goods_id = [data jk_stringForKey:@"GOODS_ID"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
