@@ -68,7 +68,7 @@
     if(data){
         [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
         self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
-        self.lbRole.text = [NSString stringWithFormat:@"库存:%ld",[data jk_integerForKey:@"GOODS_STOCK"]];
+        self.lbRole.text = [NSString stringWithFormat:@"库存:%d",[data jk_integerForKey:@"GOODS_STOCK"]];
         
         if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
             self.lbStatus.text = @" | 库存充足";
@@ -76,7 +76,7 @@
             self.lbStatus.text = @" | 库存不足";
         }
         
-        self.lbPrice.text = [NSString stringWithFormat:@"¥%zi/%@",[data jk_integerForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
+        self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",[data jk_floatForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
         
         if(self.lbPrice.text.length > 2){
             NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
