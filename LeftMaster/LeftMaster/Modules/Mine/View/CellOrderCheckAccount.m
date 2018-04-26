@@ -68,7 +68,7 @@
     self.lbYear.text = [data jk_stringForKey:@"NC_DATE"];
     self.lbPayAmount.text = [data jk_stringForKey:@"TOTALPRICE"];
     self.lbPayedAmount.text = [data jk_stringForKey:@"COLLECTION"];
-    self.lbAmount.text = [data jk_stringForKey:@"COLLECTION"];
+    self.lbAmount.text = [data jk_stringForKey:@"ARREARS"];
     self.lbValue.text = [data jk_stringForKey:@"CREDIT_VALUE"];
 }
 
