@@ -74,6 +74,7 @@
                     Custom *custom = [[Custom alloc]init];
                     [custom parse:data];
                     if(custom.fd_default){
+                        weakself.isBill = TRUE;
                         weakself.cust = custom;
                         [weakself.vBill updateData:custom];
                     }

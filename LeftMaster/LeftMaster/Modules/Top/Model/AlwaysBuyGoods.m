@@ -22,6 +22,7 @@
     self.GOODS_STOCK = [data jk_integerForKey:@"GOODS_STOCK"];
     self.GOODS_UNIT = [data jk_stringForKey:@"GOODS_UNIT"];
     self.OPER_TYPE = [data jk_integerForKey:@"OPER_TYPE"];
+    self.Num = 1;
 }
 
 @end

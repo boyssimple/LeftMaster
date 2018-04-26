@@ -14,8 +14,9 @@
 #import "RequestBeanAlwaysBuyGoods.h"
 #import "AlwaysBuyGoods.h"
 #import "VCGoods.h"
+#import "CartGoods.h"
 
-@interface VCTopGoods ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate>
+@interface VCTopGoods ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate,CommonDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewTotalCart *vControl;
 @property(nonatomic,strong)NSMutableArray *goodsList;
@@ -108,7 +109,9 @@
     CellTopGoods *cell = (CellTopGoods*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[CellTopGoods alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.delegate = self;
     }
+    cell.index = indexPath.row;
     AlwaysBuyGoods *data = [self.goodsList objectAtIndex:indexPath.row];
     [cell updateData:data];
     return cell;
@@ -154,13 +157,58 @@
     }
     [self.table reloadData];
     [self calTotal];
+    
 }
 
 #pragma mark ViewTotalCartDelegate
 - (void)clickOrder{
-    VCWriteOrder *vc = [[VCWriteOrder alloc]init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    NSMutableArray *selects = [NSMutableArray array];
+    NSInteger num = 0;
+    for (AlwaysBuyGoods *c in self.goodsList) {
+        if(c.selected){
+            CartGoods *g = [[CartGoods alloc]init];
+            g.FD_NUM = c.Num;
+            g.GOODS_PIC = c.GOODS_PIC;
+            g.GOODS_PRICE = c.GOODS_PRICE;
+            g.GOODS_UNIT = c.GOODS_UNIT;
+            g.GOODS_NAME = c.GOODS_NAME;
+            
+            num += c.Num;
+            [selects addObject:g];
+        }
+        
+    }
+    if(num > 0){
+        VCWriteOrder *vc = [[VCWriteOrder alloc]init];
+        vc.goodsList = selects;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        [Utils showSuccessToast:@"请选择商品" with:self.view withTime:0.8];
+    }
+    
+}
+
+#pragma mark - CommonDelegate
+- (void)clickActionWithIndex:(NSInteger)index withDataIndex:(NSInteger)dataIndex{
+    if (index == 0) {
+        AlwaysBuyGoods *data = [self.goodsList objectAtIndex:dataIndex];
+        data.selected = !data.selected;
+        [self.goodsList replaceObjectAtIndex:dataIndex withObject:data];
+        [self calTotal];
+    }else if(index == 1){
+        //减数量request
+        AlwaysBuyGoods *data = [self.goodsList objectAtIndex:dataIndex];
+        data.Num -= 1;
+        [self.goodsList replaceObjectAtIndex:dataIndex withObject:data];
+        [self calTotal];
+    }else if(index == 2){
+        //加数量request
+        AlwaysBuyGoods *data = [self.goodsList objectAtIndex:dataIndex];
+        data.Num += 1;
+        [self.goodsList replaceObjectAtIndex:dataIndex withObject:data];
+        [self calTotal];
+    }
 }
 
 

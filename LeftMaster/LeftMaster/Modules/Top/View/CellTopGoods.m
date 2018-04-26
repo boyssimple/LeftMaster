@@ -35,7 +35,7 @@
         
         _btnCheck = [[UIButton alloc]initWithFrame:CGRectZero];
         _btnCheck.titleLabel.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
-        _btnCheck.tag = 101;
+        _btnCheck.tag = 100;
         [_btnCheck setImage:[UIImage imageNamed:@"Shopping-Cart_icon_normal"] forState:UIControlStateNormal];
         [_btnCheck setImage:[UIImage imageNamed:@"Shopping-Cart_icon_selected"] forState:UIControlStateSelected];
         [_btnCheck addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -78,7 +78,7 @@
         _btnMinus.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
         [_btnMinus setTitle:@"-" forState:UIControlStateNormal];
         [_btnMinus setTitleColor:RGB3(197) forState:UIControlStateNormal];
-        _btnMinus.tag = 103;
+        _btnMinus.tag = 101;
         [_btnMinus addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         [_vCountBg addSubview:_btnMinus];
         
@@ -86,7 +86,7 @@
         _btnAdd.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
         [_btnAdd setTitle:@"+" forState:UIControlStateNormal];
         [_btnAdd setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _btnAdd.tag = 104;
+        _btnAdd.tag = 102;
         [_btnAdd addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         [_vCountBg addSubview:_btnAdd];
         
@@ -117,7 +117,7 @@
             self.lbStatus.text = @" | 库存不足";
         }
         
-        self.lbCount.text = [NSString stringWithFormat:@"%d",1];
+        self.lbCount.text = [NSString stringWithFormat:@"%zi",data.Num];
         
         self.lbPrice.text = [NSString stringWithFormat:@"¥%@/%@",data.GOODS_PRICE,data.GOODS_UNIT];
         
@@ -148,28 +148,36 @@
 
 - (void)clickAction:(UIButton*)sender{
     NSInteger tag = sender.tag;
-    if (tag == 101) {
+    if (tag == 100) {
         sender.selected = !sender.selected;
-    }else if(tag == 102){
-        
-    }else if(tag == 103){
+        if([self.delegate respondsToSelector:@selector(clickActionWithIndex: withDataIndex:)]){
+            [self.delegate clickActionWithIndex:tag-100 withDataIndex:self.index];
+        }
+    }else if(tag == 101){
         NSString *str = self.lbCount.text;
         if ([str integerValue] > 1) {
             NSInteger c = [str integerValue];
             if(c > 1){
                 self.lbCount.text = [NSString stringWithFormat:@"%zi",c-1];
+                
+                if([self.delegate respondsToSelector:@selector(clickActionWithIndex: withDataIndex:)]){
+                    [self.delegate clickActionWithIndex:tag-100 withDataIndex:self.index];
+                }
             }
             
             if(c-1 == 1){
                 [self.btnMinus setTitleColor:RGB3(197) forState:UIControlStateNormal];
             }
         }
-    }else if(tag == 104){
+    }else if(tag == 102){
         NSString *str = self.lbCount.text;
         NSInteger c = [str integerValue]+1;
         self.lbCount.text = [NSString stringWithFormat:@"%zi",c];
         if (c > 1) {
             [self.btnMinus setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }
+        if([self.delegate respondsToSelector:@selector(clickActionWithIndex: withDataIndex:)]){
+            [self.delegate clickActionWithIndex:tag-100 withDataIndex:self.index];
         }
     }
 }

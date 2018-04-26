@@ -10,5 +10,7 @@
 #import "AlwaysBuyGoods.h"
 
 @interface CellTopGoods : UITableViewCell
+@property(nonatomic,assign)NSInteger index;
+@property(nonatomic,weak)id<CommonDelegate> delegate;
 - (void)updateData:(AlwaysBuyGoods*)data;
 @end

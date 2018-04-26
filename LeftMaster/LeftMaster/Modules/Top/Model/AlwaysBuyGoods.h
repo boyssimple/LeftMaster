@@ -20,6 +20,7 @@
 @property(nonatomic,assign)NSInteger GOODS_STOCK;
 @property(nonatomic,strong)NSString *GOODS_UNIT;
 @property(nonatomic,assign)NSInteger OPER_TYPE;
+@property(nonatomic,assign)NSInteger Num;
 @property(nonatomic,assign)BOOL selected;
 
 - (void)parse:(NSDictionary*)data;

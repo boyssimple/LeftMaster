@@ -155,6 +155,11 @@
 }
 
 - (void)updateData:(Custom*)cust{
+    if (cust.fd_default) {
+        [self clickAction:self.btnYes];
+    }else{
+        [self clickAction:self.btnNo];
+    }
     _lbCompanyText.text = cust.fd_bill_org_name;
     _lbVerifyCode.text = @"纳税人识别号：暂无";
     [self setNeedsLayout];
