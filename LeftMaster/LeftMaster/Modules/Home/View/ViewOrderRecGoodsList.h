@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ViewOrderRecGoodsListDelegate;
 @interface ViewOrderRecGoodsList : UIView
+@property(nonatomic,weak)id<ViewOrderRecGoodsListDelegate> delegate;
+@end
 
+@protocol ViewOrderRecGoodsListDelegate<NSObject>
+- (void)clickOrder:(NSInteger)index withState:(BOOL)state;
 @end

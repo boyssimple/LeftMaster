@@ -16,7 +16,8 @@
 #import "RequestBeanQueryCartNum.h"
 #import "RequestBeanAddCart.h"
 
-@interface VCGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate>
+@interface VCGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate,
+        ViewOrderRecGoodsListDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewOrderRecGoodsList *viewOrder;
@@ -25,6 +26,8 @@
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, assign) NSInteger num;
 @property(nonatomic,strong)NSString *goods_id;
+@property(nonatomic,assign)BOOL comp_order;
+@property(nonatomic,assign)BOOL price_order;
 @end
 
 @implementation VCGoodsList
@@ -64,10 +67,23 @@
     }else{
         requestBean.goods_type_id = nil;
     }
+    
     if(self.keywords && self.keywords.length > 0){
         requestBean.search_name = self.keywords;
     }else{
         requestBean.search_name = nil;
+    }
+    
+    if (self.comp_order) {
+        requestBean.comp_order = @"asc";
+    }else{
+        requestBean.comp_order = @"desc";
+    }
+    
+    if (self.price_order) {
+        requestBean.price_order = @"asc";
+    }else{
+        requestBean.price_order = @"desc";
     }
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
@@ -145,7 +161,7 @@
     }];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)table{
     return 1;
 }
 
@@ -245,6 +261,16 @@
     [self addCart];
 }
 
+#pragma mark - ViewOrderRecGoodsListDelegate
+- (void)clickOrder:(NSInteger)index withState:(BOOL)state{
+    if (index == 0) {
+        self.comp_order = state;
+    }else if(index == 1){
+        self.price_order = state;
+    }
+    [self loadData];
+}
+
 - (ViewCategory*)vCart{
     if(!_vCart){
         _vCart = [[ViewCategory alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewCategory calHeight])];
@@ -282,6 +308,7 @@
 - (ViewOrderRecGoodsList*)viewOrder{
     if(!_viewOrder){
         _viewOrder = [[ViewOrderRecGoodsList alloc]initWithFrame:CGRectMake(0, self.vCart.bottom, DEVICEWIDTH, [ViewOrderRecGoodsList calHeight])];
+        _viewOrder.delegate = self;
     }
     return _viewOrder;
 }

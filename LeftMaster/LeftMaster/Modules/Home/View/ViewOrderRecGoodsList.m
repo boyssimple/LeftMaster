@@ -21,12 +21,14 @@
     if (self){
         self.backgroundColor = [UIColor whiteColor];
         _btnCom = [[ViewBtnRecGoodsList alloc]initWithFrame:CGRectZero];
+        _btnCom.tag = 100;
         [_btnCom updateData:@"综合"];
         [self addSubview:_btnCom];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickOrder:)];
         [_btnCom addGestureRecognizer:tap];
         
         _btnPrice = [[ViewBtnRecGoodsList alloc]initWithFrame:CGRectZero];
+        _btnPrice.tag = 101;
         [_btnPrice updateData:@"价格"];
         [self addSubview:_btnPrice];
         UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickOrder:)];
@@ -40,13 +42,16 @@
 }
 
 - (void)clickOrder:(UIGestureRecognizer*)ges{
+    ViewBtnRecGoodsList *v = (ViewBtnRecGoodsList*)ges.view;
     self.btnCom.isSelected = NO;
     self.btnPrice.isSelected = NO;
     
-    ViewBtnRecGoodsList *v = (ViewBtnRecGoodsList*)ges.view;
     v.isSelected = YES;
     
     v.isAsc = !v.isAsc;
+    if ([self.delegate respondsToSelector:@selector(clickOrder:withState:)]) {
+        [self.delegate clickOrder:v.tag - 100 withState:v.isAsc];
+    }
 }
 
 

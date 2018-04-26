@@ -159,7 +159,7 @@
         self.btnCheck.selected = data.selected;
         [self.ivImg pt_setImage:data.GOODS_PIC];
         self.lbName.text = data.GOODS_NAME;
-        self.lbRole.text = @"1台起订";
+        self.lbRole.text = [NSString stringWithFormat:@"库存:%ld",data.GOODS_STOCK];
         
         if(data.GOODS_STOCK > 0){
             self.lbStatus.text = @" | 库存充足";

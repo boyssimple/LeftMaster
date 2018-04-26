@@ -15,14 +15,20 @@
 #import "VCGoods.h"
 #import "ViewOrderRecGoodsList.h"
 #import "RequestBeanQueryCartNum.h"
+#import "RequestBeanAddCart.h"
 
-@interface VCRecGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate>
+@interface VCRecGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate,
+        ViewOrderRecGoodsListDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewOrderRecGoodsList *viewOrder;
 @property(nonatomic,strong)NSMutableArray *goodsList;
 @property(nonatomic,strong)NSString *keywords;
 @property (nonatomic, assign) NSInteger page;
+@property(nonatomic,assign)BOOL comp_order;
+@property(nonatomic,assign)BOOL price_order;
+@property (nonatomic, assign) NSInteger num;
+@property(nonatomic,strong)NSString *goods_id;
 @end
 
 @implementation VCRecGoodsList
@@ -59,6 +65,20 @@
     requestBean.page_size = 10;
     requestBean.cus_id = [AppUser share].CUS_ID;
     requestBean.company_id = [AppUser share].SYSUSER_COMPANYID;
+    
+    
+    if (self.comp_order) {
+        requestBean.comp_order = @"asc";
+    }else{
+        requestBean.comp_order = @"desc";
+    }
+    
+    if (self.price_order) {
+        requestBean.price_order = @"asc";
+    }else{
+        requestBean.price_order = @"desc";
+    }
+    
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
@@ -108,6 +128,32 @@
 - (void)search{
     self.keywords = self.vCart.tfText.text;
     [self loadData];
+}
+
+
+
+- (void)addCart{
+    RequestBeanAddCart *requestBean = [RequestBeanAddCart new];
+    requestBean.goods_id = self.goods_id;
+    requestBean.num = self.num;
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        
+        if (!err) {
+            // 结果处理
+            ResponseBeanAddCart *response = responseBean;
+            if (response.success) {
+                [self postNotification:REFRESH_CART_LIST withObject:nil];
+                [Utils showSuccessToast:@"加入购物车成功" with:weakself.view withTime:1];
+            }else{
+                [Utils showSuccessToast:@"加入购物车失败" with:weakself.view withTime:1];
+            }
+        }else{
+            [Utils showSuccessToast:@"加入购物车失败" with:weakself.view withTime:1];
+        }
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -204,10 +250,21 @@
 }
 
 #pragma mark - CellRecGoodsListDelegate
-- (void)joinCartClick:(CGRect)r withNum:(NSInteger)num{
-    self.vCart.count = num;
-    [self.vCart startAnimation];
-    [Utils showSuccessToast:@"加入购物车成功" with:self.view withTime:1];
+- (void)joinCartClick:(NSInteger)index withNum:(NSInteger)num{
+    NSDictionary *data = [self.goodsList objectAtIndex:index];
+    self.goods_id = [data jk_stringForKey:@"GOODS_ID"];
+    self.num = num;
+    [self addCart];
+}
+
+#pragma mark - ViewOrderRecGoodsListDelegate
+- (void)clickOrder:(NSInteger)index withState:(BOOL)state{
+    if (index == 0) {
+        self.comp_order = state;
+    }else if(index == 1){
+        self.price_order = state;
+    }
+    [self loadData];
 }
 
 - (ViewCategory*)vCart{
@@ -247,6 +304,7 @@
 - (ViewOrderRecGoodsList*)viewOrder{
     if(!_viewOrder){
         _viewOrder = [[ViewOrderRecGoodsList alloc]initWithFrame:CGRectMake(0, self.vCart.bottom, DEVICEWIDTH, [ViewOrderRecGoodsList calHeight])];
+        _viewOrder.delegate = self;
     }
     return _viewOrder;
 }
