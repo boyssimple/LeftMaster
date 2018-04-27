@@ -169,7 +169,7 @@
     for (CartGoods *c in self.goodsList) {
         if(c.selected){
             num += c.FD_NUM;
-            total += [c.GOODS_PRICE floatValue]*c.FD_NUM;
+            total += c.GOODS_PRICE*c.FD_NUM;
         }
     }
     [self.vControl updateData:num withPrice:total];

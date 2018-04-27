@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initMain];
-    
+    [self loadData];
 }
 
 - (void)initMain{

@@ -77,7 +77,7 @@
                     CartGoods *c = [[CartGoods alloc]init];
                     c.GOODS_PIC = [data jk_stringForKey:@"GOODS_PIC"];
                     c.FD_NUM = [data jk_integerForKey:@"FD_NUM"];
-                    c.GOODS_PRICE = [data jk_stringForKey:@"FD_UNIT_PRICE"];
+                    c.GOODS_PRICE = [data jk_floatForKey:@"FD_UNIT_PRICE"];
                     c.GOODS_UNIT = [data jk_stringForKey:@"FD_UNIT_NAME"];
                     c.GOODS_NAME = [data jk_stringForKey:@"GOODS_NAME"];
                     c.GOODS_ID = [data jk_stringForKey:@"GOODS_ID"];
@@ -119,7 +119,7 @@
 - (void)installData{
     
     for (CartGoods *g in self.goodsList) {
-        self.totalPrice += g.FD_NUM * [g.GOODS_PRICE floatValue];
+        self.totalPrice += g.FD_NUM * g.GOODS_PRICE;
     }
     
     [self.vTotalOrder updateData:self.totalPrice];
@@ -166,8 +166,8 @@
         [dic setObject:g.GOODS_ID forKey:@"FD_GOODS_ID"];
         [dic setObject:g.GOODS_NAME forKey:@"FD_GOODS_ID_LABELS"];
         [dic setObject:[NSString stringWithFormat:@"%ld",g.FD_NUM] forKey:@"FD_NUM"];
-        [dic setObject:g.GOODS_PRICE forKey:@"FD_UNIT_PRICE"];
-        [dic setObject:[NSString stringWithFormat:@"%f",g.FD_NUM * [g.GOODS_PRICE floatValue]] forKey:@"FD_TOTAL_PRICE"];
+        [dic setObject:[NSString stringWithFormat:@"%f",g.GOODS_PRICE] forKey:@"FD_UNIT_PRICE"];
+        [dic setObject:[NSString stringWithFormat:@"%f",g.FD_NUM * g.GOODS_PRICE] forKey:@"FD_TOTAL_PRICE"];
         [goods addObject:dic];
     }
     [orderInfo setObject:goods forKey:@"ORDER_DETAIL"];
@@ -197,12 +197,12 @@
             // 结果处理
             ResponseBeanAddOrder *response = responseBean;
             if(response.success){
-                [Utils showSuccessToast:@"下单成功" with:self.view withTime:1.2];
+                [Utils showSuccessToast:@"下单成功" with:self.view withTime:1.5];
                 [self.navigationController popToRootViewControllerAnimated:TRUE];
                 [self postNotification:REFRESH_CART_LIST withObject:nil];
             }
         }else{
-            [Utils showSuccessToast:@"下单失败" with:self.view withTime:0.8];
+            [Utils showSuccessToast:@"下单失败" with:self.view withTime:1.5];
             
         }
     }];

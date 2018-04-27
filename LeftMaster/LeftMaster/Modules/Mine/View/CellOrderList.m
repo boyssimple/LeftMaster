@@ -343,21 +343,22 @@
     r.origin.y = self.lbOrderTime.bottom + 8*RATIO_WIDHT320;
     self.btnAgain.frame = r;
     
-    if(self.status == 0){
-        if(![AppUser share].isSalesman){
-            self.btnConfirm.left = self.btnCancel.left - self.btnConfirm.width - 10*RATIO_WIDHT320;
-            self.btnAgain.left = self.btnConfirm.left - self.btnAgain.width - 10*RATIO_WIDHT320;
-        }else{
-            self.btnAgain.left = self.btnCancel.left - self.btnAgain.width - 10*RATIO_WIDHT320;
-        }
-        
-    }else if(self.status != 2){
-        if(self.status == 4){
-            self.btnAgain.left = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
-        }else{
-            self.btnAgain.left = self.btnCancel.left - self.btnAgain.width - 10*RATIO_WIDHT320;
-        }
+    if (self.status == 0) {
+        self.btnCancel.left = self.vBg.width - self.btnCancel.width - 10*RATIO_WIDHT320;
+        self.btnConfirm.left = self.btnCancel.left - 10*RATIO_WIDHT320 - self.btnConfirm.width;
+        self.btnAgain.left = self.btnConfirm.left - 10*RATIO_WIDHT320 - self.btnAgain.width;
+    }else if(self.status == 1){
+        self.btnCancel.left = self.vBg.width - self.btnCancel.width - 10*RATIO_WIDHT320;
+        self.btnAgain.left = self.btnCancel.left - 10*RATIO_WIDHT320 - self.btnAgain.width;
+    }else if(self.status == 2){
+        self.btnAgain.left = self.vBg.width - self.btnAgain.width - 10*RATIO_WIDHT320;
+    }else if(self.status == 3){
+        self.btnReceive.left = self.vBg.width - self.btnReceive.width - 10*RATIO_WIDHT320;
+        self.btnAgain.left = self.btnReceive.left - 10*RATIO_WIDHT320 - self.btnAgain.width;
+    }else if(self.status == 4 || self.status == 5 || self.status == 6){//已完成
+        self.btnAgain.left = self.vBg.width - self.btnAgain.width - 10*RATIO_WIDHT320;
     }
+    
     
     r = self.vLine.frame;
     r.size.width = DEVICEWIDTH - 20*RATIO_WIDHT320;

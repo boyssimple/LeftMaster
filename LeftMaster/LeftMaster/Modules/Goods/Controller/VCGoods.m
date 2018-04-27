@@ -66,6 +66,10 @@
 }
 
 - (void)addCart{
+    if([self.data jk_integerForKey:@"GOODS_STOCK"] <= 0){
+        [Utils showSuccessToast:@"没有库存" with:self.view withTime:1];
+        return;
+    }
     RequestBeanAddCart *requestBean = [RequestBeanAddCart new];
     requestBean.goods_id = self.goods_id;
     requestBean.num = self.count;
@@ -149,8 +153,11 @@
                 NSMutableArray *selects = [NSMutableArray array];
                 CartGoods *c = [[CartGoods alloc]init];
                 c.GOODS_PIC = [self.data jk_stringForKey:@"GOODS_PIC"];
+                c.GOODS_ID = [self.data jk_stringForKey:@"GOODS_ID"];
                 c.FD_NUM = self.count;
-                c.GOODS_PRICE = [self.data jk_stringForKey:@"GOODS_PRICE"];
+                c.GOODS_PRICE = [self.data jk_floatForKey:@"GOODS_PRICE"];
+                c.GOODS_UNIT = [self.data jk_stringForKey:@"GOODS_UNIT"];
+                
                 [selects  addObject:c];
                 VCWriteOrder *vc = [[VCWriteOrder alloc]init];
                 vc.goodsList = selects;

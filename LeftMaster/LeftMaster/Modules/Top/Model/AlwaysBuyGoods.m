@@ -18,7 +18,7 @@
     self.GOODS_MARKET_PRICE = [data jk_stringForKey:@"GOODS_MARKET_PRICE"];
     self.GOODS_NAME = [data jk_stringForKey:@"GOODS_NAME"];
     self.GOODS_PIC = [data jk_stringForKey:@"GOODS_PIC"];
-    self.GOODS_PRICE = [data jk_stringForKey:@"GOODS_PRICE"];
+    self.GOODS_PRICE = [data jk_floatForKey:@"GOODS_PRICE"];
     self.GOODS_STOCK = [data jk_integerForKey:@"GOODS_STOCK"];
     self.GOODS_UNIT = [data jk_stringForKey:@"GOODS_UNIT"];
     self.OPER_TYPE = [data jk_integerForKey:@"OPER_TYPE"];

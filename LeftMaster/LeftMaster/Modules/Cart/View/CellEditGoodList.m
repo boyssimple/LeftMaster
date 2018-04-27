@@ -127,7 +127,7 @@
         
         [self handle:data.FD_NUM];
         
-        self.lbPrice.text = [NSString stringWithFormat:@"¥%@/%@",data.GOODS_PRICE,data.GOODS_UNIT];
+        self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",data.GOODS_PRICE,data.GOODS_UNIT];
         
         if(self.lbPrice.text.length > 2){
             NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];

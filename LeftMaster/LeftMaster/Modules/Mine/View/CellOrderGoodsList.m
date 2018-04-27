@@ -68,21 +68,20 @@
         self.lbPrice.text = [NSString stringWithFormat:@"¥%zi/%@",[data jk_integerForKey:@"FD_UNIT_PRICE"],[data jk_stringForKey:@"FD_UNIT_NAME"]];
         self.lbCount.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_NUM"],[data jk_stringForKey:@"FD_UNIT_NAME"]];
         
-        if(self.lbPrice.text.length > 2){
-            NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
-            // 改变颜色
-            [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-2)];
-            [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length-2, 2)];
-            [self.lbPrice setAttributedText:noteStr];
-        }
         
-        if(self.lbCount.text.length > 1){
-            NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbCount.text];
-            // 改变颜色
-            [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbCount.text.length-1)];
-            [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10*RATIO_WIDHT320] range:NSMakeRange(self.lbCount.text.length-1, 1)];
-            [self.lbCount setAttributedText:noteStr];
-        }
+        NSInteger length = [data jk_stringForKey:@"FD_UNIT_NAME"].length + 1;
+        NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
+        // 改变颜色
+        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-length)];
+        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length-length, length)];
+        [self.lbPrice setAttributedText:noteStr];
+        
+        length = [data jk_stringForKey:@"FD_UNIT_NAME"].length;
+        NSMutableAttributedString *noteStr2 = [[NSMutableAttributedString alloc] initWithString:self.lbCount.text];
+        // 改变颜色
+        [noteStr2 addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbCount.text.length-length)];
+        [noteStr2 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10*RATIO_WIDHT320] range:NSMakeRange(self.lbCount.text.length-length, length)];
+        [self.lbCount setAttributedText:noteStr2];
     }
 }
 
