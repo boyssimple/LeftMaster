@@ -72,7 +72,7 @@
     
     r = self.tfText.frame;
     r.size.width = DEVICEWIDTH - 20*RATIO_WIDHT320;
-    r.size.height = 12*RATIO_WIDHT320;
+    r.size.height = 35*RATIO_WIDHT320;
     r.origin.x = 10*RATIO_WIDHT320;
     r.origin.y = self.vLine.bottom + 10*RATIO_WIDHT320;
     self.tfText.frame = r;

@@ -45,6 +45,7 @@
     [self loadData];
 }
 
+
 - (void)initMain{
     self.title = @"填写订单";
     _goodsList = [NSMutableArray array];

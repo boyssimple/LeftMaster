@@ -54,6 +54,7 @@
 		1C8A2E40207875BD0076238D /* HMScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C8A2E36207875BD0076238D /* HMScanner.bundle */; };
 		1C8A2E41207875BD0076238D /* HMScanerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E37207875BD0076238D /* HMScanerCardViewController.m */; };
 		1C8A2E42207875BD0076238D /* HMScannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E39207875BD0076238D /* HMScannerController.m */; };
+		1C9826FF209360CD000EF976 /* ViewMessageOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9826FD209360CD000EF976 /* ViewMessageOrder.m */; };
 		1CBF1DAE208F7A040090BD96 /* Reason.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DAD208F7A040090BD96 /* Reason.m */; };
 		1CBF1DB1208F85620090BD96 /* RequestBeanQueryCartNum.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DB0208F85620090BD96 /* RequestBeanQueryCartNum.m */; };
 		1CBF1DB4208F8A310090BD96 /* RequestBeanSignOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DB3208F8A310090BD96 /* RequestBeanSignOrder.m */; };
@@ -75,7 +76,6 @@
 		1CBF1DF020913D540090BD96 /* AlwaysBuyGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DEF20913D540090BD96 /* AlwaysBuyGoods.m */; };
 		1CBF5BB12078789400284EA1 /* VCWriteOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BB02078789400284EA1 /* VCWriteOrder.m */; };
 		1CBF5BB420787A1600284EA1 /* ViewGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BB320787A1600284EA1 /* ViewGoodsList.m */; };
-		1CBF5BB72078809100284EA1 /* ViewMessageOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BB62078809100284EA1 /* ViewMessageOrder.m */; };
 		1CBF5BBA2078827500284EA1 /* ViewTotalOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BB92078827500284EA1 /* ViewTotalOrder.m */; };
 		1CBF5BBD207883F500284EA1 /* ViewTotalBottomWriteOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BBC207883F500284EA1 /* ViewTotalBottomWriteOrder.m */; };
 		1CBF5BC0207A46AE00284EA1 /* ViewHeaderMine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF5BBF207A46AE00284EA1 /* ViewHeaderMine.m */; };
@@ -268,6 +268,8 @@
 		1C8A2E39207875BD0076238D /* HMScannerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerController.m; sourceTree = "<group>"; };
 		1C8A2E3A207875BD0076238D /* HMScannerBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerBorder.h; sourceTree = "<group>"; };
 		1C8A2E3B207875BD0076238D /* HMScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerViewController.h; sourceTree = "<group>"; };
+		1C9826FD209360CD000EF976 /* ViewMessageOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewMessageOrder.m; sourceTree = "<group>"; };
+		1C9826FE209360CD000EF976 /* ViewMessageOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewMessageOrder.h; sourceTree = "<group>"; };
 		1CBF1DAC208F7A040090BD96 /* Reason.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reason.h; sourceTree = "<group>"; };
 		1CBF1DAD208F7A040090BD96 /* Reason.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reason.m; sourceTree = "<group>"; };
 		1CBF1DAF208F85620090BD96 /* RequestBeanQueryCartNum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanQueryCartNum.h; sourceTree = "<group>"; };
@@ -310,8 +312,6 @@
 		1CBF5BB02078789400284EA1 /* VCWriteOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCWriteOrder.m; sourceTree = "<group>"; };
 		1CBF5BB220787A1600284EA1 /* ViewGoodsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewGoodsList.h; sourceTree = "<group>"; };
 		1CBF5BB320787A1600284EA1 /* ViewGoodsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewGoodsList.m; sourceTree = "<group>"; };
-		1CBF5BB52078809100284EA1 /* ViewMessageOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewMessageOrder.h; sourceTree = "<group>"; };
-		1CBF5BB62078809100284EA1 /* ViewMessageOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewMessageOrder.m; sourceTree = "<group>"; };
 		1CBF5BB82078827500284EA1 /* ViewTotalOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewTotalOrder.h; sourceTree = "<group>"; };
 		1CBF5BB92078827500284EA1 /* ViewTotalOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewTotalOrder.m; sourceTree = "<group>"; };
 		1CBF5BBB207883F500284EA1 /* ViewTotalBottomWriteOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewTotalBottomWriteOrder.h; sourceTree = "<group>"; };
@@ -994,12 +994,12 @@
 				1C8A2E23207707890076238D /* ViewTotalCart.m */,
 				1CBF5BB220787A1600284EA1 /* ViewGoodsList.h */,
 				1CBF5BB320787A1600284EA1 /* ViewGoodsList.m */,
-				1CBF5BB52078809100284EA1 /* ViewMessageOrder.h */,
-				1CBF5BB62078809100284EA1 /* ViewMessageOrder.m */,
 				1CBF5BB82078827500284EA1 /* ViewTotalOrder.h */,
 				1CBF5BB92078827500284EA1 /* ViewTotalOrder.m */,
 				1CBF5BBB207883F500284EA1 /* ViewTotalBottomWriteOrder.h */,
 				1CBF5BBC207883F500284EA1 /* ViewTotalBottomWriteOrder.m */,
+				1C9826FE209360CD000EF976 /* ViewMessageOrder.h */,
+				1C9826FD209360CD000EF976 /* ViewMessageOrder.m */,
 				1CFC7AE2208E2B9D005F18AB /* ViewISBill.h */,
 				1CFC7AE3208E2B9D005F18AB /* ViewISBill.m */,
 				1CBF1DC72090C79E0090BD96 /* WindowCustom.h */,
@@ -1353,6 +1353,7 @@
 				1CBF5BC6207A4FFB00284EA1 /* ViewBtnHeaderMine.m in Sources */,
 				1C4CC29420726D4D007C24FB /* CellCategoryHome.m in Sources */,
 				1CFC7AFF208F639D005F18AB /* WindowCancelOrder.m in Sources */,
+				1C9826FF209360CD000EF976 /* ViewMessageOrder.m in Sources */,
 				1CFC7ABE208C80DD005F18AB /* VCGoodsList.m in Sources */,
 				1C4C15632088FADD00BA8F3C /* RequestBeanSlidePicList.m in Sources */,
 				1CFC7AF3208E3D10005F18AB /* RequestBeanOrderGoodsList.m in Sources */,
@@ -1381,7 +1382,6 @@
 				1CFC7AED208E327E005F18AB /* VCUnReceive.m in Sources */,
 				1C8A2E2D20786BE80076238D /* ViewCategory.m in Sources */,
 				1C5F25B42088BC51005EAF87 /* CollCellGuide.m in Sources */,
-				1CBF5BB72078809100284EA1 /* ViewMessageOrder.m in Sources */,
 				1CBF5BF6207CEE6200284EA1 /* CellOrderInfo.m in Sources */,
 				1CBF5BFC207CF70800284EA1 /* VCOrderGoodsList.m in Sources */,
 				1CFC01182089D5A200A8E344 /* VCForgotPwdFinish.m in Sources */,
