@@ -18,6 +18,7 @@ target 'LeftMaster' do
   pod 'SDWebImage', '~> 4.0'
   pod 'SDCycleScrollView','~> 1.75'
   pod 'JPush'
+  pod 'IQKeyboardManager'
 
   target 'LeftMasterTests' do
     inherit! :search_paths
