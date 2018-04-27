@@ -15,7 +15,7 @@
 @interface VCSearchGoodsList ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIScrollViewDelegate>
 @property(nonatomic,strong)ViewSearchGoodsNav *searchView;
 @property(nonatomic,strong)UITableView *table;
-@property(nonatomic,assign)NSString *keywords;
+@property(nonatomic,strong)NSString *keywords;
 @property(nonatomic,assign)NSInteger page;
 @property(nonatomic,strong)NSMutableArray *goodsList;
 @end

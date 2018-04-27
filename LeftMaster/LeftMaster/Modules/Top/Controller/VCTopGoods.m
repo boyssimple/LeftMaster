@@ -172,6 +172,8 @@
             g.GOODS_PRICE = c.GOODS_PRICE;
             g.GOODS_UNIT = c.GOODS_UNIT;
             g.GOODS_NAME = c.GOODS_NAME;
+            g.GOODS_CODE = c.GOODS_CODE;
+            g.GOODS_ID = c.GOODS_ID;
             
             num += c.Num;
             [selects addObject:g];

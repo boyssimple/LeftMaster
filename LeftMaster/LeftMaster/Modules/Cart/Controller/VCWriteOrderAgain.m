@@ -79,6 +79,7 @@
                     c.GOODS_PRICE = [data jk_stringForKey:@"FD_UNIT_PRICE"];
                     c.GOODS_UNIT = [data jk_stringForKey:@"FD_UNIT_NAME"];
                     c.GOODS_NAME = [data jk_stringForKey:@"GOODS_NAME"];
+                    c.GOODS_ID = [data jk_stringForKey:@"GOODS_ID"];
                     [weakself.goodsList addObject:c];
                 }
                 [weakself installData];
