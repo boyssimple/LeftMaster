@@ -149,19 +149,25 @@
     
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
+    
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        [Utils hiddenHanding:weakself.view withTime:0.2];
+        ResponseBeanAddOrder *response = responseBean;
         if (!err) {
             // 结果处理
-            ResponseBeanAddOrder *response = responseBean;
             if(response.success){
-                [Utils showSuccessToast:@"下单成功" with:self.view withTime:1.5 withBlock:^{
-                    [self.navigationController popToRootViewControllerAnimated:TRUE];
+                [Utils showSuccessToast:@"下单成功" with:self.view withTime:1 withBlock:^{
+                    [weakself.navigationController popViewControllerAnimated:TRUE];
                 }];
-                [self postNotification:REFRESH_CART_LIST withObject:nil];
+                [weakself postNotification:REFRESH_CART_LIST withObject:nil];
+            }else{
+                 [Utils showSuccessToast:response.msg with:weakself.view withTime:1];
             }
         }else{
-            [Utils showSuccessToast:@"下单失败" with:self.view withTime:1.5];
+            if (response.msg) {
+                [Utils showSuccessToast:response.msg with:weakself.view withTime:1];
+            }else{
+                [Utils showSuccessToast:@"请求失败" with:weakself.view withTime:1];
+            }
             
         }
     }];

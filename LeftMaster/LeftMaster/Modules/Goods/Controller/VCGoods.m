@@ -155,6 +155,7 @@
                 c.GOODS_PIC = [self.data jk_stringForKey:@"GOODS_PIC"];
                 c.GOODS_ID = [self.data jk_stringForKey:@"GOODS_ID"];
                 c.FD_NUM = self.count;
+                c.GOODS_NAME = [self.data jk_stringForKey:@"GOODS_NAME"];
                 c.GOODS_PRICE = [self.data jk_floatForKey:@"GOODS_PRICE"];
                 c.GOODS_UNIT = [self.data jk_stringForKey:@"GOODS_UNIT"];
                 

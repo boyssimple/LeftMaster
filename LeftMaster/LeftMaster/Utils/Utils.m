@@ -103,7 +103,7 @@
 }
 
 +(void)showSuccessToast:(NSString*)text with:(UIView*)view withTime:(CGFloat)time withBlock:(void(^)(void))callback{
-    [MBProgressHUD hideAllHUDsForView:view animated:YES];
+    [MBProgressHUD hideAllHUDsForView:view animated:NO];
     UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"check-mark"]];
     img.frame = CGRectMake(5, 0, 20, 20);

@@ -147,7 +147,7 @@
                     [customs addObject:custom];
                 }
                 weakself.customView = [[WindowCustom alloc]init:customs];
-                weakself.customView.delegate = self;
+                weakself.customView.delegate = weakself;
                 [weakself.customView show];
             }
         }
@@ -177,7 +177,7 @@
             [Utils showSuccessToast:@"未选择开票单位" with:self.view withTime:0.8];
             return;
         }else{
-            [orderInfo setObject:@(self.isBill) forKey:@"FD_NEED_TICKET"];
+            [orderInfo setObject:[NSString stringWithFormat:@"%d",self.isBill] forKey:@"FD_NEED_TICKET"];
             [orderInfo setObject:self.cust.fd_bill_org_id forKey:@"FD_BILL_ORG_ID"];
         }
     }
@@ -192,17 +192,23 @@
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
-        [Utils hiddenHanding:weakself.view withTime:0.2];
+        ResponseBeanAddOrder *response = responseBean;
         if (!err) {
             // 结果处理
-            ResponseBeanAddOrder *response = responseBean;
             if(response.success){
-                [Utils showSuccessToast:@"下单成功" with:self.view withTime:1.5];
-                [self.navigationController popToRootViewControllerAnimated:TRUE];
-                [self postNotification:REFRESH_CART_LIST withObject:nil];
+                [Utils showSuccessToast:@"下单成功" with:self.view withTime:1 withBlock:^{
+                    [weakself.navigationController popViewControllerAnimated:TRUE];
+                }];
+                [weakself postNotification:REFRESH_CART_LIST withObject:nil];
+            }else{
+                [Utils showSuccessToast:response.msg with:weakself.view withTime:1];
             }
         }else{
-            [Utils showSuccessToast:@"下单失败" with:self.view withTime:1.5];
+            if (response.msg) {
+                [Utils showSuccessToast:response.msg with:weakself.view withTime:1];
+            }else{
+                [Utils showSuccessToast:@"请求失败" with:weakself.view withTime:1];
+            }
             
         }
     }];
