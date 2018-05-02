@@ -18,9 +18,8 @@
 #import "CartGoods.h"
 
 @interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,ViewHeaderGoodsDelegate,CommonDelegate,
-        UIWebViewDelegate>
+        UIWebViewDelegate,ViewHeaderGoodsDelegate>
 @property(nonatomic,strong)UITableView *table;
-@property(nonatomic,strong)ViewHeaderGoods *header;
 @property(nonatomic,strong)UIWebView *footer;
 @property(nonatomic,strong)SDCycleScrollView *cycleScrollView;
 @property(nonatomic,strong)UILabel *lbPicCount;
@@ -221,6 +220,7 @@
     ViewHeaderGoods *header = (ViewHeaderGoods*)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"Header"];
     if (!header) {
         header = [[ViewHeaderGoods alloc]init];
+        header.delegate = self;
     }
     [header updateData:self.data];
     return header;
@@ -263,10 +263,6 @@
                     [self addCart];
                 }else{
                     [self addOrder];
-//
-//
-//                    VCWriteOrder *vc = [[VCWriteOrder alloc]init];
-//                    [self.navigationController pushViewController:vc animated:YES];
                 }
             }
         }
@@ -293,13 +289,6 @@
         _table.tableHeaderView = self.cycleScrollView;
     }
     return _table;
-}
-
-- (ViewHeaderGoods*)header{
-    if(!_header){
-        _header = [[ViewHeaderGoods alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
-    }
-    return _header;
 }
 
 - (UIWebView*)footer{
