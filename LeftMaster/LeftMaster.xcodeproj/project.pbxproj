@@ -1137,8 +1137,11 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1580,8 +1583,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = LeftMaster/LeftMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A57W3P5J93;
+				DEVELOPMENT_TEAM = 9SK966CKM2;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LeftMaster/Define/PrefixHeader.pch";
 				INFOPLIST_FILE = LeftMaster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1590,7 +1594,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LeftMaster/ThirdPart/Lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pentaq.LeftMaster;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sean.LeftMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1602,8 +1606,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = LeftMaster/LeftMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A57W3P5J93;
+				DEVELOPMENT_TEAM = 9SK966CKM2;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LeftMaster/Define/PrefixHeader.pch";
 				INFOPLIST_FILE = LeftMaster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1612,7 +1617,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LeftMaster/ThirdPart/Lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pentaq.LeftMaster;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sean.LeftMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
