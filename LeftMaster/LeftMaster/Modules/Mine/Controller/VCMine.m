@@ -13,6 +13,7 @@
 #import "VCOrderCheckAccount.h"
 #import "ViewWithExit.h"
 #import "VCSetting.h"
+#import "RequestBeanOrderNum.h"
 
 @interface VCMine ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property(nonatomic,strong)UITableView *table;
@@ -30,6 +31,30 @@
 - (void)initMain{
     [self.view addSubview:self.table];
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [self loadData:0];
+    [self loadData:1];
+    [self loadData:2];
+    [self loadData:3];
+}
+
+- (void)loadData:(NSInteger)type{
+    RequestBeanOrderNum *requestBean = [RequestBeanOrderNum new];
+    requestBean.order_status = type;
+    requestBean.user_id = [AppUser share].SYSUSER_ID;
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        if (!err) {
+            // 结果处理
+            ResponseBeanOrderNum *response = responseBean;
+            if(response.success){
+                [weakself.header updateData:type withCount:response.num];
+            }
+        }
+    }];
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

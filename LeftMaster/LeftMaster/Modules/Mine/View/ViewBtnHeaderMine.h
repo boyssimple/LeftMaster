@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewBtnHeaderMine : UIView
+@property(nonatomic,assign)NSInteger count;
 - (void)update:(NSInteger)count;
 - (void)updateData:(NSString*)icon with:(NSString*)name;
 @end

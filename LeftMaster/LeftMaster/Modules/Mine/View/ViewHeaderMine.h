@@ -10,4 +10,5 @@
 
 @interface ViewHeaderMine : UIView
 @property(nonatomic,weak)id<CommonDelegate> delegate;
+- (void)updateData:(NSInteger)index withCount:(NSInteger)count;
 @end

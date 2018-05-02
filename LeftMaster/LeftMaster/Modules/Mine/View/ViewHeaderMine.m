@@ -126,6 +126,19 @@
     }
 }
 
+- (void)updateData:(NSInteger)index withCount:(NSInteger)count{
+    if (index == 0) {
+        [self.vConfirm update:count];
+    }else if(index == 1){
+        [self.vAudution update:count];
+    }else if(index == 2){
+        [self.vUnSend update:count];
+    }else if(index == 3){
+        [self.vUnReceive update:count];
+    }
+}
+
+
 - (void)updateData{
     self.lbCompany.text = [AppUser share].COMPANY_NAME;
     self.lbName.text = [AppUser share].SYSUSER_NAME;

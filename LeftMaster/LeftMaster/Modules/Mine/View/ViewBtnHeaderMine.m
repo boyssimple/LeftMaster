@@ -46,8 +46,19 @@
 }
 
 - (void)update:(NSInteger)count{
-    self.lbCount.text = [NSString stringWithFormat:@"%zi",count];
-    self.lbCount.hidden = NO;
+    self.count = count;
+    if(count > 0){
+        self.lbCount.hidden = NO;
+        if(count > 10){
+            self.lbCount.text = [NSString stringWithFormat:@"10+"];
+        }else{
+            self.lbCount.text = [NSString stringWithFormat:@"%zi",count];
+        }
+    }else{
+        self.lbCount.hidden = TRUE;
+    }
+    
+    [self setNeedsLayout];
 }
 
 - (void)updateData:(NSString*)icon with:(NSString*)name{
@@ -70,6 +81,14 @@
     r.origin.x = self.ivIcon.left + 14*RATIO_WIDHT320;
     r.origin.y = 9*RATIO_WIDHT320;
     self.lbCount.frame = r;
+    
+    if (self.count >= 10) {
+        CGSize size = [self.lbCount sizeThatFits:CGSizeMake(MAXFLOAT, 8*RATIO_WIDHT320)];
+        r = self.lbCount.frame;
+        r.size.width = size.width +6*RATIO_WIDHT320;
+        r.size.height = 12*RATIO_WIDHT320;
+        self.lbCount.frame = r;
+    }
     
     CGSize size = [self.lbName sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     r = self.lbName.frame;
