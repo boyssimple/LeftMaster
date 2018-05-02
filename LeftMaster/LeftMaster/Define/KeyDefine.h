@@ -13,6 +13,7 @@
 
 #define LOGIN_FLAG @"LOGIN_FLAG"
 #define LOGIN_USER_COUNT @"LOGIN_USER_COUNT"    //保存登录帐号
+#define USER_MODIFY_PWD @"USER_MODIFY_PWD"    //是否需要修改密码
 
 //刷新购物车列表
 #define REFRESH_CART_LIST @"refresh_cart_list"

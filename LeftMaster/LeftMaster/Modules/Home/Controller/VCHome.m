@@ -50,7 +50,7 @@
     /*
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"密码过于简单，请修改密码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
-     */
+    */
 }
 
 - (void)viewWillAppear:(BOOL)animated{

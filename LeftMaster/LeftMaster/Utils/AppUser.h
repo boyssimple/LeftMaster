@@ -23,6 +23,7 @@
 @property(nonatomic,strong)NSString *SYSUSER_COMPANYID;  //公司ID
 @property(nonatomic,assign)NSInteger SYSUSER_SEX;   //性别
 @property(nonatomic,assign)BOOL isSalesman;         //是否业务员
+@property(nonatomic,assign)BOOL isModifyPwd;         //是否需要修改密码
 
 - (void)parse:(NSDictionary*)data;
 
