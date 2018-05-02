@@ -135,6 +135,10 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
                 if(response.success){
                     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                     [defaults setObject:userName forKey:LOGIN_USER_COUNT];
+                    NSString *swf = [userName substringWithRange:NSMakeRange(5, 6)];
+                    if ([swf isEqualToString:tfPwd]) {
+                        [defaults setObject:@(1) forKey:USER_MODIFY_PWD];
+                    }
                     [defaults synchronize];
                     
                     [Utils hiddenHanding:self.view withTime:0.5];
