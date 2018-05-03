@@ -72,13 +72,11 @@
                           channel:channel
                  apsForProduction:YES
             advertisingIdentifier:nil];
-    
     //JPush 监听登陆成功
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(networkDidLogin:)
                                                  name:kJPFNetworkDidLoginNotification
                                                object:nil];
-    
     [self.window makeKeyAndVisible];
     return YES;
 }
