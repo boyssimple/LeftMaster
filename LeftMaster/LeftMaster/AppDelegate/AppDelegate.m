@@ -82,9 +82,6 @@
                  apsForProduction:YES
             advertisingIdentifier:nil];
     
-    
-    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    
     // Required
     // init Push
     // notice: 2.1.5版本的SDK新增的注册方法，改成可上报IDFA，如果没有使用IDFA直接传nil
@@ -92,7 +89,7 @@
     [JPUSHService setupWithOption:launchOptions appKey:appcKey
                           channel:channel
                  apsForProduction:0
-            advertisingIdentifier:advertisingId];
+            advertisingIdentifier:nil];
     
     
     [self.window makeKeyAndVisible];
