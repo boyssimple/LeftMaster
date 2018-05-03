@@ -10,15 +10,6 @@
 #import "VCMain.h"
 #import "VCLogin.h"
 
-
-// 引入JPush功能所需头文件
-#import "JPUSHService.h"
-// iOS10注册APNs所需头文件
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-#import <UserNotifications/UserNotifications.h>
-#endif
-// 如果需要使用idfa功能所需要引入的头文件（可选）
-#import <AdSupport/AdSupport.h>
 #import "VCProxyCustmer.h"
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
@@ -31,7 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    
+    self.isLogin = FALSE;
     
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     AJLog(@"%@", documentsPath);
@@ -82,18 +73,11 @@
                  apsForProduction:YES
             advertisingIdentifier:nil];
     
-    
-    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    
-    // Required
-    // init Push
-    // notice: 2.1.5版本的SDK新增的注册方法，改成可上报IDFA，如果没有使用IDFA直接传nil
-    // 如需继续使用pushConfig.plist文件声明appKey等配置内容，请依旧使用[JPUSHService setupWithOption:launchOptions]方式初始化。
-    [JPUSHService setupWithOption:launchOptions appKey:appcKey
-                          channel:channel
-                 apsForProduction:0
-            advertisingIdentifier:advertisingId];
-    
+    //JPush 监听登陆成功
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkDidLogin:)
+                                                 name:kJPFNetworkDidLoginNotification
+                                               object:nil];
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -198,6 +182,8 @@
 //        [rootViewController addNotificationCount];
     }
     
+    setTags:alias:fetchCompletionHandle:
+    [JPUSHService setTags:nil aliasInbackground:nil];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
@@ -282,4 +268,20 @@
     return str;
 }
 
+
+/**
+ *  登录成功，设置别名，移除监听
+ */
+- (void)networkDidLogin:(NSNotification *)notification {
+    NSLog(@"已登录");
+    self.isLogin = TRUE;
+    
+    [JPUSHService setAlias:[AppUser share].SYSUSER_MOBILE completion:nil seq:1];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kJPFNetworkDidLoginNotification
+                                                  object:nil];
+    
+    
+    
+}
 @end

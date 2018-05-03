@@ -147,6 +147,7 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
                     //解析数据
                     [[AppUser share] parse:response.data];
                     
+                    [JPUSHService setAlias:userName completion:nil seq:1];
                     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                     
                     if([AppUser share].isSalesman){

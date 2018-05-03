@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 
-static NSString *appcKey = @"fe0ea487a828798a3b800c99";
+static NSString *appcKey = @"448a1c812ddf22550b7b094c";
 static NSString *channel = @"Publish channel";
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
-
+@property(nonatomic,assign)BOOL isLogin;
 @property (strong, nonatomic) UIWindow *window;
 
 - (void)restoreRootViewController:(UIViewController *)rootViewController;
