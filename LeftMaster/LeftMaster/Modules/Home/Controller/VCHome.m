@@ -20,6 +20,7 @@
 #import "VCModifyPassword.h"
 #import "VCSearchGoodsList.h"
 #import "RequestBeanQueryCartNum.h"
+#import "HMScannerController.h"
 
 @interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate,UIScrollViewDelegate,
         UIAlertViewDelegate,CommonDelegate>
@@ -236,7 +237,15 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
     if(index == 0){
+        HMScannerController *scanner = [HMScannerController scannerWithCardName:@"" avatar:nil completion:^(NSString *stringValue) {
+            NSLog(@"%@",stringValue);
+        }];
         
+        // 设置导航标题样式
+        [scanner setTitleColor:[UIColor whiteColor] tintColor:[UIColor greenColor]];
+        
+        // 展现扫描控制器
+        [self showDetailViewController:scanner sender:nil];
     }else{
         VCSearchGoodsList *vc = [[VCSearchGoodsList alloc]init];
         [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:FALSE completion:^{
