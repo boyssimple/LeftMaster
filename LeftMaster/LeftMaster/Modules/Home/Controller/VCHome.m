@@ -114,7 +114,7 @@
     RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
     requestBean.new_goods = TRUE;
     requestBean.page_current = 1;
-    requestBean.page_size = 6;
+    requestBean.page_size = 1000;
     requestBean.cus_id = [AppUser share].CUS_ID;
     requestBean.company_id = [AppUser share].SYSUSER_COMPANYID;
     [Utils showHanding:requestBean.hubTips with:self.view];
