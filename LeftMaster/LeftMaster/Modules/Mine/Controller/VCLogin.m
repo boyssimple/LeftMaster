@@ -151,7 +151,7 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
                     
                     //设置推送别名
                     if (appDelegate.isLogin) {
-                        [JPUSHService setAlias:userName completion:nil seq:1];
+                        [JPUSHService setAlias:[AppUser share].SYSUSER_ACCOUNT completion:nil seq:1];
                     }
                     
                     

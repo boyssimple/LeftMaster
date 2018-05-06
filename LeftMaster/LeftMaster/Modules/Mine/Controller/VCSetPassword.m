@@ -48,6 +48,10 @@
 }
 
 - (void)modifyEvent{
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"密码修改成功" message:@"请重新登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+    return;
     [self.view endEditing:YES];
     NSString *oldPwd = [self.tfOldPwd.text trim];
     NSString *newPwd = [self.tfNewPwd.text trim];
@@ -99,12 +103,19 @@
     }];
 }
 
-#pragma mark - UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) {
+- (void)gotoLogin{
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.4 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         VCLogin *vc = [[VCLogin alloc]init];
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate restoreRootViewController:[[UINavigationController alloc] initWithRootViewController:vc]];
+    });
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [self gotoLogin];
     }
 }
 
