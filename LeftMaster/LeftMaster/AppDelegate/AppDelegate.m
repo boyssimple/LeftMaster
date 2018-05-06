@@ -273,8 +273,9 @@
 - (void)networkDidLogin:(NSNotification *)notification {
     NSLog(@"已登录");
     self.isLogin = TRUE;
-    
-    [JPUSHService setAlias:[AppUser share].SYSUSER_MOBILE completion:nil seq:1];
+    if ([AppUser share].SYSUSER_MOBILE && ![[AppUser share].SYSUSER_MOBILE isEqualToString:@""]) {
+        [JPUSHService setAlias:[AppUser share].SYSUSER_MOBILE completion:nil seq:1];
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kJPFNetworkDidLoginNotification
                                                   object:nil];

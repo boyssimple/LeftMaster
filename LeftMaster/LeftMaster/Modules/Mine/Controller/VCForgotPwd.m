@@ -71,6 +71,7 @@
             [Utils showToast:@"请输入验证码" with:self.view withTime:0.8];
         }else if([code isEqualToString:self.random]){
             VCForgotPwdFinish *vc = [[VCForgotPwdFinish alloc]init];
+            vc.phone = self.tfPhone.text;
             [self.navigationController pushViewController:vc animated:YES];
         }else{
             [Utils showToast:@"验证码错误" with:self.view withTime:0.8];

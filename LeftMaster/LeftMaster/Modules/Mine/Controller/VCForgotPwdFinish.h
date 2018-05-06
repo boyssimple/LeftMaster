@@ -9,5 +9,5 @@
 #import "VCBase.h"
 
 @interface VCForgotPwdFinish : VCBase
-
+@property(nonatomic,strong)NSString *phone;
 @end

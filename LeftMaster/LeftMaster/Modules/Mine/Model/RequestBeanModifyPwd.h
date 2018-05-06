@@ -9,10 +9,11 @@
 #import "AJRequestBeanBase.h"
 
 @interface RequestBeanModifyPwd : AJRequestBeanBase
-@property(nonatomic,strong)NSString *SYSUSER_ID;     //手机号
+@property(nonatomic,strong)NSString *SYSUSER_ID;     //user_id
 @property(nonatomic,strong)NSString *OLD_PASSWORD;     //旧密码
 @property(nonatomic,strong)NSString *NEW_PASSWORD;     //新密码
 @property(nonatomic,strong)NSString *CONFIRM_PASSWORD;     //确认密码
+@property(nonatomic,strong)NSString *MOBILE;     //手机号码
 @property(nonatomic,assign)NSInteger TYPE;                  //类型1修改密码，2忘记密码
 @end
 

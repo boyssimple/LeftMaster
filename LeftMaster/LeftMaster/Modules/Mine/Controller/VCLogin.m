@@ -147,8 +147,13 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
                     //解析数据
                     [[AppUser share] parse:response.data];
                     
-                    [JPUSHService setAlias:userName completion:nil seq:1];
                     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    
+                    //设置推送别名
+                    if (appDelegate.isLogin) {
+                        [JPUSHService setAlias:userName completion:nil seq:1];
+                    }
+                    
                     
                     if([AppUser share].isSalesman){
                         VCProxyCustmer *vc = [[VCProxyCustmer alloc]init];

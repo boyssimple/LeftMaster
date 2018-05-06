@@ -62,7 +62,7 @@
     }
     
     RequestBeanModifyPwd *requestBean = [RequestBeanModifyPwd new];
-    requestBean.SYSUSER_ID = [AppUser share].SYSUSER_ID;
+    requestBean.MOBILE = self.phone;
     requestBean.NEW_PASSWORD = newPwd;
     requestBean.TYPE = 2;
     requestBean.CONFIRM_PASSWORD = confirmPwd;
