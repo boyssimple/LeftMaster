@@ -48,10 +48,6 @@
 }
 
 - (void)modifyEvent{
-    
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"密码修改成功" message:@"请重新登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alert show];
-    return;
     [self.view endEditing:YES];
     NSString *oldPwd = [self.tfOldPwd.text trim];
     NSString *newPwd = [self.tfNewPwd.text trim];

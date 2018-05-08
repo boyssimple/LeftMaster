@@ -42,6 +42,7 @@
 - (void)loadData{
     RequestBeanQueryOrder *requestBean = [RequestBeanQueryOrder new];
     requestBean.user_id = [AppUser share].SYSUSER_ID;
+    requestBean.cus_id = [AppUser share].CUS_ID;
     requestBean.page_current = self.page;
     requestBean.order_status = @"3";
     [Utils showHanding:requestBean.hubTips with:self.view];

@@ -189,7 +189,7 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
     if(index == 0){
-        [self refreshCustom];
+//        [self refreshCustom];
     }else if(index == 1){
         self.isBill = TRUE;
     }else{

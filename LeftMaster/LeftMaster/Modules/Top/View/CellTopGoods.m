@@ -119,8 +119,12 @@
         
         self.lbCount.text = [NSString stringWithFormat:@"%zi",data.Num];
         
-        self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",data.GOODS_PRICE,data.GOODS_UNIT];
-        
+        if (data.GOODS_PRICE == 0) {
+            self.lbPrice.text = [NSString stringWithFormat:@"¥?/%@",data.GOODS_UNIT];
+        }else{
+            self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",data.GOODS_PRICE,data.GOODS_UNIT];
+            
+        }
         NSInteger length = 0;
         if (data.GOODS_UNIT) {
             length = data.GOODS_UNIT.length + 1;

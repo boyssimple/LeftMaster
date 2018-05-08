@@ -10,6 +10,7 @@
 
 @interface RequestBeanOrderNum : AJRequestBeanBase
 @property(nonatomic,strong)NSString *user_id;     //user ID
+@property(nonatomic,strong)NSString *cus_id;     //客户ID
 @property(nonatomic,assign)NSInteger order_status;
 @end
 

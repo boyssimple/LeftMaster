@@ -52,6 +52,13 @@
         _ivCart.userInteractionEnabled = YES;
         [self addSubview:_ivCart];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+            if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+                [self.delegate clickActionWithIndex:1];
+            }
+        }];
+        [_ivCart addGestureRecognizer:tap];
+        
         _lbCount = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbCount.font = [UIFont systemFontOfSize:8*RATIO_WIDHT320];
         _lbCount.textColor = [UIColor whiteColor];
@@ -60,6 +67,14 @@
         _lbCount.layer.cornerRadius = 5*RATIO_WIDHT320;
         _lbCount.layer.masksToBounds = YES;
         _lbCount.textAlignment = NSTextAlignmentCenter;
+        _lbCount.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer *tapTwo = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+            if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+                [self.delegate clickActionWithIndex:1];
+            }
+        }];
+        [_lbCount addGestureRecognizer:tapTwo];
         [self addSubview:_lbCount];
         
         _vLine = [[UIView alloc]initWithFrame:CGRectZero];
@@ -112,8 +127,8 @@
 }
 
 - (void)clickAction:(UIButton*)sender{
-    if ([self.delegate respondsToSelector:@selector(clickQR)]) {
-        [self.delegate clickQR];
+    if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+        [self.delegate clickActionWithIndex:0];
     }
 }
 

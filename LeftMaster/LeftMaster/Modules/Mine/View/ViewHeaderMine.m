@@ -140,7 +140,7 @@
 
 
 - (void)updateData{
-    self.lbCompany.text = [AppUser share].COMPANY_NAME;
+    self.lbCompany.text = [AppUser share].CUS_NAME;
     self.lbName.text = [AppUser share].SYSUSER_NAME;
     [self.vUnReceive update:8];
 }

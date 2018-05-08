@@ -169,8 +169,12 @@
         
         self.lbCount.text = [NSString stringWithFormat:@"%zi",data.FD_NUM];
         
-        self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",data.GOODS_PRICE,data.GOODS_UNIT];
-        
+        if (data.GOODS_PRICE == 0) {
+            self.lbPrice.text = [NSString stringWithFormat:@"¥?/%@",data.GOODS_UNIT];
+        }else{
+            self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",data.GOODS_PRICE,data.GOODS_UNIT];
+            
+        }
         if(self.lbPrice.text.length > 2){
             NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
             // 改变颜色

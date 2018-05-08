@@ -81,7 +81,12 @@
 - (void)updateData:(NSDictionary*)data{
     [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
     self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
-    self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",[data jk_floatForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
+    if ([data jk_floatForKey:@"GOODS_PRICE"] == 0) {
+        self.lbPrice.text = [NSString stringWithFormat:@"¥?/%@",[data jk_stringForKey:@"GOODS_UNIT"]];
+    }else{
+        self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",[data jk_floatForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
+        
+    }
     if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
         self.lbHasGoods.text = @"有货";
     }else{
@@ -149,6 +154,7 @@
     r.origin.x = self.vBg.width - r.size.width - 10*RATIO_WIDHT320;
     r.origin.y = self.vBg.height - r.size.height - 10*RATIO_WIDHT320;
     self.lbHasGoods.frame = r;
+    
 }
 
 + (CGFloat)calHeight{

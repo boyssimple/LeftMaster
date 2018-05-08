@@ -44,6 +44,7 @@
 - (void)loadData{
     RequestBeanQueryOrder *requestBean = [RequestBeanQueryOrder new];
     requestBean.user_id = [AppUser share].SYSUSER_ID;
+    requestBean.cus_id = [AppUser share].CUS_ID;
     requestBean.page_current = self.page;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;

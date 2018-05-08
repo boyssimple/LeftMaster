@@ -76,8 +76,12 @@
             self.lbStatus.text = @" | 库存不足";
         }
         
-        self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",[data jk_floatForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
-        
+        if ([data jk_floatForKey:@"GOODS_PRICE"] == 0) {
+            self.lbPrice.text = [NSString stringWithFormat:@"¥?/%@",[data jk_stringForKey:@"GOODS_UNIT"]];
+        }else{
+            self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",[data jk_floatForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
+            
+        }
         NSInteger length = [data jk_stringForKey:@"GOODS_UNIT"].length + 1;
         NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
         // 改变颜色

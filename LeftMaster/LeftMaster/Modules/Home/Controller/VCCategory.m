@@ -15,9 +15,10 @@
 #import "RequestBeanGoodsList.h"
 #import "VCGoodsList.h"
 #import "RequestBeanQueryCartNum.h"
+#import "VCSingleCart.h"
 
 @interface VCCategory ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,
-    UICollectionViewDelegateFlowLayout,ViewCategoryDelegate,UITextFieldDelegate>
+    UICollectionViewDelegateFlowLayout,CommonDelegate,UITextFieldDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)UICollectionView *collView;
@@ -227,7 +228,16 @@
     return YES;
 }
 
-#pragma mark ViewCategoryDelegate
+#pragma mark CommanDelegate
+- (void)clickActionWithIndex:(NSInteger)index{
+    if(index == 0){
+        [self clickQR];
+    }else{
+        VCSingleCart *vc = [[VCSingleCart alloc]init];
+        [self.navigationController pushViewController:vc animated:TRUE];
+    }
+}
+
 - (void)clickQR{
     // 实例化控制器，并指定完成回调
     HMScannerController *scanner = [HMScannerController scannerWithCardName:@"" avatar:nil completion:^(NSString *stringValue) {

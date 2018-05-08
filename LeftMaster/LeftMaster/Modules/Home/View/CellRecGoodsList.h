@@ -10,7 +10,6 @@
 @protocol CellRecGoodsListDelegate;
 @interface CellRecGoodsList : UITableViewCell
 @property(nonatomic,assign)NSInteger index;
-@property (nonatomic, weak) id<CommonDelegate> delegate;
 @property (nonatomic, weak) id<CellRecGoodsListDelegate> joinCartDelegate;
 - (void)updateData:(NSDictionary*)data;
 @end

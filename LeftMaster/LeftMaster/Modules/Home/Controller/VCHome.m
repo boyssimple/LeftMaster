@@ -21,6 +21,7 @@
 #import "VCSearchGoodsList.h"
 #import "RequestBeanQueryCartNum.h"
 #import "HMScannerController.h"
+#import "RequestBeanNewGoods.h"
 
 @interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate,UIScrollViewDelegate,
         UIAlertViewDelegate,CommonDelegate>
@@ -29,6 +30,7 @@
 @property(nonatomic,strong)NSMutableArray *categorys;
 @property(nonatomic,strong)NSMutableArray *goodsList;
 @property(nonatomic,strong)ViewSearchWithHome *vCart;
+@property(nonatomic,assign)NSInteger page;
 @end
 
 @implementation VCHome
@@ -43,6 +45,7 @@
 }
 
 - (void)initMain{
+    self.page = 1;
     [self.view addSubview:self.table];
     _categorys = [NSMutableArray array];
     _goodsList = [NSMutableArray array];
@@ -73,6 +76,8 @@
     __weak typeof(self) weakself = self;
     
     [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [weakself.table.mj_footer endRefreshing];
+        [weakself.table.mj_header endRefreshing];
         if (!err) {
             // 结果处理
             ResponseBeanCategoryHome *response = responseBean;
@@ -111,23 +116,37 @@
 }
 
 - (void)loadGoodsListData{
-    RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
-    requestBean.new_goods = TRUE;
-    requestBean.page_current = 1;
-    requestBean.page_size = 1000;
+    RequestBeanNewGoods *requestBean = [RequestBeanNewGoods new];
+    requestBean.price_order = @"desc";
     requestBean.cus_id = [AppUser share].CUS_ID;
     requestBean.company_id = [AppUser share].SYSUSER_COMPANYID;
+    requestBean.page_current = self.page;
+    requestBean.page_size = 10;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         [Utils hiddenHanding:self.view withTime:0.5];
+        [weakself.table.mj_footer endRefreshing];
         [weakself.table.mj_header endRefreshing];
         if (!err) {
             // 结果处理
-            ResponseBeanGoodsList *response = responseBean;
-            [weakself.goodsList removeAllObjects];
-            [weakself.goodsList addObjectsFromArray:[response.data jk_arrayForKey:@"rows"]];
+            ResponseBeanNewGoods *response = responseBean;
+            
+            if(self.page == 1){
+                [weakself.goodsList removeAllObjects];
+            }
+            NSArray *datas = [response.data jk_arrayForKey:@"rows"];
+            if(datas.count == 0 || datas.count < requestBean.page_size){
+                [weakself.table.mj_footer endRefreshingWithNoMoreData];
+            }else{
+                [weakself.table.mj_footer resetNoMoreData];
+            }
+            [weakself.goodsList addObjectsFromArray:datas];
             [weakself.table reloadData];
+        }else{
+            if (self.page > 1) {
+                [weakself.table.mj_footer endRefreshingWithNoMoreData];
+            }
         }
     }];
 }
@@ -265,8 +284,14 @@
         __weak typeof(self) weakself = self;
         
         _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            weakself.page = 1;
             [weakself loadCarouseListData];
             [weakself loadData];
+            [weakself loadGoodsListData];
+        }];
+        
+        _table.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            weakself.page++;
             [weakself loadGoodsListData];
         }];
     }

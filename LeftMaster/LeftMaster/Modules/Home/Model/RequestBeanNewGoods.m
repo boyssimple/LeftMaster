@@ -6,20 +6,16 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "RequestBeanOrderNum.h"
+#import "RequestBeanNewGoods.h"
 
-@implementation RequestBeanOrderNum
-
-- (NSString*)cus_id{
-    return [AppUser share].CUS_ID;
-}
+@implementation RequestBeanNewGoods
 
 - (NSString*)apiPath{
-    return net_order_query_num;
+    return net_goods_new_list;
 }
 
 - (BOOL)isShowHub{
-    return TRUE;
+    return FALSE;
 }
 
 - (NSString *)hubTips{
@@ -28,7 +24,7 @@
 
 @end
 
-@implementation ResponseBeanOrderNum
+@implementation ResponseBeanNewGoods
 
 - (BOOL)checkSuccess{
     if (self.success) {
@@ -38,9 +34,5 @@
 }
 
 @end
-
-
-
-
 
 

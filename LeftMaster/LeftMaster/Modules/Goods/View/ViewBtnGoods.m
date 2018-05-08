@@ -27,6 +27,12 @@
         _ivCart.image = [UIImage imageNamed:@"classification-icon_Shopping-Cart"];
         _ivCart.userInteractionEnabled = YES;
         [self addSubview:_ivCart];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+            if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+                [self.delegate clickActionWithIndex:2];
+            }
+        }];
+        [_ivCart addGestureRecognizer:tap];
         
         _lbCount = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbCount.font = [UIFont systemFontOfSize:8*RATIO_WIDHT320];
@@ -36,7 +42,15 @@
         _lbCount.layer.cornerRadius = 5*RATIO_WIDHT320;
         _lbCount.layer.masksToBounds = YES;
         _lbCount.textAlignment = NSTextAlignmentCenter;
+        _lbCount.userInteractionEnabled = TRUE;
         [self addSubview:_lbCount];
+        
+        UITapGestureRecognizer *tapTwo = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+            if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
+                [self.delegate clickActionWithIndex:2];
+            }
+        }];
+        [_lbCount addGestureRecognizer:tapTwo];
         
         _btnJoinCart = [[UIButton alloc]initWithFrame:CGRectZero];
         [_btnJoinCart setTitle:@"加入购物车" forState:UIControlStateNormal];

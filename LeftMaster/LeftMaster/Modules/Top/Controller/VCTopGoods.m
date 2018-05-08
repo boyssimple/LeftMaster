@@ -147,6 +147,7 @@
     AlwaysBuyGoods *data = [self.goodsList objectAtIndex:indexPath.row];
     VCGoods *vc = [[VCGoods alloc]init];
     vc.goods_id = data.GOODS_ID;
+    vc.hidesBottomBarWhenPushed = TRUE;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -166,17 +166,25 @@
         }else{
             self.lbStatus.text = @" | 库存不足";
         }
-        self.lbPrice.text = [NSString stringWithFormat:@"￥%.2f/%@",[data jk_floatForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];//@"¥???.00/瓶";
-        
+        NSInteger count = 1;
+        if ([data jk_floatForKey:@"GOODS_PRICE"] == 0) {
+            self.lbPrice.text = [NSString stringWithFormat:@"¥?/%@",[data jk_stringForKey:@"GOODS_UNIT"]];
+        }else{
+            self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",[data jk_floatForKey:@"GOODS_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
+            count = [NSString stringWithFormat:@"%.2f",[data jk_floatForKey:@"GOODS_PRICE"]].length - 2;
+        }
         NSInteger length = [data jk_stringForKey:@"GOODS_UNIT"].length + 1;
-        NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
-        // 改变颜色
-        [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-length)];
-        
-        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(0, 1)];
-        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20*RATIO_WIDHT320] range:NSMakeRange(1, self.lbPrice.text.length - 5)];
-        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length - (length+2), length+2)];
-        [self.lbPrice setAttributedText:noteStr];
+        if (self.lbPrice.text.length > 0) {
+            
+            NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:self.lbPrice.text];
+            // 改变颜色
+            [noteStr addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbPrice.text.length-length)];
+            
+            [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(0, 1)];
+            [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20*RATIO_WIDHT320] range:NSMakeRange(1, count)];
+            [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length - length, length)];
+            [self.lbPrice setAttributedText:noteStr];
+        }
     }
 }
 

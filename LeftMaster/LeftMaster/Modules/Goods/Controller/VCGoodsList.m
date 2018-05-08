@@ -15,8 +15,9 @@
 #import "ViewOrderRecGoodsList.h"
 #import "RequestBeanQueryCartNum.h"
 #import "RequestBeanAddCart.h"
+#import "VCSingleCart.h"
 
-@interface VCGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate,
+@interface VCGoodsList ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate,
         ViewOrderRecGoodsListDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
@@ -178,7 +179,6 @@
     CellRecGoodsList *cell = (CellRecGoodsList*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[CellRecGoodsList alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.delegate = self;
         cell.joinCartDelegate = self;
     }
     cell.index = indexPath.row;
@@ -248,10 +248,6 @@
     [self showDetailViewController:scanner sender:nil];
 }
 
-#pragma mark - CommonDelegate
-- (void)clickActionWithIndex:(NSInteger)index{
-    
-}
 
 #pragma mark - CellRecGoodsListDelegate
 - (void)joinCartClick:(NSInteger)index withNum:(NSInteger)num{
@@ -269,6 +265,16 @@
         self.price_order = state;
     }
     [self loadData];
+}
+
+#pragma mark CommanDelegate
+- (void)clickActionWithIndex:(NSInteger)index{
+    if(index == 0){
+        [self clickQR];
+    }else{
+        VCSingleCart *vc = [[VCSingleCart alloc]init];
+        [self.navigationController pushViewController:vc animated:TRUE];
+    }
 }
 
 - (ViewCategory*)vCart{

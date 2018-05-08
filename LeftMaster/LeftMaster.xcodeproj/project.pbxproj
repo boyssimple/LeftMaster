@@ -117,6 +117,8 @@
 		1CD8483E206F7ADA00CC9BE9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD8483D206F7ADA00CC9BE9 /* main.m */; };
 		1CD84848206F7ADA00CC9BE9 /* LeftMasterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD84847206F7ADA00CC9BE9 /* LeftMasterTests.m */; };
 		1CD84853206F7ADA00CC9BE9 /* LeftMasterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD84852206F7ADA00CC9BE9 /* LeftMasterUITests.m */; };
+		1CF3C91F20A1D17C0036BD6D /* RequestBeanNewGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3C91E20A1D17C0036BD6D /* RequestBeanNewGoods.m */; };
+		1CF3C92220A1E21B0036BD6D /* VCSingleCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3C92120A1E21B0036BD6D /* VCSingleCart.m */; };
 		1CFC00C52087124B00A8E344 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC00C42087124A00A8E344 /* NetworkManager.m */; };
 		1CFC011520898D8200A8E344 /* VCOrderCheckAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC011420898D8200A8E344 /* VCOrderCheckAccount.m */; };
 		1CFC01182089D5A200A8E344 /* VCForgotPwdFinish.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC01172089D5A200A8E344 /* VCForgotPwdFinish.m */; };
@@ -396,6 +398,10 @@
 		1CD8484E206F7ADA00CC9BE9 /* LeftMasterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeftMasterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD84852206F7ADA00CC9BE9 /* LeftMasterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftMasterUITests.m; sourceTree = "<group>"; };
 		1CD84854206F7ADA00CC9BE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CF3C91D20A1D17C0036BD6D /* RequestBeanNewGoods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanNewGoods.h; sourceTree = "<group>"; };
+		1CF3C91E20A1D17C0036BD6D /* RequestBeanNewGoods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanNewGoods.m; sourceTree = "<group>"; };
+		1CF3C92020A1E21B0036BD6D /* VCSingleCart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCSingleCart.h; sourceTree = "<group>"; };
+		1CF3C92120A1E21B0036BD6D /* VCSingleCart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCSingleCart.m; sourceTree = "<group>"; };
 		1CFC00C32087124A00A8E344 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		1CFC00C42087124A00A8E344 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		1CFC011320898D8200A8E344 /* VCOrderCheckAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCOrderCheckAccount.h; sourceTree = "<group>"; };
@@ -785,6 +791,8 @@
 				1C4C155F2088F78200BA8F3C /* RequestBeanCarouseList.m */,
 				1C4C15612088FADD00BA8F3C /* RequestBeanSlidePicList.h */,
 				1C4C15622088FADD00BA8F3C /* RequestBeanSlidePicList.m */,
+				1CF3C91D20A1D17C0036BD6D /* RequestBeanNewGoods.h */,
+				1CF3C91E20A1D17C0036BD6D /* RequestBeanNewGoods.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1036,6 +1044,8 @@
 				1C4CC27820724F50007C24FB /* VCGoods.m */,
 				1CFC7AD9208E1518005F18AB /* VCSearchGoodsList.h */,
 				1CFC7ADA208E1518005F18AB /* VCSearchGoodsList.m */,
+				1CF3C92020A1E21B0036BD6D /* VCSingleCart.h */,
+				1CF3C92120A1E21B0036BD6D /* VCSingleCart.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1305,6 +1315,7 @@
 				1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */,
 				1CBF1DEA20910B570090BD96 /* RequestBeanCheckData.m in Sources */,
 				1C780ED6207E067400054AE1 /* VCRecGoodsList.m in Sources */,
+				1CF3C92220A1E21B0036BD6D /* VCSingleCart.m in Sources */,
 				1CBF1DC62090C5370090BD96 /* RequestBeanBillOrg.m in Sources */,
 				1CFC011E2089E13F00A8E344 /* RequestBeanSms.m in Sources */,
 				1CFC7AE1208E1EDC005F18AB /* CellSearchGoodsList.m in Sources */,
@@ -1344,6 +1355,7 @@
 				1CFC7ABB208C7796005F18AB /* ViewSearchWithHome.m in Sources */,
 				1CBF1DE7209109010090BD96 /* ViewOrderCheckAccount.m in Sources */,
 				1CFC7ADB208E1518005F18AB /* VCSearchGoodsList.m in Sources */,
+				1CF3C91F20A1D17C0036BD6D /* RequestBeanNewGoods.m in Sources */,
 				1CFC7AEA208E3242005F18AB /* VCUnSend.m in Sources */,
 				1CBF5BB420787A1600284EA1 /* ViewGoodsList.m in Sources */,
 				1CBF1DCF2090CB7B0090BD96 /* Custom.m in Sources */,

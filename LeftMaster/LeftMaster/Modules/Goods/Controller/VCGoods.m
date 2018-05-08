@@ -16,6 +16,7 @@
 #import "VCWriteOrder.h"
 #import "RequestBeanQueryCartNum.h"
 #import "CartGoods.h"
+#import "VCSingleCart.h"
 
 @interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,ViewHeaderGoodsDelegate,CommonDelegate,
         UIWebViewDelegate,ViewHeaderGoodsDelegate>
@@ -261,8 +262,11 @@
                 if (index == 0) {
                     //调用加入购物车接口
                     [self addCart];
-                }else{
+                }else if(index == 1){
                     [self addOrder];
+                }else{
+                    VCSingleCart *vc = [[VCSingleCart alloc]init];
+                    [self.navigationController pushViewController:vc animated:TRUE];
                 }
             }
         }

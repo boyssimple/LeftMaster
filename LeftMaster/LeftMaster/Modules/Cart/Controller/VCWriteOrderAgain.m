@@ -243,7 +243,8 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
     if(index == 0){
-        [self refreshCustom];
+        //暂不能选
+//        [self refreshCustom];
     }else if(index == 1){
         self.isBill = TRUE;
     }else{

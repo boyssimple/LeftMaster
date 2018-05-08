@@ -16,8 +16,10 @@
 #import "ViewOrderRecGoodsList.h"
 #import "RequestBeanQueryCartNum.h"
 #import "RequestBeanAddCart.h"
+#import "RequestBeanNewGoods.h"
+#import "VCSingleCart.h"
 
-@interface VCRecGoodsList ()<UITableViewDelegate,UITableViewDataSource,ViewCategoryDelegate,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate,
+@interface VCRecGoodsList ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate,
         ViewOrderRecGoodsListDelegate>
 @property(nonatomic,strong)ViewCategory *vCart;
 @property(nonatomic,strong)UITableView *table;
@@ -59,24 +61,34 @@
 
 
 - (void)loadData{
-    RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
-    requestBean.new_goods = TRUE;
-    requestBean.page_current = self.page;
-    requestBean.page_size = 10;
-    requestBean.cus_id = [AppUser share].CUS_ID;
-    requestBean.company_id = [AppUser share].SYSUSER_COMPANYID;
+     RequestBeanNewGoods *requestBean = [RequestBeanNewGoods new];
+     requestBean.cus_id = [AppUser share].CUS_ID;
+     requestBean.company_id = [AppUser share].SYSUSER_COMPANYID;
+     requestBean.page_current = 1;
+     requestBean.page_size = 10;
+
+//    RequestBeanGoodsList *requestBean = [RequestBeanGoodsList new];
+//    requestBean.new_goods = TRUE;
+//    requestBean.page_current = self.page;
+//    requestBean.page_size = 10;
+//    requestBean.cus_id = [AppUser share].CUS_ID;
+//    requestBean.company_id = [AppUser share].SYSUSER_COMPANYID;
+//
     
-    
-    if (self.comp_order) {
-        requestBean.comp_order = @"asc";
-    }else{
-        requestBean.comp_order = @"desc";
-    }
+//    if (self.comp_order) {
+//        requestBean.comp_order = @"asc";
+//    }else{
+//        requestBean.comp_order = @"desc";
+//    }
     
     if (self.price_order) {
         requestBean.price_order = @"asc";
     }else{
         requestBean.price_order = @"desc";
+    }
+    
+    if (self.keywords.length) {
+        requestBean.search_name = self.keywords;
     }
     
     [Utils showHanding:requestBean.hubTips with:self.view];
@@ -173,7 +185,6 @@
     CellRecGoodsList *cell = (CellRecGoodsList*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[CellRecGoodsList alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.delegate = self;
         cell.joinCartDelegate = self;
     }
     NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
@@ -244,10 +255,14 @@
 
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
-    if (index == 0) {
-        [Utils showSuccessToast:@"加入购物车成功" with:self.view withTime:1];
+    if(index == 0){
+        [self clickQR];
+    }else{
+        VCSingleCart *vc = [[VCSingleCart alloc]init];
+        [self.navigationController pushViewController:vc animated:TRUE];
     }
 }
+
 
 #pragma mark - CellRecGoodsListDelegate
 - (void)joinCartClick:(NSInteger)index withNum:(NSInteger)num{

@@ -43,6 +43,7 @@
 #define net_order_send_info @"shop/OrderMobileTran.do?queryOrderSendInfo"       //发货单
 #define net_order_check_data @"shop/CustomerInfoMobileTran.do?getCustomerBalanceDataByCusId"       //订单对帐
 #define net_order_query_num @"shop/OrderMobileTran.do?queryMyOrderNum"       //订单数量
+#define net_goods_new_list @"shop/GoodsMobileTran.do?getGoodsList"       //推荐新品
 
 
 
