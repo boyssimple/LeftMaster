@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CellInvoice : UITableViewCell
+@property(nonatomic,assign)NSInteger status;
 - (void)updateData:(NSDictionary*)data;
+
++ (CGFloat)calHeight:(NSInteger)status;
 @end

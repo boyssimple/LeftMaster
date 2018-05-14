@@ -150,6 +150,9 @@
 		1CFC7AFF208F639D005F18AB /* WindowCancelOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7AFE208F639D005F18AB /* WindowCancelOrder.m */; };
 		1CFC7B02208F6D82005F18AB /* CellCancelOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7B01208F6D82005F18AB /* CellCancelOrder.m */; };
 		1CFC7B05208F7268005F18AB /* ViewHeaderCancelOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC7B04208F7268005F18AB /* ViewHeaderCancelOrder.m */; };
+		1CFFF5C420A9B3A500A52675 /* TopViewControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFF5C320A9B3A500A52675 /* TopViewControl.m */; };
+		1CFFF5C720A9CA4C00A52675 /* RequestBeanAddBatchCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFF5C620A9CA4C00A52675 /* RequestBeanAddBatchCart.m */; };
+		1CFFF5CA20A9E0B000A52675 /* RequestBeanSetCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFF5C920A9E0B000A52675 /* RequestBeanSetCart.m */; };
 		2B895C9453BC2156E84708D8 /* libPods-LeftMasterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */; };
 		3A4070F4294A75D927F8DE16 /* libPods-LeftMaster.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6D5F1023D6EE6D2E86C12D /* libPods-LeftMaster.a */; };
 		FAC9E06F974DFC888DA9565A /* libPods-LeftMasterUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA40ACE1D19B7764658663D5 /* libPods-LeftMasterUITests.a */; };
@@ -463,6 +466,12 @@
 		1CFC7B01208F6D82005F18AB /* CellCancelOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellCancelOrder.m; sourceTree = "<group>"; };
 		1CFC7B03208F7268005F18AB /* ViewHeaderCancelOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewHeaderCancelOrder.h; sourceTree = "<group>"; };
 		1CFC7B04208F7268005F18AB /* ViewHeaderCancelOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewHeaderCancelOrder.m; sourceTree = "<group>"; };
+		1CFFF5C220A9B3A500A52675 /* TopViewControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopViewControl.h; sourceTree = "<group>"; };
+		1CFFF5C320A9B3A500A52675 /* TopViewControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopViewControl.m; sourceTree = "<group>"; };
+		1CFFF5C520A9CA4C00A52675 /* RequestBeanAddBatchCart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanAddBatchCart.h; sourceTree = "<group>"; };
+		1CFFF5C620A9CA4C00A52675 /* RequestBeanAddBatchCart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanAddBatchCart.m; sourceTree = "<group>"; };
+		1CFFF5C820A9E0B000A52675 /* RequestBeanSetCart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanSetCart.h; sourceTree = "<group>"; };
+		1CFFF5C920A9E0B000A52675 /* RequestBeanSetCart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanSetCart.m; sourceTree = "<group>"; };
 		2F65A9A6DF6B497D050E471D /* Pods-LeftMaster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMaster.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMaster/Pods-LeftMaster.debug.xcconfig"; sourceTree = "<group>"; };
 		699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeftMasterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D66D73565FFAFED45449DF /* Pods-LeftMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMasterTests/Pods-LeftMasterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -548,6 +557,8 @@
 			children = (
 				1CBF5BEB207CE71600284EA1 /* CellTopGoods.h */,
 				1CBF5BEC207CE71600284EA1 /* CellTopGoods.m */,
+				1CFFF5C220A9B3A500A52675 /* TopViewControl.h */,
+				1CFFF5C320A9B3A500A52675 /* TopViewControl.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -568,6 +579,8 @@
 				1C780EC2207DF1E900054AE1 /* RequestBeanAlwaysBuyGoods.m */,
 				1CBF1DEE20913D540090BD96 /* AlwaysBuyGoods.h */,
 				1CBF1DEF20913D540090BD96 /* AlwaysBuyGoods.m */,
+				1CFFF5C520A9CA4C00A52675 /* RequestBeanAddBatchCart.h */,
+				1CFFF5C620A9CA4C00A52675 /* RequestBeanAddBatchCart.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -591,6 +604,8 @@
 				1CBF1DCE2090CB7B0090BD96 /* Custom.m */,
 				1CBF1DEB2091135C0090BD96 /* RequestBeanAddOrder.h */,
 				1CBF1DEC2091135C0090BD96 /* RequestBeanAddOrder.m */,
+				1CFFF5C820A9E0B000A52675 /* RequestBeanSetCart.h */,
+				1CFFF5C920A9E0B000A52675 /* RequestBeanSetCart.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1328,8 +1343,10 @@
 				1CBF1DB4208F8A310090BD96 /* RequestBeanSignOrder.m in Sources */,
 				1C4CC28E207266D5007C24FB /* SectionHeaderHome.m in Sources */,
 				1C8A2E2A207867740076238D /* CollCellCategory.m in Sources */,
+				1CFFF5C420A9B3A500A52675 /* TopViewControl.m in Sources */,
 				1C8A2E3D207875BD0076238D /* HMScannerMaskView.m in Sources */,
 				1CFC7AC6208CCA1C005F18AB /* CellSetting.m in Sources */,
+				1CFFF5CA20A9E0B000A52675 /* RequestBeanSetCart.m in Sources */,
 				1C4CC29D207277AF007C24FB /* CollCellNewHome.m in Sources */,
 				1CBF5BC0207A46AE00284EA1 /* ViewHeaderMine.m in Sources */,
 				1CBF5BE7207CE23B00284EA1 /* CellProxy.m in Sources */,
@@ -1410,6 +1427,7 @@
 				1C8A2E41207875BD0076238D /* HMScanerCardViewController.m in Sources */,
 				1CBF1DC92090C79E0090BD96 /* WindowCustom.m in Sources */,
 				1CBF1DAE208F7A040090BD96 /* Reason.m in Sources */,
+				1CFFF5C720A9CA4C00A52675 /* RequestBeanAddBatchCart.m in Sources */,
 				1CBF5C17207E3DB800284EA1 /* ViewBtnRecGoodsList.m in Sources */,
 				1CBF5C05207D0AAE00284EA1 /* ViewBtnGoods.m in Sources */,
 				1CFC7ACF208CD526005F18AB /* CellAttrGoods.m in Sources */,

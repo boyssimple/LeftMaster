@@ -10,4 +10,5 @@
 
 @interface VCInvoice : VCBase
 @property(nonatomic,strong)NSString *orderId;
+@property(nonatomic,assign)NSInteger status;
 @end

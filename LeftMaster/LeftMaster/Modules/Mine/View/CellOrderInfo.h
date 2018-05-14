@@ -10,4 +10,5 @@
 
 @interface CellOrderInfo : UITableViewCell
 - (void)updateData:(NSDictionary*)data;
++ (CGFloat)calHeight:(NSDictionary*)data;
 @end

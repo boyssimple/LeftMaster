@@ -16,9 +16,21 @@
 //发货单号
 @property (nonatomic, strong) UILabel *lbNo;
 @property (nonatomic, strong) UILabel *lbNoText;
-//发货数量
+//订单数量
 @property (nonatomic, strong) UILabel *lbCount;
 @property (nonatomic, strong) UILabel *lbCountText;
+
+
+//已货数量
+@property (nonatomic, strong) UILabel *lbSendCount;
+@property (nonatomic, strong) UILabel *lbSendCountText;
+
+
+//未货数量
+@property (nonatomic, strong) UILabel *lbUnSendCount;
+@property (nonatomic, strong) UILabel *lbUnSendCountText;
+
+
 //发货时间
 @property (nonatomic, strong) UILabel *lbSendDate;
 @property (nonatomic, strong) UILabel *lbSendDateText;
@@ -84,6 +96,32 @@
         [self.contentView addSubview:_lbCountText];
         
         
+        
+        
+        _lbSendCount = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbSendCount.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbSendCount.textColor = APP_BLACK_COLOR;
+        _lbSendCount.text = @"已发数量：";
+        [self.contentView addSubview:_lbSendCount];
+        
+        _lbSendCountText = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbSendCountText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbSendCountText.textColor = APP_COLOR;
+        [self.contentView addSubview:_lbSendCountText];
+        
+        
+        _lbUnSendCount = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbUnSendCount.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbUnSendCount.textColor = APP_BLACK_COLOR;
+        _lbUnSendCount.text = @"未发数量：";
+        [self.contentView addSubview:_lbUnSendCount];
+        
+        _lbUnSendCountText = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbUnSendCountText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbUnSendCountText.textColor = APP_COLOR;
+        [self.contentView addSubview:_lbUnSendCountText];
+        
+        
         _lbSendDate = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbSendDate.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbSendDate.textColor = APP_BLACK_COLOR;
@@ -137,11 +175,30 @@
 - (void)updateData:(NSDictionary*)data{
     self.lbNameText.text = [data jk_stringForKey:@"GOODS_NAME"];
     self.lbNoText.text = [data jk_stringForKey:@"FD_NO"];
-    self.lbCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_SEND_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
+    self.lbCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_TOTAL_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
+    self.lbSendCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_SEND_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
+    self.lbUnSendCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_REMAIN_SEND_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
     self.lbSendDateText.text = [data jk_stringForKey:@"FD_SEND_DATE"];
     self.lbSenderText.text = [data jk_stringForKey:@"FD_REC_USER"];
     self.lbReceivePhoneText.text = [data jk_stringForKey:@"FD_REC_TEL"];
     self.lbArriveDateText.text = [data jk_stringForKey:@"FD_ARRI_TIME_EXP"];
+    
+    
+    //订单状态(待确认:0,待审核:1,待发货:2,待收货:3,已完成:4,审核不通过:5,订单取消:6)
+    if (self.status == 3 || self.status == 4) {
+        self.lbSendCount.hidden = NO;
+        self.lbSendCountText.hidden = NO;
+        
+        self.lbUnSendCount.hidden = NO;
+        self.lbUnSendCountText.hidden = NO;
+    }else{
+        self.lbSendCount.hidden = YES;
+        self.lbSendCountText.hidden = YES;
+        
+        self.lbUnSendCount.hidden = YES;
+        self.lbUnSendCountText.hidden = YES;
+        
+    }
 }
 
 - (void)updateData{
@@ -213,11 +270,59 @@
     self.lbCountText.frame = r;
     
     
+    size = [self.lbCount sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbCount.frame;
+    r.size = size;
+    r.origin.x = self.lbName.left;
+    r.origin.y = self.lbNo.bottom + 10*RATIO_WIDHT320;
+    self.lbCount.frame = r;
+    
+    r = self.lbCountText.frame;
+    r.size.width = DEVICEWIDTH - self.lbCount.right - 10*RATIO_WIDHT320;
+    r.size.height = self.lbCount.height;
+    r.origin.x = self.lbCount.right;
+    r.origin.y = self.lbCount.top;
+    self.lbCountText.frame = r;
+    
+    size = [self.lbSendCount sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbSendCount.frame;
+    r.size = size;
+    r.origin.x = self.lbName.left;
+    r.origin.y = self.lbCount.bottom + 10*RATIO_WIDHT320;
+    self.lbSendCount.frame = r;
+    
+    r = self.lbSendCountText.frame;
+    r.size.width = DEVICEWIDTH - self.lbSendCount.right - 10*RATIO_WIDHT320;
+    r.size.height = self.lbSendCount.height;
+    r.origin.x = self.lbSendCount.right;
+    r.origin.y = self.lbSendCount.top;
+    self.lbSendCountText.frame = r;
+    
+    size = [self.lbUnSendCount sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbUnSendCount.frame;
+    r.size = size;
+    r.origin.x = self.lbName.left;
+    r.origin.y = self.lbSendCount.bottom + 10*RATIO_WIDHT320;
+    self.lbUnSendCount.frame = r;
+    
+    r = self.lbUnSendCountText.frame;
+    r.size.width = DEVICEWIDTH - self.lbUnSendCount.right - 10*RATIO_WIDHT320;
+    r.size.height = self.lbUnSendCount.height;
+    r.origin.x = self.lbUnSendCount.right;
+    r.origin.y = self.lbUnSendCount.top;
+    self.lbUnSendCountText.frame = r;
+    
+    CGFloat y = self.lbCount.bottom;
+    
+    if (self.status == 3 || self.status == 4) {
+        y = self.lbUnSendCount.bottom;
+    }
+    
     size = [self.lbSendDate sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     r = self.lbSendDate.frame;
     r.size = size;
     r.origin.x = self.lbName.left;
-    r.origin.y = self.lbCount.bottom + 10*RATIO_WIDHT320;
+    r.origin.y = y + 10*RATIO_WIDHT320;
     self.lbSendDate.frame = r;
     
     r = self.lbSendDateText.frame;
@@ -273,12 +378,17 @@
     self.lbArriveDateText.frame = r;
 }
 
-+ (CGFloat)calHeight{
++ (CGFloat)calHeight:(NSInteger)status{
     CGFloat height = 36*RATIO_WIDHT320 + 0.5 + 30*RATIO_WIDHT320;
     UILabel *lb = [[UILabel alloc]initWithFrame:CGRectZero];
     lb.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
     lb.text = @"内容：";
-    height += [lb sizeThatFits:CGSizeMake(DEVICEWIDTH, MAXFLOAT)].height * 7 + 6*10*RATIO_WIDHT320;
+    CGFloat h =[lb sizeThatFits:CGSizeMake(DEVICEWIDTH, MAXFLOAT)].height;
+    height +=  h * 7 + 6*10*RATIO_WIDHT320;
+    
+    if (status == 3 || status == 4) {
+        height += h + 10*RATIO_WIDHT320;
+    }
     
     return height;
 }

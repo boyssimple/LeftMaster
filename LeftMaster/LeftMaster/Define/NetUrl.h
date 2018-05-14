@@ -17,6 +17,10 @@
 #define net_user_customer @"shop/CustomerInfoMobileTran.do?getUserCustomer"   //当前业务员列表
 #define net_user_cart_list @"system/UserMobileTran.do?queryMyCar"              //获取购物车
 #define net_user_cart_add @"system/UserMobileTran.do?addGoodsToMyCar"              //添加购物车
+#define net_user_cart_batch_add @"system/UserMobileTran.do?addGoodsToMyCarBatch"              //批量加入购物车
+#define net_user_cart_setup @"system/UserMobileTran.do?setMyCarGoodsNum"              //设置购物车
+
+
 #define net_user_cart_del @"system/UserMobileTran.do?deleteGoodsFromMyCar"              //删除购物车
 #define net_user_msg @"system/UserMobileTran.do?queryMessagesUnreadNum"              //获取消息
 #define net_user_msg_list @"system/UserMobileTran.do?queryMessages"              //获取消息列表

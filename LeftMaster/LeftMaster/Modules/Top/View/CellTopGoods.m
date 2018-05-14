@@ -19,7 +19,7 @@
 @property(nonatomic,strong)UIView *vLine;
 @property(nonatomic,strong)UIButton *btnMinus;
 @property(nonatomic,strong)UIButton *btnAdd;
-@property(nonatomic,strong)UILabel *lbCount;
+@property(nonatomic,strong)UITextField *tfCount;
 
 @end
 @implementation CellTopGoods
@@ -90,18 +90,37 @@
         [_btnAdd addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         [_vCountBg addSubview:_btnAdd];
         
-        _lbCount = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbCount.font = [UIFont boldSystemFontOfSize:12*RATIO_WIDHT320];
-        _lbCount.textColor = RGB(0, 0, 0);
-        _lbCount.textAlignment = NSTextAlignmentCenter;
-        _lbCount.text = @"1";
-        [_vCountBg addSubview:_lbCount];
+        _tfCount = [[UITextField alloc]initWithFrame:CGRectZero];
+        _tfCount.font = [UIFont boldSystemFontOfSize:12*RATIO_WIDHT320];
+        _tfCount.textColor = RGB(0, 0, 0);
+        _tfCount.textAlignment = NSTextAlignmentCenter;
+        _tfCount.text = @"1";
+        _tfCount.keyboardType = UIKeyboardTypeNumberPad;
+        [_tfCount addTarget:self action:@selector(contextChange:) forControlEvents:UIControlEventEditingChanged];
+        [_vCountBg addSubview:_tfCount];
         
         _vLine = [[UIView alloc]initWithFrame:CGRectZero];
         _vLine.backgroundColor = RGB3(245);
         [self.contentView addSubview:_vLine];
     }
     return self;
+}
+
+- (void)contextChange:(UITextField*)textField{
+    NSString *text = textField.text ;
+    NSInteger count = 0;
+    if (text) {
+        count = [text integerValue];
+    }
+    if (count > 1) {
+        [self.btnMinus setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }else{
+        [self.btnMinus setTitleColor:RGB3(197) forState:UIControlStateNormal];
+    }
+    if([self.cellDelegate respondsToSelector:@selector(inputCount:withDataIndex:)]){
+        [self.cellDelegate inputCount:count withDataIndex:self.index];
+    }
+    
 }
 
 - (void)updateData:(AlwaysBuyGoods*)data{
@@ -117,7 +136,7 @@
             self.lbStatus.text = @" | 库存不足";
         }
         
-        self.lbCount.text = [NSString stringWithFormat:@"%zi",data.Num];
+        self.tfCount.text = [NSString stringWithFormat:@"%zi",data.Num];
         
         if (data.GOODS_PRICE == 0) {
             self.lbPrice.text = [NSString stringWithFormat:@"¥?/%@",data.GOODS_UNIT];
@@ -160,11 +179,11 @@
             [self.delegate clickActionWithIndex:tag-100 withDataIndex:self.index];
         }
     }else if(tag == 101){
-        NSString *str = self.lbCount.text;
+        NSString *str = self.tfCount.text;
         if ([str integerValue] > 1) {
             NSInteger c = [str integerValue];
             if(c > 1){
-                self.lbCount.text = [NSString stringWithFormat:@"%zi",c-1];
+                self.tfCount.text = [NSString stringWithFormat:@"%zi",c-1];
                 
                 if([self.delegate respondsToSelector:@selector(clickActionWithIndex: withDataIndex:)]){
                     [self.delegate clickActionWithIndex:tag-100 withDataIndex:self.index];
@@ -176,9 +195,9 @@
             }
         }
     }else if(tag == 102){
-        NSString *str = self.lbCount.text;
+        NSString *str = self.tfCount.text;
         NSInteger c = [str integerValue]+1;
-        self.lbCount.text = [NSString stringWithFormat:@"%zi",c];
+        self.tfCount.text = [NSString stringWithFormat:@"%zi",c];
         if (c > 1) {
             [self.btnMinus setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
@@ -257,12 +276,12 @@
     r.origin.y = 0;
     self.btnAdd.frame = r;
     
-    r = self.lbCount.frame;
+    r = self.tfCount.frame;
     r.size.width = 40*RATIO_WIDHT320;
     r.size.height = self.vCountBg.height;
     r.origin.x = self.btnMinus.right;
     r.origin.y = 0;
-    self.lbCount.frame = r;
+    self.tfCount.frame = r;
     
     r = self.vLine.frame;
     r.size.width = DEVICEWIDTH;

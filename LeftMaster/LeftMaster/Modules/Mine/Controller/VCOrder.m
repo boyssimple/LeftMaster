@@ -63,7 +63,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0){
-        return [CellOrderInfo calHeight];
+        return [CellOrderInfo calHeight:self.data];
     }
     if(!self.data){
         return 0;
@@ -129,6 +129,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
             VCInvoice *vc = [[VCInvoice alloc]init];
             vc.orderId = weakself.orderId;
+            vc.status = [weakself.data jk_integerForKey:@"FD_ORDER_STATUS"];
             [weakself.navigationController pushViewController:vc animated:YES];
         }];
         [header addGestureRecognizer:tap];

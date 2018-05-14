@@ -186,6 +186,7 @@
     if (!cell) {
         cell = [[CellRecGoodsList alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.joinCartDelegate = self;
+        cell.vc = self;
     }
     NSDictionary *data = [self.goodsList objectAtIndex:indexPath.row];
     [cell updateData:data];
@@ -223,6 +224,7 @@
     vc.goods_id = [data jk_stringForKey:@"GOODS_ID"];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self.view endEditing:YES];

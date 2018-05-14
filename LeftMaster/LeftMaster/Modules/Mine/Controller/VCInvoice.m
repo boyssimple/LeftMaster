@@ -59,7 +59,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [CellInvoice calHeight];
+    return [CellInvoice calHeight:self.status];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -70,6 +70,7 @@
         cell = [[CellInvoice alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
+    cell.status = self.status;
     [cell updateData:data];
     return cell;
 }

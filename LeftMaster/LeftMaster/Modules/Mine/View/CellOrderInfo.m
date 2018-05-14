@@ -17,6 +17,10 @@
 @property(nonatomic,strong)UILabel *lbOrderOrderNoText;
 @property(nonatomic,strong)UILabel *lbOrderDate;
 @property(nonatomic,strong)UILabel *lbOrderDateText;
+
+
+@property(nonatomic,strong)UILabel *lbReason;
+@property(nonatomic,strong)UILabel *lbReasonText;
 @end
 @implementation CellOrderInfo
 
@@ -69,6 +73,17 @@
         _lbOrderDateText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbOrderDateText.textColor = RGB(0, 0, 0);
         [self.contentView addSubview:_lbOrderDateText];
+        
+        _lbReason = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbReason.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbReason.textColor = RGB(0, 0, 0);
+        _lbReason.text = @"取消原因：";
+        [self.contentView addSubview:_lbReason];
+        
+        _lbReasonText = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbReasonText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbReasonText.textColor = RGB(0, 0, 0);
+        [self.contentView addSubview:_lbReasonText];
     }
     return self;
 }
@@ -78,6 +93,14 @@
     self.lbOrderAmountText.text = [NSString stringWithFormat:@"¥%.2f",[data jk_floatForKey:@"FD_TOTAL_PRICE"]];
     self.lbOrderOrderNoText.text = [data jk_stringForKey:@"FD_NO"];
     self.lbOrderDateText.text = [data jk_stringForKey:@"FD_ORDER_DATE"];
+    if ([data jk_integerForKey:@"FD_ORDER_STATUS"] == 6) {
+        self.lbReason.hidden = NO;
+        self.lbReasonText.hidden = NO;
+        self.lbReasonText.text = [data jk_stringForKey:@"FD_CANEL_REASON"];
+    }else{
+        self.lbReason.hidden = YES;
+        self.lbReasonText.hidden = YES;
+    }
 }
 
 - (void)updateData{
@@ -148,15 +171,36 @@
     r.origin.y = self.lbOrderDate.top;
     r.size = size;
     self.lbOrderDateText.frame = r;
+    
+    
+    
+    size = [self.lbReason sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbReason.frame;
+    r.origin.x = 36*RATIO_WIDHT320;
+    r.origin.y = self.lbOrderDate.bottom + 10*RATIO_WIDHT320;
+    r.size = size;
+    self.lbReason.frame = r;
+    
+    size = [self.lbReasonText sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbReasonText.frame;
+    r.origin.x = self.lbReason.right;
+    r.origin.y = self.lbReason.top;
+    r.size = size;
+    self.lbReasonText.frame = r;
 }
 
-+ (CGFloat)calHeight{
++ (CGFloat)calHeight:(NSDictionary*)data{
     UILabel *lb = [[UILabel alloc]initWithFrame:CGRectZero];
     lb.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
     lb.text = @"订单状态：";
     CGSize size = [lb sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     
-    return size.height * 4 + 30*RATIO_WIDHT320 + 30*RATIO_WIDHT320;
+    CGFloat height = size.height * 4 + 30*RATIO_WIDHT320 + 30*RATIO_WIDHT320;
+    if ([data jk_integerForKey:@"FD_ORDER_STATUS"] == 6) {
+        height += size.height + 10*RATIO_WIDHT320;
+    }
+    
+    return height;
 }
 
 @end

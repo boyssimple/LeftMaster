@@ -20,7 +20,7 @@
 @property(nonatomic,strong)UIView *vLine;
 @property(nonatomic,strong)UIButton *btnMinus;
 @property(nonatomic,strong)UIButton *btnAdd;
-@property(nonatomic,strong)UILabel *lbCount;
+@property(nonatomic,strong)UITextField *tfCount;
 
 @end
 @implementation CellRecGoodsList
@@ -96,12 +96,14 @@
         [_btnAdd addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         [_vCountBg addSubview:_btnAdd];
         
-        _lbCount = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbCount.font = [UIFont boldSystemFontOfSize:12*RATIO_WIDHT320];
-        _lbCount.textColor = RGB(0, 0, 0);
-        _lbCount.textAlignment = NSTextAlignmentCenter;
-        _lbCount.text = @"1";
-        [_vCountBg addSubview:_lbCount];
+        _tfCount = [[UITextField alloc]initWithFrame:CGRectZero];
+        _tfCount.font = [UIFont boldSystemFontOfSize:12*RATIO_WIDHT320];
+        _tfCount.textColor = RGB(0, 0, 0);
+        _tfCount.textAlignment = NSTextAlignmentCenter;
+        _tfCount.text = @"1";
+        _tfCount.keyboardType = UIKeyboardTypeNumberPad;
+        [_tfCount addTarget:self action:@selector(contextChange:) forControlEvents:UIControlEventEditingChanged];
+        [_vCountBg addSubview:_tfCount];
         
         _vLine = [[UIView alloc]initWithFrame:CGRectZero];
         _vLine.backgroundColor = RGB3(245);
@@ -110,20 +112,47 @@
     return self;
 }
 
+
+- (void)contextChange:(UITextField*)textField{
+    NSString *text = textField.text ;
+    NSInteger count = 0;
+    if (text) {
+        count = [text integerValue];
+    }
+    if (count > 1) {
+        [self.btnMinus setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }else{
+        [self.btnMinus setTitleColor:RGB3(197) forState:UIControlStateNormal];
+    }
+    
+}
+
 - (void)clickAction:(UIButton*)sender{
     NSInteger tag = sender.tag;
     if (tag == 101) {
         sender.selected = !sender.selected;
     }else if(tag == 102){
-        if ([self.joinCartDelegate respondsToSelector:@selector(joinCartClick: withNum:)]) {
-            [self.joinCartDelegate joinCartClick:self.index withNum:[self.lbCount.text integerValue]];
+        [self.vc.view endEditing:TRUE];
+        NSString *str = self.tfCount.text;
+        NSInteger count = 0;
+        if (str) {
+            count = [str integerValue];
+        }
+        if (count > 0) {
+            if ([self.joinCartDelegate respondsToSelector:@selector(joinCartClick: withNum:)]) {
+                [self.joinCartDelegate joinCartClick:self.index withNum:[self.tfCount.text integerValue]];
+            }
+        }else{
+            self.tfCount.text = @"1";
+            [Utils showSuccessToast:@"数量最少1" with:self.vc.view withTime:1];
         }
     }else if(tag == 103){
-        NSString *str = self.lbCount.text;
+        [self.vc.view endEditing:TRUE];
+        NSString *str = self.tfCount.text;
         if ([str integerValue] > 1) {
             NSInteger c = [str integerValue];
             if(c > 1){
-                self.lbCount.text = [NSString stringWithFormat:@"%zi",c-1];
+                self.tfCount.text = [NSString stringWithFormat:@"%zi",c-1];
             }
             
             if(c-1 == 1){
@@ -131,9 +160,10 @@
             }
         }
     }else if(tag == 104){
-        NSString *str = self.lbCount.text;
+        [self.vc.view endEditing:TRUE];
+        NSString *str = self.tfCount.text;
         NSInteger c = [str integerValue]+1;
-        self.lbCount.text = [NSString stringWithFormat:@"%zi",c];
+        self.tfCount.text = [NSString stringWithFormat:@"%zi",c];
         if (c > 1) {
             [self.btnMinus setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
@@ -254,12 +284,12 @@
     r.origin.y = 0;
     self.btnAdd.frame = r;
     
-    r = self.lbCount.frame;
+    r = self.tfCount.frame;
     r.size.width = 40*RATIO_WIDHT320;
     r.size.height = self.vCountBg.height;
     r.origin.x = self.btnMinus.right;
     r.origin.y = 0;
-    self.lbCount.frame = r;
+    self.tfCount.frame = r;
     
     r = self.vLine.frame;
     r.size.width = DEVICEWIDTH;

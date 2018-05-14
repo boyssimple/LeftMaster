@@ -52,8 +52,11 @@
     lb.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
     lb.text = text;
     CGSize size = [lb sizeThatFits:CGSizeMake(DEVICEWIDTH - 73*RATIO_WIDHT320,MAXFLOAT)];
-    
-    return size.height + 30*RATIO_WIDHT320;
+    CGFloat height = size.height;
+    if (text && text.length > 0) {
+        height += 30*RATIO_WIDHT320;
+    }
+    return height;
 }
 
 @end

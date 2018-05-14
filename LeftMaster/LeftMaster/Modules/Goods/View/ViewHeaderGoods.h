@@ -12,6 +12,7 @@
 
 @interface ViewHeaderGoods : UIView
 @property (nonatomic, weak) id<ViewHeaderGoodsDelegate> delegate;
+@property(nonatomic,strong)UIViewController *vc;
 - (void)updateData:(NSDictionary*)data;
 + (CGFloat)calHeight:(NSDictionary*)data;
 @end
@@ -19,4 +20,5 @@
 @protocol ViewHeaderGoodsDelegate<NSObject>
 - (void)minusCount;
 - (void)addCount;
+- (void)inputCount:(NSInteger)count;
 @end

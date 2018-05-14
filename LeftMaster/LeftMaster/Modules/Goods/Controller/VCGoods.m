@@ -70,6 +70,10 @@
         [Utils showSuccessToast:@"没有库存" with:self.view withTime:1];
         return;
     }
+    if (self.count <= 0) {
+        [Utils showSuccessToast:@"数量应大于0" with:self.view withTime:1];
+        return;
+    }
     RequestBeanAddCart *requestBean = [RequestBeanAddCart new];
     requestBean.goods_id = self.goods_id;
     requestBean.num = self.count;
@@ -165,7 +169,7 @@
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             }else{
-                [Utils showSuccessToast:@"请选择商品" with:self.view withTime:0.8];
+                [Utils showSuccessToast:@"数量应大于0" with:self.view withTime:0.8];
             }
         }else{
             [Utils showSuccessToast:@"没有库存" with:self.view withTime:0.8];
@@ -238,6 +242,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.view endEditing:TRUE];
+}
+
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
     self.lbPicCount.text = [NSString stringWithFormat:@"%zi/%zi",index+1,self.cycleScrollView.imageURLStringsGroup.count];
@@ -250,6 +258,10 @@
 
 - (void)addCount{
     self.count++;
+}
+
+- (void)inputCount:(NSInteger)count{
+    self.count = count;
 }
 
 #pragma mark - CommonDelegate

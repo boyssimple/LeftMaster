@@ -16,8 +16,9 @@
 #import "CartGoods.h"
 #import "RequestBeanDelCart.h"
 #import "RequestBeanAddCart.h"
+#import "RequestBeanSetCart.h"
 
-@interface VCCart ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate,CommonDelegate,UIAlertViewDelegate>
+@interface VCCart ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate,CommonDelegate,UIAlertViewDelegate,CellCartDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewTotalCart *vControl;
 @property(nonatomic,strong)NSMutableArray *goodsList;
@@ -144,6 +145,29 @@
     }];
 }
 
+
+- (void)setCart:(NSString*)carId withAmount:(NSInteger)num{
+    RequestBeanSetCart *requestBean = [RequestBeanSetCart new];
+    requestBean.car_id = carId;
+    requestBean.num = num;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        
+        if (!err) {
+            // 结果处理
+            ResponseBeanAddCart *response = responseBean;
+            if (response.success) {
+                [Utils hiddenHanding:self.view withTime:0.3];
+            }else{
+                [Utils showSuccessToast:@"操作失败" with:weakself.view withTime:1];
+            }
+        }else{
+            [Utils showSuccessToast:@"操作失败" with:weakself.view withTime:1];
+        }
+    }];
+}
+
 - (void)handleDatas:(NSArray*)datas with:(NSInteger)size{
     if(self.page == 1){
         [self.goodsList removeAllObjects];
@@ -193,6 +217,7 @@
     if (!cell) {
         cell = [[CellCart alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.delegate = self;
+        cell.cellDelegate = self;
     }
     cell.index = indexPath.row;
     CartGoods *data = [self.goodsList objectAtIndex:indexPath.row];
@@ -283,12 +308,15 @@
         data.FD_NUM -= 1;
         [self.goodsList replaceObjectAtIndex:dataIndex withObject:data];
         [self calTotal];
+        
+        [self setCart:data.FD_ID withAmount:data.FD_NUM];
     }else{
         //加数量request
         CartGoods *data = [self.goodsList objectAtIndex:dataIndex];
         data.FD_NUM += 1;
         [self.goodsList replaceObjectAtIndex:dataIndex withObject:data];
         [self calTotal];
+        [self setCart:data.FD_ID withAmount:data.FD_NUM];
     }
 }
 
@@ -299,6 +327,21 @@
         [self delAction];
     }
 }
+
+
+#pragma mark - CellTopGoodsDelegate
+- (void)inputCount:(NSInteger)count withDataIndex:(NSInteger)index{
+    CartGoods *data = [self.goodsList objectAtIndex:index];
+    data.FD_NUM = count;
+    [self.goodsList replaceObjectAtIndex:index withObject:data];
+    [self calTotal];
+    [self setCart:data.FD_ID withAmount:data.FD_NUM];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.view endEditing:TRUE];
+}
+
 
 
 - (UITableView*)table{

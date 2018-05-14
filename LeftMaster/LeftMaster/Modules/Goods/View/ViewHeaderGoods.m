@@ -19,7 +19,7 @@
 @property(nonatomic,strong)UIView  *vCountBg;
 @property(nonatomic,strong)UIButton *btnMinus;
 @property(nonatomic,strong)UIButton *btnAdd;
-@property(nonatomic,strong)UILabel *lbCount;
+@property(nonatomic,strong)UITextField *tfCount;
 @property(nonatomic,strong)UIView  *vLine;
 @property(nonatomic,strong)UILabel *lbDetail;
 
@@ -99,12 +99,14 @@
         [_btnAdd addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         [_vCountBg addSubview:_btnAdd];
         
-        _lbCount = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbCount.font = [UIFont boldSystemFontOfSize:12*RATIO_WIDHT320];
-        _lbCount.textColor = RGB(0, 0, 0);
-        _lbCount.textAlignment = NSTextAlignmentCenter;
-        _lbCount.text = @"1";
-        [_vCountBg addSubview:_lbCount];
+        _tfCount = [[UITextField alloc]initWithFrame:CGRectZero];
+        _tfCount.font = [UIFont boldSystemFontOfSize:12*RATIO_WIDHT320];
+        _tfCount.textColor = RGB(0, 0, 0);
+        _tfCount.textAlignment = NSTextAlignmentCenter;
+        _tfCount.text = @"1";
+        _tfCount.keyboardType = UIKeyboardTypeNumberPad;
+        [_tfCount addTarget:self action:@selector(contextChange:) forControlEvents:UIControlEventEditingChanged];
+        [_vCountBg addSubview:_tfCount];
         
         _vLine = [[UIView alloc]initWithFrame:CGRectZero];
         _vLine.backgroundColor = RGB3(231);
@@ -119,6 +121,24 @@
     return self;
 }
 
+
+- (void)contextChange:(UITextField*)textField{
+    NSString *text = textField.text ;
+    NSInteger count = 0;
+    if (text) {
+        count = [text integerValue];
+    }
+    if (count > 1) {
+        [self.btnMinus setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }else{
+        [self.btnMinus setTitleColor:RGB3(197) forState:UIControlStateNormal];
+    }
+    
+    if([self.delegate respondsToSelector:@selector(inputCount:)]){
+        [self.delegate inputCount:count];
+    }
+    
+}
 - (void)clickAction:(UIButton*)sender{
     NSInteger tag = sender.tag;
     if (tag == 101) {
@@ -126,11 +146,11 @@
     }else if(tag == 102){
         
     }else if(tag == 103){
-        NSString *str = self.lbCount.text;
+        NSString *str = self.tfCount.text;
         if ([str integerValue] > 1) {
             NSInteger c = [str integerValue];
             if(c > 1){
-                self.lbCount.text = [NSString stringWithFormat:@"%zi",c-1];
+                self.tfCount.text = [NSString stringWithFormat:@"%zi",c-1];
                 if([self.delegate respondsToSelector:@selector(minusCount)]){
                     [self.delegate minusCount];
                 }
@@ -141,9 +161,9 @@
             }
         }
     }else if(tag == 104){
-        NSString *str = self.lbCount.text;
+        NSString *str = self.tfCount.text;
         NSInteger c = [str integerValue]+1;
-        self.lbCount.text = [NSString stringWithFormat:@"%zi",c];
+        self.tfCount.text = [NSString stringWithFormat:@"%zi",c];
         if (c > 1) {
             [self.btnMinus setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
@@ -288,12 +308,12 @@
     r.origin.y = 0;
     self.btnAdd.frame = r;
     
-    r = self.lbCount.frame;
+    r = self.tfCount.frame;
     r.size.width = 44*RATIO_WIDHT320;
     r.size.height = self.vCountBg.height;
     r.origin.x = self.btnMinus.right;
     r.origin.y = 0;
-    self.lbCount.frame = r;
+    self.tfCount.frame = r;
     
     r = self.vLine.frame;
     r.size.width = DEVICEWIDTH;

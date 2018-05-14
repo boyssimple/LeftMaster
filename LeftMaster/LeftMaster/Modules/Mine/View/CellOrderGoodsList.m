@@ -14,6 +14,8 @@
 @property(nonatomic,strong)UILabel *lbPrice;
 @property(nonatomic,strong)UILabel *lbCount;
 @property(nonatomic,strong)UIView *vLine;
+@property(nonatomic,strong)UILabel *lbAmount;
+@property(nonatomic,strong)UILabel *lbAmountText;
 
 @end
 @implementation CellOrderGoodsList
@@ -50,6 +52,17 @@
         _lbCount.textColor = RGB(0, 0, 0);
         [self.contentView addSubview:_lbCount];
         
+        _lbAmount = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbAmount.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
+        _lbAmount.textColor = RGB(0, 0, 0);
+        _lbAmount.text = @"合计金额：";
+        [self.contentView addSubview:_lbAmount];
+        
+        _lbAmountText = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbAmountText.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
+        _lbAmountText.textColor = APP_COLOR;
+        [self.contentView addSubview:_lbAmountText];
+        
         _vLine = [[UIView alloc]initWithFrame:CGRectZero];
         _vLine.backgroundColor = RGB3(245);
         [self.contentView addSubview:_vLine];
@@ -65,7 +78,12 @@
         [self.ivImg pt_setImage:[data jk_stringForKey:@"GOODS_PIC"]];
         self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
         
-        self.lbPrice.text = [NSString stringWithFormat:@"¥%zi/%@",[data jk_integerForKey:@"FD_UNIT_PRICE"],[data jk_stringForKey:@"FD_UNIT_NAME"]];
+        if ([data jk_integerForKey:@"FD_UNIT_PRICE"] == 0) {
+            self.lbPrice.text = [NSString stringWithFormat:@"¥?/%@",[data jk_stringForKey:@"FD_UNIT_PRICE"]];
+        }else{
+            self.lbPrice.text = [NSString stringWithFormat:@"¥%.2f/%@",[data jk_floatForKey:@"FD_UNIT_PRICE"],[data jk_stringForKey:@"FD_UNIT_NAME"]];
+            
+        }
         self.lbCount.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_NUM"],[data jk_stringForKey:@"FD_UNIT_NAME"]];
         
         
@@ -82,6 +100,13 @@
         [noteStr2 addAttribute:NSForegroundColorAttributeName value:APP_COLOR range:NSMakeRange(0, self.lbCount.text.length-length)];
         [noteStr2 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10*RATIO_WIDHT320] range:NSMakeRange(self.lbCount.text.length-length, length)];
         [self.lbCount setAttributedText:noteStr2];
+        
+        CGFloat amount = [data jk_floatForKey:@"FD_UNIT_PRICE"] * [data jk_integerForKey:@"FD_NUM"];
+        self.lbAmountText.text = [NSString stringWithFormat:@"¥%.2f",amount];
+        
+        NSMutableAttributedString *noteStr3 = [[NSMutableAttributedString alloc] initWithString:self.lbAmountText.text];
+        [noteStr3 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10*RATIO_WIDHT320] range:NSMakeRange(self.lbAmountText.text.length-2, 2)];
+        [self.lbAmountText setAttributedText:noteStr3];
     }
 }
 
@@ -127,16 +152,31 @@
     size = [self.lbPrice sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     r = self.lbPrice.frame;
     r.origin.x = self.lbName.left;
-    r.origin.y = self.ivImg.bottom - size.height;
+    r.origin.y = self.lbName.bottom + 10*RATIO_WIDHT320;
     r.size = size;
     self.lbPrice.frame = r;
     
     size = [self.lbCount sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     r = self.lbCount.frame;
     r.origin.x = DEVICEWIDTH - size.width - 15*RATIO_WIDHT320;
-    r.origin.y = self.ivImg.bottom - size.height;
+    r.origin.y = self.lbName.bottom + 10*RATIO_WIDHT320;
     r.size = size;
     self.lbCount.frame = r;
+    
+    
+    size = [self.lbAmount sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
+    r = self.lbAmount.frame;
+    r.origin.x = self.lbPrice.left;
+    r.origin.y = self.height - size.height - 10*RATIO_WIDHT320;
+    r.size = size;
+    self.lbAmount.frame = r;
+    
+    size = [self.lbAmountText sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
+    r = self.lbAmountText.frame;
+    r.origin.x = self.lbPrice.right;
+    r.origin.y = self.lbAmount.top;
+    r.size = size;
+    self.lbAmountText.frame = r;
     
     r = self.vLine.frame;
     r.size.width = DEVICEWIDTH;
