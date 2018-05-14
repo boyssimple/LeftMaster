@@ -109,7 +109,7 @@
 }
 
 - (void)setCount:(NSInteger)count{
-    _count += count;
+    _count = count;
     if (_count > 10) {
         self.lbCount.text = [NSString stringWithFormat:@"10+"];
     }else{
