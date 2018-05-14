@@ -125,7 +125,6 @@
     if (count > 1) {
         [self.btnMinus setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }else{
-        textField.text = @"1";
         [self.btnMinus setTitleColor:RGB3(197) forState:UIControlStateNormal];
     }
     if([self.cellDelegate respondsToSelector:@selector(inputCount:withDataIndex:)]){

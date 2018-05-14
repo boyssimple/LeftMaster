@@ -17,14 +17,20 @@
 #import "RequestBeanDelCart.h"
 #import "RequestBeanAddCart.h"
 #import "RequestBeanSetCart.h"
+#import "CustConfirmView.h"
 
-@interface VCCart ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate,CommonDelegate,UIAlertViewDelegate,CellCartDelegate>
+@interface VCCart ()<UITableViewDelegate,UITableViewDataSource,ViewTotalCartDelegate,CommonDelegate,UIAlertViewDelegate,CellCartDelegate,CustConfirmViewDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewTotalCart *vControl;
 @property(nonatomic,strong)NSMutableArray *goodsList;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, strong) NSString *carId;
 @property (nonatomic, assign) NSInteger delIndex;
+@property(nonatomic,strong)CustConfirmView *custon;
+
+
+@property(nonatomic,assign)NSInteger count;
+@property(nonatomic,assign)NSInteger curIndex;
 @end
 
 @implementation VCCart
@@ -40,12 +46,58 @@
     _goodsList = [NSMutableArray array];
     [self.view addSubview:self.table];
     [self.view addSubview:self.vControl];
+    [self.view addSubview:self.custon];
     
     //加入购物车通知
     [self observeNotification:REFRESH_CART_LIST];
     
     
 //    [self postNotification:REFRESH_CART_LIST withObject:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    //监听当键将要退出时
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+
+//当键盘出现
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    //获取键盘的高度
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [value CGRectValue];
+    int height = keyboardRect.size.height;
+    NSLog(@"%f",[UIScreen mainScreen].bounds.size.height - height);
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect r = self.custon.frame;
+        r.origin.y = [UIScreen mainScreen].bounds.size.height - height - [CustConfirmView calHeight];
+        self.custon.frame = r;
+    }];
+}
+
+//当键退出
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    //获取键盘的高度
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [value CGRectValue];
+    NSLog(@"%f",[UIScreen mainScreen].bounds.size.height);
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect r = self.custon.frame;
+        r.origin.y = [UIScreen mainScreen].bounds.size.height;
+        self.custon.frame = r;
+    }];
+    
 }
 
 - (void)handleNotification:(NSNotification *)notification{
@@ -331,11 +383,28 @@
 
 #pragma mark - CellTopGoodsDelegate
 - (void)inputCount:(NSInteger)count withDataIndex:(NSInteger)index{
-    CartGoods *data = [self.goodsList objectAtIndex:index];
-    data.FD_NUM = count;
-    [self.goodsList replaceObjectAtIndex:index withObject:data];
-    [self calTotal];
-    [self setCart:data.FD_ID withAmount:data.FD_NUM];
+    self.curIndex = index;
+    self.count = count;
+}
+
+#pragma mark - CustConfirmViewDelegate
+- (void)custConfirmSelect{
+    if (self.count != 0) {
+        CartGoods *data = [self.goodsList objectAtIndex:self.curIndex];
+        data.FD_NUM = self.count;
+        [self.goodsList replaceObjectAtIndex:self.curIndex withObject:data];
+        [self calTotal];
+        [self setCart:data.FD_ID withAmount:data.FD_NUM];
+        self.count = 0;
+        self.curIndex = 0;
+    }else{
+        CartGoods *data = [self.goodsList objectAtIndex:self.curIndex];
+        data.FD_NUM = 1;
+        [self.goodsList replaceObjectAtIndex:self.curIndex withObject:data];
+        [self calTotal];
+        [self.table reloadData];
+    }
+    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -376,4 +445,11 @@
     return _vControl;
 }
 
+- (CustConfirmView*)custon{
+    if(!_custon){
+        _custon = [[CustConfirmView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [CustConfirmView calHeight])];
+        _custon.delegate = self;
+    }
+    return _custon;
+}
 @end

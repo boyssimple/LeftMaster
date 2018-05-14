@@ -153,6 +153,7 @@
 		1CFFF5C420A9B3A500A52675 /* TopViewControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFF5C320A9B3A500A52675 /* TopViewControl.m */; };
 		1CFFF5C720A9CA4C00A52675 /* RequestBeanAddBatchCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFF5C620A9CA4C00A52675 /* RequestBeanAddBatchCart.m */; };
 		1CFFF5CA20A9E0B000A52675 /* RequestBeanSetCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFF5C920A9E0B000A52675 /* RequestBeanSetCart.m */; };
+		1CFFF5F220A9EB4300A52675 /* CustConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFF5F020A9EB4200A52675 /* CustConfirmView.m */; };
 		2B895C9453BC2156E84708D8 /* libPods-LeftMasterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */; };
 		3A4070F4294A75D927F8DE16 /* libPods-LeftMaster.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6D5F1023D6EE6D2E86C12D /* libPods-LeftMaster.a */; };
 		FAC9E06F974DFC888DA9565A /* libPods-LeftMasterUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA40ACE1D19B7764658663D5 /* libPods-LeftMasterUITests.a */; };
@@ -472,6 +473,8 @@
 		1CFFF5C620A9CA4C00A52675 /* RequestBeanAddBatchCart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanAddBatchCart.m; sourceTree = "<group>"; };
 		1CFFF5C820A9E0B000A52675 /* RequestBeanSetCart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanSetCart.h; sourceTree = "<group>"; };
 		1CFFF5C920A9E0B000A52675 /* RequestBeanSetCart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanSetCart.m; sourceTree = "<group>"; };
+		1CFFF5F020A9EB4200A52675 /* CustConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustConfirmView.m; sourceTree = "<group>"; };
+		1CFFF5F120A9EB4200A52675 /* CustConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustConfirmView.h; sourceTree = "<group>"; };
 		2F65A9A6DF6B497D050E471D /* Pods-LeftMaster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMaster.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMaster/Pods-LeftMaster.debug.xcconfig"; sourceTree = "<group>"; };
 		699D233CB21BA0612871F17A /* libPods-LeftMasterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeftMasterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D66D73565FFAFED45449DF /* Pods-LeftMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeftMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeftMasterTests/Pods-LeftMasterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -722,6 +725,8 @@
 		1CD8487A206F7C7000CC9BE9 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				1CFFF5F120A9EB4200A52675 /* CustConfirmView.h */,
+				1CFFF5F020A9EB4200A52675 /* CustConfirmView.m */,
 				1C4CC26820712B19007C24FB /* VCBase.h */,
 				1C4CC26920712B19007C24FB /* VCBase.m */,
 				1C4CC26B20724CE6007C24FB /* VCMain.h */,
@@ -1412,6 +1417,7 @@
 				1CBF5BC3207A4C9800284EA1 /* ViewSectionMine.m in Sources */,
 				1C780ECD207DFDF300054AE1 /* RequestBeanCartList.m in Sources */,
 				1C780EDF207E0F8400054AE1 /* ViewTabOrder.m in Sources */,
+				1CFFF5F220A9EB4300A52675 /* CustConfirmView.m in Sources */,
 				1C4C155D2088CCA200BA8F3C /* RequestBeanAddCart.m in Sources */,
 				1C8A2E3E207875BD0076238D /* HMScannerViewController.m in Sources */,
 				1CBF5BDE207A793100284EA1 /* VCNoticeDetail.m in Sources */,
