@@ -77,10 +77,12 @@
     CGRect keyboardRect = [value CGRectValue];
     int height = keyboardRect.size.height;
     NSLog(@"%f",[UIScreen mainScreen].bounds.size.height - height);
+    CGFloat y = [UIScreen mainScreen].bounds.size.height - height - [CustConfirmView calHeight];
     [UIView animateWithDuration:0.3 animations:^{
         CGRect r = self.custon.frame;
         r.origin.y = [UIScreen mainScreen].bounds.size.height - height - [CustConfirmView calHeight];
         self.custon.frame = r;
+        self.table.height = DEVICEHEIGHT - (height + [CustConfirmView calHeight]);
     }];
 }
 
@@ -96,6 +98,8 @@
         CGRect r = self.custon.frame;
         r.origin.y = [UIScreen mainScreen].bounds.size.height;
         self.custon.frame = r;
+        
+        self.table.height = DEVICEHEIGHT - [ViewTotalCart calHeight] - TABBAR_HEIGHT;
     }];
     
 }
