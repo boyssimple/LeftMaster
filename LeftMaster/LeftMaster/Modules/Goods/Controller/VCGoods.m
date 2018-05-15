@@ -17,6 +17,9 @@
 #import "RequestBeanQueryCartNum.h"
 #import "CartGoods.h"
 #import "VCSingleCart.h"
+#import "MJPhotoBrowser.h"
+#import "MJPhoto.h"
+#import "PhotoBrowser.h"
 
 @interface VCGoods ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,ViewHeaderGoodsDelegate,CommonDelegate,
         UIWebViewDelegate,ViewHeaderGoodsDelegate>
@@ -293,7 +296,49 @@
     self.footer.frame = r;
     self.table.tableFooterView = self.footer;
     [self.table reloadData];
+    
+    [webView stringByEvaluatingJavaScriptFromString:@"function assignImageClickAction(){var imgs=document.getElementsByTagName('img');var length=imgs.length;for(var i=0;i<length;i++){img=imgs[i];img.onclick=function(){window.location.href='image-preview:'+this.src}}}"];
+    
+    [webView stringByEvaluatingJavaScriptFromString:@"assignImageClickAction();"];
 }
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    //预览图片
+    if ([request.URL.scheme isEqualToString:@"image-preview"]) {
+        NSString* path = [request.URL.absoluteString substringFromIndex:[@"image-preview:" length]];
+        path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSLog(@"地址:%@",path);
+//        [self.imageView setImageWithURL:[NSURL URLWithString:path] placeholderImage:[UIImage imageNamed:@"default"] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//        [UIView animateWithDuration:0.2f animations:^{
+//            self.imageView.alpha = 1.0f;
+//        }];
+        
+//        NSUInteger imgIndex = [arrPicPath indexOfObject:pavalue.content];
+        
+//        
+//        NSMutableArray *arrPhotos = [NSMutableArray array];
+//        for (NSString *url in arrPicPath) {
+//            MJPhoto *photo = [[MJPhoto alloc] init];
+//            photo.url = [NSURL URLWithString:url];
+//            photo.srcImageView = cellimg.ivT;
+//            [arrPhotos addObject:photo];
+//        }
+        
+//        PhotoBrowser *browser = [[PhotoBrowser alloc]init:path];
+//        [browser show];
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [NSURL URLWithString:path];
+
+        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+        browser.currentPhotoIndex = 0;
+        browser.photos = @[photo];
+        [browser show];
+        
+        return NO;
+    }
+    return YES;
+}
+
 
 - (UITableView*)table{
     if(!_table){

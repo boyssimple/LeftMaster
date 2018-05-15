@@ -180,6 +180,15 @@
         self.lbNoText.text = [data jk_stringForKey:@"GOODS_CODE"];
         self.lbTopPriceText.text = [NSString stringWithFormat:@"%@/%@",[data jk_stringForKey:@"GOODS_MARKET_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
         
+        NSString *str = [data jk_stringForKey:@"GOODS_MARKET_PRICE"];
+        if ([str isEqualToString:@"0"] || [str isEqualToString:@"?"] || [str isEqualToString:@""]) {
+            self.lbTopPrice.hidden = YES;
+            self.lbTopPriceText.hidden = YES;
+        }else{
+            self.lbTopPrice.hidden = NO;
+            self.lbTopPriceText.hidden = NO;
+        }
+        
         self.lbRole.text = [NSString stringWithFormat:@"库存：%zi",[data jk_integerForKey:@"GOODS_STOCK"]];
         if([data jk_integerForKey:@"GOODS_STOCK"] > 0){
             self.lbStatus.text = @" | 库存充足";

@@ -55,6 +55,10 @@
 //    [self postNotification:REFRESH_CART_LIST withObject:nil];
     
     
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -67,6 +71,10 @@
                                                object:nil];
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 //当键盘出现
 - (void)keyboardWillShow:(NSNotification *)notification
@@ -77,7 +85,6 @@
     CGRect keyboardRect = [value CGRectValue];
     int height = keyboardRect.size.height;
     NSLog(@"%f",[UIScreen mainScreen].bounds.size.height - height);
-    CGFloat y = [UIScreen mainScreen].bounds.size.height - height - [CustConfirmView calHeight];
     [UIView animateWithDuration:0.3 animations:^{
         CGRect r = self.custon.frame;
         r.origin.y = [UIScreen mainScreen].bounds.size.height - height - [CustConfirmView calHeight];

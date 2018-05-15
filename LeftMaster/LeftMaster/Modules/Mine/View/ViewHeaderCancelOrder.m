@@ -21,7 +21,7 @@
         _lbTips.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbTips.textColor = RGB3(0);
         _lbTips.numberOfLines = 0;
-        _lbTips.text = @"温馨提示:\n1.限时特价、预约资格等购买优惠可能一并取消\n2.如遇订单拆分，京券将换成同价";
+        _lbTips.text = @"温馨提示:\n1.限时特价、预约资格等购买优惠可能一并取消";
         [self addSubview:_lbTips];
         
         _lbTipsOne = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -57,7 +57,7 @@
     UILabel *lb = [[UILabel alloc]initWithFrame:CGRectZero];
     lb.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
     lb.numberOfLines = 0;
-    lb.text = @"温馨提示:\n1.限时特价、预约资格等购买优惠可能一并取消\n2.如遇订单拆分，京券将换成同价";
+    lb.text = @"温馨提示:\n1.限时特价、预约资格等购买优惠可能一并取消";
     CGSize size = [lb sizeThatFits:CGSizeMake(DEVICEWIDTH - 20*RATIO_WIDHT320, MAXFLOAT)];
     height += size.height;
     

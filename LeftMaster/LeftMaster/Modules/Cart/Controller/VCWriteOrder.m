@@ -47,7 +47,7 @@
     [self.mainView addSubview:self.vBill];
     [self.mainView addSubview:self.vMsgOrder];
     [self.mainView addSubview:self.vTotalOrder];
-    
+    self.mainView.contentSize = CGSizeMake(self.mainView.contentSize.width, self.vTotalOrder.bottom);
     [self.view addSubview:self.vTotalControl];
     
     for (CartGoods *g in self.goodsList) {
@@ -56,6 +56,64 @@
     
     [self.vTotalOrder updateData:self.totalPrice];
     [self.vTotalControl updateData:self.totalPrice];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    //监听当键将要退出时
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+
+//当键盘出现
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    //获取键盘的高度
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [value CGRectValue];
+    int height = keyboardRect.size.height;
+    NSLog(@"%f",DEVICEHEIGHT - (height + [ViewTotalBottomWriteOrder calHeight]));
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect r = self.mainView.frame;
+        r.size.height = DEVICEHEIGHT - height;
+        self.mainView.frame = r;
+    }completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 animations:^{
+            
+            CGPoint p = self.mainView.contentOffset;
+            p.y = self.mainView.contentSize.height - self.mainView.bounds.size.height;
+            self.mainView.contentOffset = p;
+            
+        }];
+    }];
+}
+
+//当键退出
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    //获取键盘的高度
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [value CGRectValue];
+    NSLog(@"%f",[UIScreen mainScreen].bounds.size.height);
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.mainView.height = DEVICEHEIGHT - [ViewTotalBottomWriteOrder calHeight];
+    }];
+    
 }
 
 

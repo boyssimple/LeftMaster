@@ -264,7 +264,7 @@
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
         _table.dataSource = self;
-//        _table.tableHeaderView = self.searchView;
+        _table.tableHeaderView = self.searchView;
         
         __weak typeof(self) weakself = self;
         

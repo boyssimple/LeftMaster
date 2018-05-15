@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-static NSString *appcKey = @"448a1c812ddf22550b7b094c";
+static NSString *appcKey = @"4afaaeae3044e088a81c815e";
 static NSString *channel = @"Publish channel";
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
