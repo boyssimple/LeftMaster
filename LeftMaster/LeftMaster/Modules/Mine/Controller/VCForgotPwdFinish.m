@@ -73,6 +73,9 @@
         if(!err){
             // 结果处理
             if(response.success){
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults removeObjectForKey:MISS_PASSWORD_COUNT];
+                [userDefaults synchronize];
                 [Utils hiddenHanding:self.view withTime:0.5];
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"密码设置成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alert show];

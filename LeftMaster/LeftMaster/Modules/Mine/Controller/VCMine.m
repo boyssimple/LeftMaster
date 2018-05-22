@@ -14,11 +14,14 @@
 #import "ViewWithExit.h"
 #import "VCSetting.h"
 #import "RequestBeanOrderNum.h"
+#import "VCProxyCustmer.h"
 
-@interface VCMine ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
+@interface VCMine ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,CommonDelegate,UIActionSheetDelegate,
+            UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewHeaderMine *header;
 @property(nonatomic,strong)ViewWithExit *footer;
+@property(nonatomic,strong)UIImagePickerController *pickerController;
 @end
 
 @implementation VCMine
@@ -30,6 +33,33 @@
 
 - (void)initMain{
     [self.view addSubview:self.table];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    NSLog(@"%@",picker);
+    [self.pickerController dismissViewControllerAnimated:TRUE completion:^{
+        
+    }];
+}
+
+//跳转到imagePicker里
+- (void)makePhoto
+{
+    self.pickerController.sourceType =UIImagePickerControllerSourceTypeCamera;
+    [self presentViewController:self.pickerController animated:YES completion:nil];
+}
+//跳转到相册
+- (void)choosePicture
+{
+    self.pickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    [self presentViewController:self.pickerController animated:TRUE completion:nil];
+}
+//跳转图库
+- (void)pictureLibrary
+{
+    self.pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:self.pickerController animated:TRUE completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -139,7 +169,9 @@
     }else{
         if([AppUser share].isSalesman){
             if(indexPath.row == 3){
-                
+                VCProxyCustmer*vc = [[VCProxyCustmer alloc]init];
+                vc.type = 1;
+                [self.navigationController pushViewController:vc animated:TRUE];
             }else if(indexPath.row == 4){
                 VCSetting *vc = [[VCSetting alloc]init];
                 vc.hidesBottomBarWhenPushed = YES;
@@ -155,7 +187,65 @@
     }
 }
 
+- (void)showMethod{
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"相机",@"照片", nil];
+    // 显示
+    action.tag = 101;
+    [action showInView:self.view];
+}
 
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (actionSheet.tag == 100) {
+        if (buttonIndex == 0) {
+            [self showMethod];
+        }
+    }else{
+        if (buttonIndex == 0) {
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+            {
+                NSLog(@"支持相机");
+                [self makePhoto];
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"请在设置-->隐私-->相机，中开启本应用的相机访问权限！！" delegate:self cancelButtonTitle:@"取消"otherButtonTitles:@"我知道了",nil];
+                [alert show];
+            }
+        }else if(buttonIndex == 1){
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+            {
+                NSLog(@"支持相册");
+                [self choosePicture];
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"请在设置-->隐私-->照片，中开启本应用的相机访问权限！！" delegate:self cancelButtonTitle:@"取消"otherButtonTitles:@"我知道了",nil];
+                [alert show];
+            }
+        }
+    }
+}
+
+#pragma mark - CommonDelegate
+- (void)clickActionWithIndex:(NSInteger)index{
+    if (index == 0) {
+        [self showModifyAvatar];
+    }
+}
+
+//用户选中图片之后的回调
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    NSLog(@"%s,info == %@",__func__,info);
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [self.header setImage:image];
+    [self.pickerController dismissViewControllerAnimated:TRUE completion:nil];
+    
+//    [self.headIconsetImage:userImage];
+//    self.headIcon.contentMode = UIViewContentModeScaleAspectFill;
+//    self.headIcon.clipsToBounds =YES;
+    //照片上传
+//    [selfupDateHeadIcon:userImage];
+}
 
 - (UITableView*)table{
     if(!_table){
@@ -174,12 +264,28 @@
 - (ViewHeaderMine*)header{
     if(!_header){
         _header = [[ViewHeaderMine alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, [ViewHeaderMine calHeight])];
+        _header.delegate = self;
         [_header updateData];
     }
     return _header;
 }
 
 
+- (void)showModifyAvatar{
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"修改头像" otherButtonTitles:nil, nil];
+    // 显示
+    action.tag = 100;
+    [action showInView:self.view];
+}
 
+- (UIImagePickerController *)pickerController{
+    if (!_pickerController) {
+        _pickerController = [[UIImagePickerController alloc]init];
+        _pickerController.view.backgroundColor = [UIColor orangeColor];
+        _pickerController.delegate = self;
+        _pickerController.allowsEditing = YES;
+    }
+    return _pickerController;
+}
 
 @end

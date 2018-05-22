@@ -120,6 +120,16 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
         [Utils showToast:@"密码小于6位" with:self.view withTime:0.8];
         return;
     }
+    NSInteger count = 0;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *str = [userDefaults objectForKey:MISS_PASSWORD_COUNT];
+    if (str) {
+        count = [str integerValue];
+    }
+    if (count >= 5) {
+        [Utils showSuccessToast:@"帐号已被锁定，请通过找回密码处理" with:self.view withTime:1.5];
+        return;
+    }
     
     RequestBeanLogin *requestBean = [RequestBeanLogin new];
     requestBean.userName = userName;
@@ -168,7 +178,22 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
         }else{
             ResponseBeanLogin *response = responseBean;
             if(response && response.msg){
-                [Utils showSuccessToast:response.msg with:weakself.view withTime:0.8];
+                NSInteger count = 0;
+                if (response.success == 0) {
+                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    NSString *str = [userDefaults objectForKey:MISS_PASSWORD_COUNT];
+                    if (str) {
+                        count = [str integerValue];
+                    }
+                    count++;
+                    [userDefaults setObject:@(count) forKey:MISS_PASSWORD_COUNT];
+                    [userDefaults synchronize];
+                }
+                if (count >= 5) {
+                    [Utils showSuccessToast:@"帐号已被锁定，请通过找回密码处理" with:weakself.view withTime:1.2];
+                }else{
+                    [Utils showSuccessToast:response.msg with:weakself.view withTime:0.8];
+                }
             }else{
                 [Utils showSuccessToast:@"登录失败" with:weakself.view withTime:0.8];
             }

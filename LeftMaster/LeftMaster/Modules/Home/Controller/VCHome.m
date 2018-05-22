@@ -7,6 +7,7 @@
 //
 
 #import "VCHome.h"
+#import "VCOrder.h"
 #import "SectionHeaderHome.h"
 #import "CellCategoryHome.h"
 #import "CellNewHome.h"
@@ -42,6 +43,23 @@
     [self loadCarouseListData];
     [self loadData];
     [self loadGoodsListData];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showOrderAction:)
+                                                 name:@"OPEN_ORDER_LIST"
+                                               object:nil];
+}
+
+- (void)showOrderAction:(NSNotification*)notification{
+    NSString *orderId = notification.object;
+    if (orderId) {
+        
+        VCOrder *vc = [[VCOrder alloc]init];
+        vc.hidesBottomBarWhenPushed = TRUE;
+        vc.orderId = orderId;
+        [self.navigationController pushViewController:vc animated:TRUE];
+    }
 }
 
 - (void)initMain{

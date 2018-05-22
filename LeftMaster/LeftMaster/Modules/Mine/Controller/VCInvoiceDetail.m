@@ -6,17 +6,17 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "VCInvoice.h"
-#import "CellInvoice.h"
-#import "RequestBeanSendInfo.h"
 #import "VCInvoiceDetail.h"
+#import "CellInvoiceDetail.h"
+#import "RequestBeanInvoiceDetail.h"
 
-@interface VCInvoice ()<UITableViewDelegate,UITableViewDataSource>
+@interface VCInvoiceDetail ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)NSMutableArray *dataSource;
+@property(nonatomic,assign)NSInteger page;
 @end
 
-@implementation VCInvoice
+@implementation VCInvoiceDetail
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,14 +25,17 @@
 }
 
 - (void)initMain{
-    self.title = @"发货单";
+    self.title = @"发货单详情";
+    self.page = 1;
     _dataSource = [NSMutableArray array];
     [self.view addSubview:self.table];
 }
 
 - (void)loadData{
-    RequestBeanSendInfo *requestBean = [RequestBeanSendInfo new];
-    requestBean.FD_ORDER_ID = self.orderId;
+    RequestBeanInvoiceDetail *requestBean = [RequestBeanInvoiceDetail new];
+    requestBean.FD_SEND_ID = self.sendId;
+    requestBean.page_current = self.page;
+    requestBean.page_size = 10;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
@@ -40,10 +43,18 @@
         [weakself.table.mj_header endRefreshing];
         if (!err) {
             // 结果处理
-            ResponseBeanSendInfo *response = responseBean;
+            ResponseBeanInvoiceDetail *response = responseBean;
+            
             if(response.success){
-                [weakself.dataSource removeAllObjects];
+                if(self.page == 1){
+                    [weakself.dataSource removeAllObjects];
+                }
                 NSArray *datas = [response.data jk_arrayForKey:@"rows"];
+                if(datas.count == 0 || datas.count < requestBean.page_size){
+                    [weakself.table.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    [weakself.table.mj_footer resetNoMoreData];
+                }
                 [weakself.dataSource addObjectsFromArray:datas];
                 [weakself.table reloadData];
             }
@@ -60,15 +71,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [CellInvoice calHeight:self.status];
+    return [CellInvoiceDetail calHeight:self.status];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    static NSString*identifier = @"CellInvoice";
-    CellInvoice *cell = (CellInvoice*)[tableView dequeueReusableCellWithIdentifier:identifier];
+    static NSString*identifier = @"CellInvoiceDetail";
+    CellInvoiceDetail *cell = (CellInvoiceDetail*)[tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[CellInvoice alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[CellInvoiceDetail alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
     cell.status = self.status;
@@ -101,12 +112,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    VCInvoiceDetail *vc = [[VCInvoiceDetail alloc]init];
-    vc.status = self.status;
     
-    NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
-    vc.sendId = [data jk_stringForKey:@"FD_ID"];
-    [self.navigationController pushViewController:vc animated:TRUE];
 }
 
 - (UITableView*)table{
@@ -121,6 +127,12 @@
         __weak typeof(self) weakself = self;
         
         _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            weakself.page = 1;
+            [weakself loadData];
+        }];
+        
+        _table.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            weakself.page++;
             [weakself loadData];
         }];
     }

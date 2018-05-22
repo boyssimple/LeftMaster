@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "VCMain.h"
 #import "VCLogin.h"
-
+#import "VCOrder.h"
 #import "VCProxyCustmer.h"
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
@@ -102,6 +102,14 @@
                     completion:nil];
 }
 
+- (void)gotoOrderDetailVC:(NSString*)orderId{
+    if (orderId) {
+        [self postNotification:OPEN_ORDER_LIST withObject:orderId];
+    }
+    
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -133,6 +141,12 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"注册通知成功");
+    NSLog(@"帐号：%@",[AppUser share].SYSUSER_ACCOUNT);
+    if ([AppUser share].SYSUSER_MOBILE && ![[AppUser share].SYSUSER_MOBILE isEqualToString:@""]) {
+        [JPUSHService setAlias:[AppUser share].SYSUSER_ACCOUNT completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+            NSLog(@"设置tag:%@",iAlias);
+        } seq:1];
+    }
     /// Required - 注册 DeviceToken
     [JPUSHService registerDeviceToken:deviceToken];
 }
@@ -170,6 +184,10 @@
     [JPUSHService handleRemoteNotification:userInfo];
     NSLog(@"iOS6及以下系统，收到通知:%@", [self logDic:userInfo]);
 //    [rootViewController addNotificationCount];
+    NSString *orderId = [userInfo jk_stringForKey:@"orderId"];
+    if (orderId) {
+        [self gotoOrderDetailVC:orderId];
+    }
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -178,10 +196,11 @@
     
     if ([[UIDevice currentDevice].systemVersion floatValue]<10.0 || application.applicationState>0) {
 //        [rootViewController addNotificationCount];
+        NSString *orderId = [userInfo jk_stringForKey:@"orderId"];
+        if (orderId) {
+            [self gotoOrderDetailVC:orderId];
+        }
     }
-    
-    setTags:alias:fetchCompletionHandle:
-    [JPUSHService setTags:nil aliasInbackground:nil];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
@@ -208,7 +227,10 @@
         NSLog(@"iOS10 前台收到远程通知:%@", [self logDic:userInfo]);
         
 //        [rootViewController addNotificationCount];
-        
+        NSString *orderId = [userInfo jk_stringForKey:@"orderId"];
+        if (orderId) {
+            [self gotoOrderDetailVC:orderId];
+        }
     }
     else {
         // 判断为本地通知
@@ -233,7 +255,10 @@
         [JPUSHService handleRemoteNotification:userInfo];
         NSLog(@"iOS10 收到远程通知:%@", [self logDic:userInfo]);
 //        [rootViewController addNotificationCount];
-        
+        NSString *orderId = [userInfo jk_stringForKey:@"orderId"];
+        if (orderId) {
+            [self gotoOrderDetailVC:orderId];
+        }
     }
     else {
         // 判断为本地通知
@@ -274,7 +299,9 @@
     NSLog(@"已登录");
     self.isLogin = TRUE;
     if ([AppUser share].SYSUSER_MOBILE && ![[AppUser share].SYSUSER_MOBILE isEqualToString:@""]) {
-        [JPUSHService setAlias:[AppUser share].SYSUSER_ACCOUNT completion:nil seq:1];
+        [JPUSHService setAlias:[AppUser share].SYSUSER_ACCOUNT completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+            NSLog(@"设置tag");
+        } seq:1];
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kJPFNetworkDidLoginNotification

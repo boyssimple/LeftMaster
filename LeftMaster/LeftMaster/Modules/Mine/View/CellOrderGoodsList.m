@@ -39,7 +39,7 @@
         _lbName = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbName.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbName.textColor = RGB(0, 0, 0);
-        _lbName.numberOfLines = 3;
+        _lbName.numberOfLines = 2;
         [self.contentView addSubview:_lbName];
         
         _lbPrice = [[UILabel alloc]initWithFrame:CGRectZero];

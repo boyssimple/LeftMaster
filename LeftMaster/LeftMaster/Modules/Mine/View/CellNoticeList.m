@@ -56,6 +56,10 @@
     self.lbText.text = @"中国第一家渠道渠道";
 }
 
+- (void)updateData:(NSDictionary*)data{
+    self.lbTime.text = [data jk_stringForKey:@"FD_CREATE_TIME"];
+    self.lbText.text = [data jk_stringForKey:@"FD_NAME"];
+}
 
 - (void)layoutSubviews{
     [super layoutSubviews];

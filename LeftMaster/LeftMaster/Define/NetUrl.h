@@ -37,6 +37,7 @@
 #define net_goods_guide_list @"shop/GoodsCarouselMobileTran.do?getBaseSlidePicList"       //获取引导图
 #define net_user_query_order @"shop/OrderMobileTran.do?queryMyOrder"       //获取订单
 #define net_order_goods_list @"shop/OrderMobileTran.do?queryOrderDetail"       //获取订单物品列表
+#define net_notice_list @"system/UserMobileTran.do?queryMessages"       //通知列表
 #define net_order_confirm @"shop/OrderMobileTran.do?sureOrder"       //确认订单
 #define net_order_cancel @"shop/OrderMobileTran.do?cancelOrder"       //取消订单
 #define net_order_sign @"shop/OrderMobileTran.do?signOrder"       //签收订单
@@ -48,6 +49,10 @@
 #define net_order_check_data @"shop/CustomerInfoMobileTran.do?getCustomerBalanceDataByCusId"       //订单对帐
 #define net_order_query_num @"shop/OrderMobileTran.do?queryMyOrderNum"       //订单数量
 #define net_goods_new_list @"shop/GoodsMobileTran.do?getGoodsList"       //推荐新品
+#define net_invoice_detail_list @"shop/OrderMobileTran.do?queryOrderSendDetail"       //发货单
+
+
+#define OPEN_ORDER_LIST @"OPEN_ORDER_LIST"       //打开订单通知
 
 
 

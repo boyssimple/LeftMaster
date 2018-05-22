@@ -6,12 +6,13 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "RequestBeanOrderGoodsList.h"
+#import "RequestBeanInvoiceDetail.h"
 
-@implementation RequestBeanOrderGoodsList
+@implementation RequestBeanInvoiceDetail
+
 
 - (NSString*)apiPath{
-    return net_order_goods_list;
+    return net_invoice_detail_list;
 }
 
 - (BOOL)isShowHub{
@@ -24,7 +25,7 @@
 
 @end
 
-@implementation ResponseBeanOrderGoodsList
+@implementation ResponseBeanInvoiceDetail
 
 - (BOOL)checkSuccess{
     if (self.success) {

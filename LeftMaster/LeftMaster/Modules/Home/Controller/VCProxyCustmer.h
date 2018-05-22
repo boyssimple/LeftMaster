@@ -9,5 +9,5 @@
 #import "VCBase.h"
 
 @interface VCProxyCustmer : VCBase
-
+@property(nonatomic,assign)NSInteger type;
 @end

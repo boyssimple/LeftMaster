@@ -7,7 +7,8 @@
 //
 
 #import "ViewHeaderGoods.h"
-@interface ViewHeaderGoods()
+#import "ViewProductRole.h"
+@interface ViewHeaderGoods()<CommonDelegate>
 @property(nonatomic,strong)UILabel *lbName;
 @property(nonatomic,strong)UILabel *lbNo;
 @property(nonatomic,strong)UILabel *lbNoText;
@@ -22,7 +23,9 @@
 @property(nonatomic,strong)UITextField *tfCount;
 @property(nonatomic,strong)UIView  *vLine;
 @property(nonatomic,strong)UILabel *lbDetail;
+@property(nonatomic,strong)ViewProductRole  *vRole;
 
+@property(nonatomic,strong)NSDictionary *data;
 @end
 
 @implementation ViewHeaderGoods
@@ -47,6 +50,10 @@
         _lbNoText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbNoText.textColor = RGB3(51);
         [self addSubview:_lbNoText];
+        
+        _vRole = [[ViewProductRole alloc]initWithFrame:CGRectZero];
+        _vRole.delegate = self;
+        [self addSubview:_vRole];
         
         _lbTopPrice = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbTopPrice.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
@@ -174,11 +181,12 @@
     }
 }
 
-- (void)updateData:(NSDictionary*)data{
+- (void)updateData:(NSDictionary*)data with:(NSString*)ID{
     if(data){
+        self.data = data;
         self.lbName.text = [data jk_stringForKey:@"GOODS_NAME"];
         self.lbNoText.text = [data jk_stringForKey:@"GOODS_CODE"];
-        self.lbTopPriceText.text = [NSString stringWithFormat:@"%@/%@",[data jk_stringForKey:@"GOODS_MARKET_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
+        self.lbTopPriceText.text = [NSString stringWithFormat:@"%.2f/%@",[data jk_floatForKey:@"GOODS_MARKET_PRICE"],[data jk_stringForKey:@"GOODS_UNIT"]];
         
         NSString *str = [data jk_stringForKey:@"GOODS_MARKET_PRICE"];
         if ([str isEqualToString:@"0"] || [str isEqualToString:@"?"] || [str isEqualToString:@""]) {
@@ -213,6 +221,20 @@
             [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20*RATIO_WIDHT320] range:NSMakeRange(1, count)];
             [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13*RATIO_WIDHT320] range:NSMakeRange(self.lbPrice.text.length - length, length)];
             [self.lbPrice setAttributedText:noteStr];
+        }
+        
+        
+        
+        //产品规格  GOODS_GOODSSPECS
+        /*
+        商品规格数组(OTHER_GOODS_ID
+               :商品 ID，GOODS_SPEC_NAME
+               :规格名称)
+         
+         */
+        NSArray *datas = [data jk_arrayForKey:@"GOODS_GOODSSPECS"];
+        if (datas.count > 0) {
+            [self.vRole updateData:datas withID:ID];
         }
     }
 }
@@ -261,10 +283,39 @@
     r.size = size;
     self.lbNoText.frame = r;
     
+    CGFloat y = self.lbNo.bottom;
+    if (self.data) {
+        NSArray *datas = [self.data jk_arrayForKey:@"GOODS_GOODSSPECS"];
+        if (datas.count > 0) {
+            y +=  + 12*RATIO_WIDHT320;
+        }
+    }
+    
+    r = self.vRole.frame;
+    r.origin.x = 10*RATIO_WIDHT320;
+    r.origin.y = y;
+    r.size.width = DEVICEWIDTH;
+    self.vRole.frame = r;
+    
+    CGFloat h = 0;
+    if (self.data) {
+        NSArray *datas = [self.data jk_arrayForKey:@"GOODS_GOODSSPECS"];
+        if (datas.count > 0) {
+            h = [ViewProductRole calHeight:datas];
+        }
+    }
+    self.vRole.height = h;
+    if (self.data) {
+        NSArray *datas = [self.data jk_arrayForKey:@"GOODS_GOODSSPECS"];
+        if (datas.count > 0) {
+            y += h + 12*RATIO_WIDHT320;
+        }
+    }
+    
     size = [self.lbTopPrice sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     r = self.lbTopPrice.frame;
     r.origin.x = 10*RATIO_WIDHT320;
-    r.origin.y = self.lbNo.bottom + 12*RATIO_WIDHT320;
+    r.origin.y = y;
     r.size = size;
     self.lbTopPrice.frame = r;
     
@@ -275,10 +326,19 @@
     r.size = size;
     self.lbTopPriceText.frame = r;
     
+    
+    
+    NSString *str = [self.data jk_stringForKey:@"GOODS_MARKET_PRICE"];
+    if ([str isEqualToString:@"0"] || [str isEqualToString:@"?"] || [str isEqualToString:@""]) {
+        
+    }else{
+        y += r.size.height + 18*RATIO_WIDHT320;
+    }
+    
     size = [self.lbRole sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     r = self.lbRole.frame;
     r.origin.x = self.lbName.left;
-    r.origin.y = self.lbTopPrice.bottom + 18*RATIO_WIDHT320;
+    r.origin.y = y + 18*RATIO_WIDHT320;
     r.size = size;
     self.lbRole.frame = r;
     
@@ -339,6 +399,14 @@
     self.lbDetail.frame = r;
 }
 
+- (void)clickActionWithIndex:(NSInteger)index{
+    
+    if ([self.delegate respondsToSelector:@selector(clickRole:)]) {
+        [self.delegate clickRole:index];
+    }
+        
+}
+
 + (CGFloat)calHeight:(NSDictionary*)data{
     CGFloat height = 12*RATIO_WIDHT320;
     UILabel *lb = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -351,9 +419,15 @@
     lb.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
     lb.numberOfLines = 1;
     lb.text = @"商品编号";
-    height += [lb sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)].height*2;
+    height += [lb sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)].height;
     
-    height += 10*RATIO_WIDHT320;
+    NSString *str = [data jk_stringForKey:@"GOODS_MARKET_PRICE"];
+    if ([str isEqualToString:@"0"] || [str isEqualToString:@"?"] || [str isEqualToString:@""]) {
+        
+    }else{
+        height += height;
+    }
+    
     
     height += 18*RATIO_WIDHT320;
     lb.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
@@ -369,8 +443,15 @@
     height += [lb sizeThatFits:CGSizeMake(MAXFLOAT, 20*RATIO_WIDHT320)].height;
     height += 17*RATIO_WIDHT320;
     
+    height += 50*RATIO_WIDHT320;
     
-    return height + 50*RATIO_WIDHT320;
+    NSArray *datas = [data jk_arrayForKey:@"GOODS_GOODSSPECS"];
+    if (datas.count > 0) {
+        
+        height += [ViewProductRole calHeight:datas];
+    }
+    
+    return height;
 }
 
 + (CGFloat)calHeight{
@@ -404,7 +485,7 @@
     height += 17*RATIO_WIDHT320;
     
     
-    return height + 50*RATIO_WIDHT320;
+    return height + 50*RATIO_WIDHT320 + 12 + [ViewProductRole calHeight];
 }
 
 @end

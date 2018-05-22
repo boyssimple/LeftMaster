@@ -56,9 +56,12 @@
                 [Utils saveUserInfo:mutDic];
             }
         }
+        if (self.type == 1) {
+            [self.navigationController popViewControllerAnimated:TRUE];
+        }else{
+            [self gotoHome];
+        }
         
-        
-        [self gotoHome];
     }else{
         [Utils showToast:@"请选择客户" with:self.view withTime:0.8];
     }

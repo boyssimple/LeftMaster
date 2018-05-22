@@ -89,7 +89,7 @@
     }else if(indexPath.row == 1){
         [cell updateData:@"icon_2" withTitle:@"系统公告" withCount:self.sysCount];
     }else if(indexPath.row == 2){
-        [cell updateData:@"icon_3" withTitle:@"订单消息" withCount:self.orderCount2];
+        [cell updateData:@"icon_3" withTitle:@"促销提醒" withCount:self.orderCount2];
     }
     [cell updateData];
     return cell;
@@ -121,6 +121,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     VCNoticeList *vc = [[VCNoticeList alloc]init];
+    vc.type = indexPath.row+1;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

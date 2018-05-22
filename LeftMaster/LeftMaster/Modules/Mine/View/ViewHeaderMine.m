@@ -46,7 +46,7 @@
         _ivLogo.backgroundColor = [UIColor whiteColor];
         _ivLogo.clipsToBounds = YES;
         [_ivBg addSubview:_ivLogo];
-        UILongPressGestureRecognizer *longtap = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longAction:)];
+        UITapGestureRecognizer *longtap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(longAction:)];
         [_ivLogo addGestureRecognizer:longtap];
         
         _lbCompany = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -114,13 +114,12 @@
     return self;
 }
 
+- (void)setImage:(UIImage *)img{
+    self.ivLogo.image = img;
+}
+
 - (void)longAction:(UIGestureRecognizer *)gestrue
 {
-    //直接return掉，不在开始的状态里面添加任何操作，则长按手势就会被少调用一次了
-    if (gestrue.state != UIGestureRecognizerStateBegan)
-    {
-        return;
-    }
     if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
         [self.delegate clickActionWithIndex:0];
     }

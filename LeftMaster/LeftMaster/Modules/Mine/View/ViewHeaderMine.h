@@ -10,5 +10,6 @@
 
 @interface ViewHeaderMine : UIView
 @property(nonatomic,weak)id<CommonDelegate> delegate;
+- (void)setImage:(UIImage *)img;
 - (void)updateData:(NSInteger)index withCount:(NSInteger)count;
 @end

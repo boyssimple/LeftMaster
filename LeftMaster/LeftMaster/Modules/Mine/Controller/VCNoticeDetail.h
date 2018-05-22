@@ -9,5 +9,5 @@
 #import "VCBase.h"
 
 @interface VCNoticeDetail : VCBase
-
+@property(nonatomic,strong)NSString *content;
 @end

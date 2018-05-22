@@ -9,5 +9,4 @@
 #import "VCBase.h"
 
 @interface VCProxy : VCBase
-
 @end

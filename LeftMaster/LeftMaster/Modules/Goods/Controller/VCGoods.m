@@ -30,6 +30,8 @@
 @property(nonatomic,strong)ViewBtnGoods *bottom;
 @property(nonatomic,strong)NSDictionary *data;
 @property (nonatomic, assign) NSInteger count;
+
+@property(nonatomic,strong)NSString* OTHER_GOODS_ID;
 @end
 
 @implementation VCGoods
@@ -44,6 +46,7 @@
 - (void)initMain{
     self.count = 1;
     self.title = @"商品详情";
+    self.OTHER_GOODS_ID = @"";
     [self.view addSubview:self.table];
     [self.view addSubview:self.bottom];
     [self observeNotification:REFRESH_CART_LIST];
@@ -53,6 +56,9 @@
 - (void)loadData{
     RequestBeanGoodsDetail *requestBean = [RequestBeanGoodsDetail new];
     requestBean.goods_id = self.goods_id;
+    if (self.OTHER_GOODS_ID && ![self.OTHER_GOODS_ID isEqualToString:@""]) {
+        requestBean.goods_id = self.OTHER_GOODS_ID;
+    }
     requestBean.cus_id = [AppUser share].CUS_ID;
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
@@ -230,7 +236,7 @@
         header = [[ViewHeaderGoods alloc]init];
         header.delegate = self;
     }
-    [header updateData:self.data];
+    [header updateData:self.data with:self.OTHER_GOODS_ID];
     return header;
 }
 
@@ -339,6 +345,17 @@
     return YES;
 }
 
+#pragma mark
+- (void)clickRole:(NSInteger)index{
+    if (self.data) {
+        NSArray *datas = [self.data jk_arrayForKey:@"GOODS_GOODSSPECS"];
+        if (index < datas.count) {
+            NSDictionary *data = [datas objectAtIndex:index];
+            self.OTHER_GOODS_ID = [data jk_stringForKey:@"OTHER_GOODS_ID"];
+        }
+    }
+    [self loadData];
+}
 
 - (UITableView*)table{
     if(!_table){

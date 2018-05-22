@@ -9,5 +9,5 @@
 #import "VCBase.h"
 
 @interface VCNoticeList : VCBase
-
+@property(nonatomic,assign)NSInteger type;
 @end
