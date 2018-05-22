@@ -186,7 +186,7 @@
 //    [rootViewController addNotificationCount];
     NSString *orderId = [userInfo jk_stringForKey:@"orderId"];
     if (orderId) {
-        [self gotoOrderDetailVC:orderId];
+//        [self gotoOrderDetailVC:orderId];
     }
 }
 
@@ -198,7 +198,7 @@
 //        [rootViewController addNotificationCount];
         NSString *orderId = [userInfo jk_stringForKey:@"orderId"];
         if (orderId) {
-            [self gotoOrderDetailVC:orderId];
+//            [self gotoOrderDetailVC:orderId];
         }
     }
     completionHandler(UIBackgroundFetchResultNewData);
@@ -229,7 +229,7 @@
 //        [rootViewController addNotificationCount];
         NSString *orderId = [userInfo jk_stringForKey:@"orderId"];
         if (orderId) {
-            [self gotoOrderDetailVC:orderId];
+//            [self gotoOrderDetailVC:orderId];
         }
     }
     else {
