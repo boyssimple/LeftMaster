@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewSearchOrderList : UIView
-
+@property(nonatomic,strong)UITextField *tfText;
 @end

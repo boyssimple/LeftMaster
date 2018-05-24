@@ -33,6 +33,12 @@
 
 - (void)initMain{
     [self.view addSubview:self.table];
+    [self observeNotification:REFRESH_MINE_INFO];
+}
+
+
+- (void)handleNotification:(NSNotification *)notification{
+    [self.table reloadData];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

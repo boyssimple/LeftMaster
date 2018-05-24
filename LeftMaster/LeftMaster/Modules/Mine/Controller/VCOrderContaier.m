@@ -18,12 +18,13 @@
 #import "RequestBeanSignOrder.h"
 #import "VCWriteOrderAgain.h"
 
-@interface VCOrderContaier ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate,WindowCancelOrderDelegate>
+@interface VCOrderContaier ()<UITableViewDelegate,UITableViewDataSource,CommonDelegate,UIAlertViewDelegate,WindowCancelOrderDelegate,UITextFieldDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property(nonatomic,strong)ViewSearchOrderList *searchView;
 @property(nonatomic,assign)NSInteger page;
 @property(nonatomic,strong)NSMutableArray *dataSource;
 @property(nonatomic,strong)NSString *orderId;
+@property(nonatomic,strong)NSString *keywords;
 @end
 
 @implementation VCOrderContaier
@@ -46,6 +47,9 @@
     requestBean.user_id = [AppUser share].SYSUSER_ID;
     requestBean.cus_id = [AppUser share].CUS_ID;
     requestBean.page_current = self.page;
+    if (self.keywords) {
+        requestBean.search_key = self.keywords;
+    }
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
@@ -91,6 +95,15 @@
     }];
 }
 
+- (void)searchData{
+    if (self.keywords.length > 0) {
+        [self loadData];
+    }
+}
+
+- (void)changeText:(UITextField*)textField{
+    self.keywords  = textField.text;
+}
 
 #pragma mark - WindowCancelOrderDelegate
 - (void)selectReason:(NSString *)reason{
@@ -250,9 +263,20 @@
 //    }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    [textField resignFirstResponder];
+    [self searchData];
+    return TRUE;
+}
+
 - (ViewSearchOrderList*)searchView{
     if(!_searchView){
         _searchView = [[ViewSearchOrderList alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, [ViewSearchOrderList calHeight])];
+        _searchView.tfText.placeholder = @"客户名称、订单编号";
+        _searchView.tfText.returnKeyType = UIReturnKeySearch;
+        _searchView.tfText.delegate = self;
+        [_searchView.tfText addTarget:self action:@selector(changeText:) forControlEvents:UIControlEventEditingChanged];
     }
     return _searchView;
 }

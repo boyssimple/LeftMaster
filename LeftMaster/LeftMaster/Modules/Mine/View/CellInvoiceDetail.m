@@ -34,12 +34,7 @@
 //发货时间
 @property (nonatomic, strong) UILabel *lbSendDate;
 @property (nonatomic, strong) UILabel *lbSendDateText;
-//发货人
-@property (nonatomic, strong) UILabel *lbSender;
-@property (nonatomic, strong) UILabel *lbSenderText;
-//发货人电话
-@property (nonatomic, strong) UILabel *lbReceivePhone;
-@property (nonatomic, strong) UILabel *lbReceivePhoneText;
+
 //预计到货时间
 @property (nonatomic, strong) UILabel *lbArriveDate;
 @property (nonatomic, strong) UILabel *lbArriveDateText;
@@ -137,31 +132,6 @@
         _lbSendDateText.textColor = APP_BLACK_COLOR;
         [self.contentView addSubview:_lbSendDateText];
         
-        
-        _lbSender = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbSender.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
-        _lbSender.textColor = APP_BLACK_COLOR;
-        _lbSender.text = @"收货人：";
-        [self.contentView addSubview:_lbSender];
-        
-        _lbSenderText = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbSenderText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
-        _lbSenderText.textColor = APP_BLACK_COLOR;
-        [self.contentView addSubview:_lbSenderText];
-        
-        
-        _lbReceivePhone = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbReceivePhone.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
-        _lbReceivePhone.textColor = APP_BLACK_COLOR;
-        _lbReceivePhone.text = @"收货人电话：";
-        [self.contentView addSubview:_lbReceivePhone];
-        
-        _lbReceivePhoneText = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbReceivePhoneText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
-        _lbReceivePhoneText.textColor = APP_BLACK_COLOR;
-        [self.contentView addSubview:_lbReceivePhoneText];
-        
-        
         _lbArriveDate = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbArriveDate.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbArriveDate.textColor = APP_BLACK_COLOR;
@@ -183,8 +153,6 @@
     self.lbSendCountText.text = [NSString stringWithFormat:@"%zi",[data jk_integerForKey:@"FD_SEND_NUM"]];
     //    self.lbUnSendCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_REMAIN_SEND_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
     self.lbSendDateText.text = [data jk_stringForKey:@"FD_SEND_DATE"];
-    self.lbSenderText.text = [data jk_stringForKey:@"FD_REC_USER"];
-    self.lbReceivePhoneText.text = [data jk_stringForKey:@"FD_REC_TEL"];
     self.lbArriveDateText.text = [data jk_stringForKey:@"FD_ARRI_TIME_EXP"];
     
     //订单状态(待确认:0,待审核:1,待发货:2,待收货:3,已完成:4,审核不通过:5,订单取消:6)
@@ -211,8 +179,6 @@
     self.lbNoText.text = @"DH.2018.0118.0001";
     self.lbCountText.text = @"5个";
     self.lbSendDateText.text = @"2018-01-18 17:35:45";
-    self.lbSenderText.text = @"李先生";
-    self.lbReceivePhoneText.text = @"15909327516";
     self.lbArriveDateText.text = @"2018-01-19";
 }
 
@@ -322,42 +288,11 @@
     r.origin.y = self.lbSendDate.top;
     self.lbSendDateText.frame = r;
     
-    
-    size = [self.lbSender sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
-    r = self.lbSender.frame;
-    r.size = size;
-    r.origin.x = self.lbName.left;
-    r.origin.y = self.lbSendDate.bottom + 10*RATIO_WIDHT320;
-    self.lbSender.frame = r;
-    
-    r = self.lbSenderText.frame;
-    r.size.width = DEVICEWIDTH - self.lbSender.right - 10*RATIO_WIDHT320;
-    r.size.height = self.lbSender.height;
-    r.origin.x = self.lbSender.right;
-    r.origin.y = self.lbSender.top;
-    self.lbSenderText.frame = r;
-    
-    
-    size = [self.lbReceivePhone sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
-    r = self.lbReceivePhone.frame;
-    r.size = size;
-    r.origin.x = self.lbName.left;
-    r.origin.y = self.lbSender.bottom + 10*RATIO_WIDHT320;
-    self.lbReceivePhone.frame = r;
-    
-    r = self.lbReceivePhoneText.frame;
-    r.size.width = DEVICEWIDTH - self.lbReceivePhone.right - 10*RATIO_WIDHT320;
-    r.size.height = self.lbReceivePhone.height;
-    r.origin.x = self.lbReceivePhone.right;
-    r.origin.y = self.lbReceivePhone.top;
-    self.lbReceivePhoneText.frame = r;
-    
-    
     size = [self.lbArriveDate sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     r = self.lbArriveDate.frame;
     r.size = size;
     r.origin.x = self.lbName.left;
-    r.origin.y = self.lbReceivePhone.bottom + 10*RATIO_WIDHT320;
+    r.origin.y = self.lbSendDate.bottom + 10*RATIO_WIDHT320;
     self.lbArriveDate.frame = r;
     
     r = self.lbArriveDateText.frame;
@@ -374,7 +309,7 @@
     lb.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
     lb.text = @"内容：";
     CGFloat h =[lb sizeThatFits:CGSizeMake(DEVICEWIDTH, MAXFLOAT)].height;
-    height +=  h * 6 + 5*10*RATIO_WIDHT320;
+    height +=  h * 4 + 3*10*RATIO_WIDHT320;
     
     
     return height;

@@ -260,6 +260,25 @@
     self.lbPicCount.text = [NSString stringWithFormat:@"%zi/%zi",index+1,self.cycleScrollView.imageURLStringsGroup.count];
 }
 
+
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    NSArray *imgs  = self.cycleScrollView.imageURLStringsGroup;
+    
+    //
+    NSMutableArray *arrPhotos = [NSMutableArray array];
+    for (NSString *url in imgs) {
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [NSURL URLWithString:url];
+        [arrPhotos addObject:photo];
+    }
+    
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = index;
+    browser.photos = arrPhotos;
+    [browser show];
+    
+}
+
 #pragma mark - ViewHeaderGoodsDelegate
 - (void)minusCount{
     self.count--;

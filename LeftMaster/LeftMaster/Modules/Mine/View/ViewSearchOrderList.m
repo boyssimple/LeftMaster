@@ -11,7 +11,6 @@
 @interface ViewSearchOrderList()
 @property(nonatomic,strong)UIView *vSearchBg;
 @property(nonatomic,strong)UIImageView *ivSearch;
-@property(nonatomic,strong)UITextField *tfText;
 @end
 @implementation ViewSearchOrderList
 

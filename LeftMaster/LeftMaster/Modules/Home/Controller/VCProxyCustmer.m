@@ -54,6 +54,8 @@
                 [mutDic setObject:[AppUser share].CUS_ID forKey:@"CUS_ID"];
                 [mutDic setObject:[AppUser share].CUS_NAME forKey:@"CUS_NAME"];
                 [Utils saveUserInfo:mutDic];
+                [self postNotification:REFRESH_MINE_INFO withObject:nil];
+                
             }
         }
         if (self.type == 1) {

@@ -15,7 +15,7 @@
 @property(nonatomic,assign)NSInteger page_size;
 @property(nonatomic,strong)NSString *order_status;//否(为空时 : 所有,待确认:0,待审核:1,待发货:2,待收货:3)
 
-
+@property(nonatomic,strong)NSString *search_key;
 @end
 
 @interface ResponseBeanQueryOrder : AJResponseBeanBase

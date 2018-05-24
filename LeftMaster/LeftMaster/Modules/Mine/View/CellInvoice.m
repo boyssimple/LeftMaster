@@ -137,7 +137,7 @@
         _lbSender = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbSender.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbSender.textColor = APP_BLACK_COLOR;
-        _lbSender.text = @"发货人：";
+        _lbSender.text = @"收货人：";
         [self.contentView addSubview:_lbSender];
         
         _lbSenderText = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -175,9 +175,9 @@
 - (void)updateData:(NSDictionary*)data{
     self.lbNameText.text = [data jk_stringForKey:@"GOODS_NAME"];
     self.lbNoText.text = [data jk_stringForKey:@"FD_NO"];
-    self.lbCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_TOTAL_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
-    self.lbSendCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_SEND_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
-    self.lbUnSendCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_REMAIN_SEND_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
+    self.lbCountText.text = [NSString stringWithFormat:@"%zi",[data jk_integerForKey:@"FD_TOTAL_NUM"]];
+    self.lbSendCountText.text = [NSString stringWithFormat:@"%zi",[data jk_integerForKey:@"FD_SEND_NUM"]];
+    self.lbUnSendCountText.text = [NSString stringWithFormat:@"%zi",[data jk_integerForKey:@"FD_REMAIN_SEND_NUM"]];
     self.lbSendDateText.text = [data jk_stringForKey:@"FD_SEND_DATE"];
     self.lbSenderText.text = [data jk_stringForKey:@"FD_REC_USER"];
     self.lbReceivePhoneText.text = [data jk_stringForKey:@"FD_REC_TEL"];

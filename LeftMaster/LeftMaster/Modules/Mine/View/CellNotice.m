@@ -37,7 +37,7 @@
         _lbText = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbText.font = [UIFont boldSystemFontOfSize:12*RATIO_WIDHT320];
         _lbText.textColor = RGB3(102);
-        [self.contentView addSubview:_lbText];
+//        [self.contentView addSubview:_lbText];
         
         _lbCount = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbCount.font = [UIFont boldSystemFontOfSize:8*RATIO_WIDHT320];
@@ -63,7 +63,6 @@
 - (void)updateData:(NSString*)icon withTitle:(NSString*)title withCount:(NSInteger)count{
     self.ivImg.image = [UIImage imageNamed:icon];
     self.lbTitle.text = title;
-    self.lbText.text = @"中国第一家渠道渠道";
     if(count <= 0){
         self.lbCount.hidden = YES;
     }else{
@@ -92,12 +91,12 @@
     r.size.height = size.height;
     r.size.width = w - (self.ivImg.right + 7*RATIO_WIDHT320);
     r.origin.x = self.ivImg.right + 7*RATIO_WIDHT320;
-    r.origin.y = self.ivImg.top;
+    r.origin.y = self.ivImg.top + (self.ivImg.height - r.size.height)/2.0;
     self.lbTitle.frame = r;
     
     
     size = [self.lbText sizeThatFits:CGSizeMake(self.lbTitle.width, MAXFLOAT)];
-    r = self.lbTitle.frame;
+    r = self.lbText.frame;
     r.size.height = size.height;
     r.size.width = self.lbTitle.width;
     r.origin.x = self.lbTitle.left;
