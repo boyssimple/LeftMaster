@@ -90,7 +90,7 @@
     RequestBeanCategoryHome *requestBean = [RequestBeanCategoryHome new];
     requestBean.parent_id = 0;
     requestBean.page_current = 1;
-    requestBean.page_size = 10;
+    requestBean.page_size = 8;
     __weak typeof(self) weakself = self;
     
     [NetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {

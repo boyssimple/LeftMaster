@@ -177,6 +177,7 @@
             if(indexPath.row == 3){
                 VCProxyCustmer*vc = [[VCProxyCustmer alloc]init];
                 vc.type = 1;
+                vc.hidesBottomBarWhenPushed = TRUE;
                 [self.navigationController pushViewController:vc animated:TRUE];
             }else if(indexPath.row == 4){
                 VCSetting *vc = [[VCSetting alloc]init];

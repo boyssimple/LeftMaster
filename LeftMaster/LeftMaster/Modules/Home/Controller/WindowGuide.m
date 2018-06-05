@@ -172,6 +172,9 @@
     [UIView animateWithDuration:0.3 animations:^{
         guideWindow.alpha = 0;
     } completion:^(BOOL finished) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"true" forKey:@"isFirst"];
+        [defaults synchronize];
         if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
             [self.delegate clickActionWithIndex:0];
         }

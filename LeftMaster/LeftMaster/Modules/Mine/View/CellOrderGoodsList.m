@@ -166,16 +166,16 @@
     
     size = [self.lbAmount sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     r = self.lbAmount.frame;
+    r.size = size;
     r.origin.x = self.lbPrice.left;
     r.origin.y = self.height - size.height - 10*RATIO_WIDHT320;
-    r.size = size;
     self.lbAmount.frame = r;
     
     size = [self.lbAmountText sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     r = self.lbAmountText.frame;
-    r.origin.x = self.lbPrice.right;
-    r.origin.y = self.lbAmount.top;
     r.size = size;
+    r.origin.x = self.lbAmount.right;
+    r.origin.y = self.lbAmount.top;
     self.lbAmountText.frame = r;
     
     r = self.vLine.frame;

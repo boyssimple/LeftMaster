@@ -10,7 +10,8 @@
 #ifndef NetUrl_h
 #define NetUrl_h
 
-#define Base_Url @"113.204.168.170:4321/"
+//#define Base_Url @"113.204.168.170:4321/"
+#define Base_Url @"masterzuo.cartechfin.com/"
 
 //用户
 #define net_user_login @"system/UserMobileTran.do?login"                      //用户登录
@@ -48,7 +49,7 @@
 #define net_order_send_info @"shop/OrderMobileTran.do?queryOrderSendInfo"       //发货单
 #define net_order_check_data @"shop/CustomerInfoMobileTran.do?getCustomerBalanceDataByCusId"       //订单对帐
 #define net_order_query_num @"shop/OrderMobileTran.do?queryMyOrderNum"       //订单数量
-#define net_goods_new_list @"shop/GoodsMobileTran.do?getGoodsList"       //推荐新品
+#define net_goods_new_list @"shop/GoodsMobileTran.do?getNewGoodsList"       //推荐新品
 #define net_invoice_detail_list @"shop/OrderMobileTran.do?queryOrderSendDetail"       //发货单
 
 

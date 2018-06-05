@@ -44,10 +44,9 @@
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"用户：%@",dictionary);
         [[AppUser share] parse:dictionary];
-        if([AppUser share].isSalesman && [[AppUser share].CUS_ID isEqualToString:@""]){
+        if([AppUser share].isSalesman && ![AppUser share].CUS_ID){
             VCProxyCustmer *vc = [[VCProxyCustmer alloc]init];
-            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-            [self restoreRootViewController:nav];
+            self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
         }else{
             VCMain *vc = [[VCMain alloc]init];
             self.window.rootViewController = vc;

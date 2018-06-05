@@ -32,6 +32,9 @@
 @property (nonatomic, assign) NSInteger count;
 
 @property(nonatomic,strong)NSString* OTHER_GOODS_ID;
+
+
+
 @end
 
 @implementation VCGoods
@@ -295,15 +298,27 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
     if(self.data){
+        
         NSInteger type = [self.data jk_integerForKey:@"OPER_TYPE"];{
             if(type == 0){
                 [Utils showSuccessToast:@"您不具备该商品购买权限，请联系左师傅" with:self.view withTime:1];
             }else{
+                NSArray *datas = [self.data jk_arrayForKey:@"GOODS_GOODSSPECS"];
+                
+                
                 if (index == 0) {
                     //调用加入购物车接口
-                    [self addCart];
+                    if (datas.count > 0) {
+                        [Utils showSuccessToast:@"请选择规格" with:self.view withTime:1];
+                    }else{
+                        [self addCart];
+                    }
                 }else if(index == 1){
-                    [self addOrder];
+                    if (datas.count > 0) {
+                        [Utils showSuccessToast:@"请选择规格" with:self.view withTime:1];
+                    }else{
+                        [self addOrder];
+                    }
                 }else{
                     VCSingleCart *vc = [[VCSingleCart alloc]init];
                     [self.navigationController pushViewController:vc animated:TRUE];

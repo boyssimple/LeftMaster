@@ -12,6 +12,7 @@
 #import "VCMain.h"
 #import "AppDelegate.h"
 #import "RequestBeanCustomer.h"
+#import "VCLogin.h"
 
 @interface VCProxyCustmer ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property(nonatomic,strong)UITableView *table;
@@ -38,9 +39,18 @@
     [self.view addSubview:self.table];
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(confirmAction)];
     self.navigationItem.rightBarButtonItem = rightBarItem;
-    
+    if (self.type != 1) {
+        UIBarButtonItem *leftBarItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
+        self.navigationItem.leftBarButtonItem = leftBarItem;
+    }
 }
 
+- (void)cancelAction{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    VCLogin *vc = [[VCLogin alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    [appDelegate restoreRootViewController:nav];
+}
 
 - (void)confirmAction{
     if(self.selected && [AppUser share].CUS_ID){
@@ -53,6 +63,7 @@
                 NSMutableDictionary *mutDic = [dictionary mutableCopy];
                 [mutDic setObject:[AppUser share].CUS_ID forKey:@"CUS_ID"];
                 [mutDic setObject:[AppUser share].CUS_NAME forKey:@"CUS_NAME"];
+                [mutDic setObject:[AppUser share].SYSUSER_COMPANYID forKey:@"SYSUSER_COMPANYID"];
                 [Utils saveUserInfo:mutDic];
                 [self postNotification:REFRESH_MINE_INFO withObject:nil];
                 
@@ -174,6 +185,7 @@
     NSDictionary *data = [self.dataSource objectAtIndex:indexPath.row];
     [AppUser share].CUS_ID = [data jk_stringForKey:@"customer_id"];
     [AppUser share].CUS_NAME = [data jk_stringForKey:@"customer_name"];
+    [AppUser share].SYSUSER_COMPANYID = [data jk_stringForKey:@"fd_company_id"];
     self.cusId = [data jk_stringForKey:@"customer_id"];
     self.selected = TRUE;
     [self.table reloadData];

@@ -345,8 +345,13 @@
     
     if (self.status == 0) {
         self.btnCancel.left = self.vBg.width - self.btnCancel.width - 10*RATIO_WIDHT320;
-        self.btnConfirm.left = self.btnCancel.left - 10*RATIO_WIDHT320 - self.btnConfirm.width;
-        self.btnAgain.left = self.btnConfirm.left - 10*RATIO_WIDHT320 - self.btnAgain.width;
+        if(![AppUser share].isSalesman){
+            self.btnConfirm.hidden = NO;
+            self.btnConfirm.left = self.btnCancel.left - 10*RATIO_WIDHT320 - self.btnConfirm.width;
+            self.btnAgain.left = self.btnConfirm.left - 10*RATIO_WIDHT320 - self.btnAgain.width;
+        }else{
+            self.btnAgain.left = self.btnCancel.left - 10*RATIO_WIDHT320 - self.btnAgain.width;
+        }
     }else if(self.status == 1){
         self.btnCancel.left = self.vBg.width - self.btnCancel.width - 10*RATIO_WIDHT320;
         self.btnAgain.left = self.btnCancel.left - 10*RATIO_WIDHT320 - self.btnAgain.width;

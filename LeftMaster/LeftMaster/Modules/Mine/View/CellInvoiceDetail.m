@@ -70,7 +70,7 @@
         _lbNo = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbNo.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbNo.textColor = APP_BLACK_COLOR;
-        _lbNo.text = @"发货单号：";
+        _lbNo.text = @"商品编码：";
         [self.contentView addSubview:_lbNo];
         
         _lbNoText = [[UILabel alloc]initWithFrame:CGRectZero];

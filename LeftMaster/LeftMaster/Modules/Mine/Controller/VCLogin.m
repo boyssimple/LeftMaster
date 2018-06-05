@@ -40,7 +40,7 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
 //    [guide show];
 //    save_current_version();
     
-     if ([current_version() compare:prev_version()] == NSOrderedDescending) {
+     if ([self isFirst]) {
          WindowGuide *guide = [[WindowGuide alloc]init];
          guide.delegate = self;
          [guide show];
@@ -396,6 +396,16 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
     }
     return _btnForgot;
 }
+
+- (BOOL)isFirst{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *flag = [defaults objectForKey:@"isFirst"];
+    if (!flag) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
 
 NS_INLINE
 NSString* current_version(){

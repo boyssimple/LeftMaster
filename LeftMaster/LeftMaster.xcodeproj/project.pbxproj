@@ -65,6 +65,7 @@
 		1C8A2E41207875BD0076238D /* HMScanerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E37207875BD0076238D /* HMScanerCardViewController.m */; };
 		1C8A2E42207875BD0076238D /* HMScannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A2E39207875BD0076238D /* HMScannerController.m */; };
 		1C98270220937A02000EF976 /* ViewMessageOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C98270020937A01000EF976 /* ViewMessageOrder.m */; };
+		1CBCB28220C65B7E00700963 /* NetWorkTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBCB28120C65B7E00700963 /* NetWorkTools.m */; };
 		1CBF1DAE208F7A040090BD96 /* Reason.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DAD208F7A040090BD96 /* Reason.m */; };
 		1CBF1DB1208F85620090BD96 /* RequestBeanQueryCartNum.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DB0208F85620090BD96 /* RequestBeanQueryCartNum.m */; };
 		1CBF1DB4208F8A310090BD96 /* RequestBeanSignOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBF1DB3208F8A310090BD96 /* RequestBeanSignOrder.m */; };
@@ -312,6 +313,8 @@
 		1C8A2E3B207875BD0076238D /* HMScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerViewController.h; sourceTree = "<group>"; };
 		1C98270020937A01000EF976 /* ViewMessageOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewMessageOrder.m; sourceTree = "<group>"; };
 		1C98270420937A51000EF976 /* ViewMessageOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewMessageOrder.h; sourceTree = "<group>"; };
+		1CBCB28020C65B7E00700963 /* NetWorkTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetWorkTools.h; sourceTree = "<group>"; };
+		1CBCB28120C65B7E00700963 /* NetWorkTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetWorkTools.m; sourceTree = "<group>"; };
 		1CBF1DAC208F7A040090BD96 /* Reason.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reason.h; sourceTree = "<group>"; };
 		1CBF1DAD208F7A040090BD96 /* Reason.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reason.m; sourceTree = "<group>"; };
 		1CBF1DAF208F85620090BD96 /* RequestBeanQueryCartNum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanQueryCartNum.h; sourceTree = "<group>"; };
@@ -786,6 +789,8 @@
 				1C766F6D208390D300C7B913 /* CommonDelegate.h */,
 				1CFC00C32087124A00A8E344 /* NetworkManager.h */,
 				1CFC00C42087124A00A8E344 /* NetworkManager.m */,
+				1CBCB28020C65B7E00700963 /* NetWorkTools.h */,
+				1CBCB28120C65B7E00700963 /* NetWorkTools.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1493,6 +1498,7 @@
 				1CBF5BF3207CE92F00284EA1 /* ViewSectionOrder.m in Sources */,
 				1CBF5BF9207CF3AD00284EA1 /* CellOrderRemark.m in Sources */,
 				1C88D0E820AB15B700865DE2 /* SDWebImageManager+MJ.m in Sources */,
+				1CBCB28220C65B7E00700963 /* NetWorkTools.m in Sources */,
 				1CBF5BC9207A542700284EA1 /* CellMine.m in Sources */,
 				1CBF5BD2207A6A5E00284EA1 /* VCNotice.m in Sources */,
 				1C4CC29A207276E3007C24FB /* CellNewHome.m in Sources */,

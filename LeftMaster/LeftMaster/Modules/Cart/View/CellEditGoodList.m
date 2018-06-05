@@ -12,6 +12,7 @@
 @property(nonatomic,strong)UIButton *btnCheck;
 @property(nonatomic,strong)UIImageView *ivImg;
 @property(nonatomic,strong)UILabel *lbName;
+@property(nonatomic,strong)UIButton *btnDelete;
 @property(nonatomic,strong)UILabel *lbPrice;
 @property(nonatomic,strong)UIView  *vCountBg;
 @property(nonatomic,strong)UIView *vLine;
@@ -39,6 +40,13 @@
         _lbName.textColor = RGB(0, 0, 0);
         _lbName.numberOfLines = 2;
         [self.contentView addSubview:_lbName];
+        
+        _btnDelete = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_btnDelete setTitle:@"删除" forState:UIControlStateNormal];
+        [_btnDelete setTitleColor:APP_COLOR forState:UIControlStateNormal];
+        _btnDelete.titleLabel.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        [_btnDelete addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_btnDelete];
         
         _lbPrice = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbPrice.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
@@ -84,6 +92,11 @@
 }
 
 
+- (void)deleteAction:(UIButton*)sender{
+    if([self.delegate respondsToSelector:@selector(clickActionWithIndex: withDataIndex:)]){
+        [self.delegate clickActionWithIndex:2 withDataIndex:self.index];
+    }
+}
 
 - (void)clickAction:(UIButton*)sender{
     NSInteger tag = sender.tag;
@@ -95,7 +108,7 @@
                 self.lbCount.text = [NSString stringWithFormat:@"%zi",c-1];
                 
                 if([self.delegate respondsToSelector:@selector(clickActionWithIndex: withDataIndex:)]){
-                    [self.delegate clickActionWithIndex:tag-100 withDataIndex:self.index];
+                    [self.delegate clickActionWithIndex:0 withDataIndex:self.index];
                 }
             }
             
@@ -112,7 +125,7 @@
         }
         
         if([self.delegate respondsToSelector:@selector(clickActionWithIndex: withDataIndex:)]){
-            [self.delegate clickActionWithIndex:tag-100 withDataIndex:self.index];
+            [self.delegate clickActionWithIndex:1 withDataIndex:self.index];
         }
     }
 }
@@ -166,7 +179,16 @@
     r.origin.y = 15*RATIO_WIDHT320;
     self.ivImg.frame = r;
     
-    CGSize size = [self.lbName sizeThatFits:CGSizeMake(DEVICEWIDTH -self.ivImg.right - 20*RATIO_WIDHT320, MAXFLOAT)];
+    CGSize size = [self.btnDelete.titleLabel sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
+    size.height = size.height + 10;
+    size.width = size.width + 15*RATIO_WIDHT320*2;
+    r = self.btnDelete.frame;
+    r.origin.x = DEVICEWIDTH - size.width;
+    r.origin.y = self.ivImg.top;
+    r.size = size;
+    self.btnDelete.frame = r;
+    
+    size = [self.lbName sizeThatFits:CGSizeMake(self.btnDelete.left -self.ivImg.right - 20*RATIO_WIDHT320, MAXFLOAT)];
     r = self.lbName.frame;
     r.origin.x = self.ivImg.right + 10*RATIO_WIDHT320;
     r.origin.y = self.ivImg.top - 3.5;

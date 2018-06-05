@@ -19,6 +19,7 @@
 #import "RequestBeanAddOrder.h"
 #import "RequestBeanOrderGoodsList.h"
 #import "VCEditGoodList.h"
+#import "NetWorkTools.h"
 
 @interface VCWriteOrderAgain ()<CommonDelegate,WindowCustomDelegate,UIScrollViewDelegate,ViewTotalBottomWriteOrderDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UIScrollView *mainView;
@@ -51,7 +52,7 @@
     _goodsList = [NSMutableArray array];
     [self.view addSubview:self.mainView];
     [self.mainView addSubview:self.vGoodsList];
-    [self.mainView addSubview:self.vBill];
+//    [self.mainView addSubview:self.vBill];
     [self.mainView addSubview:self.vMsgOrder];
     [self.mainView addSubview:self.vTotalOrder];
     
@@ -134,14 +135,16 @@
                 [weakself.goodsList removeAllObjects];
                 NSArray *datas = [response.data jk_arrayForKey:@"rows"];
                 for (NSDictionary *data in datas) {
-                    CartGoods *c = [[CartGoods alloc]init];
-                    c.GOODS_PIC = [data jk_stringForKey:@"GOODS_PIC"];
-                    c.FD_NUM = [data jk_integerForKey:@"FD_NUM"];
-                    c.GOODS_PRICE = [data jk_floatForKey:@"FD_UNIT_PRICE"];
-                    c.GOODS_UNIT = [data jk_stringForKey:@"FD_UNIT_NAME"];
-                    c.GOODS_NAME = [data jk_stringForKey:@"GOODS_NAME"];
-                    c.GOODS_ID = [data jk_stringForKey:@"GOODS_ID"];
-                    [weakself.goodsList addObject:c];
+                    if (![data jk_boolForKey:@"FD_IS_GIFT"]) {
+                        CartGoods *c = [[CartGoods alloc]init];
+                        c.GOODS_PIC = [data jk_stringForKey:@"GOODS_PIC"];
+                        c.FD_NUM = [data jk_integerForKey:@"FD_NUM"];
+                        c.GOODS_PRICE = [data jk_floatForKey:@"FD_UNIT_PRICE"];
+                        c.GOODS_UNIT = [data jk_stringForKey:@"FD_UNIT_NAME"];
+                        c.GOODS_NAME = [data jk_stringForKey:@"GOODS_NAME"];
+                        c.GOODS_ID = [data jk_stringForKey:@"GOODS_ID"];
+                        [weakself.goodsList addObject:c];
+                    }
                 }
                 [weakself installData];
                 
@@ -232,26 +235,19 @@
     }
     [orderInfo setObject:goods forKey:@"ORDER_DETAIL"];
     
-    if (self.isBill) {
-        if (!self.cust) {
-            [Utils showSuccessToast:@"未选择开票单位" with:self.view withTime:0.8];
-            return;
-        }else{
-            [orderInfo setObject:[NSString stringWithFormat:@"%d",self.isBill] forKey:@"FD_NEED_TICKET"];
-            [orderInfo setObject:self.cust.fd_bill_org_id forKey:@"FD_BILL_ORG_ID"];
-        }
-    }
     
     if(self.remark && self.remark.length > 0){
         [orderInfo setObject:self.remark forKey:@"FD_DESC"];
     }
-    
-    requestBean.oderInfo = [Utils dictToJsonStr:orderInfo];//[Utils dictToJsonStr:orderInfo];
+    NSString *encodedValue = [[Utils dictToJsonStr:orderInfo] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    requestBean.oderInfo = encodedValue;//[Utils dictToJsonStr:orderInfo];
     NSLog(@"结果:%@",requestBean.oderInfo);
     
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
-    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+    
+    
+    [NetWorkTools requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
         ResponseBeanAddOrder *response = responseBean;
         if (!err) {
             // 结果处理
@@ -321,9 +317,17 @@
 
 #pragma mark - ViewTotalBottomWriteOrderDelegate
 - (void)clickOrder{
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定提交?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    alert.tag = 100;
-    [alert show];
+    if (self.goodsList.count == 0) {
+        [Utils showSuccessToast:@"未选择商品" with:self.view withTime:0.8];
+        return;
+    }
+    if (self.totalPrice < 500) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"订单金额未达到500元免运费条件，将自付运费，请确认!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.tag = 100;
+        [alert show];
+    }else{
+        [self addOrderAction];
+    }
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -367,7 +371,7 @@
 
 - (ViewMessageOrder*)vMsgOrder{
     if (!_vMsgOrder) {
-        _vMsgOrder = [[ViewMessageOrder alloc]initWithFrame:CGRectMake(0, self.vBill.bottom + 8*RATIO_WIDHT320, DEVICEWIDTH, [ViewMessageOrder calHeight])];
+        _vMsgOrder = [[ViewMessageOrder alloc]initWithFrame:CGRectMake(0, self.vGoodsList.bottom + 8*RATIO_WIDHT320, DEVICEWIDTH, [ViewMessageOrder calHeight])];
         [_vMsgOrder.tfText addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
     }
     return _vMsgOrder;

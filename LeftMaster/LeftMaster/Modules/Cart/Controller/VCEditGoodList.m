@@ -105,11 +105,16 @@
         }
         [self.table reloadData];
         [self.superVC reloadDatas:self.goodsList];
-    }else{
+    }else if(index == 1){
         //加数量request
         CartGoods *data = [self.goodsList objectAtIndex:dataIndex];
         data.FD_NUM += 1;
         [self.goodsList replaceObjectAtIndex:dataIndex withObject:data];
+        [self.table reloadData];
+        [self.superVC reloadDatas:self.goodsList];
+    }else if(index == 2){
+        //加数量request
+        [self.goodsList removeObjectAtIndex:dataIndex];
         [self.table reloadData];
         [self.superVC reloadDatas:self.goodsList];
     }

@@ -42,6 +42,11 @@
 }
 
 - (void)updateData:(NSString*)name with:(NSString*)text{
+    if (self.type == 2) {
+        self.ivArrow.hidden = TRUE;
+    }else{
+        self.ivArrow.hidden = FALSE;
+    }
     self.lbTitle.text = name;
     self.lbText.text = text;
 }
