@@ -38,6 +38,7 @@
 
 
 - (void)handleNotification:(NSNotification *)notification{
+    [self.header updateData];
     [self.table reloadData];
 }
 

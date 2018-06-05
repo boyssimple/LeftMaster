@@ -180,7 +180,7 @@
 }
 
 - (void)installData{
-    
+    self.totalPrice = 0;
     for (CartGoods *g in self.goodsList) {
         self.totalPrice += g.FD_NUM * g.GOODS_PRICE;
     }
