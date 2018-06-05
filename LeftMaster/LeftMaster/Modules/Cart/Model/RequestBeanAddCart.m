@@ -21,6 +21,11 @@
     return @"处理中...";
 }
 
+- (NSString*)cus_id{
+    return [AppUser share].CUS_ID;
+}
+
+
 @end
 
 @implementation ResponseBeanAddCart

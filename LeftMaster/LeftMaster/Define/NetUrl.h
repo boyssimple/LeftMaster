@@ -10,8 +10,8 @@
 #ifndef NetUrl_h
 #define NetUrl_h
 
-//#define Base_Url @"113.204.168.170:4321/"
-#define Base_Url @"masterzuo.cartechfin.com/"
+#define Base_Url @"113.204.168.170:4321/"
+//#define Base_Url @"masterzuo.cartechfin.com/"
 
 //用户
 #define net_user_login @"system/UserMobileTran.do?login"                      //用户登录

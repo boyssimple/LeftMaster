@@ -35,6 +35,10 @@
 
 @implementation VCCart
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initMain];
@@ -51,11 +55,6 @@
     //加入购物车通知
     [self observeNotification:REFRESH_CART_LIST];
     
-    
-//    [self postNotification:REFRESH_CART_LIST withObject:nil];
-    
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -71,9 +70,6 @@
                                                object:nil];
 }
 
-- (void)viewDidDisappear:(BOOL)animated{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 
 //当键盘出现

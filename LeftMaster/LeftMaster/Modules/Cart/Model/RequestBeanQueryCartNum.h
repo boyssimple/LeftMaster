@@ -10,6 +10,7 @@
 
 @interface RequestBeanQueryCartNum : AJRequestBeanBase
 @property(nonatomic,strong)NSString *user_id;
+@property(nonatomic,strong)NSString *cus_id;
 @end
 
 @interface ResponseBeanQueryCartNum : AJResponseBeanBase

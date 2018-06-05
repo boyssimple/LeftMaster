@@ -11,6 +11,7 @@
 @interface RequestBeanAddCart : AJRequestBeanBase
 
 @property(nonatomic,strong)NSString *user_id;     //用户ID
+@property(nonatomic,strong)NSString *cus_id;     //客户ID
 @property(nonatomic,strong)NSString *goods_id;     //good_id
 @property(nonatomic,assign)NSInteger num;     //数量
 @end

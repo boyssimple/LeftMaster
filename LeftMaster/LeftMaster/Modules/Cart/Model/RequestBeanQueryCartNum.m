@@ -26,6 +26,9 @@
     return @"加载中...";
 }
 
+- (NSString*)cus_id{
+    return [AppUser share].CUS_ID;
+}
 @end
 
 @implementation ResponseBeanQueryCartNum
