@@ -67,11 +67,12 @@
             [weakself.table reloadData];
             if(weakself.categorys && weakself.categorys.count > 0){
                 if(self.cateId){
-                    [weakself loadSubData:self.cateId];
+                    [weakself loadSubData];
                 }else{
                     NSDictionary *first = [weakself.categorys firstObject];
                     if(first){
-                        [weakself loadSubData:[first jk_stringForKey:@"GOODSTYPE_ID"]];
+                        self.cateId = [first jk_stringForKey:@"GOODSTYPE_ID"];
+                        [weakself loadSubData];
                     }
                 }
             }
@@ -81,11 +82,14 @@
 
 
 
-- (void)loadSubData:(NSString*)parentId{
+- (void)loadSubData{
     RequestBeanCategoryHome *requestBean = [RequestBeanCategoryHome new];
-    requestBean.parent_id = parentId;
+    requestBean.parent_id = self.cateId;
     requestBean.page_current = self.page;
     requestBean.page_size = 20;
+    if (self.keywords) {
+        requestBean.search_name = self.keywords;
+    }
     [Utils showHanding:requestBean.hubTips with:self.view];
     __weak typeof(self) weakself = self;
     [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
@@ -121,7 +125,7 @@
 
 - (void)search{
     self.keywords = self.vCart.tfText.text;
-//    [self loadGoodsListData];
+    [self loadSubData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -181,7 +185,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *data = [self.categorys objectAtIndex:indexPath.row];
     self.cateId = [data jk_stringForKey:@"GOODSTYPE_ID"];
-    [self loadSubData:[data jk_stringForKey:@"GOODSTYPE_ID"]];
+    [self loadSubData];
     [self.table reloadData];
 }
 

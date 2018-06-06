@@ -11,6 +11,7 @@
 @interface RequestBeanAddBatchCart : AJRequestBeanBase
 
 @property(nonatomic,strong)NSString *user_id;     //用户ID
+@property(nonatomic,strong)NSString *cus_id;     //用户ID
 @property(nonatomic,strong)NSString *detail;   
 @end
 

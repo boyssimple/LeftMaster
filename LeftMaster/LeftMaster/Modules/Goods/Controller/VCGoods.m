@@ -31,6 +31,8 @@
 @property(nonatomic,strong)NSDictionary *data;
 @property (nonatomic, assign) NSInteger count;
 
+@property(nonatomic,strong)NSArray *roles;
+
 @property(nonatomic,strong)NSString* OTHER_GOODS_ID;
 
 
@@ -72,7 +74,6 @@
             ResponseBeanGoodsDetail *response = responseBean;
             weakself.data = response.data;
             [weakself installData];
-            [weakself.table reloadData];
         }
     }];
 }
@@ -87,7 +88,7 @@
         return;
     }
     RequestBeanAddCart *requestBean = [RequestBeanAddCart new];
-    requestBean.goods_id = self.goods_id;
+    requestBean.goods_id = [self.data jk_stringForKey:@"GOODS_ID"];
     requestBean.num = self.count;
     requestBean.user_id = [AppUser share].SYSUSER_ID;
     [Utils showHanding:requestBean.hubTips with:self.view];
@@ -111,18 +112,25 @@
 
 - (void)installData{
     if(self.data){
-        
+        if (self.roles.count == 0) {
+            self.roles = [self.data jk_arrayForKey:@"GOODS_GOODSSPECS"];
+        }else{
+            NSMutableDictionary *newData = [self.data mutableCopy];
+            [newData setObject:self.roles forKey:@"GOODS_GOODSSPECS"];
+            self.data = newData;
+        }
         NSString *html = [self.data jk_stringForKey:@"GOODS_INTRODUCTION"];
         [self.footer loadHTMLString:[self installHtml:html] baseURL:nil];
         
         self.cycleScrollView.imageURLStringsGroup = [self.data jk_arrayForKey:@"GOODS_PICS"];
-        self.lbPicCount.text = [NSString stringWithFormat:@"%d/%zi",1,self.cycleScrollView.imageURLStringsGroup.count];
+        self.lbPicCount.text = [NSString stringWithFormat:@"%d/%ld",1,self.cycleScrollView.imageURLStringsGroup.count];
         if(self.cycleScrollView.imageURLStringsGroup.count > 0){
             self.lbPicCount.hidden = NO;
         }else{
             self.lbPicCount.hidden = YES;
         }
     }
+    [self.table reloadData];
 }
 
 - (NSString*)installHtml:(NSString*)content{
@@ -309,15 +317,27 @@
                 if (index == 0) {
                     //调用加入购物车接口
                     if (datas.count > 0) {
-                        [Utils showSuccessToast:@"请选择规格" with:self.view withTime:1];
+                        if (!self.OTHER_GOODS_ID || [self.OTHER_GOODS_ID isEqualToString:@""]) {
+                            [Utils showSuccessToast:@"请选择规格" with:self.view withTime:1];
+                        }else{
+                            [self addCart];
+                            
+                        }
                     }else{
                         [self addCart];
+                        
                     }
                 }else if(index == 1){
                     if (datas.count > 0) {
-                        [Utils showSuccessToast:@"请选择规格" with:self.view withTime:1];
+                        if (!self.OTHER_GOODS_ID || [self.OTHER_GOODS_ID isEqualToString:@""]) {
+                            [Utils showSuccessToast:@"请选择规格" with:self.view withTime:1];
+                        }else{
+                            [self addOrder];
+                            
+                        }
                     }else{
                         [self addOrder];
+                        
                     }
                 }else{
                     VCSingleCart *vc = [[VCSingleCart alloc]init];

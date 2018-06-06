@@ -255,6 +255,7 @@
         
         RequestBeanAddBatchCart *requestBean = [RequestBeanAddBatchCart new];
         requestBean.user_id = [AppUser share].SYSUSER_ID;
+        requestBean.cus_id = [AppUser share].CUS_ID;
         
         NSData *data=[NSJSONSerialization dataWithJSONObject:selects options:NSJSONWritingPrettyPrinted error:nil];
         NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
