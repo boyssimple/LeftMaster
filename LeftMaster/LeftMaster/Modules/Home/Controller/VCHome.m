@@ -52,6 +52,21 @@
                                              selector:@selector(showOrderAction:)
                                                  name:@"OPEN_ORDER_LIST"
                                                object:nil];
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshAll)
+                                                 name:REFRESH_ALL_INFO
+                                               object:nil];
+}
+
+- (void)refreshAll{
+    
+    self.page = 1;
+    [self loadCarouseListData];
+    [self loadData];
+    [self loadGoodsListData];
 }
 
 - (void)getVision{

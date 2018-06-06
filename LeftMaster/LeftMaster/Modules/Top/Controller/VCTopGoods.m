@@ -44,8 +44,17 @@
     [self.view addSubview:self.vControl];
     [self.view addSubview:self.custon];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshAll)
+                                                 name:REFRESH_ALL_INFO
+                                               object:nil];
 }
 
+- (void)refreshAll{
+    self.page = 1;
+    [self loadData];
+}
 
 - (void)viewWillAppear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] addObserver:self

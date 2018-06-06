@@ -66,6 +66,7 @@
                 [mutDic setObject:[AppUser share].SYSUSER_COMPANYID forKey:@"SYSUSER_COMPANYID"];
                 [Utils saveUserInfo:mutDic];
                 [self postNotification:REFRESH_MINE_INFO withObject:nil];
+                [self postNotification:REFRESH_CART_LIST withObject:nil];
                 
             }
         }
