@@ -86,6 +86,7 @@
 }
 
 - (void)search{
+    self.page = 1;
     self.keywords = self.searchView.tfText.text;
     [self loadData];
 }

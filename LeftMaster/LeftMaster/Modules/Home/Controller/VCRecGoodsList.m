@@ -31,6 +31,7 @@
 @property(nonatomic,assign)BOOL price_order;
 @property (nonatomic, assign) NSInteger num;
 @property(nonatomic,strong)NSString *goods_id;
+@property(nonatomic,strong)NSDictionary *data;
 @end
 
 @implementation VCRecGoodsList
@@ -145,6 +146,11 @@
 
 
 - (void)addCart{
+    NSInteger type = [self.data jk_integerForKey:@"OPER_TYPE"];
+    if(type == 0 || [[self.data jk_stringForKey:@"GOODS_PRICE"] isEqualToString:@"?"]){
+        [Utils showSuccessToast:@"您不具备该商品购买权限，请联系左师傅" with:self.view withTime:1];
+        return;
+    }
     RequestBeanAddCart *requestBean = [RequestBeanAddCart new];
     requestBean.goods_id = self.goods_id;
     requestBean.num = self.num;
@@ -269,6 +275,7 @@
 #pragma mark - CellRecGoodsListDelegate
 - (void)joinCartClick:(NSInteger)index withNum:(NSInteger)num{
     NSDictionary *data = [self.goodsList objectAtIndex:index];
+    self.data = data;
     self.goods_id = [data jk_stringForKey:@"GOODS_ID"];
     self.num = num;
     [self addCart];

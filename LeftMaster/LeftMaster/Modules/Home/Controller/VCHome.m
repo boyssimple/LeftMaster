@@ -24,6 +24,8 @@
 #import "HMScannerController.h"
 #import "RequestBeanNewGoods.h"
 
+#import "RequestBeanVision.h"
+
 @interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate,UIScrollViewDelegate,
         UIAlertViewDelegate,CommonDelegate>
 @property(nonatomic,strong)UITableView *table;
@@ -32,6 +34,7 @@
 @property(nonatomic,strong)NSMutableArray *goodsList;
 @property(nonatomic,strong)ViewSearchWithHome *vCart;
 @property(nonatomic,assign)NSInteger page;
+@property(nonatomic,strong)NSString *downUrl;
 @end
 
 @implementation VCHome
@@ -43,12 +46,38 @@
     [self loadCarouseListData];
     [self loadData];
     [self loadGoodsListData];
-    
+    [self getVision];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showOrderAction:)
                                                  name:@"OPEN_ORDER_LIST"
                                                object:nil];
+}
+
+- (void)getVision{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
+    NSLog(@"版本:%@",app_build);
+    
+    RequestBeanVision *request = [[RequestBeanVision alloc]init];
+    request.APP_TYPE = 1;
+    __weak typeof(self) weakself = self;
+    [NetworkManager requestWithBean:request callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        if (!err) {
+            // 结果处理
+            ResponseBeanVision *response = responseBean;
+            NSString *version = [response.data jk_stringForKey:@"APP_VER"];
+            BOOL result = [version compare:app_build] == NSOrderedDescending;
+            if(result){
+                
+                weakself.downUrl = [response.data jk_stringForKey:@"APP_LINK_PATH"];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"发现版本 %@",[response.data jk_stringForKey:@"APP_VER"]] message:[response.data jk_stringForKey:@"APP_DESC"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"前往下载", nil];
+                alert.tag = 102;
+                [alert show];
+            }
+        }
+    }];
 }
 
 - (void)showOrderAction:(NSNotification*)notification{
@@ -263,11 +292,19 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(buttonIndex == 0){
-        VCModifyPassword *vc = [[VCModifyPassword alloc]init];
-        [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:TRUE completion:^{
-            
-        }];
+    if (alertView.tag == 102) {
+        
+        if(buttonIndex == 1){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/id1387301168"]];
+        }
+    }else{
+        
+        if(buttonIndex == 0){
+            VCModifyPassword *vc = [[VCModifyPassword alloc]init];
+            [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:TRUE completion:^{
+                
+            }];
+        }
     }
 }
 

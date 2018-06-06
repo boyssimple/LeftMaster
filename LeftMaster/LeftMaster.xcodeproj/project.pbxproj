@@ -131,6 +131,7 @@
 		1CF3C92220A1E21B0036BD6D /* VCSingleCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3C92120A1E21B0036BD6D /* VCSingleCart.m */; };
 		1CF751F620B1B5C900357DDA /* RequestBeanNoticeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF751F520B1B5C900357DDA /* RequestBeanNoticeList.m */; };
 		1CF751F920B1BD4F00357DDA /* ViewProductRole.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF751F820B1BD4F00357DDA /* ViewProductRole.m */; };
+		1CF7804920C828C30083F5A0 /* RequestBeanVision.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF7804820C828C30083F5A0 /* RequestBeanVision.m */; };
 		1CFA836520B31C180075AE06 /* notice.css in Resources */ = {isa = PBXBuildFile; fileRef = 1CFA836420B31C180075AE06 /* notice.css */; };
 		1CFA836820B321150075AE06 /* VCInvoiceDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA836720B321150075AE06 /* VCInvoiceDetail.m */; };
 		1CFA836B20B3215E0075AE06 /* CellInvoiceDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA836A20B3215E0075AE06 /* CellInvoiceDetail.m */; };
@@ -446,6 +447,8 @@
 		1CF751F520B1B5C900357DDA /* RequestBeanNoticeList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanNoticeList.m; sourceTree = "<group>"; };
 		1CF751F720B1BD4F00357DDA /* ViewProductRole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewProductRole.h; sourceTree = "<group>"; };
 		1CF751F820B1BD4F00357DDA /* ViewProductRole.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewProductRole.m; sourceTree = "<group>"; };
+		1CF7804720C828C30083F5A0 /* RequestBeanVision.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanVision.h; sourceTree = "<group>"; };
+		1CF7804820C828C30083F5A0 /* RequestBeanVision.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanVision.m; sourceTree = "<group>"; };
 		1CFA836420B31C180075AE06 /* notice.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = notice.css; sourceTree = "<group>"; };
 		1CFA836620B321150075AE06 /* VCInvoiceDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCInvoiceDetail.h; sourceTree = "<group>"; };
 		1CFA836720B321150075AE06 /* VCInvoiceDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCInvoiceDetail.m; sourceTree = "<group>"; };
@@ -887,6 +890,8 @@
 				1C4C15622088FADD00BA8F3C /* RequestBeanSlidePicList.m */,
 				1CF3C91D20A1D17C0036BD6D /* RequestBeanNewGoods.h */,
 				1CF3C91E20A1D17C0036BD6D /* RequestBeanNewGoods.m */,
+				1CF7804720C828C30083F5A0 /* RequestBeanVision.h */,
+				1CF7804820C828C30083F5A0 /* RequestBeanVision.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1541,6 +1546,7 @@
 				1CBF5C11207E2D9300284EA1 /* ViewSearchOrderList.m in Sources */,
 				1CBF1DF020913D540090BD96 /* AlwaysBuyGoods.m in Sources */,
 				1C4CC2842072540E007C24FB /* UITypes+extension.m in Sources */,
+				1CF7804920C828C30083F5A0 /* RequestBeanVision.m in Sources */,
 				1CBF1DDB2090FFD00090BD96 /* VCEditGoodList.m in Sources */,
 				1C4CC27620724F3B007C24FB /* VCCart.m in Sources */,
 				1CFA836E20B323650075AE06 /* RequestBeanInvoiceDetail.m in Sources */,

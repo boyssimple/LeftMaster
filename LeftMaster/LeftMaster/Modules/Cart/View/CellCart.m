@@ -12,6 +12,7 @@
 @property(nonatomic,strong)UIButton *btnCheck;
 @property(nonatomic,strong)UIImageView *ivImg;
 @property(nonatomic,strong)UILabel *lbName;
+@property(nonatomic,strong)UILabel *lbNo;
 @property(nonatomic,strong)UIButton *btnDel;
 @property(nonatomic,strong)UILabel *lbRole;
 @property(nonatomic,strong)UILabel *lbStatus;
@@ -51,6 +52,12 @@
         _lbName.textColor = RGB(0, 0, 0);
         _lbName.numberOfLines = 2;
         [self.contentView addSubview:_lbName];
+        [self.contentView addSubview:_lbName];
+        
+        _lbNo = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbNo.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        _lbNo.textColor = RGB3(153);
+        [self.contentView addSubview:_lbNo];
         
         _lbRole = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbRole.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
@@ -179,6 +186,7 @@
         self.btnCheck.selected = data.selected;
         [self.ivImg pt_setImage:data.GOODS_PIC];
         self.lbName.text = data.GOODS_NAME;
+        self.lbNo.text = [NSString stringWithFormat:@"商品编码:%@",data.GOODS_CODE];
         self.lbRole.text = [NSString stringWithFormat:@"库存:%ld",data.GOODS_STOCK];
         
         if(data.GOODS_STOCK > 0){
@@ -234,7 +242,7 @@
     self.btnCheck.imageView.frame = r;
     
     r = self.ivImg.frame;
-    r.size.width = 80*RATIO_WIDHT320;
+    r.size.width = 100*RATIO_WIDHT320;
     r.size.height = r.size.width;
     r.origin.x = self.btnCheck.right;
     r.origin.y = 15*RATIO_WIDHT320;
@@ -256,17 +264,24 @@
     r.size = size;
     self.lbName.frame = r;
     
+    size = [self.lbNo sizeThatFits:CGSizeMake(self.btnDel.left -self.ivImg.right - 20*RATIO_WIDHT320, MAXFLOAT)];
+    r = self.lbNo.frame;
+    r.origin.x = self.ivImg.right + 10*RATIO_WIDHT320;
+    r.origin.y = self.lbName.bottom + 3*RATIO_WIDHT320;
+    r.size = size;
+    self.lbNo.frame = r;
+    
     size = [self.lbRole sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     r = self.lbRole.frame;
     r.origin.x = self.lbName.left;
-    r.origin.y = self.lbName.bottom + 9*RATIO_WIDHT320;
+    r.origin.y = self.lbNo.bottom + 9*RATIO_WIDHT320;
     r.size = size;
     self.lbRole.frame = r;
     
     size = [self.lbStatus sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     r = self.lbStatus.frame;
     r.origin.x = self.lbRole.right;
-    r.origin.y = self.lbName.bottom + 9*RATIO_WIDHT320;
+    r.origin.y = self.lbNo.bottom + 9*RATIO_WIDHT320;
     r.size = size;
     self.lbStatus.frame = r;
     
@@ -314,7 +329,7 @@
 }
 
 + (CGFloat)calHeight{
-    return 105*RATIO_WIDHT320 + 0.5;
+    return 125*RATIO_WIDHT320 + 0.5;
 }
 
 @end

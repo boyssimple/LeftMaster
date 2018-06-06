@@ -17,6 +17,7 @@
 @property(nonatomic,strong)NSString *GOODS_NAME;
 @property(nonatomic,strong)NSString *GOODS_PIC;
 @property(nonatomic,assign)CGFloat GOODS_PRICE;
+@property(nonatomic,strong)NSString *old_GOODS_PRICE;
 @property(nonatomic,assign)NSInteger GOODS_STOCK;
 @property(nonatomic,strong)NSString *GOODS_UNIT;
 @property(nonatomic,assign)NSInteger OPER_TYPE;

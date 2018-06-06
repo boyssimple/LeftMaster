@@ -233,7 +233,7 @@
     NSMutableArray *selects = [NSMutableArray array];
     NSInteger num = 0;
     for (AlwaysBuyGoods *c in self.goodsList) {
-        if(c.selected){
+        if(c.selected && ![c.old_GOODS_PRICE isEqualToString:@"?"]){
             CartGoods *g = [[CartGoods alloc]init];
             g.FD_NUM = c.Num;
             g.GOODS_PIC = c.GOODS_PIC;
@@ -258,11 +258,13 @@
         requestBean.cus_id = [AppUser share].CUS_ID;
         
         NSData *data=[NSJSONSerialization dataWithJSONObject:selects options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+        NSString *jsonStr = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"结果:%@",jsonStr);
-        requestBean.detail = jsonStr;
+        
+        
+        NSString *result = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(nil,(CFStringRef)jsonStr,nil,(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
+        requestBean.detail = result;
         [Utils showHanding:requestBean.hubTips with:self.view];
-//        __weak typeof(self) weakself = self;
         [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
             [Utils hiddenHanding:self.view withTime:0.5];
             if (!err) {

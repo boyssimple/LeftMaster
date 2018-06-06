@@ -52,8 +52,70 @@
     [self.view addSubview:self.vControl];
     [self.view addSubview:self.custon];
     
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc]initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
+    rightButton.tintColor = [UIColor blackColor];
+    self.navigationItem.rightBarButtonItem = rightButton;
+    
     //加入购物车通知
     [self observeNotification:REFRESH_CART_LIST];
+    
+}
+
+- (void)rightButtonAction{
+    NSMutableArray *selects = [NSMutableArray array];
+    for (CartGoods *c in self.goodsList) {
+        if(c.selected){
+            [selects addObject:c];
+        }
+    }
+    if (selects.count > 0) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定删除？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"删除", nil];
+        alert.tag = 101;
+        [alert show];
+    }else{
+        [Utils showSuccessToast:@"请选择删除商品" with:self.view withTime:0.8];
+    }
+}
+
+
+
+- (void)delActions{
+    NSMutableString *ids = [[NSMutableString alloc]init];
+    NSMutableArray *selects = [NSMutableArray array];
+    for (CartGoods *c in self.goodsList) {
+        if(c.selected){
+            if (ids.length == 0) {
+                [ids appendFormat:@"%@",c.FD_ID];
+            }else{
+                [ids appendFormat:@",%@",c.FD_ID];
+            }
+            [selects addObject:c];
+        }
+    }
+    if (selects.count == 0) {
+        return;
+    }
+    RequestBeanDelCart *requestBean = [RequestBeanDelCart new];
+    requestBean.car_id = ids;
+    [Utils showHanding:requestBean.hubTips with:self.view];
+    __weak typeof(self) weakself = self;
+    [AJNetworkManager requestWithBean:requestBean callBack:^(__kindof AJResponseBeanBase * _Nullable responseBean, AJError * _Nullable err) {
+        [Utils hiddenHanding:self.view withTime:0.5];
+        
+        ResponseBeanDelCart *response = responseBean;
+        if (!err) {
+            // 结果处理
+            if(response.success){
+                weakself.page = 1;
+                [weakself loadData];
+            }else{
+                [Utils showSuccessToast:response.msg with:weakself.view withTime:0.8];
+                
+            }
+        }else{
+            [Utils showSuccessToast:response.msg with:weakself.view withTime:0.8];
+        }
+    }];
     
 }
 
@@ -359,7 +421,7 @@
         self.delIndex = dataIndex;
         CartGoods *data = [self.goodsList objectAtIndex:dataIndex];
         self.carId = data.FD_ID;
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定删除？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"确定删除？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
     }else if(index == 2){
         //减数量request
@@ -382,8 +444,15 @@
 
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) {
-        [self delAction];
+    if (alertView.tag == 101) {
+        
+        if (buttonIndex == 1) {
+            [self delActions];
+        }
+    }else{
+        if (buttonIndex == 1) {
+            [self delAction];
+        }
     }
 }
 
