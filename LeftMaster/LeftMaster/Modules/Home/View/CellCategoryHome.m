@@ -25,10 +25,10 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.minimumLineSpacing = 20*RATIO_WIDHT320;
-        layout.minimumInteritemSpacing = 32*RATIO_WIDHT320;
+        layout.minimumInteritemSpacing = 10*RATIO_WIDHT320;
         _collView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, DEVICEHEIGHT) collectionViewLayout:layout];
         [_collView registerClass:[CollCellCategoryHome class] forCellWithReuseIdentifier:@"CollCellCategoryHome"];
-        _collView.contentInset = UIEdgeInsetsMake(15*RATIO_WIDHT320, 32*RATIO_WIDHT320, 15*RATIO_WIDHT320, 32*RATIO_WIDHT320);
+        _collView.contentInset = UIEdgeInsetsMake(15*RATIO_WIDHT320, 10*RATIO_WIDHT320, 15*RATIO_WIDHT320, 10*RATIO_WIDHT320);
         _collView.backgroundColor = [UIColor clearColor];
         _collView.delegate = self;
         _collView.dataSource = self;
@@ -60,8 +60,9 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CGFloat w = [CollCellCategoryHome calHeight];
-    return CGSizeMake(40*RATIO_WIDHT320, w);
+    CGFloat h = [CollCellCategoryHome calHeight];
+    CGFloat w = (DEVICEWIDTH - 20*RATIO_WIDHT320 - 3*RATIO_WIDHT320*10)/4.0;
+    return CGSizeMake(w, h);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

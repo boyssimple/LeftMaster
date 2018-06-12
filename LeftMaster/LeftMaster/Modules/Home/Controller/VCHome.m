@@ -71,9 +71,9 @@
 
 - (void)getVision{
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-//    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
-    NSLog(@"版本:%@",app_build);
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+//    NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
+    NSLog(@"版本:%@",app_Version);
     
     RequestBeanVision *request = [[RequestBeanVision alloc]init];
     request.APP_TYPE = 1;
@@ -83,7 +83,7 @@
             // 结果处理
             ResponseBeanVision *response = responseBean;
             NSString *version = [response.data jk_stringForKey:@"APP_VER"];
-            BOOL result = [version compare:app_build] == NSOrderedDescending;
+            BOOL result = [version compare:app_Version] == NSOrderedDescending;
             if(result){
                 
                 weakself.downUrl = [response.data jk_stringForKey:@"APP_LINK_PATH"];

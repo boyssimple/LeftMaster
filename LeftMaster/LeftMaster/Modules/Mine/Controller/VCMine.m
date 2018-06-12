@@ -36,10 +36,20 @@
     [self observeNotification:REFRESH_MINE_INFO];
 }
 
-
-- (void)handleNotification:(NSNotification *)notification{
+- (void)loadData{
+    [self loadOrderNum];
     [self.header updateData];
     [self.table reloadData];
+    int64_t delayInSeconds = 0.6;
+    __weak typeof(self) weakself = self;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [weakself.table.mj_header endRefreshing];
+    });
+}
+
+- (void)handleNotification:(NSNotification *)notification{
+    [self loadData];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -70,6 +80,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [self loadOrderNum];
+}
+
+- (void)loadOrderNum{
     [self loadData:0];
     [self loadData:1];
     [self loadData:2];
@@ -264,6 +278,11 @@
         _table.dataSource = self;
         _table.backgroundColor = APP_Gray_COLOR;
         _table.tableHeaderView = self.header;
+        __weak typeof(self) weakself = self;
+        
+        _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [weakself loadData];
+        }];
     }
     return _table;
 }

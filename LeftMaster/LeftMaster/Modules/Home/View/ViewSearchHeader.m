@@ -6,9 +6,9 @@
 //  Copyright © 2018年 simple. All rights reserved.
 //
 
-#import "ViewCategory.h"
+#import "ViewSearchHeader.h"
 
-@interface ViewCategory()
+@interface ViewSearchHeader()
 @property(nonatomic,strong)UIButton *btnQR;
 @property(nonatomic,strong)UIView *vSearchBg;
 @property(nonatomic,strong)UIImageView *ivSearch;
@@ -17,7 +17,7 @@
 @property(nonatomic,strong)UIView  *vLine;
 @property (nonatomic, assign) bool isExcuting;
 @end
-@implementation ViewCategory
+@implementation ViewSearchHeader
 
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -42,14 +42,10 @@
         _ivSearch.userInteractionEnabled = YES;
         [_vSearchBg addSubview:_ivSearch];
         
-        _lbText = [[UILabel alloc]initWithFrame:CGRectZero];
-        _lbText.text = @"商品名称、编码、条形码";
-        _lbText.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
-        [_vSearchBg addSubview:_lbText];
-        _lbText.userInteractionEnabled = TRUE;
-        _lbText.backgroundColor = RGB3(200);
-        UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickSearch)];
-        [_lbText addGestureRecognizer:tap1];
+        _tfText = [[UITextField alloc]initWithFrame:CGRectZero];
+        _tfText.placeholder = @"商品名称、编码、条形码";
+        _tfText.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        [_vSearchBg addSubview:_tfText];
         
         _ivCart = [[UIImageView alloc]initWithFrame:CGRectZero];
         _ivCart.image = [UIImage imageNamed:@"classification-icon_Shopping-Cart"];
@@ -130,12 +126,6 @@
     
 }
 
-- (void)clickSearch{
-    if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
-        [self.delegate clickActionWithIndex:2];
-    }
-}
-
 - (void)clickAction:(UIButton*)sender{
     if ([self.delegate respondsToSelector:@selector(clickActionWithIndex:)]) {
         [self.delegate clickActionWithIndex:0];
@@ -184,12 +174,12 @@
     r.origin.y = (self.vSearchBg.height - r.size.height)/2.0;
     self.ivSearch.frame = r;
     
-    r = self.lbText.frame;
+    r = self.tfText.frame;
     r.size.width = self.vSearchBg.width - 10*RATIO_WIDHT320 - self.ivSearch.right - 4*RATIO_WIDHT320;
     r.size.height = self.vSearchBg.height;
     r.origin.x = self.ivSearch.right+4*RATIO_WIDHT320;
     r.origin.y = 0;
-    self.lbText.frame = r;
+    self.tfText.frame = r;
     
     r = self.vLine.frame;
     r.size.width = DEVICEWIDTH;

@@ -16,6 +16,7 @@
 #import "VCGoodsList.h"
 #import "RequestBeanQueryCartNum.h"
 #import "VCSingleCart.h"
+#import "VCSearchGoodsList.h"
 
 @interface VCCategory ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,CommonDelegate,UITextFieldDelegate>
@@ -123,10 +124,6 @@
     [self loadCartNumData];
 }
 
-- (void)search{
-    self.keywords = self.vCart.tfText.text;
-    [self loadSubData];
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -226,19 +223,19 @@
     return NAV_STATUS_HEIGHT + [ViewCategory calHeight] + 10*RATIO_WIDHT320;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    [self search];
-    return YES;
-}
 
 #pragma mark CommanDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
     if(index == 0){
         [self clickQR];
-    }else{
+    }else if(index == 1){
         VCSingleCart *vc = [[VCSingleCart alloc]init];
         [self.navigationController pushViewController:vc animated:TRUE];
+    }else{
+        VCSearchGoodsList *vc = [[VCSearchGoodsList alloc]init];
+        [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:FALSE completion:^{
+            
+        }];
     }
 }
 
@@ -260,8 +257,6 @@
     if(!_vCart){
         _vCart = [[ViewCategory alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewCategory calHeight])];
         _vCart.delegate = self;
-        _vCart.tfText.delegate = self;
-        _vCart.tfText.returnKeyType = UIReturnKeySearch;
         [_vCart updateData];
     }
     return _vCart;

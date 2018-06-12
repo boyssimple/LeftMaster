@@ -8,7 +8,7 @@
 
 #import "VCGoodsList.h"
 #import "CellRecGoodsList.h"
-#import "ViewCategory.h"
+#import "ViewSearchHeader.h"
 #import "HMScannerController.h"
 #import "RequestBeanGoodsList.h"
 #import "VCGoods.h"
@@ -19,7 +19,7 @@
 
 @interface VCGoodsList ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,CommonDelegate,CellRecGoodsListDelegate,
         ViewOrderRecGoodsListDelegate>
-@property(nonatomic,strong)ViewCategory *vCart;
+@property(nonatomic,strong)ViewSearchHeader *vCart;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,strong)ViewOrderRecGoodsList *viewOrder;
 @property(nonatomic,strong)NSMutableArray *goodsList;
@@ -233,7 +233,7 @@
 }
 
 - (CGFloat)topHeight{
-    return NAV_STATUS_HEIGHT + [ViewCategory calHeight] + 10*RATIO_WIDHT320;
+    return NAV_STATUS_HEIGHT + [ViewSearchHeader calHeight] + 10*RATIO_WIDHT320;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -287,9 +287,9 @@
     }
 }
 
-- (ViewCategory*)vCart{
+- (ViewSearchHeader*)vCart{
     if(!_vCart){
-        _vCart = [[ViewCategory alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewCategory calHeight])];
+        _vCart = [[ViewSearchHeader alloc]initWithFrame:CGRectMake(0, NAV_STATUS_HEIGHT, DEVICEWIDTH, [ViewSearchHeader calHeight])];
         _vCart.delegate = self;
         _vCart.tfText.delegate = self;
         _vCart.tfText.returnKeyType = UIReturnKeySearch;
@@ -301,7 +301,7 @@
 
 - (UITableView*)table{
     if(!_table){
-        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, self.viewOrder.bottom, DEVICEWIDTH, DEVICEHEIGHT-[ViewOrderRecGoodsList calHeight] - NAV_STATUS_HEIGHT - [ViewCategory calHeight]) style:UITableViewStyleGrouped];
+        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, self.viewOrder.bottom, DEVICEWIDTH, DEVICEHEIGHT-[ViewOrderRecGoodsList calHeight] - NAV_STATUS_HEIGHT - [ViewSearchHeader calHeight]) style:UITableViewStyleGrouped];
         _table.backgroundColor = [UIColor whiteColor];
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;

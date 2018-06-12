@@ -52,8 +52,8 @@
     CGSize size = [self.lbName sizeThatFits:CGSizeMake(40*RATIO_WIDHT320, MAXFLOAT)];
     r = self.self.lbName.frame;
     r.size.height = size.height;
-    r.size.width = 45*RATIO_WIDHT320;
-    r.origin.x = (self.width - r.size.width)/2.0;
+    r.size.width = self.width;
+    r.origin.x = 0;
     r.origin.y = self.ivImg.bottom + 10;
     self.lbName.frame = r;
 }

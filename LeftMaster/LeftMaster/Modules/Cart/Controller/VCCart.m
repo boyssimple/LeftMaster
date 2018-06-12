@@ -59,10 +59,7 @@
     //加入购物车通知
     [self observeNotification:REFRESH_CART_LIST];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshAll)
-                                                 name:REFRESH_ALL_INFO
-                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAll) name:REFRESH_ALL_INFO object:nil];
     
 }
 
