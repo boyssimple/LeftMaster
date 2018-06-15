@@ -11,6 +11,7 @@
 @interface CellInvoiceDetail : UITableViewCell
 @property(nonatomic,assign)NSInteger status;
 - (void)updateData:(NSDictionary*)data;
++ (CGFloat)calHeightWithData:(NSDictionary*)data;
 
 + (CGFloat)calHeight:(NSInteger)status;
 @end

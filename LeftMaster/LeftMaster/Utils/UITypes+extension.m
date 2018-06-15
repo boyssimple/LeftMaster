@@ -79,7 +79,8 @@
 @implementation UIImageView(extension)
 
 - (void)pt_setImage:(NSString*)url{
-    [self sd_setImageWithURL:[NSURL URLWithString:url]];
+    [self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"pic_default"]];
+//    [self sd_setImageWithURL:[NSURL URLWithString:url]];
 }
 @end
 

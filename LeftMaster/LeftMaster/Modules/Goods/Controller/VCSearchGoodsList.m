@@ -34,7 +34,7 @@
     UIView *customView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 44)];
     UILabel *lbCancel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 35, 44)];
     lbCancel.text = @"取消";
-    lbCancel.textColor = [UIColor greenColor];
+    lbCancel.textColor = [UIColor blackColor];
     lbCancel.font = [UIFont systemFontOfSize:14];
     lbCancel.textAlignment = NSTextAlignmentRight;
     lbCancel.userInteractionEnabled = YES;
@@ -75,12 +75,18 @@
                 NSArray *datas = [response.data jk_arrayForKey:@"rows"];
                 if(datas.count == 0 || datas.count < requestBean.page_size){
                     [weakself.table.mj_footer endRefreshingWithNoMoreData];
+                    weakself.table.mj_footer.hidden = TRUE;
                 }else{
                     [weakself.table.mj_footer resetNoMoreData];
+                    weakself.table.mj_footer.hidden = FALSE;
                 }
                 [weakself.goodsList addObjectsFromArray:datas];
                 [weakself.table reloadData];
             }
+        }else{
+            weakself.table.mj_footer.hidden = TRUE;
+            [weakself.table.mj_footer endRefreshingWithNoMoreData];
+            
         }
     }];
 }
@@ -181,6 +187,7 @@
             weakself.page++;
             [weakself loadData];
         }];
+        _table.mj_footer.hidden = YES;
     }
     return _table;
 }

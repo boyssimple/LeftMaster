@@ -61,6 +61,7 @@
         _lbNameText = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbNameText.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
         _lbNameText.textColor = APP_COLOR;
+        _lbNameText.numberOfLines = 0;
         [self.contentView addSubview:_lbNameText];
         
         _vLine = [[UIView alloc]initWithFrame:CGRectZero];
@@ -148,7 +149,7 @@
 
 - (void)updateData:(NSDictionary*)data{
     self.lbNameText.text = [data jk_stringForKey:@"GOODS_NAME"];
-    self.lbNoText.text = [data jk_stringForKey:@"FD_NO"];
+    self.lbNoText.text = [data jk_stringForKey:@"GOODS_CODE"];
     //    self.lbCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_TOTAL_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
     self.lbSendCountText.text = [NSString stringWithFormat:@"%zi",[data jk_integerForKey:@"FD_SEND_NUM"]];
     //    self.lbUnSendCountText.text = [NSString stringWithFormat:@"%zi%@",[data jk_integerForKey:@"FD_REMAIN_SEND_NUM"],[data jk_stringForKey:@"GOODS_UNIT"]];
@@ -198,9 +199,10 @@
     r.origin.y = self.ivImg.top + (self.ivImg.height - size.height)/2.0;
     self.lbName.frame = r;
     
+    size = [self.lbNameText sizeThatFits:CGSizeMake(DEVICEWIDTH - self.lbName.right - 8*RATIO_WIDHT320 - 10*RATIO_WIDHT320, MAXFLOAT)];
     r = self.lbNameText.frame;
     r.size.width = DEVICEWIDTH - self.lbName.right - 8*RATIO_WIDHT320 - 10*RATIO_WIDHT320;
-    r.size.height = self.lbName.height;
+    r.size.height = size.height;
     r.origin.x = self.lbName.right + 8*RATIO_WIDHT320;
     r.origin.y = self.lbName.top;
     self.lbNameText.frame = r;
@@ -209,7 +211,7 @@
     r.size.width = DEVICEWIDTH;
     r.size.height = 0.5;
     r.origin.x = 0;
-    r.origin.y = self.ivImg.bottom + 10*RATIO_WIDHT320;
+    r.origin.y = self.lbNameText.bottom + 10*RATIO_WIDHT320;
     self.vLine.frame = r;
     
     size = [self.lbNo sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
@@ -302,6 +304,38 @@
     r.origin.y = self.lbArriveDate.top;
     self.lbArriveDateText.frame = r;
 }
+
+
++ (CGFloat)calHeightWithData:(NSDictionary*)data{
+    CGFloat height = 20*RATIO_WIDHT320 + 0.5 + 30*RATIO_WIDHT320;
+    UILabel *lbName = [[UILabel alloc]initWithFrame:CGRectZero];
+    lbName.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
+    lbName.text = @"商品名称";
+    
+    CGSize size = [lbName sizeThatFits:CGSizeMake(MAXFLOAT, 14*RATIO_WIDHT320)];
+
+    
+    
+    NSString *str = [data jk_stringForKey:@"GOODS_NAME"];
+    UILabel *lb = [[UILabel alloc]initWithFrame:CGRectZero];
+    lb.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
+    lb.numberOfLines = 0;
+    lb.text = str;
+    
+    height += [lb sizeThatFits:CGSizeMake(DEVICEWIDTH - 30*RATIO_WIDHT320 - size.width - 26*RATIO_WIDHT320, MAXFLOAT)].height;
+    
+    
+    
+    UILabel *lb2 = [[UILabel alloc]initWithFrame:CGRectZero];
+    lb2.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+    lb2.text = @"内容：";
+    CGFloat h =[lb2 sizeThatFits:CGSizeMake(DEVICEWIDTH, MAXFLOAT)].height;
+    height +=  h * 4 + 3*10*RATIO_WIDHT320;
+    
+    
+    return height;
+}
+
 
 + (CGFloat)calHeight:(NSInteger)status{
     CGFloat height = 36*RATIO_WIDHT320 + 0.5 + 30*RATIO_WIDHT320;

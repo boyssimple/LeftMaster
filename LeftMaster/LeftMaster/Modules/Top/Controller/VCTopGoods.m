@@ -91,6 +91,10 @@
             if(response.success){
                 [weakself handleDatas:[response.data jk_arrayForKey:@"rows"] with:requestBean.page_size];
             }
+        }else{
+            [self.table.mj_footer endRefreshingWithNoMoreData];
+            self.table.mj_footer.hidden = TRUE;
+            
         }
     }];
 }
@@ -102,8 +106,10 @@
     }
     if(datas.count == 0 || datas.count < size){
         [self.table.mj_footer endRefreshingWithNoMoreData];
+        self.table.mj_footer.hidden = TRUE;
     }else{
         [self.table.mj_footer resetNoMoreData];
+        self.table.mj_footer.hidden = FALSE;
     }
     
     for (NSDictionary *data in datas) {
@@ -380,6 +386,7 @@
             weakself.page++;
             [weakself loadData];
         }];
+        _table.mj_footer.hidden = TRUE;
     }
     return _table;
 }
