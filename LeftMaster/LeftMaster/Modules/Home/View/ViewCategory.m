@@ -47,7 +47,6 @@
         _lbText.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
         [_vSearchBg addSubview:_lbText];
         _lbText.userInteractionEnabled = TRUE;
-        _lbText.backgroundColor = RGB3(200);
         UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickSearch)];
         [_lbText addGestureRecognizer:tap1];
         

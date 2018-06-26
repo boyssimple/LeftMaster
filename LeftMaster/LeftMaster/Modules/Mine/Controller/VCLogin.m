@@ -40,11 +40,27 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
 //    [guide show];
 //    save_current_version();
     
-     if ([self isFirst]) {
-         WindowGuide *guide = [[WindowGuide alloc]init];
-         guide.delegate = self;
-         [guide show];
-     }
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case -1:
+                NSLog(@"未知网络");
+                break;
+            case 0:
+                NSLog(@"网络不可达");
+                break;
+            case 1:
+                NSLog(@"GPRS网络");
+                [self checkFirst];
+                break;
+            case 2:
+                NSLog(@"wifi网络");
+                [self checkFirst];
+                break;
+            default:
+                break;
+        }
+    }];
     
     
     [self.view addSubview:self.ivBg];
@@ -68,6 +84,15 @@ static NSString* const CFBundleVersion = @"CFBundleVersion";
 //
 //    self.tfPwd.text = @"123456";
     
+}
+
+- (void)checkFirst{
+    
+    if ([self isFirst]) {
+        WindowGuide *guide = [[WindowGuide alloc]init];
+        guide.delegate = self;
+        [guide show];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{

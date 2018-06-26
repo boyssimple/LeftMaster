@@ -23,7 +23,7 @@
 #import "RequestBeanQueryCartNum.h"
 #import "HMScannerController.h"
 #import "RequestBeanNewGoods.h"
-
+#import "VCGoods.h"
 #import "RequestBeanVision.h"
 
 @interface VCHome ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,SectionHeaderHomeDelegate,UIScrollViewDelegate,
@@ -329,7 +329,20 @@
 #pragma mark - CommonDelegate
 - (void)clickActionWithIndex:(NSInteger)index{
     if(index == 0){
+        __weak typeof(self) weakself = self;
         HMScannerController *scanner = [HMScannerController scannerWithCardName:@"" avatar:nil completion:^(NSString *stringValue) {
+            if (!stringValue || [stringValue isEqualToString:@""]) {
+                [Utils showSuccessToast:@"请扫描正确的商品二维码" with:weakself.view withTime:1];
+                return;
+            }
+            if (![stringValue hasPrefix:@"ID#"]) {
+                [Utils showSuccessToast:@"请扫描正确的商品二维码" with:weakself.view withTime:1];
+                return;
+            }
+            stringValue = [stringValue substringFromIndex:3];
+            VCGoods *vc = [[VCGoods alloc]init];
+            vc.goods_id = stringValue;
+            [self.navigationController pushViewController:vc animated:TRUE];
             NSLog(@"%@",stringValue);
         }];
         

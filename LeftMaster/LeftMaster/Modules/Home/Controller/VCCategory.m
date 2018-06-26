@@ -17,6 +17,7 @@
 #import "RequestBeanQueryCartNum.h"
 #import "VCSingleCart.h"
 #import "VCSearchGoodsList.h"
+#import "VCGoods.h"
 
 @interface VCCategory ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,CommonDelegate,UITextFieldDelegate>
@@ -241,8 +242,21 @@
 
 - (void)clickQR{
     // 实例化控制器，并指定完成回调
+    __weak typeof(self) weakself = self;
     HMScannerController *scanner = [HMScannerController scannerWithCardName:@"" avatar:nil completion:^(NSString *stringValue) {
-        
+        if (!stringValue || [stringValue isEqualToString:@""]) {
+            [Utils showSuccessToast:@"请扫描正确的商品二维码" with:weakself.view withTime:1];
+            return;
+        }
+        if (![stringValue hasPrefix:@"ID#"]) {
+            [Utils showSuccessToast:@"请扫描正确的商品二维码" with:weakself.view withTime:1];
+            return;
+        }
+        stringValue = [stringValue substringFromIndex:3];
+        VCGoods *vc = [[VCGoods alloc]init];
+        vc.goods_id = stringValue;
+        [self.navigationController pushViewController:vc animated:TRUE];
+        NSLog(@"%@",stringValue);
 //        self.scanResultLabel.text = stringValue;
     }];
     

@@ -11,8 +11,13 @@
 #define NetUrl_h
 
 
-//#define Base_Url @"113.204.168.170:4321/"
+
+#if DEBUG
+#define Base_Url @"113.204.168.170:4321/"
+#else
 #define Base_Url @"masterzuo.cartechfin.com/"
+#endif
+
 
 //用户
 #define net_user_login @"system/UserMobileTran.do?login"                      //用户登录

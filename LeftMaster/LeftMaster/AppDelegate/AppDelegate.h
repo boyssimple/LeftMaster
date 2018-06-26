@@ -16,6 +16,7 @@ static NSString *channel = @"Publish channel";
 @property(nonatomic,assign)BOOL isLogin;
 @property (strong, nonatomic) UIWindow *window;
 
+
 - (void)restoreRootViewController:(UIViewController *)rootViewController;
 @end
 
