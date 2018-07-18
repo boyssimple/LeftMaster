@@ -38,6 +38,7 @@
         _lbName.font = [UIFont boldSystemFontOfSize:14*RATIO_WIDHT320];
         _lbName.textColor = RGB(0, 0, 0);
         _lbName.numberOfLines = 0;
+        _lbName.lineBreakMode = NSLineBreakByCharWrapping;
         [self addSubview:_lbName];
         
         _lbNo = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -260,6 +261,114 @@
     }
 }
 
+
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    CGSize size = [self.lbName sizeThatFits:CGSizeMake(DEVICEWIDTH - 20*RATIO_WIDHT320, MAXFLOAT)];
+    CGRect r = self.lbName.frame;
+    r.origin.x = 10*RATIO_WIDHT320;
+    r.origin.y = 12*RATIO_WIDHT320;
+    r.size = size;
+    self.lbName.frame = r;
+    
+    size = [self.lbNo sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbNo.frame;
+    r.origin.x = 10*RATIO_WIDHT320;
+    r.origin.y = self.lbName.bottom + 12*RATIO_WIDHT320;
+    r.size = size;
+    self.lbNo.frame = r;
+    
+    size = [self.lbNoText sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbNoText.frame;
+    r.origin.x = self.lbNo.right + 20*RATIO_WIDHT320;
+    r.origin.y = self.lbNo.top;
+    r.size = size;
+    self.lbNoText.frame = r;
+    
+    size = [self.lbRole sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
+    r = self.lbRole.frame;
+    r.origin.x = self.lbName.left;
+    r.origin.y = self.lbNo.bottom + 18*RATIO_WIDHT320;
+    r.size = size;
+    self.lbRole.frame = r;
+    
+    size = [self.lbStatus sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
+    r = self.lbStatus.frame;
+    r.origin.x = self.lbRole.right;
+    r.origin.y = self.lbRole.top;
+    r.size = size;
+    self.lbStatus.frame = r;
+    
+    size = [self.lbPrice sizeThatFits:CGSizeMake(MAXFLOAT, 20*RATIO_WIDHT320)];
+    r = self.lbPrice.frame;
+    r.origin.x = self.lbName.left;
+    r.origin.y = self.lbRole.bottom + 23*RATIO_WIDHT320;
+    r.size = size;
+    self.lbPrice.frame = r;
+    
+    r = self.vCountBg.frame;
+    r.size.width = 88*RATIO_WIDHT320;
+    r.size.height = 22*RATIO_WIDHT320;
+    r.origin.x = DEVICEWIDTH - r.size.width - 10*RATIO_WIDHT320;
+    r.origin.y = self.lbPrice.top + (self.lbPrice.height - r.size.height)/2.0;
+    self.vCountBg.frame = r;
+    
+    r = self.btnMinus.frame;
+    r.size.width = 22*RATIO_WIDHT320;
+    r.size.height = r.size.width;
+    r.origin.x = 0;
+    r.origin.y = 0;
+    self.btnMinus.frame = r;
+    
+    r = self.btnAdd.frame;
+    r.size.width = 22*RATIO_WIDHT320;
+    r.size.height = r.size.width;
+    r.origin.x = self.vCountBg.width - r.size.width;
+    r.origin.y = 0;
+    self.btnAdd.frame = r;
+    
+    r = self.tfCount.frame;
+    r.size.width = 44*RATIO_WIDHT320;
+    r.size.height = self.vCountBg.height;
+    r.origin.x = self.btnMinus.right;
+    r.origin.y = 0;
+    self.tfCount.frame = r;
+    
+    r = self.vRole.frame;
+    r.origin.x = 10*RATIO_WIDHT320;
+    r.origin.y = self.lbPrice.bottom + 12*RATIO_WIDHT320;
+    r.size.width = DEVICEWIDTH;
+    self.vRole.frame = r;
+    
+    CGFloat h = 0;
+    if (self.data) {
+        NSArray *datas = [self.data jk_arrayForKey:@"GOODS_GOODSSPECS"];
+        if (datas.count > 0) {
+            h = [ViewProductRole calHeight:datas];
+        }
+    }
+    self.vRole.height = h;
+    
+    r = self.lbDetail.frame;
+    r.size.width = DEVICEWIDTH - 20*RATIO_WIDHT320;
+    r.size.height = 40*RATIO_WIDHT320;
+    r.origin.x = 10;
+    r.origin.y = self.height - r.size.height;
+    self.lbDetail.frame = r;
+    
+    
+    
+    r = self.vLine.frame;
+    r.size.width = DEVICEWIDTH;
+    r.size.height = 10*RATIO_WIDHT320;
+    r.origin.x = 0;
+    r.origin.y = self.lbDetail.top - r.size.height;
+    self.vLine.frame = r;
+}
+
+
+/*
+
 - (void)layoutSubviews{
     [super layoutSubviews];
     CGSize size = [self.lbName sizeThatFits:CGSizeMake(DEVICEWIDTH - 20*RATIO_WIDHT320, MAXFLOAT)];
@@ -399,6 +508,7 @@
     r.origin.y = self.vLine.bottom;
     self.lbDetail.frame = r;
 }
+*/
 
 - (void)clickActionWithIndex:(NSInteger)index{
     
@@ -512,6 +622,7 @@
     lb.font = [UIFont boldSystemFontOfSize:14*RATIO_WIDHT320];
     lb.numberOfLines = 0;
     lb.text = @"AP GOLD LF汽车机油";
+    lb.lineBreakMode = NSLineBreakByCharWrapping;
     height += [lb sizeThatFits:CGSizeMake(DEVICEWIDTH - 20*RATIO_WIDHT320, MAXFLOAT)].height;
     height += 12*RATIO_WIDHT320;
     

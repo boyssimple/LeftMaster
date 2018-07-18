@@ -57,6 +57,10 @@
 #define net_order_query_num @"shop/OrderMobileTran.do?queryMyOrderNum"       //订单数量
 #define net_goods_new_list @"shop/GoodsMobileTran.do?getNewGoodsList"       //推荐新品
 #define net_invoice_detail_list @"shop/OrderMobileTran.do?queryOrderSendDetail"       //发货单
+#define net_account_list @"shop/OrderMobileTran.do?queryCaBill"       //对帐单列表
+#define net_account_list_detail @"shop/OrderMobileTran.do?queryCaBillOrderDetail"       //对帐单详情
+#define net_account_list_pay_detail @"shop/OrderMobileTran.do?queryCaBillPayDetail"       //付款明细
+#define net_account_confirm_bill @"shop/OrderMobileTran.do?setCaBillStatus"       //确认对帐单
 
 #define net_app_version @"system/UserMobileTran.do?getAppVersion"       //版本
 

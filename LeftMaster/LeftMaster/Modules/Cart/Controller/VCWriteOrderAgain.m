@@ -143,6 +143,7 @@
                         c.GOODS_UNIT = [data jk_stringForKey:@"FD_UNIT_NAME"];
                         c.GOODS_NAME = [data jk_stringForKey:@"GOODS_NAME"];
                         c.GOODS_ID = [data jk_stringForKey:@"GOODS_ID"];
+                        c.GOODS_CODE = [data jk_stringForKey:@"GOODS_CODE"];
                         [weakself.goodsList addObject:c];
                     }
                 }

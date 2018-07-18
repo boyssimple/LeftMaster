@@ -21,6 +21,13 @@
 
 @property(nonatomic,strong)UILabel *lbReason;
 @property(nonatomic,strong)UILabel *lbReasonText;
+
+
+@property(nonatomic,strong)UILabel *lbReceive;
+@property(nonatomic,strong)UILabel *lbReceiveText;
+
+@property(nonatomic,strong)UILabel *lbReceiveDate;
+@property(nonatomic,strong)UILabel *lbReceiveDateText;
 @end
 @implementation CellOrderInfo
 
@@ -84,6 +91,32 @@
         _lbReasonText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbReasonText.textColor = RGB(0, 0, 0);
         [self.contentView addSubview:_lbReasonText];
+        
+        
+        
+        _lbReceive = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbReceive.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbReceive.textColor = RGB(0, 0, 0);
+        _lbReceive.text = @"签收人：";
+        [self.contentView addSubview:_lbReceive];
+        
+        _lbReceiveText = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbReceiveText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbReceiveText.textColor = RGB(0, 0, 0);
+        [self.contentView addSubview:_lbReceiveText];
+        
+        
+        
+        _lbReceiveDate = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbReceiveDate.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbReceiveDate.textColor = RGB(0, 0, 0);
+        _lbReceiveDate.text = @"签收时间：";
+        [self.contentView addSubview:_lbReceiveDate];
+        
+        _lbReceiveDateText = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbReceiveDateText.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
+        _lbReceiveDateText.textColor = RGB(0, 0, 0);
+        [self.contentView addSubview:_lbReceiveDateText];
     }
     return self;
 }
@@ -93,13 +126,25 @@
     self.lbOrderAmountText.text = [NSString stringWithFormat:@"¥%.2f",[data jk_floatForKey:@"FD_TOTAL_PRICE"]];
     self.lbOrderOrderNoText.text = [data jk_stringForKey:@"FD_NO"];
     self.lbOrderDateText.text = [data jk_stringForKey:@"FD_ORDER_DATE"];
+    self.lbReason.hidden = YES;
+    self.lbReasonText.hidden = YES;
     if ([data jk_integerForKey:@"FD_ORDER_STATUS"] == 6) {
         self.lbReason.hidden = NO;
         self.lbReasonText.hidden = NO;
         self.lbReasonText.text = [data jk_stringForKey:@"FD_CANEL_REASON"];
-    }else{
-        self.lbReason.hidden = YES;
-        self.lbReasonText.hidden = YES;
+    }
+    
+    self.lbReceive.hidden = YES;
+    self.lbReceiveText.hidden = YES;
+    self.lbReceiveDate.hidden = YES;
+    self.lbReceiveDateText.hidden = YES;
+    if([data jk_integerForKey:@"FD_ORDER_STATUS"] == 4){
+        self.lbReceive.hidden = NO;
+        self.lbReceiveText.hidden = NO;
+        self.lbReceiveDate.hidden = NO;
+        self.lbReceiveDateText.hidden = NO;
+        self.lbReceiveText.text = [data jk_stringForKey:@"FD_SIGN_USER_NAME"];
+        self.lbReceiveDateText.text = [data jk_stringForKey:@"FD_SIGN_TIME"];
     }
 }
 
@@ -187,6 +232,35 @@
     r.origin.y = self.lbReason.top;
     r.size = size;
     self.lbReasonText.frame = r;
+    
+    size = [self.lbReceive sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbReceive.frame;
+    r.origin.x = 36*RATIO_WIDHT320;
+    r.origin.y = self.lbOrderDate.bottom + 10*RATIO_WIDHT320;
+    r.size = size;
+    self.lbReceive.frame = r;
+    
+    size = [self.lbReceiveText sizeThatFits:CGSizeMake(self.width - 10*RATIO_WIDHT320 - self.lbReceive.right, 12*RATIO_WIDHT320)];
+    r = self.lbReceiveText.frame;
+    r.origin.x = self.lbReceive.right;
+    r.origin.y = self.lbReceive.top;
+    r.size.height = size.height;
+    r.size.width = self.width - 10*RATIO_WIDHT320 - self.lbReceive.right;
+    self.lbReceiveText.frame = r;
+    
+    size = [self.lbReceiveDate sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbReceiveDate.frame;
+    r.origin.x = 36*RATIO_WIDHT320;
+    r.origin.y = self.lbReceive.bottom + 10*RATIO_WIDHT320;
+    r.size = size;
+    self.lbReceiveDate.frame = r;
+    
+    size = [self.lbReceiveDateText sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
+    r = self.lbReceiveDateText.frame;
+    r.origin.x = self.lbReceiveDate.right;
+    r.origin.y = self.lbReceiveDate.top;
+    r.size = size;
+    self.lbReceiveDateText.frame = r;
 }
 
 + (CGFloat)calHeight:(NSDictionary*)data{
@@ -198,6 +272,11 @@
     CGFloat height = size.height * 4 + 30*RATIO_WIDHT320 + 30*RATIO_WIDHT320;
     if ([data jk_integerForKey:@"FD_ORDER_STATUS"] == 6) {
         height += size.height + 10*RATIO_WIDHT320;
+    }
+    
+    
+    if([data jk_integerForKey:@"FD_ORDER_STATUS"] == 4){
+        height += 2*size.height + 20*RATIO_WIDHT320;
     }
     
     return height;

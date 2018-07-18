@@ -22,6 +22,10 @@
 
 
 #define REFRESH_ALL_INFO @"refresh_all_info"  //统一刷新
+
+
+#define REFRESH_BILL_INFO @"refresh_bill_info"  //刷新对帐
+
 //用户信息-沙盒
 #define USER_DEFAULTS @"user_defaults"
 

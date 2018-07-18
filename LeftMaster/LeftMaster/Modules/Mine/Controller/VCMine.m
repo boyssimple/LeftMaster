@@ -15,6 +15,7 @@
 #import "VCSetting.h"
 #import "RequestBeanOrderNum.h"
 #import "VCProxyCustmer.h"
+#import "VCAccountContainer.h"
 
 @interface VCMine ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,CommonDelegate,UIActionSheetDelegate,
             UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -181,7 +182,7 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }else if(indexPath.row == 1){
-        VCOrderCheckAccount *vc = [[VCOrderCheckAccount alloc]init];
+        VCAccountContainer *vc = [[VCAccountContainer alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }else if(indexPath.row == 2){

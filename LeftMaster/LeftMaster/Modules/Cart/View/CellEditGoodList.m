@@ -12,6 +12,7 @@
 @property(nonatomic,strong)UIButton *btnCheck;
 @property(nonatomic,strong)UIImageView *ivImg;
 @property(nonatomic,strong)UILabel *lbName;
+@property(nonatomic,strong)UILabel *lbNo;
 @property(nonatomic,strong)UIButton *btnDelete;
 @property(nonatomic,strong)UILabel *lbPrice;
 @property(nonatomic,strong)UIView  *vCountBg;
@@ -38,8 +39,13 @@
         _lbName = [[UILabel alloc]initWithFrame:CGRectZero];
         _lbName.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         _lbName.textColor = RGB(0, 0, 0);
-        _lbName.numberOfLines = 2;
+        _lbName.numberOfLines = 3;
         [self.contentView addSubview:_lbName];
+        
+        _lbNo = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lbNo.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
+        _lbNo.textColor = RGB3(153);
+        [self.contentView addSubview:_lbNo];
         
         _btnDelete = [[UIButton alloc]initWithFrame:CGRectZero];
         [_btnDelete setTitle:@"删除" forState:UIControlStateNormal];
@@ -135,6 +141,7 @@
         self.btnCheck.selected = data.selected;
         [self.ivImg pt_setImage:data.GOODS_PIC];
         self.lbName.text = data.GOODS_NAME;
+        self.lbNo.text = [NSString stringWithFormat:@"商品编码:%@",data.GOODS_CODE];
         
         self.lbCount.text = [NSString stringWithFormat:@"%zi",data.FD_NUM];
         
@@ -194,6 +201,13 @@
     r.origin.y = self.ivImg.top - 3.5;
     r.size = size;
     self.lbName.frame = r;
+    
+    size = [self.lbNo sizeThatFits:CGSizeMake(self.lbName.width, MAXFLOAT)];
+    r = self.lbNo.frame;
+    r.origin.x = self.ivImg.right + 10*RATIO_WIDHT320;
+    r.origin.y = self.lbName.bottom + 3*RATIO_WIDHT320;
+    r.size = size;
+    self.lbNo.frame = r;
     
     size = [self.lbPrice sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     r = self.lbPrice.frame;

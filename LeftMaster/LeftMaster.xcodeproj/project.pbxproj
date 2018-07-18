@@ -39,7 +39,6 @@
 		1C780ED6207E067400054AE1 /* VCRecGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780ED5207E067400054AE1 /* VCRecGoodsList.m */; };
 		1C780ED9207E07EE00054AE1 /* CellRecGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780ED8207E07EE00054AE1 /* CellRecGoodsList.m */; };
 		1C780EDC207E0E9200054AE1 /* VCOrderContaier.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EDB207E0E9200054AE1 /* VCOrderContaier.m */; };
-		1C780EDF207E0F8400054AE1 /* ViewTabOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EDE207E0F8400054AE1 /* ViewTabOrder.m */; };
 		1C780EE2207EFDCC00054AE1 /* VCForgotPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C780EE1207EFDCC00054AE1 /* VCForgotPwd.m */; };
 		1C7A754D207F335400C140D2 /* VCInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A754C207F335400C140D2 /* VCInvoice.m */; };
 		1C7A7550207F33AD00C140D2 /* CellInvoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A754F207F33AD00C140D2 /* CellInvoice.m */; };
@@ -133,6 +132,22 @@
 		1CF751F620B1B5C900357DDA /* RequestBeanNoticeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF751F520B1B5C900357DDA /* RequestBeanNoticeList.m */; };
 		1CF751F920B1BD4F00357DDA /* ViewProductRole.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF751F820B1BD4F00357DDA /* ViewProductRole.m */; };
 		1CF7804920C828C30083F5A0 /* RequestBeanVision.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF7804820C828C30083F5A0 /* RequestBeanVision.m */; };
+		1CFA387620F61A28005DED5B /* VCAccountContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA387520F61A28005DED5B /* VCAccountContainer.m */; };
+		1CFA387920F61A3E005DED5B /* VCUnConfirmList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA387820F61A3E005DED5B /* VCUnConfirmList.m */; };
+		1CFA387C20F61A4C005DED5B /* VCConfirmList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA387B20F61A4C005DED5B /* VCConfirmList.m */; };
+		1CFA387F20F61B6C005DED5B /* ViewTabAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA387E20F61B6C005DED5B /* ViewTabAccount.m */; };
+		1CFA388720F61D16005DED5B /* ViewTabOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA388620F61D16005DED5B /* ViewTabOrder.m */; };
+		1CFA388A20F61DDF005DED5B /* CellAccountList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA388920F61DDF005DED5B /* CellAccountList.m */; };
+		1CFA388D20F6231B005DED5B /* RequestBeanBillList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA388C20F6231B005DED5B /* RequestBeanBillList.m */; };
+		1CFA389320F62666005DED5B /* VCAccountDetailContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA389220F62666005DED5B /* VCAccountDetailContainer.m */; };
+		1CFA389620F62694005DED5B /* VCAccountOrderDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA389520F62694005DED5B /* VCAccountOrderDetail.m */; };
+		1CFA389920F626A2005DED5B /* VCAccountPayDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA389820F626A2005DED5B /* VCAccountPayDetail.m */; };
+		1CFA389C20F62714005DED5B /* CellAccountDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA389B20F62714005DED5B /* CellAccountDetail.m */; };
+		1CFA389F20F62723005DED5B /* CellAccountPayDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA389E20F62723005DED5B /* CellAccountPayDetail.m */; };
+		1CFA38A220F62AC0005DED5B /* RequestBeanBillDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA38A120F62AC0005DED5B /* RequestBeanBillDetail.m */; };
+		1CFA38A520F62E4B005DED5B /* RequestBeanBillPayDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA38A420F62E4B005DED5B /* RequestBeanBillPayDetail.m */; };
+		1CFA38A820F62F95005DED5B /* RequestBeanConfirmBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA38A720F62F95005DED5B /* RequestBeanConfirmBill.m */; };
+		1CFA38AB20F6362A005DED5B /* MCDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA38A920F6362A005DED5B /* MCDatePickerView.m */; };
 		1CFA836520B31C180075AE06 /* notice.css in Resources */ = {isa = PBXBuildFile; fileRef = 1CFA836420B31C180075AE06 /* notice.css */; };
 		1CFA836820B321150075AE06 /* VCInvoiceDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA836720B321150075AE06 /* VCInvoiceDetail.m */; };
 		1CFA836B20B3215E0075AE06 /* CellInvoiceDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA836A20B3215E0075AE06 /* CellInvoiceDetail.m */; };
@@ -265,7 +280,6 @@
 		1C780EDA207E0E9200054AE1 /* VCOrderContaier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCOrderContaier.h; sourceTree = "<group>"; };
 		1C780EDB207E0E9200054AE1 /* VCOrderContaier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCOrderContaier.m; sourceTree = "<group>"; };
 		1C780EDD207E0F8400054AE1 /* ViewTabOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewTabOrder.h; sourceTree = "<group>"; };
-		1C780EDE207E0F8400054AE1 /* ViewTabOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewTabOrder.m; sourceTree = "<group>"; };
 		1C780EE0207EFDCC00054AE1 /* VCForgotPwd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCForgotPwd.h; sourceTree = "<group>"; };
 		1C780EE1207EFDCC00054AE1 /* VCForgotPwd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCForgotPwd.m; sourceTree = "<group>"; };
 		1C7A754B207F335400C140D2 /* VCInvoice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCInvoice.h; sourceTree = "<group>"; };
@@ -452,6 +466,37 @@
 		1CF751F820B1BD4F00357DDA /* ViewProductRole.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewProductRole.m; sourceTree = "<group>"; };
 		1CF7804720C828C30083F5A0 /* RequestBeanVision.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanVision.h; sourceTree = "<group>"; };
 		1CF7804820C828C30083F5A0 /* RequestBeanVision.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanVision.m; sourceTree = "<group>"; };
+		1CFA387420F61A28005DED5B /* VCAccountContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCAccountContainer.h; sourceTree = "<group>"; };
+		1CFA387520F61A28005DED5B /* VCAccountContainer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCAccountContainer.m; sourceTree = "<group>"; };
+		1CFA387720F61A3E005DED5B /* VCUnConfirmList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCUnConfirmList.h; sourceTree = "<group>"; };
+		1CFA387820F61A3E005DED5B /* VCUnConfirmList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCUnConfirmList.m; sourceTree = "<group>"; };
+		1CFA387A20F61A4C005DED5B /* VCConfirmList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCConfirmList.h; sourceTree = "<group>"; };
+		1CFA387B20F61A4C005DED5B /* VCConfirmList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCConfirmList.m; sourceTree = "<group>"; };
+		1CFA387D20F61B6C005DED5B /* ViewTabAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewTabAccount.h; sourceTree = "<group>"; };
+		1CFA387E20F61B6C005DED5B /* ViewTabAccount.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewTabAccount.m; sourceTree = "<group>"; };
+		1CFA388620F61D16005DED5B /* ViewTabOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTabOrder.m; sourceTree = "<group>"; };
+		1CFA388820F61DDF005DED5B /* CellAccountList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellAccountList.h; sourceTree = "<group>"; };
+		1CFA388920F61DDF005DED5B /* CellAccountList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellAccountList.m; sourceTree = "<group>"; };
+		1CFA388B20F6231B005DED5B /* RequestBeanBillList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanBillList.h; sourceTree = "<group>"; };
+		1CFA388C20F6231B005DED5B /* RequestBeanBillList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanBillList.m; sourceTree = "<group>"; };
+		1CFA389120F62666005DED5B /* VCAccountDetailContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCAccountDetailContainer.h; sourceTree = "<group>"; };
+		1CFA389220F62666005DED5B /* VCAccountDetailContainer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCAccountDetailContainer.m; sourceTree = "<group>"; };
+		1CFA389420F62694005DED5B /* VCAccountOrderDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCAccountOrderDetail.h; sourceTree = "<group>"; };
+		1CFA389520F62694005DED5B /* VCAccountOrderDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCAccountOrderDetail.m; sourceTree = "<group>"; };
+		1CFA389720F626A2005DED5B /* VCAccountPayDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCAccountPayDetail.h; sourceTree = "<group>"; };
+		1CFA389820F626A2005DED5B /* VCAccountPayDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCAccountPayDetail.m; sourceTree = "<group>"; };
+		1CFA389A20F62714005DED5B /* CellAccountDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellAccountDetail.h; sourceTree = "<group>"; };
+		1CFA389B20F62714005DED5B /* CellAccountDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellAccountDetail.m; sourceTree = "<group>"; };
+		1CFA389D20F62723005DED5B /* CellAccountPayDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellAccountPayDetail.h; sourceTree = "<group>"; };
+		1CFA389E20F62723005DED5B /* CellAccountPayDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellAccountPayDetail.m; sourceTree = "<group>"; };
+		1CFA38A020F62AC0005DED5B /* RequestBeanBillDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanBillDetail.h; sourceTree = "<group>"; };
+		1CFA38A120F62AC0005DED5B /* RequestBeanBillDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanBillDetail.m; sourceTree = "<group>"; };
+		1CFA38A320F62E4B005DED5B /* RequestBeanBillPayDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanBillPayDetail.h; sourceTree = "<group>"; };
+		1CFA38A420F62E4B005DED5B /* RequestBeanBillPayDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanBillPayDetail.m; sourceTree = "<group>"; };
+		1CFA38A620F62F95005DED5B /* RequestBeanConfirmBill.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestBeanConfirmBill.h; sourceTree = "<group>"; };
+		1CFA38A720F62F95005DED5B /* RequestBeanConfirmBill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestBeanConfirmBill.m; sourceTree = "<group>"; };
+		1CFA38A920F6362A005DED5B /* MCDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDatePickerView.m; sourceTree = "<group>"; };
+		1CFA38AA20F6362A005DED5B /* MCDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDatePickerView.h; sourceTree = "<group>"; };
 		1CFA836420B31C180075AE06 /* notice.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = notice.css; sourceTree = "<group>"; };
 		1CFA836620B321150075AE06 /* VCInvoiceDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCInvoiceDetail.h; sourceTree = "<group>"; };
 		1CFA836720B321150075AE06 /* VCInvoiceDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCInvoiceDetail.m; sourceTree = "<group>"; };
@@ -797,6 +842,8 @@
 				1CFC00C42087124A00A8E344 /* NetworkManager.m */,
 				1CBCB28020C65B7E00700963 /* NetWorkTools.h */,
 				1CBCB28120C65B7E00700963 /* NetWorkTools.m */,
+				1CFA38AA20F6362A005DED5B /* MCDatePickerView.h */,
+				1CFA38A920F6362A005DED5B /* MCDatePickerView.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -991,6 +1038,18 @@
 				1CFC01172089D5A200A8E344 /* VCForgotPwdFinish.m */,
 				1CFC7AC1208CC93E005F18AB /* VCSetting.h */,
 				1CFC7AC2208CC93E005F18AB /* VCSetting.m */,
+				1CFA387420F61A28005DED5B /* VCAccountContainer.h */,
+				1CFA387520F61A28005DED5B /* VCAccountContainer.m */,
+				1CFA387720F61A3E005DED5B /* VCUnConfirmList.h */,
+				1CFA387820F61A3E005DED5B /* VCUnConfirmList.m */,
+				1CFA387A20F61A4C005DED5B /* VCConfirmList.h */,
+				1CFA387B20F61A4C005DED5B /* VCConfirmList.m */,
+				1CFA389120F62666005DED5B /* VCAccountDetailContainer.h */,
+				1CFA389220F62666005DED5B /* VCAccountDetailContainer.m */,
+				1CFA389420F62694005DED5B /* VCAccountOrderDetail.h */,
+				1CFA389520F62694005DED5B /* VCAccountOrderDetail.m */,
+				1CFA389720F626A2005DED5B /* VCAccountPayDetail.h */,
+				1CFA389820F626A2005DED5B /* VCAccountPayDetail.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1030,6 +1089,14 @@
 				1CF751F520B1B5C900357DDA /* RequestBeanNoticeList.m */,
 				1CFA836C20B323650075AE06 /* RequestBeanInvoiceDetail.h */,
 				1CFA836D20B323650075AE06 /* RequestBeanInvoiceDetail.m */,
+				1CFA388B20F6231B005DED5B /* RequestBeanBillList.h */,
+				1CFA388C20F6231B005DED5B /* RequestBeanBillList.m */,
+				1CFA38A020F62AC0005DED5B /* RequestBeanBillDetail.h */,
+				1CFA38A120F62AC0005DED5B /* RequestBeanBillDetail.m */,
+				1CFA38A320F62E4B005DED5B /* RequestBeanBillPayDetail.h */,
+				1CFA38A420F62E4B005DED5B /* RequestBeanBillPayDetail.m */,
+				1CFA38A620F62F95005DED5B /* RequestBeanConfirmBill.h */,
+				1CFA38A720F62F95005DED5B /* RequestBeanConfirmBill.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1060,7 +1127,7 @@
 				1CBF5BFD207CF86500284EA1 /* CellOrderGoodsList.h */,
 				1CBF5BFE207CF86500284EA1 /* CellOrderGoodsList.m */,
 				1C780EDD207E0F8400054AE1 /* ViewTabOrder.h */,
-				1C780EDE207E0F8400054AE1 /* ViewTabOrder.m */,
+				1CFA388620F61D16005DED5B /* ViewTabOrder.m */,
 				1CBF5C0F207E2D9300284EA1 /* ViewSearchOrderList.h */,
 				1CBF5C10207E2D9300284EA1 /* ViewSearchOrderList.m */,
 				1C7A754E207F33AD00C140D2 /* CellInvoice.h */,
@@ -1081,6 +1148,14 @@
 				1CBF1DE6209109010090BD96 /* ViewOrderCheckAccount.m */,
 				1CFA836920B3215E0075AE06 /* CellInvoiceDetail.h */,
 				1CFA836A20B3215E0075AE06 /* CellInvoiceDetail.m */,
+				1CFA387D20F61B6C005DED5B /* ViewTabAccount.h */,
+				1CFA387E20F61B6C005DED5B /* ViewTabAccount.m */,
+				1CFA388820F61DDF005DED5B /* CellAccountList.h */,
+				1CFA388920F61DDF005DED5B /* CellAccountList.m */,
+				1CFA389A20F62714005DED5B /* CellAccountDetail.h */,
+				1CFA389B20F62714005DED5B /* CellAccountDetail.m */,
+				1CFA389D20F62723005DED5B /* CellAccountPayDetail.h */,
+				1CFA389E20F62723005DED5B /* CellAccountPayDetail.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1428,15 +1503,20 @@
 				1C4C15602088F78200BA8F3C /* RequestBeanCarouseList.m in Sources */,
 				1CFC7ADE208E18AB005F18AB /* ViewSearchGoodsNav.m in Sources */,
 				1CFC7AC3208CC93E005F18AB /* VCSetting.m in Sources */,
+				1CFA388D20F6231B005DED5B /* RequestBeanBillList.m in Sources */,
 				1C780EC6207DF97A00054AE1 /* NSNotification+Extension.m in Sources */,
 				1CBF5BF0207CE86000284EA1 /* VCOrder.m in Sources */,
 				1CD84833206F7ADA00CC9BE9 /* ViewController.m in Sources */,
+				1CFA387C20F61A4C005DED5B /* VCConfirmList.m in Sources */,
 				1CBF1DEA20910B570090BD96 /* RequestBeanCheckData.m in Sources */,
+				1CFA389920F626A2005DED5B /* VCAccountPayDetail.m in Sources */,
 				1C780ED6207E067400054AE1 /* VCRecGoodsList.m in Sources */,
+				1CFA387920F61A3E005DED5B /* VCUnConfirmList.m in Sources */,
 				1CF3C92220A1E21B0036BD6D /* VCSingleCart.m in Sources */,
 				1CBF1DC62090C5370090BD96 /* RequestBeanBillOrg.m in Sources */,
 				1CFC011E2089E13F00A8E344 /* RequestBeanSms.m in Sources */,
 				1CFC7AE1208E1EDC005F18AB /* CellSearchGoodsList.m in Sources */,
+				1CFA388A20F61DDF005DED5B /* CellAccountList.m in Sources */,
 				1C780ED9207E07EE00054AE1 /* CellRecGoodsList.m in Sources */,
 				1CBF5BE1207A7A1800284EA1 /* VCSetPassword.m in Sources */,
 				1CBF1DD82090FC410090BD96 /* VCWriteOrderAgain.m in Sources */,
@@ -1447,6 +1527,7 @@
 				1CBF1DB4208F8A310090BD96 /* RequestBeanSignOrder.m in Sources */,
 				1C4CC28E207266D5007C24FB /* SectionHeaderHome.m in Sources */,
 				1C8A2E2A207867740076238D /* CollCellCategory.m in Sources */,
+				1CFA387F20F61B6C005DED5B /* ViewTabAccount.m in Sources */,
 				1CF751F920B1BD4F00357DDA /* ViewProductRole.m in Sources */,
 				1CFFF5C420A9B3A500A52675 /* TopViewControl.m in Sources */,
 				1C8A2E3D207875BD0076238D /* HMScannerMaskView.m in Sources */,
@@ -1456,8 +1537,10 @@
 				1CBF5BC0207A46AE00284EA1 /* ViewHeaderMine.m in Sources */,
 				1CBF5BE7207CE23B00284EA1 /* CellProxy.m in Sources */,
 				1CBF1DED2091135C0090BD96 /* RequestBeanAddOrder.m in Sources */,
+				1CFA388720F61D16005DED5B /* ViewTabOrder.m in Sources */,
 				1C8A2E21207707720076238D /* CellCart.m in Sources */,
 				1C88D0E620AB15B700865DE2 /* MJPhotoToolbar.m in Sources */,
+				1CFA38A820F62F95005DED5B /* RequestBeanConfirmBill.m in Sources */,
 				1CBF1DC0208FACA40090BD96 /* RequestBeanDelCart.m in Sources */,
 				1CBF5BB12078789400284EA1 /* VCWriteOrder.m in Sources */,
 				1C780ED0207E02D500054AE1 /* RequestBeanNotice.m in Sources */,
@@ -1485,6 +1568,8 @@
 				1CBF5BB420787A1600284EA1 /* ViewGoodsList.m in Sources */,
 				1CBF1DCF2090CB7B0090BD96 /* Custom.m in Sources */,
 				1C4CC29720726E71007C24FB /* CollCellCategoryHome.m in Sources */,
+				1CFA389320F62666005DED5B /* VCAccountDetailContainer.m in Sources */,
+				1CFA38AB20F6362A005DED5B /* MCDatePickerView.m in Sources */,
 				1CBF5BCF207A597C00284EA1 /* CellOrderList.m in Sources */,
 				1CFC7AF6208E44FA005F18AB /* VCUnConfirm.m in Sources */,
 				1CD8483E206F7ADA00CC9BE9 /* main.m in Sources */,
@@ -1501,11 +1586,13 @@
 				1C4CC29420726D4D007C24FB /* CellCategoryHome.m in Sources */,
 				1CFC7AFF208F639D005F18AB /* WindowCancelOrder.m in Sources */,
 				1CFC7ABE208C80DD005F18AB /* VCGoodsList.m in Sources */,
+				1CFA389F20F62723005DED5B /* CellAccountPayDetail.m in Sources */,
 				1C4C15632088FADD00BA8F3C /* RequestBeanSlidePicList.m in Sources */,
 				1CFC7AF3208E3D10005F18AB /* RequestBeanOrderGoodsList.m in Sources */,
 				1CBF5BED207CE71600284EA1 /* CellTopGoods.m in Sources */,
 				1C4CC2882072542A007C24FB /* NSDictionary+JKSafeAccess.m in Sources */,
 				1CFC7AE7208E320C005F18AB /* VCUnVerify.m in Sources */,
+				1CFA389C20F62714005DED5B /* CellAccountDetail.m in Sources */,
 				1CBF5BF3207CE92F00284EA1 /* ViewSectionOrder.m in Sources */,
 				1CBF5BF9207CF3AD00284EA1 /* CellOrderRemark.m in Sources */,
 				1C88D0E820AB15B700865DE2 /* SDWebImageManager+MJ.m in Sources */,
@@ -1514,6 +1601,7 @@
 				1CBF5BD2207A6A5E00284EA1 /* VCNotice.m in Sources */,
 				1C4CC29A207276E3007C24FB /* CellNewHome.m in Sources */,
 				1CBF5BBD207883F500284EA1 /* ViewTotalBottomWriteOrder.m in Sources */,
+				1CFA387620F61A28005DED5B /* VCAccountContainer.m in Sources */,
 				1CBF1DDE209101240090BD96 /* CellEditGoodList.m in Sources */,
 				1CFC7AD8208E0921005F18AB /* ViewSearchProxy.m in Sources */,
 				1CBF5BFF207CF86500284EA1 /* CellOrderGoodsList.m in Sources */,
@@ -1522,7 +1610,6 @@
 				1CFC7B05208F7268005F18AB /* ViewHeaderCancelOrder.m in Sources */,
 				1CBF5BC3207A4C9800284EA1 /* ViewSectionMine.m in Sources */,
 				1C780ECD207DFDF300054AE1 /* RequestBeanCartList.m in Sources */,
-				1C780EDF207E0F8400054AE1 /* ViewTabOrder.m in Sources */,
 				1CFFF5F220A9EB4300A52675 /* CustConfirmView.m in Sources */,
 				1C88D0E220AB15B700865DE2 /* MJPhotoLoadingView.m in Sources */,
 				1C4C155D2088CCA200BA8F3C /* RequestBeanAddCart.m in Sources */,
@@ -1545,6 +1632,7 @@
 				1CBF1DAE208F7A040090BD96 /* Reason.m in Sources */,
 				1CFFF5C720A9CA4C00A52675 /* RequestBeanAddBatchCart.m in Sources */,
 				1CBF5C17207E3DB800284EA1 /* ViewBtnRecGoodsList.m in Sources */,
+				1CFA38A220F62AC0005DED5B /* RequestBeanBillDetail.m in Sources */,
 				1CBF5C05207D0AAE00284EA1 /* ViewBtnGoods.m in Sources */,
 				1CFC7ACF208CD526005F18AB /* CellAttrGoods.m in Sources */,
 				1CBFA5FC207E59A0001926DE /* AppUser.m in Sources */,
@@ -1569,7 +1657,9 @@
 				1CBF5BD5207A6AA600284EA1 /* CellNotice.m in Sources */,
 				1CBF5BDB207A730600284EA1 /* CellNoticeList.m in Sources */,
 				1C7A754D207F335400C140D2 /* VCInvoice.m in Sources */,
+				1CFA389620F62694005DED5B /* VCAccountOrderDetail.m in Sources */,
 				1CBF5BBA2078827500284EA1 /* ViewTotalOrder.m in Sources */,
+				1CFA38A520F62E4B005DED5B /* RequestBeanBillPayDetail.m in Sources */,
 				1CBF1DE1209108E00090BD96 /* CellOrderCheckAccount.m in Sources */,
 				1CBF5C0B207D1DBB00284EA1 /* RequestBeanCustomer.m in Sources */,
 				1C8A2E24207707890076238D /* ViewTotalCart.m in Sources */,

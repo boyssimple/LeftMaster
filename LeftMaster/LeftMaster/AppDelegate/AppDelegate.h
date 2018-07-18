@@ -15,6 +15,8 @@ static NSString *channel = @"Publish channel";
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property(nonatomic,assign)BOOL isLogin;
 @property (strong, nonatomic) UIWindow *window;
+@property(nonatomic,strong)NSString *billNo;
+@property(nonatomic,strong)NSString *month;
 
 
 - (void)restoreRootViewController:(UIViewController *)rootViewController;
