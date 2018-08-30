@@ -46,7 +46,7 @@
 - (void)loadData{
     AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate; 
     RequestBeanBillList *requestBean = [RequestBeanBillList new];
-    requestBean.cus_id = @"2c929413643f47c101644a5ec281023b";//[AppUser share].CUS_ID;
+    requestBean.cus_id = [AppUser share].CUS_ID;
     requestBean.page_current = self.page;
     requestBean.page_size = self.pageSize;
     if(delegate.month){
